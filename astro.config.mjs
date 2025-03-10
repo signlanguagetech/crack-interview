@@ -1,23 +1,28 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
+
+	// Added Configuration for
+	// Deployment to GitHub Pages
 	site: 'https://tech-andgar.github.io',
-	base: '/crack-interview-2/',
+	base: '/crack-interview-2',
 	integrations: [
 		starlight({
-			title: 'My Docs',
+
+			// Add plugins
+			plugins: [],
+			title: '30Days Template',
 			social: {
-				github: 'https://github.com/withastro/starlight',
+				github: 'https://github.com/tech-andgar/crack-interview-2',
 			},
 			sidebar: [
 				{
 					label: 'Guides',
 					items: [
 						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
+						{ label: 'Example Guide', link: '/guides/example/' },
 					],
 				},
 				{
