@@ -6,8 +6,8 @@ export default defineConfig({
 
 	// Added Configuration for
 	// Deployment to GitHub Pages
-	site: 'https://tech-andgar.github.io',
-	base: '/crack-interview-2',
+	site: 'https://signlanguagetech.com',
+	base: '/crack-interview',
 	integrations: [
 		starlight({
 
@@ -15,7 +15,7 @@ export default defineConfig({
 			plugins: [],
 			title: '30Days Template',
 			social: {
-				github: 'https://github.com/tech-andgar/crack-interview-2',
+				github: 'https://github.com/signlanguagetech/crack-interview',
 			},
 			sidebar: [
 				{
