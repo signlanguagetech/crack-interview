@@ -16,7 +16,7 @@ export default defineConfig({
       title: {
         "en": "Crack Interview",
         "es": "Crack Interview en Español",
-        "ir": "Crack Interview به زبان فارسی",
+        "fa-IR": "Crack Interview به زبان فارسی",
       },
       social: {
         github: "https://github.com/signlanguagetech/crack-interview",
