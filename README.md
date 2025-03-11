@@ -52,3 +52,22 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
+
+
+## Thanking all Awesome Contributors :heart:
+
+[![Contributors](https://contrib.rocks/image?repo=signlanguagetech/crack-interview)](https://github.com/signlanguagetech/crack-interview/graphs/contributors)
+
+Contributions of any kind are welcome!
+
+## License
+
+[Apache 2.0](LICENSE)
+
+## Features and bugs
+
+Please file feature requests and bugs at the [issue tracker][tracker].
+
+[tracker]: https://github.com/signlanguagetech/crack-interview
+
+---------------------------------
