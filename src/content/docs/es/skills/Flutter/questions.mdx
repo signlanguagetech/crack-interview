@@ -1,0 +1,1874 @@
+---
+author: "Andrés García"
+date: "2020-10-01"
+title: Preguntas de Entrevista sobre Flutter
+description: Preguntas de Entrevista sobre Flutter para diferentes niveles de experiencia.
+---
+
+- [Términos técnicos TLDR](#términos-técnicos-TLDR)
+- [Preguntas de Entrevista sobre Flutter](#preguntas-de-entrevista-sobre-flutter)
+  - [Categorías de Preguntas](#categorías-de-preguntas)
+  - [Preguntas](#preguntas)
+    - [Preguntas de Flutter](#preguntas-de-flutter)
+      - [Nivel Novato](#nivel-novato)
+      - [Nivel Intermedio](#nivel-intermedio)
+      - [Nivel Avanzado](#nivel-avanzado)
+      - [Nivel Experto](#nivel-experto)
+    - [Preguntas de Dart](#preguntas-de-dart)
+      - [Nivel Novato - Dart](#nivel-novato---dart)
+      - [Nivel Intermedio - Dart](#nivel-intermedio---dart)
+      - [Nivel Avanzado - Dart](#nivel-avanzado---dart)
+      - [Nivel Experto - Dart](#nivel-experto---dart)
+    - [Preguntas de API](#preguntas-de-api)
+    - [SharedPreferences](#sharedpreferences)
+    - [Google Maps API](#google-maps-api)
+    - [Pasarela de Pago en Flutter](#pasarela-de-pago-en-flutter)
+    - [Preguntas de GetX](#preguntas-de-getx)
+    - [Preguntas de Firebase](#preguntas-de-firebase)
+    - [Preguntas de Git](#preguntas-de-git)
+    - [Preguntas Generales sobre Desarrollo de Aplicaciones](#preguntas-generales-sobre-desarrollo-de-aplicaciones)
+    - [Preguntas de Diseño y Resolución de Problemas en Flutter/Dart](#preguntas-de-diseño-y-resolución-de-problemas-en-flutterdart)
+    - [Preguntas sobre Nuevas Tecnologías y Adaptación](#preguntas-sobre-nuevas-tecnologías-y-adaptación)
+    - [Preguntas Específicas de la Aplicación OMDB Movie](#preguntas-específicas-de-la-aplicación-omdb-movie)
+    - [Preguntas de Liderazgo Técnico y Desarrollador Senior](#preguntas-de-liderazgo-técnico-y-desarrollador-senior)
+
+# Preguntas de Entrevista sobre Flutter
+
+## Términos técnicos TLDR
+
+### 1. Fundamentos de Flutter & Dart
+
+- **Flutter/Dart:**
+  - Evolución de versiones (desde 1.0 hasta 3.0+)
+  - Null Safety
+  - Async/Await, Streams y Futures
+  - Isolates (para concurrencia)
+
+- **Widgets y Ciclo de Vida:**
+  - StatefulWidget / StatelessWidget
+  - Widget Lifecycle (incluye métodos clave: initState, setState, dispose, etc.)
+  - Custom Widgets (creación de widgets personalizados)
+  - BuildContext
+
+- **Aplicaciones Base:**
+  - MaterialApp y CupertinoApp
+  - Scaffold
+  - Hot Reload y Hot Restart
+
+---
+
+### 2. Gestión del Estado
+
+- **Conceptos Básicos:**
+  - InheritedWidget
+
+- **Gestión en Producción:**
+  - Provider
+  - ChangeNotifier y ValueNotifier
+
+- **Enfoques Modernos:**
+  - Riverpod
+  - Bloc / Cubit
+  - GetX
+
+- **Otros Aspectos:**
+  - Persistencia de Estado (state persistence)
+  - Memory Management en el manejo del estado
+
+---
+
+### 3. Arquitectura & Patrones de Diseño
+
+- **Estructuras y Principios:**
+  - Clean Architecture (separación en Domain, Data y Presentation)
+  - SOLID Principles
+  - Repository Pattern
+  - Dependency Injection
+
+- **Modelos y Enfoques:**
+  - MVC / MVVM
+  - Feature-first / Layer-first
+  - Domain-Driven Design (DDD)
+
+- **Buenas Prácticas:**
+  - Diseño Modular y Escalable
+  - Organización del código, Project Architecture y patrones de diseño
+
+---
+
+### 4. Testing y Calidad de Código
+
+- **Tipos de Tests:**
+  - Unit Tests
+  - Widget Tests
+  - Integration Tests
+  - Golden Tests
+
+- **Estrategias y Herramientas:**
+  - Test-Driven Development (TDD)
+  - Behavior Driven Development (BDD)
+  - Test Coverage
+
+- **Mocking y Simulación:**
+  - Mockito
+  - Mocktail
+
+---
+
+### 5. Optimización y Rendimiento
+
+- **Gestión y Optimización:**
+  - Memory Management
+  - Optimización del Widget Tree (minimización de rebuilds)
+  - Uso adecuado de setState y ciclo de vida (initState/dispose)
+  - Lazy Loading (carga diferida)
+  - Image Caching y Image Optimization
+
+- **Herramientas y Modos:**
+  - Performance Profiling
+  - Debug vs. Release Modes
+
+---
+
+### 6. Seguridad
+
+- **Autenticación y Almacenamiento Seguro:**
+  - Biometric Authentication
+  - Secure Storage
+  - App Signing
+
+- **Protección de Datos y APIs:**
+  - API Security
+  - Certificate Pinning
+  - Data Encryption
+  - Obfuscation
+  - Platform Channels Security
+
+- **Casos Especiales:**
+  - Protocolos para apps financieras (Banking Integration, Transaction Management, User Authentication, Data Protection)
+
+---
+
+### 7. Cloud, Backend y CI/CD
+
+- **Servicios en la Nube:**
+  - Firebase:
+    - Authentication
+    - Cloud Firestore
+    - Realtime Database
+  - Google Cloud
+  - Azure DevOps
+
+- **APIs y Protocolos:**
+  - REST API
+  - GraphQL
+  - gRPC
+  - WebSocket
+  - JWT y OAuth
+  - Platform Channels (para integración nativa)
+
+- **Integración y Automatización:**
+  - CI/CD Tools: GitHub Actions, Bitrise, Codemagic, Azure DevOps Pipelines
+  - Automatización de Tests y Gestión de Releases
+  - Code Quality
+
+---
+
+### 8. Herramientas de Desarrollo & Control de Versiones
+
+- **DevTools y Automatización:**
+  - Flutter DevTools
+
+- **Control de Versiones y Colaboración:**
+  - Git (incluyendo Git Flow, Branch Strategy, Merge Management)
+  - Code Review y Documentación
+  - Herramientas colaborativas
+
+---
+
+### 9. Bases de Datos y Almacenamiento Local
+
+- **Soluciones Locales:**
+  - SQLite
+  - Hive
+  - SharedPreferences
+
+- **Bases de Datos NoSQL y en la Nube:**
+  - Firebase Realtime Database
+  - Cloud Firestore
+  - Isar
+  - ObjectBox
+
+---
+
+### 10. Navegación y Routing
+
+- **Sistemas de Navegación:**
+  - Navigator 2.0
+  - GoRouter
+
+- **Técnicas Avanzadas:**
+  - Deep Linking
+  - Route Management
+  - URL Strategy y Path Parameters
+
+---
+
+### 11. UI/UX y Diseño Visual
+
+- **Sistemas de Diseño:**
+  - Material Design
+  - Cupertino Design
+
+- **Diseño Adaptativo:**
+  - Responsive/Adaptive Design
+  - Temas y Estilos Personalizados
+
+- **Elementos Visuales y Accesibilidad:**
+  - Custom Painters y Custom Widgets
+  - Animations (implícitas y explícitas)
+  - Accessibility
+  - Internationalization (i18n/l10n)
+
+---
+
+### 12. Integración con Plataformas y Código Nativo
+
+- **Comunicación Nativa:**
+  - Platform Channels
+  - Method Channels
+  - Event Channels
+
+- **Desarrollo Multiplataforma:**
+  - Integración con iOS (Swift/Objective-C) y Android (Kotlin/Java)
+  - Soporte para Web, Desktop y Móvil
+  - Integración de características nativas (acceso a cámara, GPS, etc.)
+  - Creación de Plugins y Packages
+
+---
+
+### 13. Manejo de Errores y Logging
+
+- **Captura y Gestión de Errores:**
+  - Exception Handling
+  - Error Boundaries
+  - Crash Reporting
+  - Logging
+
+- **Estrategias de Recuperación:**
+  - Recovery Strategies
+  - User Feedback
+
+---
+
+### 14. Temas Adicionales y Liderazgo Técnico
+
+- **Optimización Avanzada:**
+  - State Restoration (recuperación del estado de la app)
+  - Custom Render Objects (para widgets altamente personalizados)
+  - Code Splitting y reducción de dependencias
+
+- **Gestión de Packages:**
+  - Uso de Pub.dev
+  - Creación y mantenimiento de packages
+
+- **Buenas Prácticas de Desarrollo:**
+  - Estructuración y refactorización continua del proyecto
+  - Documentación técnica y código limpio
+
+- **Liderazgo y Colaboración:**
+  - Toma de decisiones técnicas
+  - Mentoreo de equipo
+  - Revisión de código y aseguramiento de la calidad
+  - Estrategias de colaboración y comunicación en equipo
+
+## Categorías de Preguntas
+
+1. **Conceptos Básicos de Flutter**
+   - Fundamentos del framework
+   - Entorno de desarrollo
+   - Conceptos principales
+
+2. **Widgets y UI de Flutter**
+   - Widgets básicos
+   - Widgets de diseño
+   - Widgets de navegación
+   - Widgets personalizados
+
+3. **Gestión de Estado**
+   - Patrón BLoC
+   - Provider
+   - GetX
+   - Persistencia de estado
+
+4. **Arquitectura y Patrones de Diseño**
+   - Arquitectura Limpia
+   - Principios SOLID
+   - Inyección de dependencias
+   - Patrón repositorio
+
+5. **Navegación y Enrutamiento**
+   - Gestión de rutas
+   - Deep linking
+   - Patrones de navegación
+   - Guardias de ruta
+
+6. **Gestión y Almacenamiento de Datos**
+   - Almacenamiento local
+   - Caché
+   - Integración de base de datos
+   - Manejo de archivos
+
+7. **Pruebas y Control de Calidad**
+   - Pruebas unitarias
+   - Pruebas de widgets
+   - Pruebas de integración
+   - Desarrollo dirigido por pruebas
+
+8. **Optimización de Rendimiento**
+   - Gestión de memoria
+   - Optimización de widgets
+   - Optimización de compilación
+   - Optimización de recursos
+
+9. **Manejo de Errores**
+   - Manejo de excepciones
+   - Reporte de errores
+   - Depuración
+   - Registro de eventos
+
+10. **Internacionalización y Localización**
+    - Soporte multi-idioma
+    - Soporte RTL
+    - Adaptaciones culturales
+    - Gestión de recursos
+
+11. **Liderazgo Técnico**
+    - Decisiones de arquitectura
+    - Gestión de equipo
+    - Calidad de código
+    - Deuda técnica
+
+12. **Implementación Específica del Proyecto**
+    - Arquitectura de OMDB Movie App
+    - Implementación de características
+    - Patrones de integración
+    - Mejores prácticas
+
+13. **Programación Dart**
+    - Características del lenguaje
+    - Programación asíncrona
+    - Conceptos orientados a objetos
+    - Seguridad nula
+
+14. **Integración de APIs**
+    - APIs RESTful
+    - GraphQL
+    - WebSockets
+    - Autenticación
+
+15. **Integración de Plataforma**
+    - Canales de plataforma
+    - Características nativas
+    - Servicios de terceros
+    - Consideraciones específicas de plataforma
+
+## Preguntas
+
+### Preguntas de Flutter
+
+**¿Qué es Flutter y cuáles son sus principales ventajas?**
+
+Flutter es un kit de herramientas de UI creado por Google. Ayuda a los desarrolladores en el desarrollo de aplicaciones multiplataforma, permitiendo crear aplicaciones para Android, iOS, web y escritorio con una sola base de código.
+
+**¿Qué entorno de desarrollo se necesita para crear aplicaciones Flutter?**
+
+Para crear aplicaciones Flutter, es necesario instalar el SDK de Dart y el SDK de Flutter. Además, debes instalar el plugin de Flutter en Android Studio, VS Code o IntelliJ IDEA.
+
+**¿Cuáles son los principales componentes de Flutter?**
+
+- **Widget:** El bloque de construcción básico en Flutter. Todo, desde los elementos de la interfaz de usuario hasta el diseño y los contenedores, es un widget.
+- **StatefulWidget y StatelessWidget:** StatefulWidget es un widget que puede cambiar su estado, mientras que StatelessWidget es un widget que nunca cambia.
+- **BuildContext:** Indica la posición de un widget y proporciona información dentro de un widget como el tema, el tamaño de la pantalla, etc.
+
+**¿Cuál es la diferencia entre StatefulWidget y StatelessWidget?**
+
+- **StatefulWidget:** Puede cambiar su estado, por ejemplo, un botón que cambia cuando se hace clic.
+- **StatelessWidget:** No cambia y solo se renderiza una vez.
+
+**¿Qué son Future y Stream, y cómo se utilizan?**
+
+- **Future:** Se utiliza para operaciones asíncronas que proporcionan un resultado una sola vez.
+- **Stream:** Representa un flujo de datos asíncrono que puede proporcionar múltiples valores a lo largo del tiempo.
+
+**¿Cómo funcionan async y await en Dart?**
+
+La palabra clave `async` hace que una función sea asíncrona y, utilizando la palabra clave `await`, puedes esperar el resultado de un Future.
+
+**¿Cómo se gestionan la navegación y las rutas en Flutter?**
+
+- **Navigator:** Se usa para la navegación entre páginas.
+- **MaterialPageRoute, CupertinoPageRoute:** Clases utilizadas para la creación de rutas.
+
+**¿Cuáles son las opciones de almacenamiento de datos en Flutter?**
+
+- **SharedPreferences:** Se usa para el almacenamiento de pequeños datos locales.
+- **SQLite:** Para la gestión de bases de datos locales.
+- **Hive:** Una base de datos NoSQL para almacenamiento rápido y sencillo de datos.
+
+**¿Cómo cambiar los temas en Flutter?**
+
+Usa **ThemeData** para cambiar temas y accede al tema mediante **Theme.of(context)**.
+
+**¿Cuál es la diferencia entre Provider y GetX para la gestión de estado?**
+
+- **Provider:** Un método general de gestión de estado que ayuda a pasar datos.
+- **GetX:** Un método moderno de gestión de estado que facilita el manejo de cambios de estado, enrutamiento e inyección de dependencias.
+
+**¿Cuáles son las técnicas para la optimización de rendimiento en Flutter?**
+
+Utiliza la palabra clave `const` para reducir renderizados innecesarios, **Key** para optimizar listas, y comprime imágenes y archivos multimedia.
+
+**¿Qué es InheritedWidget en Flutter y cómo funciona?**
+
+InheritedWidget es un widget que puede proporcionar datos a sus widgets secundarios, y se utiliza comúnmente para la gestión de estado a nivel superior, como temas o configuración de medios.
+
+**¿Cómo funciona GestureDetector en Flutter y cuándo debes usarlo?**
+
+El widget GestureDetector detecta varias interacciones del usuario, como tocar, arrastrar y pellizcar. Se utiliza para añadir interacciones responsivas en la interfaz de usuario.
+
+**¿Cuál es la diferencia entre FutureBuilder y StreamBuilder en Flutter?**
+
+- **FutureBuilder:** Se utiliza para gestionar el estado de un solo objeto Future y esperar un resultado.
+- **StreamBuilder:** Transmite datos desde un Stream y actualiza la interfaz de usuario en función de los cambios en el Stream.
+
+**¿Cómo funciona ListView.builder en Flutter?**
+
+ListView.builder crea una vista de lista desplazable que admite carga diferida. Solo crea los elementos visibles en pantalla, mejorando el rendimiento.
+
+**¿Cómo gestionar operaciones asíncronas y manejar excepciones adecuadamente en Flutter?**
+
+Usa el bloque `try-catch` para manejar excepciones durante operaciones asíncronas. Con `await`, las excepciones se capturan en el bloque `catch`.
+
+**¿Qué es CustomPainter en Flutter y cómo se usa?**
+
+CustomPainter es un widget para dibujo personalizado. Utiliza las clases Canvas y Paint para realizar tareas de dibujo.
+
+**¿Cómo crear una AppBar dinámica en Flutter?**
+
+Usa renderizado condicional para AppBar y crea una AppBar dinámica que muestre diferentes contenidos según el estado.
+
+**Diferentes formas de cambiar rutas en Flutter:**
+
+- **Navigator.push** y **Navigator.pop** para cambiar rutas.
+- **Navigator.pushNamed** y **Navigator.popUntil** para la gestión de rutas nombradas.
+- Usar **GetX** para cambios de ruta más sencillos.
+
+**¿Cómo realizar la validación de formularios en Flutter?**
+
+Usa el widget **Form** y **TextFormField** con la función `validator` para validar entradas. Esto ayuda a verificar varias condiciones para la validación de entradas del usuario.
+
+**¿Cómo implementar una función de inicio de sesión de usuario en Flutter?**
+
+Usa **TextEditingController** para recibir la entrada del usuario y luego valida las credenciales mediante una llamada a la API. Al iniciar sesión con éxito, navega al usuario a la siguiente pantalla.
+
+**¿Qué es la seguridad de nulos (null safety) en Dart para Flutter y cómo funciona?**
+
+La seguridad de nulos es una característica que reduce errores causados por referencias a nulos, asegurando que las variables solo contengan valores de un tipo específico y no nulos.
+
+**¿Cómo gestionar cambios de estado dentro de un widget?**
+
+Usa StatefulWidget y crea una clase de estado para gestionar el estado. Usa el método **setState()** para cambiar el estado.
+
+**¿Qué técnicas de almacenamiento en caché de datos están disponibles en Flutter?**
+
+Usa **SharedPreferences** para almacenamiento en caché de datos pequeños, **Hive** o **sqflite** para almacenamiento en caché de datos más grandes en almacenamiento local, y almacenamiento en caché de respuestas de red usando varios paquetes.
+
+**¿Cuál es la diferencia entre InheritedModel e InheritedWidget?**
+
+InheritedModel es más avanzado y se usa para la distribución de datos en partes específicas, donde solo los datos cambiados se pasan a los subwidgets. InheritedWidget generalmente proporciona datos a todos los subwidgets.
+
+**¿Qué es Isolate en Dart y cuándo deberías usarlo?**
+
+Los Isolates son hilos separados que no pueden compartir datos directamente entre sí. Se utilizan para tareas de larga duración o concurrentes, como el procesamiento de grandes datos o tareas en segundo plano.
+
+**¿Qué métodos se utilizan para la obtención de datos asíncronos en Flutter?**
+
+**FutureBuilder** y **StreamBuilder** se utilizan para obtener datos asíncronos y mostrarlos en la interfaz de usuario.
+
+**¿Qué paquete se usa para llamadas a la API en Flutter?**
+
+El paquete **http** se usa comúnmente para llamadas a la API. Además, el paquete **dio** proporciona funciones avanzadas como configuración personalizada e interceptores.
+
+**Algunas estrategias para la optimización del rendimiento de la aplicación en Flutter:**
+
+Utiliza la palabra clave `const` para reducir el renderizado innecesario, **ListView.builder** o **GridView.builder** para carga diferida, y **Flutter DevTools** para monitorear el rendimiento.
+
+**Importancia de usar Key en Flutter:**
+
+Key ayuda a renderizar correctamente y mantener la posición de los widgets, mejorando el rendimiento durante el renderizado de widgets y ayudando en la gestión del estado.
+
+**¿Cómo funciona Stream en Flutter y cuál es su beneficio?**
+
+Un Stream es un flujo de datos secuencial que proporciona múltiples valores a lo largo del tiempo. Es beneficioso para actualizaciones de datos en tiempo real, como transmisiones de datos en vivo o datos de socket.
+
+**¿Cómo funciona una aplicación en segundo plano en Flutter?**
+
+Usa el paquete **Workmanager** o **flutter_background** para ejecutar tareas en segundo plano. Esto ayuda a una aplicación a realizar tareas en segundo plano usando recursos del sistema.
+
+**¿Cómo realizar Inyección de Dependencias en Flutter?**
+
+Usa el paquete **GetIt** o **Provider** para la inyección de dependencias. Facilita el acceso a varias instancias de clases en toda la aplicación.
+
+**¿Cómo gestionar las preferencias de la aplicación en Flutter?**
+
+Usa el paquete **SharedPreferences** para almacenar configuraciones del usuario y otros datos pequeños.
+
+**¿Cómo probar aplicaciones en Flutter?**
+
+Flutter usa diferentes marcos y paquetes de prueba para pruebas unitarias, pruebas de widgets y pruebas de integración, como **test**, **flutter_test**, y **integration_test**.
+
+**¿Cómo funcionan las animaciones en Flutter?**
+
+Usa **AnimationController**, **Tween**, y **AnimatedBuilder** para crear varias animaciones como aparecer/desaparecer, deslizarse, rotar, etc.
+
+**¿Cuándo deberías usar setState?**
+
+Usa **setState** cuando quieras cambiar el estado de un StatefulWidget y actualizar la interfaz de usuario.
+
+**¿Cuáles son los beneficios de la palabra clave const?**
+
+El uso de la palabra clave `const` reduce el renderizado de widgets innecesario y mejora el rendimiento, ya que los widgets const son constantes y reutilizables.
+
+**¿Qué son Future y async?**
+
+Future representa un valor que se recibirá en el futuro. **async** se usa para hacer que una función sea asíncrona.
+
+**¿Cuál es la diferencia entre los widgets Column y Row?**
+
+**Column** organiza widgets verticalmente, mientras que **Row** organiza widgets horizontalmente.
+
+**¿Cómo funciona el widget Expanded?**
+
+El widget **Expanded** proporciona un espacio flexible y ayuda a que el widget hijo ocupe el espacio disponible.
+
+**¿Cómo funciona Navigator?**
+
+El widget **Navigator** gestiona la pila de rutas y ayuda a navegar entre diferentes pantallas.
+
+**¿Qué es TextEditingController y cómo se usa?**
+
+TextEditingController controla la entrada de un campo de texto y ayuda a acceder al valor del campo de texto.
+
+**¿Cómo usar BoxDecoration?**
+
+BoxDecoration personaliza el fondo, borde, sombra, etc., de un widget.
+
+**¿Cómo usar showDialog?**
+
+La función **showDialog** muestra un cuadro de diálogo emergente y requiere un **BuildContext** y un **AlertDialog**.
+
+**¿Qué es MediaQuery y cómo se usa?**
+
+MediaQuery proporciona información sobre las dimensiones de la pantalla y la configuración del dispositivo y ayuda a personalizar la interfaz de usuario según el tamaño de la pantalla.
+
+**¿Qué es BuildContext?**
+
+BuildContext proporciona información relacionada con la posición de un widget y ayuda a acceder a la jerarquía de widgets.
+
+**¿Cuál es la diferencia entre ListView y GridView?**
+
+ListView muestra una lista larga, mientras que GridView proporciona un diseño de cuadrícula.
+
+**¿Cómo usar IconButton?**
+
+IconButton usa un icono como botón y tiene una propiedad **onPressed** para manejar eventos cuando se presiona.
+
+**¿Cómo usar el widget Container?**
+
+Container proporciona un contenedor personalizado para agregar relleno, margen, borde, fondo, etc.
+
+**¿Qué es Scaffold y qué hace?**
+
+Scaffold proporciona un diseño de interfaz de usuario básico que puede contener una barra de aplicaciones, un cajón (drawer), un botón de acción flotante, etc.
+
+**¿Qué son Stream y StreamController?**
+
+Stream representa un flujo secuencial de datos. StreamController se usa para crear y controlar el flujo de datos.
+
+**¿Cuál es la diferencia entre State y Widget?**
+
+Widget es un componente de la interfaz de usuario que se muestra en la pantalla, y State es un estado interno de un widget que se utiliza para actualizar la interfaz de usuario.
+
+**¿Cómo funciona el widget Padding?**
+
+Padding proporciona espacio alrededor de otro widget, ayudando a mantener el espacio entre los elementos de la interfaz de usuario.
+
+**¿Cómo funciona Future.delayed?**
+
+Future.delayed proporciona un valor de futuro después de un tiempo determinado. Se utiliza para la ejecución retardada.
+
+**¿Qué es ListView.separated y cómo se usa?**
+
+ListView.separated crea una vista de lista con un widget separador entre cada elemento, utilizado para añadir espacio o un divisor entre elementos de lista.
+
+**¿Cuál es la diferencia entre TextFormField y TextField?**
+
+TextFormField se usa para la validación de formularios y la gestión de datos de entrada, mientras que TextField es un widget de entrada general para entrada directa.
+
+**¿Cuál es la diferencia entre los widgets Expanded y Flexible?**
+
+El widget Expanded llena el espacio disponible con su hijo, mientras que Flexible puede llenar solo parte del espacio con su hijo, y el espacio se puede compartir usando un factor de flexión.
+
+**¿Qué es ClipRect y cómo se usa?**
+
+El widget ClipRect recorta su hijo dentro de un contenedor rectangular fijo.
+
+**¿Cómo funciona el widget Align?**
+
+Align ayuda a posicionar un widget hijo, como centrar o alinear a la izquierda o derecha.
+
+**¿Qué es el widget SafeArea y cómo se usa?**
+
+SafeArea ayuda a mostrar el contenido de manera segura en la pantalla, manteniéndolo alejado de la barra de estado y la barra de navegación.
+
+**¿Cómo usar InkWell?**
+
+InkWell proporciona un efecto de toque que aparece cuando un usuario interactúa con él, como al presionar un botón.
+
+**¿Qué información se puede acceder usando MediaQuery.of(context)?**
+
+MediaQuery.of(context) proporciona información sobre el tamaño de la pantalla, DPI, orientación, etc.
+
+**¿Cómo funciona el parámetro builder de StreamBuilder?**
+
+El parámetro builder proporciona un AsyncSnapshot y se utiliza para actualizar la interfaz de usuario según el estado actual del stream.
+
+**¿Cómo funciona SingleChildScrollView?**
+
+SingleChildScrollView crea un área desplazable con un solo hijo, útil para mostrar contenido largo.
+
+**¿Cómo funciona el widget ListTile?**
+
+El widget ListTile se usa comúnmente para crear elementos de lista con elementos de inicio, título, subtítulo y final.
+
+**¿Qué es AsyncSnapshot y cómo funciona?**
+
+AsyncSnapshot representa el estado de las operaciones asíncronas a través de FutureBuilder o StreamBuilder.
+
+**¿Cuál es la diferencia entre Padding y Margin?**
+
+Padding proporciona espacio interior dentro de un widget, mientras que Margin proporciona espacio exterior alrededor de un widget.
+
+**¿Qué es el widget Hero y cómo se usa?**
+
+El widget Hero crea una transición animada de una pantalla a otra, generalmente para imágenes o elementos visuales.
+
+**¿Cuál es la diferencia entre Hero y AnimatedSwitcher?**
+
+El widget Hero crea una animación de transición entre pantallas, mientras que el widget AnimatedSwitcher anima el cambio de un widget.
+
+**¿Cuál es la diferencia entre ListView.builder y ListView?**
+
+ListView.builder crea dinámicamente elementos y admite carga diferida, mientras que ListView crea todos los elementos a la vez.
+
+**¿Qué es BoxConstraints y cómo se usa?**
+
+BoxConstraints define las restricciones de tamaño, como el ancho y la altura mínimos y máximos para un widget.
+
+**¿Cómo funciona Future.delayed y cómo se usa?**
+
+Future.delayed proporciona un resultado de futuro después de un tiempo específico, utilizado para operaciones retrasadas o ejecución con demora.
+
+**¿Cómo funciona el widget Drawer?**
+
+Drawer muestra un menú lateral que generalmente se desliza desde el lado izquierdo de la aplicación.
+
+**¿Qué es DefaultTabController y cómo se usa?**
+
+DefaultTabController se utiliza para crear una interfaz con pestañas, gestionando el número de pestañas y el contenido.
+
+**¿Qué es el parámetro onChanged de TextField?**
+
+El parámetro onChanged proporciona una función de devolución de llamada que se activa cuando cambia el texto de entrada.
+
+**¿Qué es el widget AspectRatio y cómo se usa?**
+
+AspectRatio establece una relación de aspecto para un hijo, personalizando el tamaño del hijo.
+
+**¿Cómo funciona el widget PageView?**
+
+PageView crea un control de página desplazable, permitiendo al usuario deslizarse de una página a otra.
+
+**¿Qué es GlobalKey en Flutter y cómo se usa?**
+
+GlobalKey es una clave única que ayuda a acceder a la posición y el estado de un widget, generalmente se usa para la validación de formularios o para recuperar el estado del widget.
+
+**¿Qué es el widget WillPopScope en Flutter?**
+
+WillPopScope se utiliza para interceptar la acción de retroceso (por ejemplo, presionar el botón de retroceso de la aplicación) y proporciona control sobre el proceso.
+
+**¿Cuáles son los diferentes usos de Keys en Flutter?**
+
+Las Keys pueden ser de diferentes tipos, como GlobalKey, ValueKey y ObjectKey, proporcionando identificadores únicos en el árbol de widgets y rastreando la posición o el estado de un widget.
+
+#### Nivel Novato
+
+1. **¿Qué es Flutter y cuáles son sus principales ventajas?**
+
+   Flutter es un kit de herramientas de UI creado por Google para construir aplicaciones multiplataforma con una sola base de código. Sus principales ventajas incluyen:
+   - Desarrollo rápido con `Hot Reload`.
+   - Compatibilidad con Android, iOS, web y escritorio.
+   - Personalización flexible de UI.
+   - Rendimiento casi nativo gracias a su compilación AOT (Ahead of Time).
+
+2. **¿Qué es Dart y por qué se usa en Flutter?**
+
+   Dart es el lenguaje de programación utilizado en Flutter, diseñado para desarrollo rápido en el cliente (front-end). Es fácil de aprender, tiene una buena gestión de memoria y admite `null safety`, lo que reduce errores en tiempo de ejecución.
+
+3. **¿Qué diferencia hay entre `runApp()` y `main()` en Flutter?**
+
+   `main()` es el punto de entrada de la aplicación en Dart. `runApp()` es una función de Flutter que inicia el árbol de widgets con el widget raíz, generalmente un `MaterialApp` o `CupertinoApp`.
+
+4. **¿Qué es un `Widget` en Flutter y cuáles son sus tipos?**
+
+   Un widget es un componente visual en Flutter que representa una parte de la interfaz de usuario. Los dos tipos principales son:
+   - `StatelessWidget`: Un widget inmutable que no cambia su estado después de ser creado.
+   - `StatefulWidget`: Un widget que puede cambiar de estado en respuesta a interacciones.
+
+5. **¿Qué es `Scaffold` y por qué es importante?**
+
+   `Scaffold` es un widget de diseño básico en Flutter que proporciona una estructura de interfaz común, incluyendo AppBar, Drawer y un área para el contenido. Simplifica la creación de aplicaciones coherentes.
+
+#### Nivel Intermedio
+
+1. **¿Cómo gestionas rutas y navegación en Flutter sin paquetes externos?**
+
+   Flutter gestiona rutas usando la clase `Navigator`. Con `Navigator.push()` puedes agregar una nueva página a la pila, y `Navigator.pop()` para volver. `Navigator.pushNamed()` permite rutas nombradas, útiles para una mejor organización en aplicaciones grandes.
+
+2. **Explica cómo funcionan `Provider` y `ChangeNotifier`. ¿Cuándo los usarías?**
+
+   `Provider` es un paquete que permite gestionar el estado mediante el patrón de inyección de dependencias. `ChangeNotifier` permite notificar a los widgets cuando hay cambios en los datos. Usarías `Provider` y `ChangeNotifier` en aplicaciones que necesitan una gestión de estado simple y reactiva.
+
+3. **¿Qué es el patrón BLoC y cómo lo implementarías en Flutter?**
+
+   BLoC (Business Logic Component) es un patrón de gestión de estado que separa la lógica de negocio de la UI usando `Streams` y `Sinks`. Usaría `StreamController` para gestionar datos asíncronos y `StreamBuilder` para actualizar la UI.
+
+4. **¿Cómo se puede realizar una animación en Flutter sin usar el paquete `animations`?**
+
+   Las animaciones se pueden crear usando `AnimationController` para controlar la duración y frecuencia, `Tween` para definir el cambio de valores, y `AnimatedBuilder` para actualizar la UI en cada paso de la animación.
+
+5. **¿Cuál es la diferencia entre `InheritedWidget` y `Provider`?**
+
+   `InheritedWidget` permite compartir datos a través del árbol de widgets, pero `Provider` simplifica esta tarea y facilita una gestión de estado reactiva. `Provider` es más fácil de mantener en aplicaciones complejas.
+
+#### Nivel Avanzado
+
+1. **Explica cómo Flutter maneja el renderizado de widgets en el motor de gráficos Skia.**
+
+   Flutter usa el motor de gráficos Skia para renderizar widgets directamente en el hardware de la GPU. Skia convierte los widgets en representaciones gráficas optimizadas, lo que garantiza un rendimiento de alta calidad en dispositivos Android e iOS.
+
+2. **¿Qué es la `key` en Flutter, y cuándo usarías `GlobalKey` vs `LocalKey`?**
+
+   Las `Keys` identifican widgets en el árbol y permiten a Flutter gestionar el estado. `GlobalKey` es única y permite acceder a widgets específicos, útil en validación de formularios. `LocalKey` se usa para listas dinámicas, ayudando a mantener la consistencia.
+
+3. **¿Cómo realizarías la inyección de dependencias en Flutter sin `GetIt` ni `Provider`?**
+
+   Una opción es pasar instancias de clase mediante el constructor o a través del contexto (`InheritedWidget` o `InheritedModel`). Esto permite acceder a datos sin paquetes externos.
+
+4. **¿Qué es la reactividad en Flutter y cómo la gestionas usando `GetX` o `Riverpod`?**
+
+   La reactividad en Flutter se refiere a actualizar automáticamente la UI cuando cambia el estado. `GetX` y `Riverpod` son paquetes populares que permiten una gestión de estado reactiva y optimizada con menos boilerplate.
+
+5. **¿Cómo se maneja la persistencia de datos en Flutter para aplicaciones sin conexión?**
+
+   Puedes usar `SQLite`, `Hive`, o `SharedPreferences` para almacenar datos localmente. `SQLite` es ideal para datos estructurados, `Hive` para almacenamiento rápido de objetos, y `SharedPreferences` para pequeñas configuraciones.
+
+#### Nivel Experto
+
+1. **Describe cómo funciona la reactividad en Flutter y cómo optimizarías `Obx` en `GetX` para apps complejas.**
+
+   `Obx` en `GetX` actualiza la UI cuando un valor observable cambia. Para optimizar, puedes evitar `Obx` innecesarios, agrupar observables similares y usar `Worker` en lugar de `Obx` para cambios frecuentes.
+
+2. **¿Qué son los `RenderObject`s y cómo los usarías en la creación de widgets personalizados avanzados?**
+
+   `RenderObject` es la base de todos los objetos renderizados. Usarías `RenderBox` para personalizar el tamaño y posición en widgets avanzados, lo que permite personalizar la construcción de UI a bajo nivel.
+
+3. **¿Cómo personalizarías la transición entre rutas usando `PageRouteBuilder` para una navegación avanzada?**
+
+   `PageRouteBuilder` permite definir la transición personalizada entre rutas especificando animaciones en el método `transitionsBuilder`. Esto es útil para crear efectos de transición personalizados como `fade`, `scale` o `slide`.
+
+4. **¿Cómo manejarías la sincronización de datos en tiempo real utilizando `Firebase Realtime Database` en Flutter?**
+
+   `FirebaseDatabase` proporciona métodos para sincronizar datos en tiempo real. Usaría `StreamBuilder` para actualizar la UI cuando los datos cambian en la base de datos. Esto es útil en aplicaciones colaborativas o de chat.
+
+5. **¿Qué retos puedes enfrentar en el despliegue de una aplicación Flutter web en producción y cómo los abordarías?**
+
+   Los principales retos incluyen optimización del rendimiento, compatibilidad de navegadores y manejo del almacenamiento en caché. Para abordar esto, podrías usar `Service Workers` para mejorar la carga en caché, optimizar imágenes y minimizar el uso de animaciones complejas.
+
+---
+
+### Preguntas de Dart
+
+#### Nivel Novato - Dart
+
+1. **¿Qué es Dart y cuáles son sus principales características?**
+
+   Dart es un lenguaje de scripting desarrollado por Google, diseñado para el desarrollo de aplicaciones escalables. Ofrece tipos de datos personalizados, gestión automática de memoria y conceptos de programación modernos.
+
+2. **¿Qué tipos de datos existen en Dart?**
+
+   Dart admite tipos como `int`, `double`, `String`, `bool`, `List`, `Map` y `Set`, facilitando el manejo de diversos datos.
+
+3. **¿Cuál es la diferencia entre `var`, `const` y `final`?**
+
+   - `var` permite inferencia de tipos dinámica.
+   - `const` crea una constante en tiempo de compilación.
+   - `final` es inmutable en tiempo de ejecución.
+
+4. **¿Qué es un `Future` y cómo lo utilizarías?**
+
+   `Future` es un objeto que representa un valor que estará disponible en el futuro, ideal para operaciones asíncronas. Usa `async` y `await` para manejar `Futures` de manera intuitiva.
+
+5. **¿Cómo manejarías excepciones en Dart?**
+
+   Usando bloques `try-catch`. `try` ejecuta el código que podría fallar, y `catch` maneja cualquier excepción, manteniendo la aplicación estable.
+
+6. **¿Qué es un `Stream` y para qué se utiliza?**
+
+   `Stream` es una secuencia de valores que llegan de manera asíncrona, útil para datos en tiempo real o eventos continuos, como actualizaciones en Firebase o sockets.
+
+7. **¿Qué es Null Safety en Dart?**
+
+   Null Safety previene excepciones de puntero nulo, reduciendo el riesgo de valores nulos en el código y proporcionando una mejor verificación de tipos.
+
+8. **¿Qué es mixin en Dart y cómo se usa?**
+
+   Los Mixins son clases que se utilizan para agregar métodos y propiedades a otra clase sin herencia, haciéndolos reutilizables.
+
+9. **¿Qué es la palabra clave `late` en Dart y cómo se usa?**
+
+   `late` se usa para declarar una variable que se inicializará más tarde, asegurando que el valor de la variable se establezca después.
+
+10. **¿Cómo funcionan `async` y `await` en Dart?**
+
+    `async` convierte una función en asincrónica, devolviendo un `Future`, y `await` espera el resultado de un `Future`.
+
+11. **¿Qué son los operadores `is` y `as` en Dart?**
+
+    `is` verifica el tipo de un objeto, y `as` se usa para la conversión de tipos.
+
+12. **¿Qué es la palabra clave `factory` en Dart y cómo se usa?**
+
+    La palabra clave `factory` es un constructor especial que puede devolver una instancia existente en lugar de crear una nueva o devolver una instancia basada en lógica específica.
+
+13. **¿Qué son clase y objeto en Dart?**
+
+    Una clase es un modelo que se usa para crear objetos, mientras que un objeto es una instancia de una clase que contiene las propiedades y métodos de la clase.
+
+14. **¿Qué es una clase abstracta en Dart y cómo se usa?**
+
+    Una clase abstracta no se puede instanciar directamente y puede contener métodos abstractos que deben ser implementados por las subclases.
+
+15. **¿Qué es un enum en Dart y cómo se usa?**
+
+    Un `enum` es un tipo de datos que representa valores constantes específicos, útil para representar estados fijos.
+
+16. **¿Cómo funciona `assert` en Dart?**
+
+    `assert` verifica una condición específica y solo funciona en modo de depuración, siendo útil para encontrar errores durante el desarrollo.
+
+17. **¿Cómo funciona el bloque `try-catch` en Dart?**
+
+    `try-catch` captura y maneja errores en el código. `try` ejecuta el código, y `catch` maneja las excepciones si ocurren.
+
+18. **¿Cómo funciona la declaración `if-else` en Dart?**
+
+    `if-else` ejecuta código en función de una condición. Ejemplo:
+
+    ```dart
+    if (age >= 18) {
+      print('Adult');
+    } else {
+      print('Minor');
+    }
+    ```
+
+19. **¿Qué es un `parámetro por defecto` en Dart y cómo se establece?**
+
+    Un parámetro por defecto es un valor predefinido en una función, usado si no se proporciona ningún parámetro. Ejemplo:
+
+    ```dart
+    void greet([String name = 'Guest']) {
+      print('Hello, $name');
+    }
+    ```
+
+20. **¿Qué es `await` en Dart y cómo se usa?**
+
+    `await` espera el resultado de un `Future` y se usa dentro de una función `async`, deteniendo la ejecución del código hasta que se complete la operación.
+
+21. **¿Cómo crear una List en Dart?**
+
+    Para crear una List en Dart, usa la siguiente sintaxis:
+
+    ```dart
+    List<int> numbers = [1, 2, 3, 4, 5];
+    ```
+
+22. **¿Cómo crear un Map en Dart?**
+
+    Para crear un Map en Dart, usa la siguiente sintaxis:
+
+    ```dart
+    Map<String, int> ageMap = {'John': 25, 'Doe': 30};
+    ```
+
+23. **¿Cómo crear un Set en Dart?**
+
+    Para crear un Set en Dart, usa la siguiente sintaxis:
+
+    ```dart
+    Set<String> names = {'Alice', 'Bob', 'Charlie'};
+    ```
+
+---
+
+#### Nivel Intermedio - Dart
+
+1. **¿Qué son los `genéricos` en Dart y cuáles son sus beneficios?**
+
+   Los genéricos permiten escribir código con seguridad de tipos, mejorando la reutilización del código y la verificación de tipos.
+
+2. **¿Cuál es la diferencia entre `const` y `final` en Dart?**
+
+   `const` crea una constante en tiempo de compilación determinada por una expresión constante, mientras que `final` se asigna en tiempo de ejecución y no se puede cambiar una vez establecido.
+
+3. **¿Qué es extension en Dart y cómo se usa?**
+
+   Una extensión permite agregar nuevos métodos y propiedades a una clase existente, extendiendo la funcionalidad sin modificarla.
+
+4. **¿Cómo funcionan los `typedefs` y para qué se utilizan?**
+
+   `typedefs` crean alias para funciones, mejorando la legibilidad y simplificando la gestión de tipos en funciones complejas.
+
+5. **¿Qué es el `Cascade Notation` en Dart y cómo se usa?**
+
+   `Cascade Notation` (`..`) permite realizar múltiples llamadas a métodos o establecer propiedades en un objeto. Ejemplo:
+
+   ```dart
+   var person = Person('Alice')..name = 'Bob'..greet();
+   ```
+
+6. **¿Cómo funcionan los bloques `try-catch` con funciones async en Dart?**
+
+   Usando `try-catch` en funciones async, puedes capturar errores en el código asíncrono y manejarlos en el bloque `catch`.
+
+7. **¿Qué son los operadores null-aware y cómo funcionan?**
+
+   Los operadores null-aware (`?.`, `??`, `!`) ayudan a manejar valores nulos al verificar nulos, proporcionar valores predeterminados y realizar operaciones seguras.
+
+8. **¿Cómo funcionan las extensiones en diferentes clases en Dart?**
+
+   Las extensiones agregan nuevos métodos y propiedades a otras clases, mejorando la reutilización sin alterar las clases originales.
+
+9. **¿Cuál es la diferencia entre una función síncrona y asíncrona?**
+
+   Las funciones síncronas se ejecutan en orden, mientras que las asíncronas permiten realizar otras tareas mientras se espera un resultado, ideales para operaciones de red.
+
+10. **¿Cómo se usa `@override` en Dart?**
+
+    `@override` es una anotación para redefinir un método de una clase principal en una subclase, confirmando que es una anulación.
+
+---
+
+#### Nivel Avanzado - Dart
+
+1. **¿Cómo funciona la herencia múltiple en Dart usando mixins?**
+
+   Dart no admite herencia múltiple, pero los `mixins` permiten combinar comportamientos de múltiples clases en una sola clase sin crear una jerarquía de herencia.
+
+2. **Explica cómo implementarías un `Singleton` en Dart.**
+
+   Un `Singleton` asegura que una clase tenga una sola instancia. En Dart, se puede implementar con un constructor privado y una instancia estática.
+
+3. **¿Cómo puedes definir métodos genéricos en Dart y por qué son útiles?**
+
+   Los métodos genéricos permiten definir métodos con tipos dinámicos, mejorando la reutilización y evitando errores de tipo.
+
+4. **¿Cuál es la diferencia entre `sync*` y `async*` en Dart?**
+
+   `sync*` genera una serie síncrona usando `yield`, mientras que `async*` es una función asíncrona que genera valores de forma paulatina.
+
+5. **¿Qué es un `Isolate` en Dart y cómo se usa?**
+
+   Un `Isolate` es un hilo separado con un espacio de memoria independiente, utilizado para tareas intensivas. `SendPort` y `ReceivePort` se usan
+
+   para la comunicación entre isolates.
+
+6. **¿Cómo funciona `await` en Dart y cómo se usa?**
+
+   `await` espera el resultado de un `Future` y se usa dentro de una función `async`, deteniendo la ejecución del código hasta que se complete la operación.
+
+7. **¿Cómo implementarías un `patrón de repositorio` en Dart para la gestión de datos?**
+
+   El patrón de repositorio abstrae la fuente de datos y permite el acceso centralizado, utilizando una interfaz para separar la lógica de datos de la lógica de negocio.
+
+8. **¿Cómo funcionan las `funciones y variables de nivel superior` en Dart?**
+
+   Las funciones y variables de nivel superior son globales y accesibles fuera de cualquier clase, útiles para funciones y valores de uso común en el código.
+
+9. **Cuál es la diferencia entre `Future` y `Stream` en Dart?**
+
+   `Future` representa un evento único con un solo valor, mientras que `Stream` representa una secuencia de valores o eventos en el tiempo.
+
+10. **¿Cómo implementarías el patrón `BLoC` en Dart?**
+
+    BLoC separa la lógica de negocio de la UI, usando `Streams` y `StreamController` para manejar el flujo de datos y actualizar la UI de forma reactiva.
+
+---
+
+#### Nivel Experto - Dart
+
+1. **¿Cómo manejarías concurrencia avanzada en Dart usando `Isolates` en una aplicación compleja?**
+
+   Usaría `Isolates` para tareas intensivas como procesamiento de datos y trabajaría con `SendPort` y `ReceivePort` para comunicación entre hilos.
+
+2. **¿Cómo implementarías un sistema de `caching` en Dart para almacenar datos temporalmente?**
+
+   Usaría un `Map` para almacenamiento en caché en memoria o una base de datos local como `Hive` para persistencia en disco, mejorando el rendimiento en operaciones frecuentes.
+
+3. **¿Cómo funciona el `Hot Reload` y `Hot Restart` en Flutter usando Dart?**
+
+   `Hot Reload` conserva el estado y actualiza solo el código modificado, mientras que `Hot Restart` reinicia la aplicación, útil para cambios en el estado global.
+
+4. **¿Cómo crearías una librería personalizada de Dart para reutilización de código en múltiples proyectos?**
+
+   Organizaría el código en funciones y clases reutilizables, documentaría las funciones y publicaría en `pub.dev` o como un paquete en el repositorio para fácil acceso.
+
+5. **¿Qué problemas de rendimiento pueden surgir con el uso de `async` en Dart, y cómo los resolverías?**
+
+   Los problemas pueden incluir operaciones prolongadas y acumulación de memoria. Usaría `Isolates` o dividiría las tareas en fragmentos más pequeños para optimizar el uso de recursos.
+
+6. **¿Cómo optimizarías una aplicación con `Lazy Loading` usando Streams en Dart?**
+
+   `Lazy Loading` permite cargar datos cuando se necesitan. Utilizaría `Streams` para cargar datos en lotes pequeños y `StreamController` para manejar la lógica de carga.
+
+7. **¿Cómo aplicarías la `reflexión` en Dart y cuándo es necesario?**
+
+   La reflexión permite inspeccionar y manipular el código en tiempo de ejecución. Es útil en aplicaciones que necesitan adaptarse dinámicamente a tipos o estructuras.
+
+8. **¿Cómo manejarías la seguridad y autenticación en una aplicación Dart?**
+
+   Implementaría protocolos seguros (como OAuth) para autenticación, cifrado de datos sensibles y usaría `package:crypto` para encriptación y autenticación en servidores Dart (`Shelf`).
+
+9. **¿Qué es el modelo de memoria de Dart y cómo afecta el rendimiento?**
+
+   Dart utiliza un `heap` para almacenar objetos y tiene un recolector de basura para liberar memoria no utilizada. Optimizar la cantidad de objetos creados mejora el rendimiento.
+
+10. **¿Cómo personalizarías un compilador de Dart para propósitos específicos?**
+
+    Personalizaría el compilador para enfoques específicos como minificación o tree shaking en aplicaciones grandes, optimizando el tamaño de salida y el tiempo de ejecución.
+
+---
+
+### Preguntas de API
+
+**¿Qué es una API?**
+
+API (Interfaz de Programación de Aplicaciones) es una interfaz de software utilizada para la comunicación e intercambio de datos entre diferentes aplicaciones o servicios.
+
+**¿Qué es una API RESTful?**
+
+Una API RESTful es una API que sigue el estilo arquitectónico REST (Transferencia de Estado Representacional), utilizando métodos HTTP como GET, POST, PUT, DELETE.
+
+**¿Cuál es la diferencia entre los métodos HTTP?**
+
+- **GET:** Recupera datos.
+- **POST:** Crea nuevos datos.
+- **PUT:** Actualiza datos existentes.
+- **DELETE:** Elimina datos.
+
+**¿Qué es el Código de Estado HTTP y algunos ejemplos de códigos de estado comunes?**
+
+El Código de Estado HTTP informa al cliente sobre el estado desde el servidor. Algunos ejemplos:
+
+- **200 OK:** Solicitud exitosa.
+- **404 Not Found:** Recurso no encontrado.
+- **500 Internal Server Error:** Error en el servidor.
+
+**¿Cuál es la diferencia entre JSON y XML?**
+
+JSON (JavaScript Object Notation) y XML (Lenguaje de Marcado Extensible) son formatos de intercambio de datos. JSON es generalmente compacto y legible por humanos, mientras que XML es más segmentado y pesado.
+
+**¿Qué es un Endpoint de API?**
+
+Un Endpoint de API es una URL específica utilizada para enviar solicitudes de API, donde el servidor proporciona acceso a un recurso específico.
+
+**¿Qué es la Limitación de Tasa (Rate Limiting) en una API y por qué es necesaria?**
+
+La Limitación de Tasa es un proceso que limita cuántas veces se puede llamar a una API dentro de un cierto tiempo. Controla la carga del servidor y evita el uso anormal.
+
+**¿Cómo realizar pruebas de API?**
+
+Las pruebas de API generalmente se realizan con herramientas como Postman, Insomnia o scripts personalizados. Puedes enviar solicitudes de API, validar respuestas y probar diferentes métodos HTTP.
+
+**¿Cómo optimizar el rendimiento de la API?**
+
+Optimiza el rendimiento de la API utilizando almacenamiento en caché, compresión de datos, optimización de consultas y técnicas de balanceo de carga.
+
+---
+
+### SharedPreferences
+
+**¿Qué es SharedPreferences?**
+
+SharedPreferences es una herramienta de almacenamiento de datos en Android que almacena datos como pares clave-valor. Se usa generalmente para almacenar configuraciones del usuario o datos pequeños.
+
+**¿Cómo crear SharedPreferences?**
+
+Para crear SharedPreferences, llama al método `getSharedPreferences()` desde Context. Ejemplo:
+
+```dart
+SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+```
+
+**¿Cómo almacenar datos en SharedPreferences?**
+
+Usa SharedPreferences.Editor para almacenar datos. Ejemplo:
+
+```dart
+SharedPreferences.Editor editor = sharedPreferences.edit();
+editor.putString("key", "value");
+editor.apply();  // o commit()
+```
+
+**¿Cómo leer datos de SharedPreferences?**
+
+Usa los métodos `getString()`, `getInt()`, etc., para leer datos. Ejemplo:
+
+```dart
+String value = sharedPreferences.getString("key", "default");
+```
+
+**¿Cómo eliminar datos de SharedPreferences?**
+
+Usa el método `remove()` para eliminar una clave específica. Ejemplo:
+
+```dart
+SharedPreferences.Editor editor = sharedPreferences.edit();
+editor.remove("key");
+editor.apply();  // o commit()
+```
+
+**¿Cómo usar el método clear() en SharedPreferences?**
+
+El método clear() elimina todos los datos. Ejemplo:
+
+```dart
+SharedPreferences.Editor editor = sharedPreferences.edit();
+editor.clear();
+editor.apply();  // o commit()
+```
+
+---
+
+### Google Maps API
+
+**¿Qué es Google Maps API?**
+
+Google Maps API es un servicio web que permite a los desarrolladores integrar funciones de Google Maps como mapa, ruta, marcador, etc., en sus propias aplicaciones o sitios web.
+
+**¿Cómo registrarse en Google Maps API?**
+
+Para usar Google Maps API, inicia sesión en Google Cloud Console, crea un proyecto y obtén las claves API.
+
+---
+
+### Pasarela de Pago en Flutter
+
+**¿Qué es una Pasarela de Pago en Flutter y por qué se usa?**
+
+En Flutter, una Pasarela de Pago es un sistema que permite a los usuarios realizar pagos dentro de la aplicación. Generalmente admite pagos con tarjeta, billeteras móviles y otros métodos de pago digital.
+
+**¿Qué paquetes se pueden usar para integrar una Pasarela de Pago en Flutter?**
+
+Algunos paquetes de pasarela de pago populares son:
+
+- **stripe_payment** o **flutter_stripe** (Stripe)
+- **razorpay_flutter** (Razorpay)
+- **paystack_flutter** (Paystack)
+- **flutter_paypal** (PayPal)
+
+---
+
+### Preguntas de GetX
+
+**¿Qué es GetX?**
+
+GetX es un paquete de Flutter que proporciona gestión de estado sencilla y eficiente, enrutamiento e inyección de dependencias. Ofrece un alto rendimiento y es fácil de usar.
+
+**¿Cómo funciona la gestión de estado en GetX?**
+
+GetX utiliza un enfoque de gestión de estado reactivo, rastreando cambios de estado mediante los widgets GetX u Obx y actualizando la interfaz de usuario en consecuencia.
+
+**¿Cuál es la diferencia entre GetX y Provider?**
+
+Tanto GetX como Provider se pueden usar para la gestión de estado, pero GetX es más poderoso y rápido, ya que admite gestión de estado, enrutamiento e inyección de dependencias.
+
+**¿Qué es un controlador en GetX y cómo se usa?**
+
+Un controlador en GetX es una clase que hereda de GetxController y contiene estado, lógica y funciones vinculadas a la interfaz de usuario. Se instancia con **Get.put()** o **Get.lazyPut()**.
+
+**¿Cómo funciona el enrutamiento en GetX?**
+
+El enrutamiento en GetX se realiza usando **
+
+Get.to()** o **Get.off()**. Facilita la navegación entre páginas y el paso de parámetros.
+
+**¿Cómo funciona la inyección de dependencias en GetX?**
+
+La inyección de dependencias en GetX se realiza mediante **Get.put()** o **Get.lazyPut()** para crear instancias de varias clases, accesibles en toda la aplicación.
+
+**¿Qué es el widget Obx en GetX y cómo funciona?**
+
+Obx es un widget que rastrea la propiedad reactiva en GetX y actualiza la interfaz de usuario cuando la propiedad cambia.
+
+**¿Cómo usar Snackbar en GetX?**
+
+Usa **Get.snackbar()** para crear fácilmente un Snackbar que se muestre en la página y proporcione un mensaje a los usuarios.
+
+**¿Cuál es la diferencia entre la gestión de estado y las actualizaciones de UI en GetX?**
+
+La gestión de estado y las actualizaciones de UI en GetX difieren ya que no solo rastrea cambios de estado, sino que también trae cambios automáticos en la UI.
+
+**¿Cuáles son los diferentes métodos de Inyección de Dependencias en GetX?**
+
+La Inyección de Dependencias en GetX se puede hacer usando **Get.put()**, **Get.lazyPut()**, y **Get.create()**.
+
+---
+
+### Preguntas de Firebase
+
+**¿Qué es Firebase?**
+
+Firebase es una plataforma de Google que proporciona varias herramientas y servicios para crear aplicaciones móviles y web, como base de datos, autenticación, almacenamiento, alojamiento y análisis.
+
+**¿Cómo funciona Firebase Realtime Database?**
+
+Firebase Realtime Database es una base de datos NoSQL basada en la nube que almacena datos como un árbol y los actualiza en tiempo real en todos los clientes conectados.
+
+**¿Cómo usar Firebase Firestore?**
+
+Firebase Firestore es una base de datos basada en documentos que ofrece consultas, filtrado y paginación para colecciones de datos. Crea un proyecto en Firebase Console, añade dependencias y escribe el código para leer y escribir datos.
+
+**¿Qué es Firebase Authentication y cómo se usa?**
+
+Firebase Authentication proporciona un servicio para el inicio y registro de usuarios. Admite varios métodos de autenticación, como correo electrónico/contraseña, inicio de sesión social (Google, Facebook) y número de teléfono. Configura los métodos de inicio de sesión en Firebase Console y añade el código de autenticación en la aplicación.
+
+**¿Qué es Firebase Hosting?**
+
+Firebase Hosting es un servicio de alojamiento web rápido y seguro diseñado específicamente para alojar páginas web estáticas y aplicaciones de una sola página. Proporciona contenido a través de una CDN y proporciona certificados SSL.
+
+---
+
+### Preguntas de Git
+
+**¿Qué es Git?**
+
+Git es un sistema de control de versiones distribuido que realiza un seguimiento de las versiones del código fuente y guarda el historial de cambios del código. Se utiliza principalmente para el control de versiones y el trabajo colaborativo en código.
+
+**¿Qué es GitHub?**
+
+GitHub es una plataforma basada en Git que proporciona alojamiento de código, colaboración y gestión de proyectos. Se usa para compartir código, control de versiones y colaboración a través de solicitudes de extracción (pull requests).
+
+**¿Cómo crear un repositorio en Git?**
+
+Usa el comando:
+
+```bash
+git init
+```
+
+**¿Cómo crear un nuevo repositorio en GitHub?**
+
+1. Inicia sesión en GitHub.
+2. Haz clic en el botón "New" desde el tablero de control.
+3. Completa el nombre del repositorio, descripción y otras configuraciones, y haz clic en "Create repository".
+
+**¿Cómo agregar archivos a un repositorio de Git?**
+
+Usa el comando:
+
+```bash
+git add <file>
+```
+
+**¿Qué es un commit de Git y cómo hacerlo?**
+
+Un commit de Git es un conjunto de cambios almacenado en el historial del repositorio. Para hacer un commit:
+
+```bash
+git commit -m "Your commit message"
+```
+
+**¿Cómo crear una nueva rama en un repositorio de GitHub?**
+
+Usa el comando:
+
+```bash
+git branch <branch-name>
+```
+
+**¿Cómo cambiar de rama en un repositorio de Git?**
+
+Usa el comando:
+
+```bash
+git checkout <branch-name>
+```
+
+**¿Cómo crear una solicitud de extracción (pull request) en un repositorio de GitHub?**
+
+1. Inicia sesión en GitHub.
+2. Ve a la pestaña "Pull requests" del repositorio.
+3. Haz clic en "New pull request" y envía tus cambios como una solicitud de extracción.
+
+**¿Cómo eliminar un archivo de un repositorio de Git?**
+
+```bash
+git rm <file>
+git commit -m "Removed <file>"
+```
+
+**¿Cómo funciona Git merge?**
+
+Git merge combina cambios de diferentes ramas. Para combinar:
+
+```bash
+git merge <branch-name>
+```
+
+---
+
+### Preguntas Generales sobre Desarrollo de Aplicaciones
+
+**¿Cuáles son los pasos generales seguidos en el desarrollo de aplicaciones?**
+
+1. **Análisis de Requisitos:** Comprender las necesidades del cliente o usuario.
+2. **Diseño:** Crear el diseño de UI/UX.
+3. **Desarrollo:** Comenzar con la codificación.
+4. **Pruebas:** Probar en busca de errores y corregirlos.
+5. **Implementación:** Publicar en la tienda de aplicaciones u otras plataformas.
+6. **Mantenimiento:** Actualizaciones regulares y corrección de errores.
+
+**¿Cuáles son las plataformas populares para el desarrollo de aplicaciones móviles?**
+
+Las plataformas populares incluyen Android, iOS y herramientas de desarrollo multiplataforma como Flutter y React Native.
+
+**¿Cómo se gestiona el Control de Versiones en el desarrollo de aplicaciones?**
+
+Los sistemas de control de versiones (como Git) rastrean el historial del código, ayudan a ver las diferencias entre versiones y permiten compartir cambios de código dentro de un equipo.
+
+**Explica el uso de Container y SizedBox en una aplicación:**
+
+- **Container:** Un widget versátil que se usa cuando quieres agregar estilos o decoraciones (como color de fondo, borde, sombra) a un widget. También proporciona relleno y margen.
+- **SizedBox:** Se usa para crear un cuadro de tamaño fijo, generalmente para agregar una cantidad específica de espacio (ancho o alto) entre widgets.
+
+**¿Qué son HTTP y HTTPS?**
+
+HTTP (Protocolo de Transferencia de Hipertexto) y HTTPS (Protocolo de Transferencia de Hipertexto Seguro) son protocolos de comunicación web. Se utilizan para el intercambio de datos entre un servidor web y un cliente (como un navegador). Mientras que HTTP no es seguro, HTTPS proporciona una conexión segura y encriptada.
+
+**¿Qué es JSON?**
+
+JSON (Notación de Objetos de JavaScript) es un formato de intercambio de datos ligero, legible por humanos y parseable por máquinas. Se usa principalmente para almacenamiento y transferencia de datos, utilizando pares clave-valor en su estructura.
+
+Ejemplo:
+
+```json
+{
+  "name": "John Doe",
+  "age": 30,
+  "isStudent": false,
+  "hobbies": ["Reading", "Traveling", "Gaming"],
+  "address": {
+    "street": "123 Main St",
+    "city": "Anytown",
+    "zipcode": "12345"
+  }
+}
+```
+
+### Preguntas de Diseño y Resolución de Problemas en Flutter/Dart
+
+1. **¿Cómo abordas la depuración de problemas de UI difíciles en Flutter?**
+
+   En Flutter, utilizo varias herramientas y enfoques para depurar problemas de UI complejos:
+   - **Flutter DevTools**: Examino los widgets en tiempo de ejecución y utilizo la herramienta de "Inspección" para ver la jerarquía de widgets y buscar problemas como `overflow` o `rebuilds` innecesarios.
+   - **Widgets de Diagnóstico**: Utilizo widgets como `Container(color: Colors.red)` o `SizedBox.shrink()` para detectar qué widgets pueden estar causando el problema.
+   - **Logging**: Uso `print()` o el paquete `logger` para verificar la secuencia de eventos, especialmente cuando se trata de navegación o cambios de estado.
+   - **Uso de Breakpoints**: Pongo breakpoints en el código para analizar el flujo en puntos críticos.
+
+2. **¿Cómo gestionarías el estado en una aplicación de Flutter con múltiples pantallas y datos complejos?**
+
+   En una aplicación de múltiples pantallas, optaría por una arquitectura de gestión de estado escalable como:
+   - **Provider** o **Riverpod**: Ambos paquetes son adecuados para pasar datos entre múltiples pantallas y manejar el estado de forma reactiva.
+   - **BLoC** o **Cubit**: Para aplicaciones más complejas, uso BLoC para separar la lógica de negocio de la UI, lo que facilita el manejo de grandes cantidades de datos y actualizaciones de estado.
+   - **Inyección de Dependencias**: Uso `GetIt` para inyectar servicios que se pueden acceder globalmente, lo cual facilita la gestión del estado sin duplicar instancias.
+
+3. **¿Cómo garantizarías la compatibilidad con diferentes tamaños de pantalla y resoluciones en Flutter?**
+
+   Para asegurar que la UI sea consistente en distintos dispositivos:
+   - **MediaQuery**: Uso `MediaQuery` para adaptar el tamaño, márgenes y espaciado de los widgets en función de las dimensiones de la pantalla.
+   - **LayoutBuilder**: Utilizo `LayoutBuilder` para crear widgets adaptables que respondan a restricciones específicas de tamaño.
+   - **Proporciones y Tamaños Relativos**: En lugar de tamaños fijos, configuro proporciones relativas para anchura y altura, lo que permite una mejor adaptación a diferentes resoluciones.
+   - **Adaptación de Texto**: Para tamaños de texto, uso `TextScaleFactor` o `AutoSizeText` para que las fuentes sean legibles en todos los tamaños de pantalla.
+
+4. **¿Puedes describir un proyecto desafiante en el que usaste Flutter/Dart y cómo abordaste los retos?**
+
+   Un ejemplo fue una aplicación de e-commerce con sincronización de datos en tiempo real. Los principales retos fueron:
+   - **Gestión de Estado Compleja**: Utilicé `Riverpod` para gestionar el estado de la UI, permitiendo cambios de productos en tiempo real sin afectar el rendimiento.
+   - **Sincronización de Datos en Tiempo Real**: Para mantener el carrito de compras actualizado en múltiples dispositivos, integré Firebase Realtime Database y configuré `StreamBuilder` para actualizar la UI sin necesidad de recargarla.
+   - **Optimización de Rendimiento**: Implementé `Lazy Loading` en las imágenes del catálogo y cacheé las respuestas de red para una mejor experiencia de usuario.
+
+5. **¿Cómo mantendrías una aplicación Flutter con un código limpio y escalable?**
+
+   Para mantener el código limpio y escalable:
+   - **Arquitectura**: Adopto patrones de arquitectura como `MVVM` o `Clean Architecture`, donde separo la UI, la lógica de negocio y los datos en capas bien definidas.
+   - **Organización de Carpetas**: Organizo el proyecto en carpetas (`lib/models`, `lib/views`, `lib/controllers`, etc.) para que sea fácil localizar y gestionar diferentes partes de la aplicación.
+   - **Uso de `Widgets` Reusables**: Creo widgets reusables para evitar duplicación de código y asegurar que la UI sea consistente.
+   - **Refactorización Continua**: Regularmente reviso y refactorizo el código para mejorar su legibilidad, eliminar redundancias y garantizar que sea fácil de mantener.
+   - **Documentación y Comentarios**: Documento las funciones y componentes críticos para que otros desarrolladores puedan entender rápidamente el propósito y el flujo del código.
+
+---
+
+### Preguntas sobre Nuevas Tecnologías y Adaptación
+
+1. **¿Cómo te mantienes al tanto de las actualizaciones y novedades en Flutter y Dart?**
+
+   Mantengo mis conocimientos actualizados al:
+   - **Seguir la Documentación Oficial**: La documentación de Flutter y Dart se actualiza con frecuencia, y ofrece una buena perspectiva de las nuevas características.
+   - **Leer Blogs y Tutoriales**: Sigo blogs y tutoriales como el blog de Medium de Flutter y el canal de YouTube de Flutter.
+   - **Unirme a Comunidades**: Participo en comunidades de desarrolladores de Flutter en Slack, GitHub y Reddit.
+   - **Experimentar con Nuevas Herramientas**: Cuando hay un nuevo paquete o una actualización de Flutter, creo proyectos de prueba para entender las novedades y mejoras.
+
+2. **¿Qué consideraciones especiales tienes en mente al desarrollar una aplicación Flutter para web y móvil a la vez?**
+
+   Las consideraciones especiales para una aplicación Flutter web y móvil incluyen:
+   - **Compatibilidad con Navegadores**: Asegurarme de que los componentes funcionan bien en todos los navegadores modernos (Chrome, Firefox, Safari).
+   - **Optimización de Recursos**: En la web, evito animaciones pesadas y gráficos complejos para mejorar el rendimiento.
+   - **Responsividad**: Uso `MediaQuery` y `LayoutBuilder` para adaptar el diseño, y configuro una estructura flexible que funcione bien en pantallas de escritorio, tablets y móviles.
+   - **Almacenamiento y Cacheo en Web**: Aprovecho `localStorage` y `IndexedDB` para almacenar datos y usar caché en la versión web, lo cual reduce la cantidad de solicitudes de red.
+
+3. **¿Cómo planeas implementar nuevas características en un proyecto Flutter existente sin afectar el rendimiento o la estructura?**
+
+   Al implementar nuevas características en un proyecto existente:
+   - **Refactorización en Pequeñas Iteraciones**: Refactorizo el código en partes pequeñas y realizo pruebas constantes, evitando cambios drásticos que puedan causar errores.
+   - **Pruebas Automatizadas**: Añado pruebas unitarias y de integración para asegurar que las nuevas características funcionan correctamente y no afectan el comportamiento actual de la aplicación.
+   - **Gestión de Estado Optimizada**: Uso gestión de estado basada en `Provider` o `GetX` para minimizar el impacto en la estructura general.
+   - **Perfilado de Rendimiento**: Analizo el rendimiento de la aplicación con `Flutter DevTools` después de agregar la característica para asegurar que no se generen cuellos de botella.
+
+### Preguntas Específicas de la Aplicación OMDB Movie
+
+**¿Cómo implementas una arquitectura modular en una aplicación de películas Flutter?**
+La aplicación OMDB Movie demuestra una arquitectura modular a través de:
+- Módulos basados en características (autenticación, películas)
+- Módulo core para funcionalidad compartida
+- Límites y dependencias claras entre módulos
+Ejemplo de estructura:
+```dart
+lib/
+  ├── modules/
+  │   ├── auth/
+  │   │   ├── data/
+  │   │   ├── domain/
+  │   │   └── presentation/
+  │   └── movies/
+  │       ├── data/
+  │       ├── domain/
+  │       └── presentation/
+```
+
+**¿Cómo manejas la integración de API en una aplicación de películas Flutter?**
+La implementación incluye:
+- Patrón repositorio para acceso a datos
+- Manejo de errores y excepciones
+- Modelos de datos y mapeo
+- Configuración del cliente API
+Ejemplo:
+```dart
+class MovieRepositoryImpl implements MovieRepository {
+  final MovieApiClient apiClient;
+  final NetworkInfo networkInfo;
+
+  Future<Either<Failure, List<Movie>>> searchMovies(String query) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final movies = await apiClient.searchMovies(query);
+        return Right(movies);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(NetworkFailure());
+    }
+  }
+}
+```
+
+**¿Cómo implementas la funcionalidad de búsqueda con manejo de errores?**
+La implementación de búsqueda incluye:
+- Validación de entrada
+- Debounce para llamadas API
+- Manejo de estados de error
+- Estados de carga
+Ejemplo:
+```dart
+class SearchMovies implements UseCase<List<Movie>, String> {
+  final MovieRepository repository;
+
+  SearchMovies(this.repository);
+
+  Future<Either<Failure, List<Movie>>> call(String query) async {
+    if (query.isEmpty) {
+      return Left(InvalidInputFailure());
+    }
+    return repository.searchMovies(query);
+  }
+}
+```
+
+**¿Cómo gestionas el inicio e inicialización de la aplicación?**
+La gestión del inicio de la aplicación incluye:
+- Configuración de inyección de dependencias
+- Determinación de ruta inicial
+- Configuración de tema
+- Inicialización del manejo de errores
+Ejemplo:
+```dart
+Future<void> main() async {
+  await ErrorService.initialize(
+    onError: ErrorService.handleError,
+    app: createAppDevicePreview(const MyApp()),
+  );
+}
+```
+
+**¿Cómo implementas un sistema personalizado de manejo de errores?**
+El sistema de manejo de errores incluye:
+- Servicio de errores centralizado
+- Tipos de errores personalizados
+- Gestión de mensajes de error
+- Presentación de UI de errores
+Ejemplo:
+```dart
+class ErrorService {
+  static Future<void> handleError(Object error, StackTrace stack) async {
+    if (error is NetworkException) {
+      // Manejar errores de red
+    } else if (error is ValidationException) {
+      // Manejar errores de validación
+    }
+    // Registrar error
+  }
+}
+```
+
+**¿Cómo implementas la autenticación en una aplicación Flutter?**
+La implementación de autenticación incluye:
+- Gestión del estado de autenticación
+- Almacenamiento seguro de tokens
+- Rutas protegidas
+- Flujo de inicio/cierre de sesión
+Ejemplo:
+```dart
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  final AuthRepository authRepository;
+
+  AuthBloc({required this.authRepository}) : super(AuthInitial()) {
+    on<LoginRequested>((event, emit) async {
+      emit(AuthLoading());
+      final result = await authRepository.login(event.credentials);
+      result.fold(
+        (failure) => emit(AuthError(failure)),
+        (user) => emit(AuthAuthenticated(user)),
+      );
+    });
+  }
+}
+```
+
+**¿Cómo manejas la vista previa de dispositivos y el diseño responsivo?**
+La implementación de vista previa incluye:
+- Habilitación condicional de vista previa
+- Configuraciones específicas de plataforma
+- Manejo de diseño responsivo
+Ejemplo:
+```dart
+Widget createAppDevicePreview(Widget app) {
+  if (kIsWeb || defaultTargetPlatform == TargetPlatform.macOS) {
+    return DevicePreview(
+      enabled: true,
+      builder: (context) => app,
+    );
+  }
+  return app;
+}
+```
+
+**¿Cómo implementas un sistema de validación para entrada de usuario?**
+El sistema de validación incluye:
+- Funciones de validación reutilizables
+- Formateo de entrada
+- Manejo de mensajes de error
+Ejemplo:
+```dart
+class SearchValidators {
+  static Either<ValidationFailure, String> validateSearchQuery(String query) {
+    if (query.isEmpty) {
+      return Left(ValidationFailure('La búsqueda no puede estar vacía'));
+    }
+    if (query.length < 2) {
+      return Left(ValidationFailure('La búsqueda es demasiado corta'));
+    }
+    return Right(query);
+  }
+}
+```
+
+**¿Cómo gestionas la generación de rutas y navegación?**
+La gestión de rutas incluye:
+- Rutas nombradas
+- Generación de rutas
+- Guardias de navegación
+- Soporte para deep linking
+Ejemplo:
+```dart
+class AppRoutes {
+  static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case '/search':
+        return MaterialPageRoute(
+          builder: (_) => const SearchPage(),
+        );
+      case '/details':
+        final movie = settings.arguments as Movie;
+        return MaterialPageRoute(
+          builder: (_) => MovieDetailsPage(movie: movie),
+        );
+      default:
+        return MaterialPageRoute(
+          builder: (_) => const NotFoundPage(),
+        );
+    }
+  }
+}
+```
+
+### Preguntas de Liderazgo Técnico y Desarrollador Senior
+
+**¿Cómo abordas las decisiones de arquitectura técnica en un proyecto Flutter?**
+Como líder técnico, considero:
+- Requisitos de escalabilidad
+- Experiencia del equipo y curva de aprendizaje
+- Mantenibilidad a largo plazo
+- Implicaciones de rendimiento
+- Estrategia de pruebas
+- Velocidad de desarrollo
+Ejemplo: Al elegir entre BLoC y otras soluciones de gestión de estado, evaluar la familiaridad del equipo, la complejidad del proyecto y los requisitos de mantenibilidad.
+
+**¿Cómo manejas la deuda técnica en un proyecto Flutter?**
+La estrategia incluye:
+- Revisiones de código regulares y sesiones de refactorización
+- Seguimiento de la deuda técnica en herramientas de gestión de proyectos
+- Priorización de la reducción de deuda en la planificación de sprints
+- Establecimiento de puertas de calidad y métricas
+- Implementación de herramientas de análisis de código automatizado
+- Balance entre nuevas características y mejoras técnicas
+
+**¿Cómo aseguras la calidad del código en un equipo grande de Flutter?**
+Implementar:
+- Guías de estilo y estándares de codificación completos
+- Pipelines de CI/CD con verificaciones de calidad
+- Revisiones de código regulares y programación en parejas
+- Configuración de herramientas de análisis estático de código
+- Sesiones de intercambio de conocimientos del equipo
+- Directrices de monitoreo y optimización del rendimiento
+
+**¿Cómo abordas la arquitectura de aplicaciones Flutter para aplicaciones empresariales?**
+Considerar:
+- Arquitectura modular con límites claros
+- Estructura de carpetas basada en características
+- Patrones de inyección de dependencias
+- Clara separación de responsabilidades
+- Gestión de estado escalable
+- Bibliotecas de componentes reutilizables
+Ejemplo de estructura:
+```
+lib/
+  ├── core/
+  │   ├── config/
+  │   ├── error/
+  │   ├── network/
+  │   └── utils/
+  ├── features/
+  │   ├── auth/
+  │   ├── movies/
+  │   └── profile/
+  └── shared/
+      ├── widgets/
+      └── services/
+```
+
+**¿Cómo gestionas múltiples entornos en un proyecto Flutter?**
+La implementación incluye:
+- Archivos de configuración específicos por entorno
+- Flavors de construcción para diferentes entornos
+- Gestión de feature flags
+- Configuración de pipeline CI/CD
+- Gestión de secretos
+Ejemplo:
+```dart
+enum Environment { dev, staging, prod }
+
+class EnvironmentConfig {
+  final String apiUrl;
+  final bool enableLogging;
+  final String environment;
+
+  static EnvironmentConfig get config {
+    switch(_environment) {
+      case Environment.dev:
+        return EnvironmentConfig._dev();
+      case Environment.prod:
+        return EnvironmentConfig._prod();
+      default:
+        throw UnimplementedError();
+    }
+  }
+}
+```
+
+**¿Cómo implementas una estrategia de pruebas robusta en un proyecto Flutter?**
+Enfoque integral de pruebas:
+- Pruebas unitarias para lógica de negocio
+- Pruebas de widgets para componentes UI
+- Pruebas de integración para flujos de características
+- Pruebas de rendimiento
+- Pruebas automatizadas de UI
+- Pruebas continuas en CI/CD
+Ejemplo de estructura de prueba:
+```dart
+void main() {
+  group('Característica de Búsqueda de Películas', () {
+    late MovieBloc movieBloc;
+    late MockMovieRepository mockRepository;
+
+    setUp(() {
+      mockRepository = MockMovieRepository();
+      movieBloc = MovieBloc(repository: mockRepository);
+    });
+
+    tearDown(() {
+      movieBloc.close();
+    });
+
+    blocTest<MovieBloc, MovieState>(
+      'emite [Loading, Success] cuando la búsqueda es exitosa',
+      build: () => movieBloc,
+      act: (bloc) => bloc.add(SearchMovies('Batman')),
+      expect: () => [
+        MovieState.loading(),
+        MovieState.success([Movie(...)]),
+      ],
+    );
+  });
+}
+```
+
+**¿Cómo manejas la optimización de rendimiento en aplicaciones Flutter a gran escala?**
+Áreas clave a enfocarse:
+- Gestión de memoria y prevención de fugas
+- Optimización del árbol de widgets
+- Eficiencia en la gestión de estado
+- Optimización de solicitudes de red
+- Optimización de imágenes y assets
+- Configuraciones de modo de construcción
+Ejemplo de optimización:
+```dart
+class OptimizedListView extends StatelessWidget {
+  const OptimizedListView({Key? key, required this.items}) : super(key: key);
+
+  final List<Item> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: items.length,
+      cacheExtent: 100,
+      itemBuilder: (context, index) {
+        return RepaintBoundary(
+          child: ItemWidget(
+            key: ValueKey(items[index].id),
+            item: items[index],
+          ),
+        );
+      },
+    );
+  }
+}
+```
+
+**¿Cómo implementas una estrategia de localización escalable?**
+Considerar:
+- Gestión automatizada de traducciones
+- Cambio dinámico de idiomas
+- Mecanismos de respaldo
+- Adaptaciones culturales
+- Soporte RTL
+Ejemplo de implementación:
+```dart
+class LocalizationService {
+  static final LocalizationService _instance = LocalizationService._internal();
+  factory LocalizationService() => _instance;
+
+  late final StreamController<Locale> _localeController;
+
+  Future<void> switchLocale(Locale locale) async {
+    await loadTranslations(locale);
+    _localeController.add(locale);
+  }
+
+  String translate(String key, {Map<String, dynamic>? args}) {
+    // Implementación
+  }
+}
+```
+
+**¿Cómo gestionas el estado en aplicaciones Flutter complejas?**
+Gestión avanzada de estado:
+- Gestión jerárquica de estado
+- Estrategias de persistencia de estado
+- Restauración de estado
+- Compartición de estado entre módulos
+- Sincronización de estado
+Ejemplo:
+```dart
+abstract class BaseState<T> {
+  final StateStatus status;
+  final String? error;
+  final T? data;
+
+  const BaseState({
+    required this.status,
+    this.error,
+    this.data,
+  });
+
+  BaseState<T> copyWith({
+    StateStatus? status,
+    String? error,
+    T? data,
+  });
+}
+```
