@@ -1,34 +1,53 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
-// https://astro.build/config
-export default defineConfig({
+const port = 4300;
+const localHostUrl = `http://localhost:${port}`;
+const liveUrl = 'https://signlanguagetech.com';
+const isProd = import.meta.env.PROD;
 
-	// Added Configuration for
-	// Deployment to GitHub Pages
-	site: 'https://signlanguagetech.com',
-	base: '/crack-interview',
+export default defineConfig({
+	server: {
+    port
+  },
+  site: isProd ? liveUrl : localHostUrl,
+	base: isProd ? '/crack-interview': '/',
 	integrations: [
 		starlight({
-
-			// Add plugins
 			plugins: [],
-			title: '30Days Template',
+			title: 'Crack Interview',
 			social: {
 				github: 'https://github.com/signlanguagetech/crack-interview',
 			},
 			sidebar: [
 				{
-					label: 'Guides',
-					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', link: '/guides/example/' },
-					],
-				},
+          label: "Hello",
+          autogenerate: { directory: "hello/" },
+          collapsed: false
+        },
 				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
-				},
+          label: "Skills",
+          autogenerate: { directory: "skills/" },
+          collapsed: false
+        },
+				// {
+				// 	label: 'Hello',
+				// 	items: [
+				// 		// Each item here is one entry in the navigation menu.
+				// 		{ label: 'Hope', link: '/hello/example' },
+				// 	],
+				// },
+				// {
+				// 	label: 'Guides',
+				// 	items: [
+				// 		// Each item here is one entry in the navigation menu.
+				// 		{ label: 'Example Guide', link: '/guides/example/' },
+				// 	],
+				// },
+				// {
+				// 	label: 'Reference',
+				// 	autogenerate: { directory: 'reference' },
+				// },
 			],
 		}),
 	],
