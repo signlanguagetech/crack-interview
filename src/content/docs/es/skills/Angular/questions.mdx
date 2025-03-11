@@ -1,166 +1,164 @@
 ---
-title: Angular Entrevista preguntas y redspuestas
-description: Balbla
-sidebar:
-  order: 1
+title: Angular Entrevista preguntas y respuestas
+description: Angular es una plataforma y marco para construir aplicaciones de cliente de una sola página utilizando HTML y TypeScript.
 ---
 
-## Crucial Topics
+# Preguntas
 
-### What is the difference between component and directive?
+## What is the difference between component and directive?
 Components are a type of directive with a template. Directives are used to add behavior to an existing DOM element.
 
-### What are types of directives?
+## What are types of directives?
 There are three types of directives in Angular:
 1. Component Directives
 2. Structural Directives
 3. Attribute Directives
 
-### What are pipes?
+## What are pipes?
 Pipes are used to transform data in templates. They take in data as input and transform it to a desired output.
 
-### One way vs two way bindings
+## One way vs two way bindings
 One-way binding binds data from the component to the view or vice versa. Two-way binding allows data to flow in both directions.
 
-### What are component lifecycle
+## What are component lifecycle
 The component lifecycle includes the stages a component goes through from creation to destruction.
 
-### What are lifecycle hooks?
+## What are lifecycle hooks?
 Lifecycle hooks are methods that Angular calls at different stages of a component's lifecycle.
 
-### What types of forms presented in Angular?
+## What types of forms presented in Angular?
 Angular provides two types of forms: Template-driven forms and Reactive forms.
 
-### What is the difference between Reactive and Template driven forms?
+## What is the difference between Reactive and Template driven forms?
 Template-driven forms are easy to use but less scalable, while Reactive forms are more powerful and scalable.
 
-### What is Control Value Accessor?
+## What is Control Value Accessor?
 Control Value Accessor is an interface that acts as a bridge between Angular forms API and the native element.
 
-### Input and Output decorators
+## Input and Output decorators
 Input decorator is used to pass data from parent to child component. Output decorator is used to pass data from child to parent component.
 
-### How Angular understands what dependency to use?
+## How Angular understands what dependency to use?
 Angular uses Dependency Injection (DI) to determine and provide the required dependencies.
 
-### Elements Tree vs Module Tree?
+## Elements Tree vs Module Tree?
 Elements Tree represents the DOM structure, while Module Tree represents the Angular module structure.
 
-### What is the difference between ViewChild/children and ContentChild/children
+## What is the difference between ViewChild/children and ContentChild/children
 ViewChild/children queries the view DOM, while ContentChild/children queries the projected content DOM.
 
-### View Tree in Angular?
+## View Tree in Angular?
 The View Tree represents the hierarchy of views in an Angular application.
 
-### CD Strategies?
+## CD Strategies?
 Change Detection (CD) strategies determine how and when Angular checks for changes in the component.
 
-### How to create custom strategy?
+## How to create custom strategy?
 Custom strategies can be created by implementing the `ChangeDetectionStrategy` interface.
 
-### How to trigger cd manually?
+## How to trigger cd manually?
 Change detection can be triggered manually using `ChangeDetectorRef`.
 
-### Difference between markForCheck, detectChanges, tick?
+## Difference between markForCheck, detectChanges, tick?
 `markForCheck` marks the component for checking, `detectChanges` triggers change detection, and `tick` runs change detection for the entire application.
 
-### Detach vs Reattach?
+## Detach vs Reattach?
 `detach` stops change detection for a component, while `reattach` resumes it.
 
-### What actions triggers change detection?
+## What actions triggers change detection?
 Change detection can be triggered by events, HTTP requests, timers, and user interactions.
 
-### What events are triggering CD with OnPush strategy?
+## What events are triggering CD with OnPush strategy?
 With OnPush strategy, change detection is triggered by input property changes and events.
 
-### What is the difference between Observable and Promise?
+## What is the difference between Observable and Promise?
 Observables are lazy and can handle multiple values over time, while Promises are eager and handle a single value.
 
-### Different types of Subjects?
+## Different types of Subjects?
 There are four types of Subjects: Subject, BehaviorSubject, ReplaySubject, and AsyncSubject.
 
-### Difference between Observable and Subject?
+## Difference between Observable and Subject?
 Observables are unicast, while Subjects are multicast.
 
-### BehaviorSubject vs AsyncSubject vs ReplaySubject vs Subject?
+## BehaviorSubject vs AsyncSubject vs ReplaySubject vs Subject?
 - `Subject`: No initial value, emits to current subscribers.
 - `BehaviorSubject`: Requires an initial value, emits the latest value to new subscribers.
 - `ReplaySubject`: Emits specified number of last values to new subscribers.
 - `AsyncSubject`: Emits the last value to subscribers upon completion.
 
-### What are hot, cold and warm streams?
+## What are hot, cold and warm streams?
 - `Hot streams`: Emit values regardless of subscribers.
 - `Cold streams`: Emit values only when subscribed.
 - `Warm streams`: Emit values to current subscribers and cache the latest value for new subscribers.
 
-### How to unsubscribe?
+## How to unsubscribe?
 Unsubscribe by calling the `unsubscribe` method on the subscription.
 
-### Different unsubscribe approaches, should know pros and cons of each.
+## Different unsubscribe approaches, should know pros and cons of each.
 - Manual unsubscribe
 - `takeUntil` operator
 - `AsyncPipe`
 - `Subscription` management
 
-### What are http interceptors?
+## What are http interceptors?
 HTTP interceptors are used to intercept and modify HTTP requests and responses.
 
-### What is the purpose of routing in SPA?
+## What is the purpose of routing in SPA?
 Routing in SPA allows navigation between different views without reloading the page.
 
-### How SPA navigation different from MPA navigation?
+## How SPA navigation different from MPA navigation?
 SPA navigation updates the view without reloading the page, while MPA navigation reloads the entire page.
 
-### How to create a route?
+## How to create a route?
 Define routes in the `RouterModule` and use the `RouterLink` directive for navigation.
 
-### What is the purpose of ‘pathMatch: full’ property?
+## What is the purpose of ‘pathMatch: full’ property?
 `pathMatch: full` ensures that the entire URL path matches the route.
 
-### How to pass data through router?
+## How to pass data through router?
 Pass data using route parameters, query parameters, or state.
 
-### Name all guards?
+## Name all guards?
 - `CanActivate`
 - `CanActivateChild`
 - `CanDeactivate`
 - `Resolve`
 - `CanLoad`
 
-### What are the purpose of each guard?
+## What are the purpose of each guard?
 - `CanActivate`: Checks if a route can be activated.
 - `CanActivateChild`: Checks if child routes can be activated.
 - `CanDeactivate`: Checks if a route can be deactivated.
 - `Resolve`: Pre-fetches data before activating a route.
 - `CanLoad`: Checks if a module can be loaded.
 
-### What is Lazy loading?
+## What is Lazy loading?
 Lazy loading loads modules only when they are needed.
 
-### How to implement lazy loading?
+## How to implement lazy loading?
 Use the `loadChildren` property in the route configuration.
 
-### What are chunks?
+## What are chunks?
 Chunks are smaller bundles of code that are loaded on demand.
 
-### Optimization techniques within Angular?
+## Optimization techniques within Angular?
 - Lazy loading
 - Ahead-of-Time (AOT) compilation
 - Tree shaking
 - Code splitting
 
-### What is trackBy?
+## What is trackBy?
 `trackBy` is used to improve performance by tracking items in a list by a unique identifier.
 
 ## Frequently Asked Questions
 
-### How to create a custom directive?
+## How to create a custom directive?
 Create a custom directive by implementing the `Directive` decorator and defining the directive's behavior.
 
-### What is the difference between pure and impure pipes?
+## What is the difference between pure and impure pipes?
 Pure pipes are stateless and only depend on input arguments. Impure pipes can have side effects and depend on external state.
 
-### What are the subsequence of lifecycle hooks?
+## What are the subsequence of lifecycle hooks?
 - `ngOnChanges`
 - `ngOnInit`
 - `ngDoCheck`
@@ -170,7 +168,7 @@ Pure pipes are stateless and only depend on input arguments. Impure pipes can ha
 - `ngAfterViewChecked`
 - `ngOnDestroy`
 
-### What is each hook are commonly used for?
+## What is each hook are commonly used for?
 - `ngOnChanges`: Respond to input changes.
 - `ngOnInit`: Initialize the component.
 - `ngDoCheck`: Detect and act upon changes.
@@ -180,36 +178,36 @@ Pure pipes are stateless and only depend on input arguments. Impure pipes can ha
 - `ngAfterViewChecked`: Respond after view checked.
 - `ngOnDestroy`: Cleanup before component destruction.
 
-### How to validate each type of forms?
+## How to validate each type of forms?
 Use built-in validators or custom validators for template-driven and reactive forms.
 
-### How to implement CVA?
+## How to implement CVA?
 Implement the `ControlValueAccessor` interface and define the required methods.
 
-### What is View Encapsulation?
+## What is View Encapsulation?
 View Encapsulation defines how styles are scoped to components.
 
-### How Angular encapsulates styles?
+## How Angular encapsulates styles?
 Angular encapsulates styles using Shadow DOM, Emulated, or None strategies.
 
-### How to apply styles to component selector?
+## How to apply styles to component selector?
 Use the `:host` selector to apply styles to the component's host element.
 
-### ng-template, ng-container, ng-content. Describe each What is the difference?
+## ng-template, ng-container, ng-content. Describe each What is the difference?
 - `ng-template`: Defines a template that can be used elsewhere.
 - `ng-container`: Groups elements without adding extra DOM elements.
 - `ng-content`: Projects content from parent to child component.
 
-### Where to use?
+## Where to use?
 Use `ng-template` for reusable templates, `ng-container` for grouping elements, and `ng-content` for content projection.
 
-### What is injector?
+## What is injector?
 Injector is a service locator that provides dependencies.
 
-### What is provider?
+## What is provider?
 Provider is a configuration that tells the injector how to create a dependency.
 
-### DI Decorators?
+## DI Decorators?
 - `@Injectable`
 - `@Inject`
 - `@Optional`
@@ -217,103 +215,103 @@ Provider is a configuration that tells the injector how to create a dependency.
 - `@SkipSelf`
 - `@Host`
 
-### Different approaches of providing?
+## Different approaches of providing?
 - `useClass`
 - `useExisting`
 - `useValue`
 - `useFactory`
 
-### useClass, useExisting, useValue, useFactory Injection Tokens?
+## useClass, useExisting, useValue, useFactory Injection Tokens?
 - `useClass`: Provide a class.
 - `useExisting`: Alias an existing provider.
 - `useValue`: Provide a static value.
 - `useFactory`: Provide a value using a factory function.
 
-### Eagerly loaded modules?
+## Eagerly loaded modules?
 Modules that are loaded at the start of the application.
 
-### What are the use cases for interceptors?
+## What are the use cases for interceptors?
 - Logging
 - Authentication
 - Error handling
 - Modifying requests and responses
 
-### * (asterisk) routes?
+## * (asterisk) routes?
 Wildcard routes that match any URL.
 
-### Navigation between routes?
+## Navigation between routes?
 Use `RouterLink` directive or `Router` service to navigate between routes.
 
-### ActivatedRoute?
+## ActivatedRoute?
 ActivatedRoute provides access to information about a route associated with a component.
 
-### What is urlTree in Angular?
+## What is urlTree in Angular?
 UrlTree is a data structure that represents the parsed URL.
 
-### How to implement each guard?
+## How to implement each guard?
 Implement the guard interfaces and define the required methods.
 
-### Preloading strategy?
+## Preloading strategy?
 Preloading strategy loads modules in the background after the application is loaded.
 
-### Using pipes instead of methods in templates?
+## Using pipes instead of methods in templates?
 Use pipes for data transformation in templates to improve performance.
 
 ## Good to Know Areas
 
-### What is Angular?
+## What is Angular?
 Angular is a platform and framework for building single-page client applications using HTML and TypeScript.
 
-### How to create custom structural directive?
+## How to create custom structural directive?
 Create a custom structural directive by implementing the `Directive` decorator and manipulating the DOM.
 
-### How to create one? What Angular default pipes are impure by default, why?
+## How to create one? What Angular default pipes are impure by default, why?
 Create a custom pipe by implementing the `Pipe` decorator and defining the `transform` method. Default impure pipes include `AsyncPipe` because they depend on external state.
 
-### constructor vs NgOnInit?
+## constructor vs NgOnInit?
 Constructor is used for dependency injection, while `ngOnInit` is used for component initialization.
 
-### What lifecycle hook are called more than once?
+## What lifecycle hook are called more than once?
 `ngDoCheck`, `ngAfterContentChecked`, and `ngAfterViewChecked` can be called multiple times.
 
-### Differences between forms validation?
+## Differences between forms validation?
 Template-driven forms use directives for validation, while reactive forms use explicit validation logic.
 
-### Different types of Encapsulation?
+## Different types of Encapsulation?
 - `Emulated`
 - `Native`
 - `None`
 
-### ng-deep vs .host-context vs .host
+## ng-deep vs .host-context vs .host
 - `ng-deep`: Apply styles to child components.
 - `.host-context`: Apply styles based on a condition.
 - `.host`: Apply styles to the host element.
 
-### What is ngTemplateOutlet?
+## What is ngTemplateOutlet?
 `ngTemplateOutlet` is a directive that inserts an embedded view from a prepared `TemplateRef`.
 
-### implicit in ngTemplateOutlet
+## implicit in ngTemplateOutlet
 `implicit` is a context variable that allows passing data to the template.
 
-### DI pattern?
+## DI pattern?
 Dependency Injection (DI) pattern is a design pattern that implements inversion of control for resolving dependencies.
 
-### providers vs viewProviders?
+## providers vs viewProviders?
 - `providers`: Provide services to the component and its children.
 - `viewProviders`: Provide services to the component and its view children.
 
-### How to create router link?
+## How to create router link?
 Use the `RouterLink` directive to create a router link.
 
-### How to refresh page within the same route programmatically?
+## How to refresh page within the same route programmatically?
 Use the `Router` service to navigate to the same route.
 
-### provideIn: Platform?
+## provideIn: Platform?
 `provideIn: 'platform'` makes the service available in the platform injector.
 
-### How to identify what pages are should be lazy loaded?
+## How to identify what pages are should be lazy loaded?
 Identify pages that are not frequently accessed and load them lazily.
 
-### JIT vs AOT what are the difference?
+## JIT vs AOT what are the difference?
 - `JIT (Just-in-Time)`: Compiles the application in the browser at runtime.
 - `AOT (Ahead-of-Time)`: Compiles the application during the build process.
