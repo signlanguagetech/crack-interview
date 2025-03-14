@@ -3,7 +3,7 @@ import starlight from "@astrojs/starlight";
 
 const port = 4300;
 const localHostUrl = `http://localhost:${port}`;
-const liveUrl = "https://signlanguagetech.com";
+const liveUrl = " https://signlanguagetech.github.io";
 const isProd = import.meta.env.PROD;
 
 export default defineConfig({
