@@ -1,73 +1,38 @@
-# Starlight Starter Kit: Basics
+# Crack Interview
 
-[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
+A comprehensive resource collection and practice platform to help you prepare for technical interviews.
 
-```
-pnpm create astro@latest -- --template starlight
-```
+## Overview
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/starlight/tree/main/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/starlight/tree/main/examples/basics)
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/withastro/starlight&create_from_path=examples/basics)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fwithastro%2Fstarlight%2Ftree%2Fmain%2Fexamples%2Fbasics&project-name=my-starlight-docs&repository-name=my-starlight-docs)
+This repository contains curated resources, practice problems, and strategies to help you succeed in technical interviews across various domains including algorithms, data structures, system design, and behavioral questions.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Contents
 
-## 🚀 Project Structure
+- **Algorithms**: Common algorithmic challenges and their solutions
+- **Data Structures**: Implementation and usage of essential data structures
+- **System Design**: Approaches to solving system design problems
+- **Behavioral Questions**: Preparation for non-technical interview components
+- **Mock Interviews**: Practice scenarios and feedback templates
 
-Inside of your Astro + Starlight project, you'll see the following folders and files:
+## Getting Started
 
-```
-.
-├── public/
-├── src/
-│   ├── assets/
-│   ├── content/
-│   │   ├── docs/
-│   └── content.config.ts
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
+```bash
+git clone git@github.com:signlanguagetech/crack-interview.git
+cd crack-interview
 ```
 
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
+## How to Use
 
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
-
-Static assets, like favicons, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
-
-
+1. Browse the different sections based on your interview preparation needs
+2. Solve practice problems in your preferred programming language
+3. Review the provided solutions after attempting problems
+4. Track your progress using the provided templates
 ## Thanking all Awesome Contributors :heart:
 
 [![Contributors](https://contrib.rocks/image?repo=signlanguagetech/crack-interview)](https://github.com/signlanguagetech/crack-interview/graphs/contributors)
 
 Contributions of any kind are welcome!
 
-## License
+## Contributing
 
-[Apache 2.0](LICENSE)
-
-## Features and bugs
-
-Please file feature requests and bugs at the [issue tracker][tracker].
-
-[tracker]: https://github.com/signlanguagetech/crack-interview
-
----------------------------------
+Contributions are welcome! Please feel free to submit a Pull Request.
