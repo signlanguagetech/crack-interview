@@ -14,8 +14,8 @@ export default defineConfig({
     starlight({
       plugins: [],
       title: {
-        "en": "Crack Interview",
-        "es": "Crack Interview en Español",
+        "en": "Sign Tech Interview",
+        "es": "Sign Tech Interview en Español",
       },
       social: {
         github: "https://github.com/signlanguagetech/crack-interview",
@@ -36,25 +36,7 @@ export default defineConfig({
           label: "Skills",
           autogenerate: { directory: "skills/" },
           collapsed: false,
-        },
-        // {
-        // 	label: 'Hello',
-        // 	items: [
-        // 		// Each item here is one entry in the navigation menu.
-        // 		{ label: 'Hope', link: '/hello/example' },
-        // 	],
-        // },
-        // {
-        // 	label: 'Guides',
-        // 	items: [
-        // 		// Each item here is one entry in the navigation menu.
-        // 		{ label: 'Example Guide', link: '/guides/example/' },
-        // 	],
-        // },
-        // {
-        // 	label: 'Reference',
-        // 	autogenerate: { directory: 'reference' },
-        // },
+        }
       ],
     }),
   ],
