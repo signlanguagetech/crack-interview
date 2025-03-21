@@ -1,0 +1,15 @@
+@media (min-width: 1280px) {
+  .main-pane {
+    width: 130% !important;
+  }
+  .content-panel {
+    max-width: 72% !important;
+    margin-left: 10.75rem !important;
+  }
+  html body .starlight-container .main-pane,
+  html body .sl-container .main-pane,
+  .main-pane {
+    --sl-content-width: 75ch !important;
+    max-width: calc(100% - 200px) !important;
+  }
+}
