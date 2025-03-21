@@ -23,6 +23,8 @@ export default defineConfig({
       },
       social: {
         github: "https://github.com/signlanguagetech/crack-interview",
+        youtube: "https://www.youtube.com/@SignLanguageTech",
+        linkedin: "https://www.linkedin.com/company/sign-language-tech"
       },
       defaultLocale: 'root',
       locales: {
