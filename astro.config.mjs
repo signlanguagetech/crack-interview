@@ -18,6 +18,9 @@ export default defineConfig({
         "es": "Sign Tech Interview en Español",
       },
       lastUpdated: true,
+      editLink: {
+        baseUrl: 'https://github.com/signlanguagetech/crack-interview/edit/main/',
+      },
       social: {
         github: "https://github.com/signlanguagetech/crack-interview",
       },
