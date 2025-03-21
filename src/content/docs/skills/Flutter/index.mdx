@@ -1,0 +1,1823 @@
+---
+author: ["Andrés García"]
+date: "2025-03-21"
+title: Flutter Interview Questions and Answers
+description: Flutter Interview Questions and Answers for different levels of experience.
+---
+
+- [Terms technical TLDR](#terms-technical-tldr)
+  - [1. Fundamentals of Flutter \& Dart](#1-fundamentals-of-flutter--dart)
+  - [2. State Management](#2-state-management)
+  - [3. Design and Problem Solving in Flutter/Dart](#3-design-and-problem-solving-in-flutterdart)
+  - [4. Testing in Flutter](#4-testing-in-flutter)
+  - [5. Optimization and Performance](#5-optimization-and-performance)
+  - [6. Security](#6-security)
+  - [7. Cloud, Backend and CI/CD](#7-cloud-backend-and-cicd)
+  - [8. Development Tools and Version Control](#8-development-tools-and-version-control)
+  - [9. Database and Local Storage](#9-database-and-local-storage)
+  - [10. Navigation and Routing](#10-navigation-and-routing)
+  - [11. Other Topics](#11-other-topics)
+  - [12. Integration with Platforms and Native Code](#12-integration-with-platforms-and-native-code)
+  - [13. Error Handling and Logging](#13-error-handling-and-logging)
+  - [14. Additional Topics and Leadership](#14-additional-topics-and-leadership)
+- [Categories of Questions](#categories-of-questions)
+- [Questions](#questions)
+  - [Flutter Questions](#flutter-questions)
+  - [Dart Questions](#dart-questions)
+  - [API Questions](#api-questions)
+  - [SharedPreferences](#sharedpreferences)
+  - [Google Maps API](#google-maps-api)
+  - [Payment Gateway in Flutter](#payment-gateway-in-flutter)
+  - [GetX Questions](#getx-questions)
+  - [Firebase Questions](#firebase-questions)
+  - [Git Questions](#git-questions)
+  - [General App Development Questions](#general-app-development-questions)
+  - [Project-Specific Flutter Questions](#project-specific-flutter-questions)
+  - [Technical Leadership and Senior Developer Questions](#technical-leadership-and-senior-developer-questions)
+  - [OMDB Movie App Specific Questions](#omdb-movie-app-specific-questions)
+
+## Terms technical TLDR
+
+### 1. Fundamentals of Flutter & Dart
+
+- **Flutter/Dart:**
+  - Evolution of versions (from 1.0 to 3.0+)
+  - Null Safety
+  - Async/Await, Streams and Futures
+  - Isolates (for concurrency)
+
+- **Widgets and Lifecycle:**
+  - StatefulWidget / StatelessWidget
+  - Widget Lifecycle (includes key methods: initState, setState, dispose, etc.)
+  - Custom Widgets (creation of custom widgets)
+  - BuildContext
+
+- **Base Applications:**
+  - MaterialApp and CupertinoApp
+  - Scaffold
+  - Hot Reload and Hot Restart
+
+### 2. State Management
+
+- **Basic Concepts:**
+  - InheritedWidget
+  - Provider
+  - ChangeNotifier and ValueNotifier
+
+- **Modern Approaches:**
+  - Riverpod
+  - Bloc / Cubit
+  - GetX
+
+- **Other Aspects:**
+  - State Persistence (state persistence)
+  - Memory Management in state handling
+
+### 3. Design and Problem Solving in Flutter/Dart
+
+- **Structures and Principles:**
+  - Clean Architecture (separation in Domain, Data and Presentation)
+  - SOLID Principles
+  - Repository Pattern
+  - Dependency Injection
+
+- **Models and Approaches:**
+  - MVC / MVVM
+  - Feature-first / Layer-first
+  - Domain-Driven Design (DDD)
+
+- **Good Practices:**
+  - Modular Design and Scalable Code
+  - Code Organization, Project Architecture and Design Patterns
+
+### 4. Testing in Flutter
+
+- **Types of Tests:**
+  - Unit Tests
+  - WidgetsTest
+  - Integration Testing
+  - Golden Tests
+
+- **Estrategies and Tools:**
+  - Test-Driven Development (TDD)
+  - Behavior Driven Development (BDD)
+  - Test Coverage
+
+- **Mocking and Simulation:**
+  - Mockito
+  - Mocktail
+
+### 5. Optimization and Performance
+
+- **Management and Optimization:**
+  - Memory Management
+  - Optimization of the Widget Tree (minimization of rebuilds)
+  - Use of setState and lifecycle (initState/dispose)
+  - Lazy Loading (deferred loading)
+  - Image Caching and Image Optimization
+
+- **Tools and Modes:**
+  - Performance Profiling
+  - Debug vs. Release Modes
+
+### 6. Security
+
+- **Authentication and Secure Storage:**
+  - Biometric Authentication
+  - Secure Storage
+  - App Signing
+
+- **Data Protection and APIs:**
+  - API Security
+  - Certificate Pinning
+  - Data Encryption
+  - Obfuscation
+  - Platform Channels Security
+
+- **Special Cases:**
+  - Banking Integration, Transaction Management, User Authentication, Data Protection (Banking Integration, Transaction Management, User Authentication, Data Protection)
+
+### 7. Cloud, Backend and CI/CD
+
+- **Cloud Services:**
+  - Firebase:
+    - Authentication
+    - Cloud Firestore
+    - Realtime Database
+  - Google Cloud
+  - Azure DevOps
+
+- **APIs and Protocols:**
+  - REST API
+  - GraphQL
+  - gRPC
+  - WebSocket
+  - JWT and OAuth
+  - Platform Channels (for native integration)
+
+- **Integration and Automation:**
+  - CI/CD Tools: GitHub Actions, Bitrise, Codemagic, Azure DevOps Pipelines
+  - Automation of Tests and Release Management
+  - Code Quality
+
+### 8. Development Tools and Version Control
+
+- **DevTools and Automation:**
+  - Flutter DevTools
+
+- **Version Control and Collaboration:**
+  - Git (including Git Flow, Branch Strategy, Merge Management)
+  - Code Review and Documentation
+  - Collaborative Tools
+
+### 9. Database and Local Storage
+
+- **Local Storage Solutions:**
+  - SQLite
+  - Hive
+  - SharedPreferences
+
+- **NoSQL and Cloud Databases:**
+  - Firebase Realtime Database
+  - Cloud Firestore
+  - Isar
+  - ObjectBox
+
+### 10. Navigation and Routing
+
+- **Navigation Systems:**
+  - Navigator 2.0
+  - GoRouter
+
+- **Advanced Techniques:**
+  - Deep Linking
+  - Route Management
+  - URL Strategy and Path Parameters
+
+### 11. Other Topics
+
+- **UI/UX and Design:**
+  - Material Design
+  - Cupertino Design
+  - Responsive/Adaptive Design
+  - Custom Painters and Custom Widgets
+  - Animations (implicit and explicit)
+  - Accessibility
+  - Internationalization (i18n/l10n)
+
+### 12. Integration with Platforms and Native Code
+
+- **Platform Integration:**
+  - Platform Channels
+  - Method Channels
+  - Event Channels
+
+- **Multiplatform Development:**
+  - Integration with iOS (Swift/Objective-C) and Android (Kotlin/Java)
+  - Support for Web, Desktop and Mobile
+  - Integration of features native (access to camera, GPS, etc.)
+  - Creation of Plugins and Packages
+
+### 13. Error Handling and Logging
+
+- **Capturing and Managing Errors:**
+  - Exception Handling
+  - Error Boundaries
+  - Crash Reporting
+  - Logging
+
+- **Recovery Strategies:**
+  - Recovery Strategies
+  - User Feedback
+
+### 14. Additional Topics and Leadership
+
+- **Advanced Optimization:**
+  - State Restoration (state restoration)
+  - Custom Render Objects (for highly customized widgets)
+  - Code Splitting and Dependency Reduction
+
+- **Package Management:**
+  - Use of Pub.dev
+  - Creation and maintenance of packages
+
+- **Good Practices:**
+  - Continuos restructuring and refactoring of the project
+  - Technical documentation and clean code
+
+- **Leadership and Collaboration:**
+  - Technical decision making
+  - Team mentoring
+  - Code review and quality assurance
+  - Collaboration strategies and communication in the team
+
+## Categories of Questions
+
+1. **Basic Concepts of Flutter**
+   - Framework Fundamentals
+   - Development Environment
+   - Core Concepts
+
+2. **Widgets and UI of Flutter**
+   - Widgets Basics
+   - Widgets Design
+   - Widgets Navigation
+   - Custom Widgets
+
+3. **State Management**
+   - BLoC Pattern
+   - Provider
+   - GetX
+   - State Persistence
+   - Memory Management in state handling
+
+4. **Design and Problem Solving in Flutter/Dart**
+   - Clean Architecture
+   - SOLID Principles
+   - Repository Pattern
+   - Dependency Injection
+   - Feature-first / Layer-first
+   - Domain-Driven Design (DDD)
+
+5. **Navigation and Routing**
+   - Navigation Systems
+   - Advanced Techniques
+   - Deep Linking
+   - Route Management
+   - URL Strategy and Path Parameters
+
+6. **Database and Local Storage**
+   - Local Storage Solutions
+   - NoSQL and Cloud Databases
+   - Integration of features native (access to camera, GPS, etc.)
+   - Creation of Plugins and Packages
+
+7. **Testing in Flutter**
+   - Unit Tests
+   - WidgetsTest
+   - Integration Testing
+   - Golden Tests
+   - Test Coverage
+   - Mocking and Simulation
+   - Test-Driven Development (TDD)
+   - Behavior Driven Development (BDD)
+   - Performance Testing
+   - Error Handling and Logging
+
+8. **Optimization and Performance**
+   - Memory Management
+   - Optimization of the Widget Tree (minimization of rebuilds)
+   - Use of setState and lifecycle (initState/dispose)
+   - Lazy Loading (deferred loading)
+
+9. **Error Handling and Logging**
+   - Exception Handling
+   - Error Boundaries
+   - Crash Reporting
+   - Logging
+
+10. **Internationalization and Localization**
+    - Multi-language support
+    - RTL support
+    - Cultural adaptations
+    - Resource management
+
+11. **Technical Leadership**
+    - Architectural decisions
+    - Team management
+    - Code quality
+    - Technical debt
+
+12. **Project-Specific Implementation**
+    - OMDB Movie App Architecture
+    - Feature implementation
+    - Integration patterns
+    - Best practices
+
+13. **Dart Programming**
+    - Dart language features
+    - Asynchronous programming
+    - Object-oriented concepts
+    - Null safety
+
+14. **API Integration**
+    - RESTful APIs
+    - GraphQL
+    - WebSockets
+    - Authentication
+
+15. **Platform Integration**
+    - Platform Channels
+    - Native features
+    - Third-party services
+    - Platform-specific considerations
+
+16. **Security**
+    - Authentication and Secure Storage
+    - Data Protection and APIs
+    - Special Cases
+
+
+15. **Other Topics**
+    - UI/UX and Design
+    - Integration with Platforms and Native Code
+    - Error Handling and Logging
+
+## Questions
+
+### Flutter Questions
+
+**What is Flutter and what are its main advantages?**
+Flutter is a UI toolkit created by Google. It helps developers in cross-platform application development, allowing them to create Android, iOS, web, and desktop apps with a single codebase.
+
+**What development environment is required to create Flutter applications?**
+To create Flutter applications, you need to install the Dart SDK and Flutter SDK. Additionally, you should install the Flutter plugin in Android Studio, VS Code, or IntelliJ IDEA.
+
+**What are the main components of Flutter?**
+
+- **Widget:** The basic building block in Flutter. Everything, from UI elements to layout and containers, is a widget.
+- **StatefulWidget and StatelessWidget:** StatefulWidget is a widget that can change its state, while StatelessWidget is a widget that never changes.
+- **BuildContext:** Indicates a widget's position and provides information like theme, screen size, etc., within a widget.
+
+**Difference between StatefulWidget and StatelessWidget?**
+
+- **StatefulWidget:** Can change its state, e.g., a button that changes when clicked.
+- **StatelessWidget:** Does not change and only renders once.
+
+**What are Future and Stream, and how are they used?**
+
+- **Future:** Used for asynchronous operations that provide a result once.
+- **Stream:** Represents an asynchronous data flow that can provide multiple values over time.
+
+**How do async and await work in Dart?**
+The `async` keyword makes a function asynchronous, and by using the `await` keyword, you can wait for a Future to return a result.
+
+**How is navigation and routing managed in Flutter?**
+
+- **Navigator:** Used for navigating between pages.
+- **MaterialPageRoute, CupertinoPageRoute:** Classes used for route creation.
+
+**What are the data storage options in Flutter?**
+
+- **SharedPreferences:** Used for small local data storage.
+- **SQLite:** For managing local databases.
+- **Hive:** A NoSQL database for fast and easy data storage.
+
+**How to change themes in Flutter?**
+Use **ThemeData** to change themes, and access the theme through **Theme.of(context)**.
+
+**Difference between Provider and GetX state management?**
+
+- **Provider:** A general state management method that helps in passing data.
+- **GetX:** A modern state management method that easily manages state changes, routing, and dependency injection.
+
+**What are the techniques for performance optimization in Flutter?**
+Use `const` keyword to reduce unnecessary rendering, proper **Key** for list optimization, and compress images and media files.
+
+**What is InheritedWidget in Flutter, and how does it work?**
+InheritedWidget is a widget that can supply data to its child widgets, typically used for state management at a higher level, like themes or media configuration.
+
+**How does GestureDetector work in Flutter, and when should you use it?**
+GestureDetector widget detects various user interactions like tap, drag, and pinch. It's used to add responsive interactions in the UI.
+
+**Difference between FutureBuilder and StreamBuilder in Flutter?**
+
+- **FutureBuilder:** Used to handle the state of a single Future object and wait for a result.
+- **StreamBuilder:** Streams data from a Stream and updates the UI based on Stream changes.
+
+**How does ListView.builder work in Flutter?**
+ListView.builder creates a scrollable list view that supports lazy loading. It only creates the items that are visible on the screen, improving performance.
+
+**How to manage asynchronous operations and proper exception handling in Flutter?**
+Use the `try-catch` block to handle exceptions during asynchronous operations. With `await`, catch exceptions in the `catch` block.
+
+**What is CustomPainter in Flutter, and how do you use it?**
+CustomPainter is a widget for custom drawing. It uses the Canvas and Paint classes to perform drawing tasks.
+
+**How to create a dynamic AppBar in Flutter?**
+Use conditional rendering for AppBar to create a dynamic AppBar that displays differently based on state.
+
+**Different ways to change routes in Flutter?**
+
+- **Navigator.push** and **Navigator.pop** to change routes.
+- **Navigator.pushNamed** and **Navigator.popUntil** for named route management.
+- Using **GetX** for easy route changes.
+
+**How to implement form validation in Flutter?**
+Use **Form** widget and **TextFormField** with the `validator` function to validate input. This helps to check various conditions for user input validation.
+
+**How to implement user login feature in Flutter?**
+Use **TextEditingController** to take user input and then validate credentials through an API call. On successful login, navigate the user to the next screen.
+
+**What is Dart's null safety in Flutter, and how does it work?**
+Null safety is a feature that reduces errors caused by null references. It ensures variables hold only a specific type of value and not null.
+
+**How to manage state changes within a widget?**
+Use StatefulWidget and create a state class to manage state. Use **setState()** method to change the state.
+
+**Which data caching techniques are available in Flutter?**
+Use **SharedPreferences** for small data caching, **Hive** or **sqflite** for larger data caching in local storage, and network response caching using various packages.
+
+**Difference between InheritedModel and InheritedWidget?**
+InheritedModel is more advanced and used for scoped data distribution, where only changed data is passed to sub-widgets. InheritedWidget generally provides data to all sub-widgets.
+
+**What is Dart's Isolate, and when should you use it?**
+Isolates are separate threads that cannot share data directly with each other. They are used for long-running or concurrent tasks, such as large data processing or background tasks.
+
+**What methods are used for asynchronous data fetching in Flutter?**
+**FutureBuilder** and **StreamBuilder** are used to fetch asynchronous data and display it in the UI.
+
+**Which package is used for API calls in Flutter?**
+The **http** package is commonly used for API calls. Additionally, the **dio** package provides advanced features like custom configuration and interceptors.
+
+**Some strategies for application performance optimization in Flutter?**
+Use `const` keyword to reduce unnecessary rendering, **ListView.builder** or **GridView.builder** for lazy loading, and **Flutter DevTools** for performance monitoring.
+
+**Importance of using Key in Flutter?**
+Key helps in the correct rendering and position retention of widgets, improving performance during widget rendering and aiding state management.
+
+**How does Stream work in Flutter, and what is its benefit?**
+A Stream is a sequential data flow that provides multiple values over time. It is beneficial for real-time data updates, such as live data feeds or socket data.
+
+**How does an application work in the background in Flutter?**
+Use **Workmanager** package or **flutter_background** package to run tasks in the background. This helps an application perform tasks in the background using system resources.
+
+**How to perform Dependency Injection in Flutter?**
+Use **GetIt** or **Provider** package for dependency injection. It helps in easy access to various class instances throughout the app.
+
+**How to manage application preferences in Flutter?**
+Use **SharedPreferences** package to store user settings and other small data.
+
+**How to test applications in Flutter?**
+Flutter uses different testing frameworks and packages for unit testing, widget testing, and integration testing, such as **test**, **flutter_test**, and **integration_test**.
+
+**How does animation work in Flutter?**
+Use **AnimationController**, **Tween**, and **AnimatedBuilder** to create various animations like fade in/out, sliding, rotating, etc.
+
+**When should you use setState?**
+Use **setState** when you want to change the state of a StatefulWidget and update the UI.
+
+**What are the benefits of the const keyword?**
+Using the `const` keyword reduces widget rendering and improves performance since const widgets are constant and reusable.
+
+**What are Future and async?**
+Future represents a forthcoming value to be received in the future. **async** is used to make a function asynchronous.
+
+**Difference between Column and Row widget?**
+**Column** arranges widgets vertically, while **Row** arranges widgets horizontally.
+
+**How does Expanded widget work?**
+**Expanded** widget provides flexible space and helps the child widget fill the available space.
+
+**How does Navigator work?**
+The **Navigator** widget manages the route stack and helps navigate between different screens.
+
+**What is TextEditingController and how to use it?**
+TextEditingController controls the input of a text field and helps in accessing the text field’s value.
+
+**How to use BoxDecoration?**
+BoxDecoration customizes a widget’s background, border, shadow, etc.
+
+**How to use showDialog?**
+**showDialog** function displays a popup dialog and requires a **BuildContext** and **AlertDialog**.
+
+**What is MediaQuery and how to use it?**
+MediaQuery provides information about the screen's dimensions and device configuration and helps in customizing the UI based on screen size.
+
+**What is BuildContext?**
+BuildContext provides information related to a widget's position and helps access the widget's tree hierarchy.
+
+**Difference between ListView and GridView?**
+ListView displays a long list, whereas GridView provides a grid layout.
+
+**How to use IconButton?**
+IconButton uses an icon as a button and has an **onPressed** property to handle events when pressed.
+
+**How to use Container widget?**
+Container provides a customized container to add padding, margin, border, background, etc.
+
+**What is Scaffold, and what does it do?**
+Scaffold provides a basic UI layout that can contain an app bar, drawer,
+
+ floating action button, etc.
+
+**What are Stream and StreamController?**
+Stream represents a sequential data flow. StreamController is used to create and control data flow.
+
+**Difference between State and Widget?**
+Widget is a UI component displayed on the screen, and State is an internal state of a widget used to update the UI.
+
+**How does Padding widget work?**
+Padding widget provides space around another widget, helping maintain spacing between UI elements.
+
+**How does Future.delayed work?**
+Future.delayed provides a future value after a certain time. It’s used for delayed execution.
+
+**What is ListView.separated, and how to use it?**
+ListView.separated creates a list view with a separator widget between each item, used to add space or a divider between list items.
+
+**Difference between TextFormField and TextField?**
+TextFormField is used for form validation and input data management, while TextField is a general input widget for direct input.
+
+**Difference between Expanded and Flexible widget?**
+Expanded widget fills the available space with its child, while Flexible widget can fill some space with its child, and space can be shared using a flex factor.
+
+**What is ClipRect, and how to use it?**
+ClipRect widget clips its child within a fixed rectangular container.
+
+**How does Align widget work?**
+Align widget helps position a child widget, such as centering or aligning to the left or right.
+
+**What is SafeArea widget and how to use it?**
+SafeArea widget helps display content safely on the screen by keeping it away from the status bar and navigation bar.
+
+**How to use InkWell?**
+InkWell provides a tap effect that appears when a user interacts with it, such as pressing a button.
+
+**What information can be accessed using MediaQuery.of(context)?**
+MediaQuery.of(context) provides information about screen size, DPI, orientation, etc.
+
+**How does the builder parameter of StreamBuilder work?**
+The builder parameter provides an AsyncSnapshot and is used to update the UI based on the current state of the stream.
+
+**How does SingleChildScrollView work?**
+SingleChildScrollView creates a scrollable area with a single child, useful for displaying large content.
+
+**How does ListTile widget work?**
+ListTile widget is commonly used to create list items with leading, title, subtitle, and trailing items.
+
+**What is AsyncSnapshot, and how does it work?**
+AsyncSnapshot represents the state of asynchronous operations through FutureBuilder or StreamBuilder.
+
+**Difference between Padding and Margin?**
+Padding provides inner space within a widget, whereas Margin provides outer space around a widget.
+
+**What is Hero widget, and how to use it?**
+Hero widget creates an animated transition from one screen to another, usually for images or visual elements.
+
+**Difference between Hero and AnimatedSwitcher?**
+Hero widget creates a screen transition animation, while AnimatedSwitcher widget animates the change of a widget.
+
+**Difference between ListView.builder and ListView?**
+ListView.builder dynamically creates items and supports lazy loading, while ListView creates all items at once.
+
+**What is BoxConstraints, and how to use it?**
+BoxConstraints define size constraints, like minimum and maximum width and height for a widget.
+
+**How does Future.delayed work, and how to use it?**
+Future.delayed provides a future result after a specific time and is used for delayed operations or execution.
+
+**How does Drawer widget work?**
+Drawer widget displays a side menu that typically slides from the left of the app.
+
+**What is DefaultTabController and how to use it?**
+DefaultTabController is used to create a tabbed interface, managing the number of tabs and content.
+
+**What is the onChanged parameter of TextField?**
+The onChanged parameter provides a callback function triggered when text input changes.
+
+**What is AspectRatio widget, and how to use it?**
+AspectRatio widget sets an aspect ratio for a child, customizing the child's size.
+
+**How does PageView widget work?**
+PageView widget creates a scrolling page control, allowing the user to slide from one page to another.
+
+**What is GlobalKey in Flutter, and how to use it?**
+GlobalKey is a unique key that helps access the position and state of a widget, typically used for form validation or retrieving widget state.
+
+**What is WillPopScope widget in Flutter?**
+WillPopScope widget is used to intercept the back action (e.g., pressing the app's back button) and provides control over the process.
+
+**What are the different uses of Keys in Flutter?**
+Keys can be of different types, like GlobalKey, ValueKey, and ObjectKey, providing unique identifiers in the widget tree and tracking the position or state of a widget.
+
+---
+
+### Dart Questions
+
+**What is Dart, and what are its main features?**
+Dart is a scripting language developed by Google. It is designed for scalable application development with custom data types, automatic memory management, and modern programming concepts.
+
+**What is Stream in Dart, and how does it work?**
+Stream provides a sequence of values that arrive sequentially. It is used for handling sequences of data or events.
+
+**How do async and await work in Dart?**
+The `async` and `await` keywords simplify writing asynchronous code. `async` makes a function return a Future, and `await` waits for a Future’s result.
+
+**What is Null Safety in Dart?**
+Null Safety is a feature that prevents null pointer exceptions in Dart code, reducing the risk of null values in code and providing better type-checking.
+
+**What are class and object in Dart?**
+A class is a blueprint used to create objects, and an object is an instance of a class containing the class’s properties and methods.
+
+**What is mixin in Dart, and how is it used?**
+Mixins are classes used to add methods and properties to another class without inheritance, making them reusable.
+
+**What are generics in Dart, and what are their benefits?**
+Generics allow for type-safe code. They improve code reusability and type-checking.
+
+**Difference between const and final in Dart?**
+`const` is a compile-time constant determined by a constant expression, while `final` is assigned at runtime and cannot be changed once set.
+
+**What is extension in Dart, and how is it used?**
+An extension is a technique used to add new methods and properties to an existing class, extending a class to add new features.
+
+**What is the late keyword in Dart, and how is it used?**
+The late keyword is used to declare a variable that will be initialized later, ensuring the variable’s value will be set later.
+
+**What are the is and as operators in Dart?**
+`is` checks the type of an object, and `as` is used for type casting.
+
+**What is the factory keyword in Dart, and how is it used?**
+The `factory` keyword is a special constructor that returns an existing instance instead of creating a new one or provides an instance based on specific logic.
+
+**What is an abstract class in Dart, and how is it used?**
+An abstract class cannot be instantiated directly and may contain one or more abstract methods that need to be implemented by subclasses.
+
+**What is an enum in Dart, and how is it used?**
+An enum is a data type that represents a limited number of constant values, defining a specific range of values.
+
+**How does assert work in Dart?**
+Assert is a debugging tool that tests a specific condition in code. It only works in debug mode and is disabled in production builds.
+
+**How is typedef used in Dart?**
+Typedef creates an alias for a new type, especially for function types, improving code readability.
+
+**How do try-catch blocks work with async functions in Dart?**
+Using try-catch blocks with async functions, you can catch errors in asynchronous code, and the catch block handles the error.
+
+**What is the difference between null-aware operators in Dart?**
+Null-aware operators like `?.`, `??`, and `!` help handle null values, such as null-checking, providing default values, and null-safe operations.
+
+**What are the benefits of top-level functions and variables in Dart?**
+Top-level functions and variables are those that can be accessed directly outside of a class, making them globally accessible.
+
+**Difference in the use of the const keyword in Dart?**
+The `const` keyword serves two purposes: for runtime constants (e.g., constant variables) and compile-time constants (e.g., constant constructors).
+
+**How do mixins work in Dart?**
+Mixins are a class feature designed to be reused in other classes. Methods and properties of a mixin class can be inherited in a specific class, but the mixin class itself cannot be instantiated.
+
+**How are extensions used in different classes in Dart?**
+Extensions are used to add new methods and properties to other classes. They help add new features to an existing class and increase code reusability.
+
+**How does a late variable work in Dart?**
+The late keyword is used for a variable that will be initialized later, skipping null checks and ensuring the variable’s value is set later.
+
+**What is an Isolate in Dart, and how is it used?**
+Isolate is a separate thread that uses completely separate memory space. It provides Dart with multi-threading support, and each isolate works as a separate process.
+
+**Difference between Future and Stream in Dart?**
+Future represents a future event with a single value, while Stream represents multiple events with sequential values.
+
+**Provide examples of null-aware operators in Dart.**
+Example:
+
+```dart
+String? name;
+String greeting = 'Hello, ${name ?? 'Guest'}';
+```
+
+**How is @override used in Dart?**
+`@override` is an
+
+ annotation used to redefine a method in the parent class. It confirms that the method is an override of the parent class’s method.
+
+**What is await in Dart, and how is it used?**
+The `await` keyword waits for a Future to get its result. It is used inside an async function, and subsequent code does not execute until the asynchronous operation completes.
+
+**Difference between var and dynamic in Dart?**
+`var` uses type inference, where the Dart compiler determines the type. `dynamic` type allows a variable to hold any type, and type checking occurs at runtime.
+
+**How does the final keyword work in Dart?**
+The `final` keyword prevents a variable’s value from being changed once set. It is executed at runtime and initialized only once.
+
+**What are List and Map in Dart?**
+List is an ordered collection that can hold multiple values. Map is a key-value collection that associates specific keys with values.
+
+**What is Set in Dart, and how is it used?**
+Set is an unordered collection that holds multiple unique values, used to avoid duplicate items.
+
+**How does a constructor work in Dart?**
+A constructor is a special method called when creating an instance of a class. It initializes the properties of the class.
+
+**What is a default parameter in Dart, and how is it set?**
+A default parameter is a predefined parameter value in a function, used if no parameter is provided. Example:
+
+```dart
+void greet([String name = 'Guest']) {
+  print('Hello, $name');
+}
+```
+
+**How does try-catch block work in Dart?**
+The try-catch block is used for error handling in an application. The code inside the try block is tested for errors, and the catch block handles the error.
+
+**How does switch-case work in Dart?**
+Switch-case statement checks a value against multiple options. Example:
+
+```dart
+switch (day) {
+  case 'Monday':
+    print('Start of the week');
+    break;
+  case 'Friday':
+    print('End of the work week');
+    break;
+  default:
+    print('Weekend');
+}
+```
+
+**How does if-else statement work in Dart?**
+If-else statement executes code based on a condition. Example:
+
+```dart
+if (age >= 18) {
+  print('Adult');
+} else {
+  print('Minor');
+}
+```
+
+**How does for loop work in Dart?**
+For loop is used to execute a code block a specific number of times. Example:
+
+```dart
+for (int i = 0; i < 5; i++) {
+  print(i);
+}
+```
+
+**How does while loop work in Dart?**
+While loop executes a code block as long as a condition is true. Example:
+
+```dart
+int i = 0;
+while (i < 5) {
+  print(i);
+  i++;
+}
+```
+
+**How does do-while loop work in Dart?**
+Do-while loop executes the code block at least once and then checks the condition. Example:
+
+```dart
+int i = 0;
+do {
+  print(i);
+  i++;
+} while (i < 5);
+```
+
+**How to perform null checking in Dart?**
+You can perform null checking in Dart using methods like `if (variable != null)` or `variable?.method()`.
+
+**How to check type in Dart?**
+To check type in Dart, use the `is` operator. Example:
+
+```dart
+if (variable is String) {
+  print('Variable is a String');
+}
+```
+
+**How to create a List in Dart?**
+To create a List in Dart, use the following syntax:
+
+```dart
+List<int> numbers = [1, 2, 3, 4, 5];
+```
+
+**How to create a Map in Dart?**
+To create a Map in Dart, use the following syntax:
+
+```dart
+Map<String, int> ageMap = {'John': 25, 'Doe': 30};
+```
+
+**How to create a Set in Dart?**
+To create a Set in Dart, use the following syntax:
+
+```dart
+Set<String> names = {'Alice', 'Bob', 'Charlie'};
+```
+
+**How to assign a function to a variable in Dart?**
+In Dart, you can assign a function to a variable as follows:
+
+```dart
+void Function(String) greet = (name) {
+  print('Hello, $name');
+};
+```
+
+**What is import in Dart, and how is it used?**
+The `import` keyword is used to include code from another Dart file or package.
+Example:
+
+```dart
+import 'package:math_expressions/math_expressions.dart';
+```
+
+**How to define a class in Dart?**
+To define a class in Dart, use the following syntax:
+
+```dart
+class Person {
+  String name;
+  int age;
+
+  Person(this.name, this.age);
+
+  void greet() {
+    print('Hello, my name is $name');
+  }
+}
+```
+
+**What is this in Dart, and how is it used?**
+The `this` keyword refers to the current instance of the class and is used to access the properties or methods of the class.
+
+**What are getter and setter in Dart, and how to use them?**
+Getters and setters are used to access and change the value of a property. Example:
+
+```dart
+class Person {
+  String _name;
+
+  Person(this._name);
+
+  String get name => _name;
+  set name(String newName) => _name = newName;
+}
+```
+
+**What is cascade notation in Dart, and how to use it?**
+Cascade notation (`..`) allows multiple method calls or property sets on an object. Example:
+
+```dart
+var person = Person('Alice')
+  ..name = 'Bob'
+  ..greet();
+```
+
+**What is operator overloading in Dart, and how to do it?**
+Operator overloading customizes logic for an operator within a class. Example:
+
+```dart
+class Point {
+  final int x, y;
+
+  Point(this.x, this.y);
+
+  Point operator +(Point other) {
+    return Point(x + other.x, y + other.y);
+  }
+}
+```
+
+**What is static in Dart, and how is it used?**
+The `static` keyword creates a class-level property or method shared by all instances of the class. Example:
+
+```dart
+class MathUtil {
+  static int add(int a, int b) => a + b;
+}
+```
+
+**How to use dynamic type in Dart?**
+The `dynamic` type allows a variable to hold any type, and type checking happens at runtime. Example:
+
+```dart
+dynamic value = 42;
+value = 'Hello';
+```
+
+**How does inheritance work in Dart?**
+Inheritance allows a class to inherit properties and methods of another class. Example:
+
+```dart
+class Animal {
+  void eat() {
+    print('Eating');
+  }
+}
+
+class Dog extends Animal {
+  void bark() {
+    print('Barking');
+  }
+}
+```
+
+**How does polymorphism work in Dart?**
+Polymorphism allows the same method to have different implementations. Example:
+
+```dart
+class Animal {
+  void makeSound() {
+    print('Some sound');
+  }
+}
+
+class Dog extends Animal {
+  @override
+  void makeSound() {
+    print('Bark');
+  }
+}
+
+class Cat extends Animal {
+  @override
+  void makeSound() {
+    print('Meow');
+  }
+}
+
+void main() {
+  Animal a;
+  a = Dog();
+  a.makeSound(); // Bark
+  a = Cat();
+  a.makeSound(); // Meow
+}
+```
+
+**What is encapsulation in Dart, and how to use it?**
+Encapsulation hides a class’s internal data and methods, providing only the necessary interface using private and public access control. Example:
+
+```dart
+class Person {
+  String _name; // private field
+
+  Person(this._name);
+
+  String get name => _name; // getter
+  set name(String newName) => _name = newName; // setter
+}
+```
+
+**How does abstraction work in Dart?**
+Abstraction hides unnecessary details and provides only essential information, achieved using abstract classes and interfaces. Example:
+
+```dart
+abstract class Shape {
+  void draw(); // Abstract method
+}
+
+class Circle extends Shape {
+  @override
+  void draw() {
+    print('Drawing a circle');
+  }
+}
+```
+
+**How to use interface in Dart?**
+In Dart, an interface is implemented using classes. A Dart class can implement one or more interfaces. Example:
+
+```dart
+class Shape {
+  void draw();
+}
+
+class Circle implements Shape {
+  @override
+  void draw() {
+    print('Drawing a circle');
+  }
+}
+```
+
+**Difference between abstract class and interface in Dart?**
+An abstract class provides partial implementation and cannot be inherited by multiple classes, while an interface can be implemented by multiple classes and provides a complete implementation.
+
+---
+
+### API Questions
+
+**What is an API?**
+API (Application Programming Interface) is a software interface used for communication and data exchange between different applications or services.
+
+**What is a RESTful API?**
+A RESTful API is an API that follows the REST (Representational State Transfer) architectural style, using HTTP methods like GET, POST, PUT, DELETE.
+
+**Difference between HTTP methods?**
+
+- **GET:** Retrieves data.
+- **POST:** Creates new data.
+- **PUT:** Updates existing data.
+- **DELETE:** Deletes data.
+
+**What is HTTP Status Code and examples of some common status codes?**
+HTTP Status Code informs the client about the status from the server. Some examples:
+
+- **200 OK:** Request successful.
+- **404 Not
+
+ Found:** Resource not found.
+
+- **500 Internal Server Error:** Error occurred on the server.
+
+**Difference between JSON and XML?**
+JSON (JavaScript Object Notation) and XML (eXtensible Markup Language) are data exchange formats. JSON is generally compact and human-readable, whereas XML is more segmented and heavy.
+
+**What is an API Endpoint?**
+An API Endpoint is a specific URL used to send API requests where the server provides access to a specific resource.
+
+**What is API Rate Limiting and why is it necessary?**
+Rate Limiting is a process that limits how many times an API can be called within a certain time. It controls server load and prevents abnormal usage.
+
+**How to perform API Testing?**
+API Testing is typically done using tools like Postman, Insomnia, or custom scripts. You can send API requests, validate responses, and test different HTTP methods.
+
+**How to optimize API performance?**
+Optimize API performance by using caching, data compression, query optimization, and load balancing techniques.
+
+---
+
+### SharedPreferences
+
+**What is SharedPreferences?**
+SharedPreferences is a simple data storage tool in Android that stores data as key-value pairs. It’s usually used to store user settings or small data.
+
+**How to create SharedPreferences?**
+To create SharedPreferences, call `getSharedPreferences()` method from Context. Example:
+
+```java
+SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+```
+
+**How to store data in SharedPreferences?**
+Use SharedPreferences.Editor to store data. Example:
+
+```java
+SharedPreferences.Editor editor = sharedPreferences.edit();
+editor.putString("key", "value");
+editor.apply();  // or commit()
+```
+
+**How to read data from SharedPreferences?**
+Use `getString()`, `getInt()`, etc., methods to read data. Example:
+
+```java
+String value = sharedPreferences.getString("key", "default");
+```
+
+**How to delete data from SharedPreferences?**
+Use `remove()` method to delete a specific key. Example:
+
+```java
+SharedPreferences.Editor editor = sharedPreferences.edit();
+editor.remove("key");
+editor.apply();  // or commit()
+```
+
+**How to use clear() method in SharedPreferences?**
+The clear() method removes all data. Example:
+
+```java
+SharedPreferences.Editor editor = sharedPreferences.edit();
+editor.clear();
+editor.apply();  // or commit()
+```
+
+---
+
+### Google Maps API
+
+**What is Google Maps API?**
+Google Maps API is a web service that allows developers to integrate Google Maps features like map, route, marker, etc., into their own applications or websites.
+
+**How to sign up for Google Maps API?**
+To use Google Maps API, sign in to Google Cloud Console, create a project, and obtain API keys.
+
+---
+
+### Payment Gateway in Flutter
+
+**What is Payment Gateway in Flutter, and why is it used?**
+In Flutter, a Payment Gateway is a system that allows users to make payments within the application. It generally supports card payments, mobile wallets, and other digital payment methods.
+
+**Which packages can you use to integrate Payment Gateway in Flutter?**
+Some popular payment gateway packages are:
+
+- **stripe_payment** or **flutter_stripe** (Stripe)
+- **razorpay_flutter** (Razorpay)
+- **paystack_flutter** (Paystack)
+- **flutter_paypal** (PayPal)
+
+---
+
+### GetX Questions
+
+**What is GetX?**
+GetX is a Flutter package that provides simple and efficient state management, routing, and dependency injection. It offers high performance and is easy to use.
+
+**How does GetX state management work?**
+GetX uses a reactive state management approach, tracking state changes through GetX or Obx widgets and updating the UI accordingly.
+
+**Difference between GetX and Provider?**
+Both GetX and Provider can be used for state management, but GetX is more powerful and faster as it supports state management, routing, and dependency injection.
+
+**What is a controller in GetX, and how is it used?**
+A controller in GetX is a class that inherits from GetxController, containing state, logic, and functions linked with the UI. It is instantiated with **Get.put()** or **Get.lazyPut()**.
+
+**How does routing work in GetX?**
+Routing in GetX is done using **Get.to()** or **Get.off()**. It helps to easily navigate between pages and pass parameters.
+
+**How does dependency injection work in GetX?**
+Dependency injection in GetX is done using **Get.put()** or **Get.lazyPut()** to create instances of various classes, accessible throughout the app.
+
+**What is Obx widget in GetX, and how does it work?**
+Obx is a widget that tracks the reactive property in GetX and updates the UI when the property changes.
+
+**How to use Snackbar in GetX?**
+Use **Get.snackbar()** to easily create a Snackbar displayed on the page, providing a message to users.
+
+**What is the difference between state management and UI updates in GetX?**
+State management and UI updates in GetX differ as it not only tracks state changes but also brings about automatic changes in the UI.
+
+**What are the different methods of Dependency Injection in GetX?**
+Dependency Injection in GetX can be done using **Get.put()**, **Get.lazyPut()**, and **Get.create()**.
+
+---
+
+### Firebase Questions
+
+**What is Firebase?**
+Firebase is a platform by Google that provides various tools and services for building mobile and web applications, such as database, authentication, storage, hosting, and analytics.
+
+**How does Firebase Realtime Database work?**
+Firebase Realtime Database is a cloud-based NoSQL database that stores data as a tree and updates it in real-time across all connected clients.
+
+**How to use Firebase Firestore?**
+Firebase Firestore is a document-based database that offers querying, filtering, and pagination for data collections. Create a project in Firebase Console, add dependencies, and write code to read and write data.
+
+**What is Firebase Authentication, and how to use it?**
+Firebase Authentication provides a service for user sign-in and sign-up. It supports various authentication methods like email/password, social login (Google, Facebook), and phone number. Set up sign-in methods in Firebase Console and add authentication code in the application.
+
+**What is Firebase Hosting?**
+Firebase Hosting is a fast and secure web hosting service designed specifically for hosting static web pages and single-page applications. It serves content through a CDN and provides SSL certificates.
+
+---
+
+### Git Questions
+
+**What is Git?**
+Git is a distributed version control system that tracks the versions of source code and saves the history of code changes. It is primarily used for version control and collaborative work on code.
+
+**What is GitHub?**
+GitHub is a Git-based platform providing code hosting, collaboration, and project management. It is used for code sharing, version control, and collaboration through pull requests.
+
+**How to create a repository in Git?**
+Use the command:
+
+```bash
+git init
+```
+
+**How to create a new repository in GitHub?**
+
+1. Log in to GitHub.
+2. Click on the "New" button from the dashboard.
+3. Fill in the repository name, description, and other settings, and click "Create repository."
+
+**How to add files to a Git repository?**
+Use the command:
+
+```bash
+git add <file>
+```
+
+**What is Git commit, and how to do it?**
+A Git commit is a change set stored in the repository's history. To commit:
+
+```bash
+git commit -m "Your commit message"
+```
+
+**How to create a new branch in a GitHub repository?**
+Use the command:
+
+```bash
+git branch <branch-name>
+```
+
+**How to switch a branch in a Git repository?**
+Use the command:
+
+```bash
+git checkout <branch-name>
+```
+
+**How to create a pull request in a GitHub repository?**
+
+1. Log in to GitHub.
+2. Go to the repository's "Pull requests" tab.
+3. Click on "New pull request" and submit your changes as a pull request.
+
+**How to delete a file from a Git repository?**
+
+```bash
+git rm <file>
+git commit -m "Removed <file>"
+```
+
+**How does Git merge work?**
+Git merge combines changes from different branches. To merge:
+
+```bash
+git merge <branch-name>
+```
+
+---
+
+### General App Development Questions
+
+**What are the general steps followed in app development?**
+
+1. **Requirements Analysis:** Understanding the needs of the client or user.
+2. **Design:** Creating UI/UX design.
+3. **Development:** Starting with the coding.
+4. **Testing:** Testing for bugs and fixing them.
+5. **Deployment:** Releasing on the app store or other platforms.
+6. **Maintenance:** Regular updates and bug fixes.
+
+**What are the popular platforms for mobile app development?**
+Popular platforms include Android, iOS, and cross-platform toolkits like Flutter and React Native.
+
+**How is Version Control managed in application development?**
+Version control systems (like Git) track the history of code, help see differences between versions, and allow sharing of code changes within a team.
+
+**Explain the use of Container and SizedBox in an application.**
+
+- **Container:** A versatile widget used when you want to add styles or decorations (such as background color, border, shadow) to a widget. It also provides padding and margin.
+- **SizedBox:** Used to create a box of a fixed size, typically used to add a specific amount of space (width or height) between widgets.
+
+**What are HTTP and HTTPS?**
+HTTP (Hypertext Transfer Protocol) and
+
+ HTTPS (Hypertext Transfer Protocol Secure) are web communication protocols. They are used for data exchange between a web server and a client (like a browser). While HTTP is not secure, HTTPS provides a secure, encrypted connection.
+
+**What is JSON?**
+JSON (JavaScript Object Notation) is a lightweight data exchange format that is human-readable and machine-parsable. It is primarily used for data storage and transfer, using key-value pairs in its structure.
+
+Example:
+
+```json
+{
+  "name": "John Doe",
+  "age": 30,
+  "isStudent": false,
+  "hobbies": ["Reading", "Traveling", "Gaming"],
+  "address": {
+    "street": "123 Main St",
+    "city": "Anytown",
+    "zipcode": "12345"
+  }
+}
+```
+
+### Project-Specific Flutter Questions
+
+**What is BLoC pattern and how is it implemented in a Flutter movie app?**
+BLoC (Business Logic Component) pattern separates business logic from UI. In a movie app:
+- Events trigger state changes (like searching movies)
+- States represent UI states (loading, error, success)
+- BLoC manages the flow between events and states
+Example from OMDB Movie App shows implementation with `flutter_bloc` package.
+
+**How do you implement internationalization (i18n) in Flutter?**
+Flutter supports i18n through:
+- `flutter_localizations` package
+- `AppLocalizations` for managing translations
+- Locale configuration in MaterialApp
+- Support for multiple languages (e.g., English and Spanish)
+Example implementation includes:
+```dart
+MaterialApp(
+  localizationsDelegates: const [
+    AppLocalizations.delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+  ],
+  supportedLocales: const [
+    Locale('en'),
+    Locale('es'),
+  ],
+)
+```
+
+**How do you implement error handling in a Flutter app?**
+Error handling can be implemented through:
+- Centralized error service
+- Global error handlers
+- Try-catch blocks for specific operations
+- Error states in BLoC pattern
+Example:
+```dart
+await ErrorService.initialize(
+  onError: ErrorService.handleError,
+  app: createAppDevicePreview(const MyApp()),
+);
+```
+
+**What is Device Preview in Flutter and when should you use it?**
+Device Preview is a package that helps preview Flutter apps in different device sizes and orientations. It's particularly useful for:
+- Testing responsive designs
+- Debugging UI issues across devices
+- Development on desktop platforms
+Example implementation:
+```dart
+DevicePreview(
+  enabled: true,
+  builder: (context) => app,
+)
+```
+
+**How do you implement a clean architecture in a Flutter movie app?**
+Clean architecture in a Flutter movie app involves:
+- Separation of concerns (presentation, domain, data layers)
+- Feature-based modular structure (auth, movies modules)
+- Dependency injection for loose coupling
+- Clear data flow through repositories and use cases
+
+**How do you manage app startup and initialization in Flutter?**
+App startup management includes:
+- Initialization events and states (AppStartupBloc)
+- Resource loading and configuration
+- Route determination
+- Theme setup
+Example:
+```dart
+BlocProvider(
+  create: (_) => AppStartupBloc()..add(const InitializeAppEvent()),
+  child: AppStartupWidget(...)
+)
+```
+
+**How do you implement dynamic theming in Flutter?**
+Dynamic theming can be implemented through:
+- ThemeData configuration
+- ColorScheme customization
+- Material 3 support
+Example:
+```dart
+ThemeData.dark(
+  useMaterial3: true,
+).copyWith(
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: Colors.blue,
+    brightness: Brightness.dark,
+  ),
+)
+```
+
+### Technical Leadership and Senior Developer Questions
+
+**How do you approach technical architecture decisions in a Flutter project?**
+As a technical leader, I consider:
+- Scalability requirements
+- Team expertise and learning curve
+- Long-term maintainability
+- Performance implications
+- Testing strategy
+- Development velocity
+Example: When choosing between BLoC and other state management solutions, evaluate team familiarity, project complexity, and maintainability requirements.
+
+**How do you handle technical debt in a Flutter project?**
+Strategy includes:
+- Regular code reviews and refactoring sessions
+- Technical debt tracking in project management tools
+- Prioritizing debt reduction in sprint planning
+- Setting quality gates and metrics
+- Implementing automated code analysis tools
+- Balancing new features vs. technical improvements
+
+**How do you ensure code quality across a large Flutter team?**
+Implement:
+- Comprehensive style guides and coding standards
+- Automated CI/CD pipelines with quality checks
+- Regular code reviews and pair programming
+- Static code analysis tools configuration
+- Team knowledge sharing sessions
+- Performance monitoring and optimization guidelines
+
+**How do you approach Flutter application architecture for enterprise-scale applications?**
+Consider:
+- Modular architecture with clear boundaries
+- Feature-based folder structure
+- Dependency injection patterns
+- Clear separation of concerns
+- Scalable state management
+- Reusable component libraries
+Example structure:
+```
+lib/
+  ├── core/
+  │   ├── config/
+  │   ├── error/
+  │   ├── network/
+  │   └── utils/
+  ├── features/
+  │   ├── auth/
+  │   ├── movies/
+  │   └── profile/
+  └── shared/
+      ├── widgets/
+      └── services/
+```
+
+**How do you manage multiple environments in a Flutter project?**
+Implementation includes:
+- Environment-specific configuration files
+- Build flavors for different environments
+- Feature flags management
+- CI/CD pipeline configuration
+- Secret management
+Example:
+```dart
+enum Environment { dev, staging, prod }
+
+class EnvironmentConfig {
+  final String apiUrl;
+  final bool enableLogging;
+  final String environment;
+
+  static EnvironmentConfig get config {
+    switch(_environment) {
+      case Environment.dev:
+        return EnvironmentConfig._dev();
+      case Environment.prod:
+        return EnvironmentConfig._prod();
+      default:
+        throw UnimplementedError();
+    }
+  }
+}
+```
+
+**How do you implement a robust testing strategy in a Flutter project?**
+Comprehensive testing approach:
+- Unit tests for business logic
+- Widget tests for UI components
+- Integration tests for feature flows
+- Performance testing
+- Automated UI testing
+- Continuous testing in CI/CD
+Example test structure:
+```dart
+void main() {
+  group('Movie Search Feature', () {
+    late MovieBloc movieBloc;
+    late MockMovieRepository mockRepository;
+
+    setUp(() {
+      mockRepository = MockMovieRepository();
+      movieBloc = MovieBloc(repository: mockRepository);
+    });
+
+    tearDown(() {
+      movieBloc.close();
+    });
+
+    blocTest<MovieBloc, MovieState>(
+      'emits [Loading, Success] when search is successful',
+      build: () => movieBloc,
+      act: (bloc) => bloc.add(SearchMovies('Batman')),
+      expect: () => [
+        MovieState.loading(),
+        MovieState.success([Movie(...)]),
+      ],
+    );
+  });
+}
+```
+
+**How do you handle performance optimization in large-scale Flutter applications?**
+Key areas to focus:
+- Memory management and leak prevention
+- Widget tree optimization
+- State management efficiency
+- Network request optimization
+- Image and asset optimization
+- Build mode configurations
+Example optimization:
+```dart
+class OptimizedListView extends StatelessWidget {
+  const OptimizedListView({Key? key, required this.items}) : super(key: key);
+  
+  final List<Item> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: items.length,
+      cacheExtent: 100,
+      itemBuilder: (context, index) {
+        return RepaintBoundary(
+          child: ItemWidget(
+            key: ValueKey(items[index].id),
+            item: items[index],
+          ),
+        );
+      },
+    );
+  }
+}
+```
+
+**How do you implement a scalable localization strategy?**
+Consider:
+- Automated translation management
+- Dynamic language switching
+- Fallback mechanisms
+- Cultural adaptations
+- RTL support
+Example implementation:
+```dart
+class LocalizationService {
+  static final LocalizationService _instance = LocalizationService._internal();
+  factory LocalizationService() => _instance;
+  
+  late final StreamController<Locale> _localeController;
+  
+  Future<void> switchLocale(Locale locale) async {
+    await loadTranslations(locale);
+    _localeController.add(locale);
+  }
+  
+  String translate(String key, {Map<String, dynamic>? args}) {
+    // Implementation
+  }
+}
+```
+
+**How do you manage state in complex Flutter applications?**
+Advanced state management:
+- Hierarchical state management
+- State persistence strategies
+- State restoration
+- Cross-module state sharing
+- State synchronization
+Example:
+```dart
+abstract class BaseState<T> {
+  final StateStatus status;
+  final String? error;
+  final T? data;
+
+  const BaseState({
+    required this.status,
+    this.error,
+    this.data,
+  });
+
+  BaseState<T> copyWith({
+    StateStatus? status,
+    String? error,
+    T? data,
+  });
+}
+```
+
+### OMDB Movie App Specific Questions
+
+**How do you implement a modular architecture in a Flutter movie app?**
+The OMDB Movie App demonstrates modular architecture through:
+- Feature-based modules (auth, movies)
+- Core module for shared functionality
+- Clear module boundaries and dependencies
+Example structure:
+```dart
+lib/
+  ├── modules/
+  │   ├── auth/
+  │   │   ├── data/
+  │   │   ├── domain/
+  │   │   └── presentation/
+  │   └── movies/
+  │       ├── data/
+  │       ├── domain/
+  │       └── presentation/
+```
+
+**How do you handle API integration in a Flutter movie app?**
+Implementation includes:
+- Repository pattern for data access
+- Error handling and exceptions
+- Data models and mapping
+- API client configuration
+Example:
+```dart
+class MovieRepositoryImpl implements MovieRepository {
+  final MovieApiClient apiClient;
+  final NetworkInfo networkInfo;
+
+  Future<Either<Failure, List<Movie>>> searchMovies(String query) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final movies = await apiClient.searchMovies(query);
+        return Right(movies);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(NetworkFailure());
+    }
+  }
+}
+```
+
+**How do you implement search functionality with error handling?**
+Search implementation includes:
+- Input validation
+- Debounce for API calls
+- Error states handling
+- Loading states
+Example:
+```dart
+class SearchMovies implements UseCase<List<Movie>, String> {
+  final MovieRepository repository;
+
+  SearchMovies(this.repository);
+
+  Future<Either<Failure, List<Movie>>> call(String query) async {
+    if (query.isEmpty) {
+      return Left(InvalidInputFailure());
+    }
+    return repository.searchMovies(query);
+  }
+}
+```
+
+**How do you manage app startup and initialization?**
+App startup management includes:
+- Dependency injection setup
+- Initial route determination
+- Theme configuration
+- Error handling initialization
+Example:
+```dart
+Future<void> main() async {
+  await ErrorService.initialize(
+    onError: ErrorService.handleError,
+    app: createAppDevicePreview(const MyApp()),
+  );
+}
+```
+
+**How do you implement a custom error handling system?**
+Error handling system includes:
+- Centralized error service
+- Custom error types
+- Error messages management
+- Error UI presentation
+Example:
+```dart
+class ErrorService {
+  static Future<void> handleError(Object error, StackTrace stack) async {
+    if (error is NetworkException) {
+      // Handle network errors
+    } else if (error is ValidationException) {
+      // Handle validation errors
+    }
+    // Log error
+  }
+}
+```
+
+**How do you implement authentication in a Flutter app?**
+Authentication implementation includes:
+- Auth state management
+- Secure storage for tokens
+- Protected routes
+- Login/logout flow
+Example:
+```dart
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  final AuthRepository authRepository;
+
+  AuthBloc({required this.authRepository}) : super(AuthInitial()) {
+    on<LoginRequested>((event, emit) async {
+      emit(AuthLoading());
+      final result = await authRepository.login(event.credentials);
+      result.fold(
+        (failure) => emit(AuthError(failure)),
+        (user) => emit(AuthAuthenticated(user)),
+      );
+    });
+  }
+}
+```
+
+**How do you handle device preview and responsive design?**
+Device preview implementation includes:
+- Conditional preview enablement
+- Platform-specific configurations
+- Responsive layout handling
+Example:
+```dart
+Widget createAppDevicePreview(Widget app) {
+  if (kIsWeb || defaultTargetPlatform == TargetPlatform.macOS) {
+    return DevicePreview(
+      enabled: true,
+      builder: (context) => app,
+    );
+  }
+  return app;
+}
+```
+
+**How do you implement a validator system for user input?**
+Validation system includes:
+- Reusable validator functions
+- Input formatting
+- Error message handling
+Example:
+```dart
+class SearchValidators {
+  static Either<ValidationFailure, String> validateSearchQuery(String query) {
+    if (query.isEmpty) {
+      return Left(ValidationFailure('Search query cannot be empty'));
+    }
+    if (query.length < 2) {
+      return Left(ValidationFailure('Search query too short'));
+    }
+    return Right(query);
+  }
+}
+```
+
+**How do you manage route generation and navigation?**
+Route management includes:
+- Named routes
+- Route generation
+- Navigation guards
+- Deep linking support
+Example:
+```dart
+class AppRoutes {
+  static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case '/search':
+        return MaterialPageRoute(
+          builder: (_) => const SearchPage(),
+        );
+      case '/details':
+        final movie = settings.arguments as Movie;
+        return MaterialPageRoute(
+          builder: (_) => MovieDetailsPage(movie: movie),
+        );
+      default:
+        return MaterialPageRoute(
+          builder: (_) => const NotFoundPage(),
+        );
+    }
+  }
+}
+```
