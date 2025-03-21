@@ -14,6 +14,11 @@ permissions:
   pages: write
   id-token: write
 
+# Avoid running redundant workflows
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,43 +31,52 @@ jobs:
         with:
           version: latest
 
-      - name: Setup Node.js
+      - name: Setup Node.js with PNPM cache
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
+          cache-dependency-path: '**/pnpm-lock.yaml'
 
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      # Mecanismos de caché específicos para Astro y Vite
+      # Ya no necesitamos la caché de node_modules aquí
+      # La elimino porque actions/setup-node con cache: 'pnpm' ya maneja esto
 
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
+      - name: Cache .vite
+        uses: actions/cache@v4
         with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: node_modules/.vite
+          key: ${{ runner.os }}-vite-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('astro.config.mjs', 'tsconfig.json') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+            ${{ runner.os }}-vite-${{ hashFiles('pnpm-lock.yaml') }}-
+            ${{ runner.os }}-vite-
 
-      - name: Cache Astro build
-        uses: actions/cache@v3
+      - name: Cache Astro build output
+        uses: actions/cache@v4
         with:
           path: |
-            .astro/
             dist/
-            node_modules/.vite
-          key: ${{ runner.os }}-astro-build-${{ hashFiles('**/*.js', '**/*.ts', '**/*.jsx', '**/*.tsx', '**/*.astro') }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+            .astro/
+          key: ${{ runner.os }}-astro-build-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
           restore-keys: |
+            ${{ runner.os }}-astro-build-${{ hashFiles('pnpm-lock.yaml') }}-
             ${{ runner.os }}-astro-build-
 
-      - name: Install, build, and upload your site
-        uses: withastro/action@v3
+      # Pasos manuales reemplazando withastro/action
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build site
+        run: pnpm build
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          # path: . # The root location of your Astro project inside the repository. (optional)
-          # node-version: 20 # The specific version of Node that should be used to build your site. Defaults to 20. (optional)
-          package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
+          path: dist
 
   deploy:
     needs: build
