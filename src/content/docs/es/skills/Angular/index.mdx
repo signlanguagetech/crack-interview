@@ -1,0 +1,316 @@
+---
+author: ["Milad Vafaeifard", "Andrés García"]
+date: "2025-03-21"
+title: Preguntas de entrevista sobre Angular
+description: Preguntas de entrevista sobre Angular para diferentes niveles de experiencia.
+---
+
+## Temas esenciales
+
+### ¿Cuál es la diferencia entre un componente y una directiva?
+Los componentes son un tipo de directiva con una plantilla. Las directivas se utilizan para agregar comportamiento a un elemento DOM existente.
+
+### ¿Cuáles son los tipos de directivas en Angular?
+Hay tres tipos de directivas en Angular:
+1. Componentes de directivas
+2. Directivas estructurales
+3. Directivas de atributos
+
+### ¿Qué son los pipes?
+Los pipes se utilizan para transformar datos en plantillas. Toman datos como entrada y lo transforman a un resultado deseado.
+
+### One way vs two way bindings
+El enlace de datos unidireccional enlaza datos desde el componente a la vista o viceversa. El enlace de datos bidireccional permite que los datos fluyan en ambas direcciones.
+
+### ¿Cuáles son los ciclos de vida de un componente?
+El ciclo de vida de un componente incluye las etapas por las que pasa un componente desde su creación hasta su destrucción.
+
+### ¿Qué son los hooks de ciclo de vida?
+Los hooks de ciclo de vida son métodos que Angular llama en diferentes etapas del ciclo de vida de un componente.
+
+### ¿Qué tipos de formularios presenta Angular?
+Angular proporciona dos tipos de formularios: Formularios de plantilla y Formularios reactivos.
+
+### ¿Cuál es la diferencia entre los formularios reactivos y los formularios de plantilla?
+Los formularios de plantilla son fáciles de usar pero menos escalables, mientras que los formularios reactivos son más poderosos y escalables.
+
+### ¿Qué es Control Value Accessor?
+Control Value Accessor es una interfaz que actúa como puente entre la API de formularios de Angular y el elemento nativo.
+
+### Input y Output decorators
+El decorador Input se utiliza para pasar datos desde el componente padre al componente hijo. El decorador Output se utiliza para pasar datos desde el componente hijo al componente padre.
+
+### ¿Cómo entiende Angular qué dependencia usar?
+Angular usa la Inyección de Dependencias (DI) para determinar y proporcionar las dependencias requeridas.
+
+### Elements Tree vs Module Tree?
+Elements Tree representa la estructura del DOM, mientras que Module Tree representa la estructura del árbol de módulos de Angular.
+
+### ¿Cuál es la diferencia entre ViewChild/children y ContentChild/children?
+ViewChild/children consulta el DOM de la vista, mientras que ContentChild/children consulta el DOM del contenido proyectado.
+
+### ¿Qué es el View Tree en Angular?
+El View Tree representa la jerarquía de vistas en una aplicación Angular.
+
+### ¿Cuáles son las estrategias de detección de cambios?
+Las estrategias de detección de cambios determinan cómo y cuándo Angular verifica los cambios en el componente.
+
+### ¿Cómo crear una estrategia personalizada?
+Las estrategias personalizadas se pueden crear implementando la interfaz `ChangeDetectionStrategy`.
+
+### ¿Cómo activar la detección de cambios manualmente?
+La detección de cambios se puede activar manualmente usando `ChangeDetectorRef`.
+
+### ¿Cuál es la diferencia entre markForCheck, detectChanges, tick?
+`markForCheck` marca el componente para la comprobación, `detectChanges` activa la detección de cambios, y `tick` ejecuta la detección de cambios para toda la aplicación.
+
+### ¿Qué acciones activan la detección de cambios?
+La detección de cambios se puede activar por eventos, solicitudes HTTP, temporizadores y interacciones del usuario.
+
+### ¿Qué eventos activan la detección de cambios con la estrategia OnPush?
+Con la estrategia OnPush, la detección de cambios se activa por cambios en las propiedades de entrada y eventos.
+
+### ¿Cuál es la diferencia entre Observable y Promise?
+Los observables son perezosos y pueden manejar múltiples valores con el tiempo, mientras que las promesas son codiciosos y manejan un solo valor.
+
+### ¿Cuáles son los tipos de Subject?
+Hay cuatro tipos de Subject: Subject, BehaviorSubject, ReplaySubject y AsyncSubject.
+
+### ¿Cuál es la diferencia entre Observable y Subject?
+Los observables son unicast, mientras que los sujetos son multicast.
+
+### BehaviorSubject vs AsyncSubject vs ReplaySubject vs Subject?
+- `Subject`: No tiene valor inicial, emite a los suscriptores actuales.
+- `BehaviorSubject`: Requiere un valor inicial, emite el último valor a los nuevos suscriptores.
+- `ReplaySubject`: Emite el número especificado de últimos valores a los nuevos suscriptores.
+- `AsyncSubject`: Emite el último valor a los suscriptores al completar.
+
+### ¿Qué son los streams calientes, fríos y cálidos?
+- `Streams calientes`: Emiten valores independientemente de los suscriptores.
+- `Streams fríos`: Emiten valores solo cuando se suscriben.
+- `Streams cálidos`: Emiten valores a los suscriptores actuales y almacenan el último valor para los nuevos suscriptores.
+
+### ¿Cómo se cancela una suscripción?
+Se cancela llamando al método `unsubscribe` en la suscripción.
+
+### ¿Cuáles son las diferentes estrategias de cancelación, debería conocer los pros y contras de cada una?
+- Manual unsubscribe
+- `takeUntil` operator
+- `AsyncPipe`
+- `Subscription` management
+
+### ¿Qué son los interceptores HTTP?
+Los interceptores HTTP se utilizan para interceptar y modificar las solicitudes HTTP y respuestas.
+
+### ¿Cuál es el propósito de la enrutación en una SPA?
+La enrutación en una SPA permite navegar entre diferentes vistas sin recargar la página.
+
+### ¿Cuál es la diferencia entre la navegación en una SPA y en una MPA?
+La navegación en una SPA actualiza la vista sin recargar la página, mientras que la navegación en una MPA recarga toda la página.
+
+### ¿Cómo crear una ruta?
+Define rutas en el `RouterModule` y usa el `RouterLink` para la navegación.
+
+### ¿Cuál es el propósito de la propiedad `pathMatch: full`?
+`pathMatch: full` asegura que la ruta completa de la URL coincida.
+
+### ¿Cómo pasar datos a través de la enrutación?
+Pasa datos usando parámetros de ruta, parámetros de consulta o estado.
+
+### ¿Cuáles son todos los guardias?
+- `CanActivate`
+- `CanActivateChild`
+- `CanDeactivate`
+- `Resolve`
+- `CanLoad`
+
+### ¿Cuál es el propósito de cada guardia?
+- `CanActivate`: Verifica si una ruta puede ser activada.
+- `CanActivateChild`: Verifica si las rutas hijas pueden ser activadas.
+- `CanDeactivate`: Verifica si una ruta puede ser desactivada.
+- `Resolve`: Pre-carga datos antes de activar una ruta.
+- `CanLoad`: Verifica si un módulo puede ser cargado.
+
+### ¿Qué es el lazy loading?
+El lazy loading carga módulos solo cuando son necesarios.
+
+### ¿Cómo implementar el lazy loading?
+Usa la propiedad `loadChildren` en la configuración de la ruta.
+
+### ¿Qué son los chunks?
+Los chunks son pequeños paquetes de código que se cargan bajo demanda.
+
+### ¿Cuáles son las técnicas de optimización dentro de Angular?
+- Lazy loading
+- Ahead-of-Time (AOT) compilation
+- Tree shaking
+- Code splitting
+
+### ¿Qué es trackBy?
+`trackBy` se utiliza para mejorar el rendimiento al rastrear elementos en una lista por un identificador único.
+
+### Preguntas frecuentes
+
+### ¿Cómo crear una directiva personalizada?
+Crea una directiva personalizada implementando el decorador `Directive` y definiendo el comportamiento de la directiva.
+
+### ¿Cuál es la diferencia entre pipes puros e impuros?
+Los pipes puros son sin estado y solo dependen de los argumentos de entrada. Los pipes impuros pueden tener efectos secundarios y dependen del estado externo.
+
+### ¿Cuáles son las subsecuencias de los hooks de ciclo de vida?
+- `ngOnChanges`
+- `ngOnInit`
+- `ngDoCheck`
+- `ngAfterContentInit`
+- `ngAfterContentChecked`
+- `ngAfterViewInit`
+- `ngAfterViewChecked`
+- `ngOnDestroy`
+
+### ¿Qué es cada hook y para qué se utiliza comúnmente?
+- `ngOnChanges`: Responda a los cambios de entrada.
+- `ngOnInit`: Inicialice el componente.
+- `ngDoCheck`: Detecte y actúe ante los cambios.
+- `ngAfterContentInit`: Responda después de la proyección de contenido.
+- `ngAfterContentChecked`: Responda después de la comprobación de contenido.
+- `ngAfterViewInit`: Responda después de la inicialización de la vista.
+- `ngAfterViewChecked`: Respond after view checked.
+- `ngOnDestroy`: Cleanup before component destruction.
+
+### ¿Cómo validar cada tipo de formulario?
+Usa validadores integrados o validadores personalizados para formularios de plantilla y formularios reactivos.
+
+### ¿Cómo implementar CVA?
+Implementa la interfaz `ControlValueAccessor` y define los métodos requeridos.
+
+### ¿Qué es la encapsulación de vistas?
+La encapsulación de vistas define cómo se encapsulan los estilos en componentes.
+
+### ¿Cómo encapsula Angular los estilos?
+Angular encapsula los estilos usando Shadow DOM, Emulado o Estrategia Nula.
+
+### ¿Cómo aplicar estilos al selector de componente?
+Usa el selector `:host` para aplicar estilos al elemento host del componente.
+
+### ng-template, ng-container, ng-content. Describe cada uno. ¿Cuál es la diferencia?
+- `ng-template`: Define una plantilla que puede ser utilizada en otro lugar.
+- `ng-container`: Agrupa elementos sin agregar elementos DOM adicionales.
+- `ng-content`: Proyecta contenido desde el componente padre al componente hijo.
+
+### ¿Dónde usar?
+Usa `ng-template` para plantillas reutilizables, `ng-container` para agrupar elementos y `ng-content` para proyectar contenido.
+
+### ¿Qué es el injector?
+El injector es un localizador de servicios que proporciona dependencias.
+
+### ¿Qué es el proveedor?
+El proveedor es una configuración que le dice al injector cómo crear una dependencia.
+
+### Decoradores de DI?
+- `@Injectable`
+- `@Inject`
+- `@Optional`
+- `@Self`
+- `@SkipSelf`
+- `@Host`
+
+### Diferentes enfoques de proporcionar?
+- `useClass`
+- `useExisting`
+- `useValue`
+- `useFactory`
+
+### useClass, useExisting, useValue, useFactory Tokens de inyección?
+- `useClass`: Proporciona una clase.
+- `useExisting`: Alias a un proveedor existente.
+- `useValue`: Proporciona un valor estático.
+- `useFactory`: Proporciona un valor usando una función de fábrica.
+
+### Módulos cargados de forma eager?
+Módulos que se cargan al inicio de la aplicación.
+
+### ¿Cuáles son los casos de uso para interceptores?
+- Logging
+- Authentication
+- Error handling
+- Modifying requests and responses
+
+### Rutas con * (asterisco)?
+Rutas que coinciden con cualquier URL.
+
+### Navegación entre rutas?
+Usa el `RouterLink` o el servicio `Router` para navegar entre rutas.
+
+### ActivatedRoute?
+ActivatedRoute proporciona acceso a información sobre una ruta asociada a un componente.
+
+### ¿Qué es urlTree en Angular?
+UrlTree es una estructura de datos que representa la URL analizada.
+
+### ¿Cómo implementar cada guardia?
+Implementa las interfaces de guardia y define los métodos requeridos.
+
+### Estrategia de precarga?
+La estrategia de precarga carga módulos en segundo plano después de que se carga la aplicación.
+
+### ¿Por qué usar pipes en lugar de métodos en plantillas?
+Usa pipes para transformar datos en plantillas para mejorar el rendimiento.
+
+### Áreas de conocimiento
+
+### ¿Qué es Angular?
+Angular es una plataforma y marco para construir aplicaciones de cliente de una sola página utilizando HTML y TypeScript.
+
+### ¿Cómo crear una directiva estructural personalizada?
+Crea una directiva estructural personalizada implementando el decorador `Directive` y manipulando el DOM.
+
+### ¿Cómo crear una? ¿Qué pipes predeterminados de Angular son impuros por defecto, por qué?
+Crea un pipe personalizado implementando el decorador `Pipe` y definiendo el método `transform`. Los pipes predeterminados impuros incluyen `AsyncPipe` porque dependen de un estado externo.
+
+### constructor vs NgOnInit?
+Constructor se utiliza para la inyección de dependencias, mientras que `ngOnInit` se utiliza para la inicialización del componente.
+
+### ¿Qué hook de ciclo de vida se llama más de una vez?
+`ngDoCheck`, `ngAfterContentChecked`, y `ngAfterViewChecked` pueden ser llamados más de una vez.
+
+### ¿Cuáles son las diferencias entre la validación de formularios?
+Los formularios de plantilla usan directivas para la validación, mientras que los formularios reactivos usan una lógica de validación explícita.
+
+### ¿Cuáles son los diferentes tipos de encapsulación?
+- `Emulated`
+- `Native`
+- `None`
+
+### ng-deep vs .host-context vs .host
+- `ng-deep`: Aplica estilos a los componentes secundarios.
+- `.host-context`: Aplica estilos basado en una condición.
+- `.host`: Aplica estilos al elemento host.
+
+### ¿Qué es ngTemplateOutlet?
+`ngTemplateOutlet` es una directiva que inserta una vista incrustada desde una `TemplateRef` preparada.
+
+### implicit in ngTemplateOutlet
+`implicit` es una variable de contexto que permite pasar datos a la plantilla.
+
+### Patrón de DI?
+El patrón de Inyección de Dependencias (DI) es un patrón de diseño que implementa el control inverso para resolver dependencias.
+
+### providers vs viewProviders?
+- `providers`: Proporciona servicios al componente y sus hijos.
+- `viewProviders`: Proporciona servicios al componente y sus hijos de vista.
+
+### ¿Cómo crear un enlace de enrutamiento?
+Usa la directiva `RouterLink` para crear un enlace de enrutamiento.
+
+### ¿Cómo actualizar la página dentro de la misma ruta programáticamente?
+Usa el servicio `Router` para navegar a la misma ruta.
+
+### provideIn: Platform?
+`provideIn: 'platform'` hace que el servicio esté disponible en el injector de la plataforma.
+
+### ¿Cómo identificar qué páginas deben ser cargadas de forma perezosa?
+Identifica las páginas que no se acceden con frecuencia y carga ellas de forma perezosa.
+
+### JIT vs AOT ¿Cuáles son las diferencias?
+- `JIT (Just-in-Time)`: Compila la aplicación en el navegador en tiempo de ejecución.
+- `AOT (Ahead-of-Time)`: Compila la aplicación durante el proceso de compilación.
