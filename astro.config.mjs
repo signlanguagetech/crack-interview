@@ -17,6 +17,7 @@ export default defineConfig({
         "en": "Sign Tech Interview",
         "es": "Sign Tech Interview en Español",
       },
+      lastUpdated: true,
       social: {
         github: "https://github.com/signlanguagetech/crack-interview",
       },
