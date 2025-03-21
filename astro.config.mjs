@@ -12,7 +12,14 @@ export default defineConfig({
   base: isProd ? "/crack-interview" : "/",
   integrations: [
     starlight({
-      plugins: [],
+      plugins: process.env.CHECK_LINKS
+        ? [
+          starlightLinksValidator({
+            errorOnFallbackPages: false,
+            errorOnInconsistentLocale: true,
+          }),
+        ]
+        : [],
       title: {
         "en": "Sign Tech Interview",
         "es": "Sign Tech Interview en Español",
