@@ -11,94 +11,141 @@ const locale = getCurrentLocale(Astro);
 // Get translations using our utility
 const authorsLabel = getTranslation(locale, 'components.pageTitle.authors');
 const createdLabel = getTranslation(locale, 'components.pageTitle.created');
+const updatedLabel = getTranslation(locale, 'components.pageTitle.updated') || 'Last update';
+
+// Process authors to handle different formats (string, object, array)
+const processedAuthors = (() => {
+  if (!authors) return [];
+  
+  if (typeof authors === 'string') {
+    return [{ name: authors }];
+  }
+  
+  if (Array.isArray(authors)) {
+    return authors.map(author => 
+      typeof author === 'string' ? { name: author } : author
+    );
+  }
+  
+  return [authors];
+})();
 ---
 
 <div class="page-header">
+  {createdDate && (
+    <div class="date-info">
+      {formatDate(createdDate, locale)}
+    </div>
+  )}
+  
   <div class="page-title">
     <Default>
       <slot />
     </Default>
   </div>
 
-  <div class="page-meta">
-    {
-      authors && (
-        <div class="authors">
-          <span class="meta-label">{authorsLabel}:</span>
-          <div class="authors-list">
-            {authors.map((author) => (
-              <span class="author-tag">{author}</span>
-            ))}
+  {processedAuthors.length > 0 && (
+    <div class="authors-container">
+      {processedAuthors.map((author) => (
+        <div class="author-item">
+          {author.picture && (
+            <div class="author-avatar">
+              <img src={author.picture} alt={author.name} />
+            </div>
+          )}
+          <div class="author-info">
+            {author.url ? (
+              <a href={author.url} class="author-name" target="_blank" rel="noopener">
+                {author.name}
+              </a>
+            ) : (
+              <span class="author-name">{author.name}</span>
+            )}
+            {author.title && <span class="author-title">{author.title}</span>}
           </div>
         </div>
-      )
-    }
-
-    {
-      createdDate && (
-        <div class="date">
-          <span class="meta-label">{createdLabel}:</span>
-          <span class="date-value">{formatDate(createdDate, locale)}</span>
-        </div>
-      )
-    }
-  </div>
+      ))}
+    </div>
+  )}
 </div>
 
 <style>
   .page-header {
     margin-bottom: 2rem;
-    padding-bottom: 1rem;
+    padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--sl-color-gray-5);
   }
 
-  .page-title {
-    margin-bottom: 1rem;
+  .date-info {
+    font-size: 0.95rem;
+    color: var(--sl-color-gray-3);
+    margin-bottom: 0.75rem;
+    font-weight: 400;
   }
 
-  .page-meta {
+  .page-title {
+    margin-bottom: 1.5rem;
+  }
+
+  .authors-container {
     display: flex;
     gap: 2rem;
-    align-items: center;
-    font-size: 0.9rem;
-    color: var(--sl-color-gray-2);
-  }
-
-  .authors,
-  .date {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .meta-label {
-    font-weight: 500;
-    color: var(--sl-color-gray-1);
-  }
-
-  .authors-list {
-    display: flex;
-    gap: 0.5rem;
     flex-wrap: wrap;
+    margin-top: 1rem;
   }
 
-  .author-tag {
-    background-color: var(--sl-color-gray-6);
-    padding: 0.25rem 0.75rem;
-    border-radius: 1rem;
-    font-size: 0.85rem;
-    color: var(--sl-color-gray-1);
+  .author-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
   }
 
-  .date-value {
-    color: var(--sl-color-gray-2);
+  .author-avatar {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .author-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .author-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .author-name {
+    font-weight: 500;
+    color: var(--sl-color-accent);
+    text-decoration: none;
+    font-size: 1.15rem;
+  }
+
+  a.author-name:hover {
+    text-decoration: underline;
+  }
+
+  .author-title {
+    font-size: 0.9rem;
+    color: var(--sl-color-gray-3);
+    line-height: 1.2;
   }
 
   /* Make responsive for mobile */
-  @media (max-width: 600px) {
-    .page-meta {
+  @media (max-width: 768px) {
+    .authors-container {
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .authors-container {
       flex-direction: column;
-      align-items: flex-start;
       gap: 1rem;
     }
   }
