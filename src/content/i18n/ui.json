@@ -1,0 +1,20 @@
+{
+  "en": {
+    "components": {
+      "pageTitle": {
+        "authors": "Authors",
+        "created": "Created",
+        "unknownDate": "Unknown Date"
+      }
+    }
+  },
+  "es": {
+    "components": {
+      "pageTitle": {
+        "authors": "Autores",
+        "created": "Creado",
+        "unknownDate": "Fecha desconocida"
+      }
+    }
+  }
+}

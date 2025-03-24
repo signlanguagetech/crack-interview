@@ -1,18 +1,16 @@
 ---
 import Default from "@astrojs/starlight/components/PageTitle.astro";
+import { getCurrentLocale, getTranslation, formatDate } from "../utils/i18n";
 
 const data = Astro.locals.starlightRoute.entry.data;
-
 const { authors, createdDate } = data;
 
-function formatDate(date: Date | undefined): string {
-  if (!date) return "Unknown Date";
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
+// Get current locale using our utility
+const locale = getCurrentLocale(Astro);
+
+// Get translations using our utility
+const authorsLabel = getTranslation(locale, 'components.pageTitle.authors');
+const createdLabel = getTranslation(locale, 'components.pageTitle.created');
 ---
 
 <div class="page-header">
@@ -26,7 +24,7 @@ function formatDate(date: Date | undefined): string {
     {
       authors && (
         <div class="authors">
-          <span class="meta-label">Authors:</span>
+          <span class="meta-label">{authorsLabel}:</span>
           <div class="authors-list">
             {authors.map((author) => (
               <span class="author-tag">{author}</span>
@@ -39,8 +37,8 @@ function formatDate(date: Date | undefined): string {
     {
       createdDate && (
         <div class="date">
-          <span class="meta-label">Created:</span>
-          <span class="date-value">{formatDate(createdDate)}</span>
+          <span class="meta-label">{createdLabel}:</span>
+          <span class="date-value">{formatDate(createdDate, locale)}</span>
         </div>
       )
     }
@@ -95,4 +93,13 @@ function formatDate(date: Date | undefined): string {
   .date-value {
     color: var(--sl-color-gray-2);
   }
-</style>
+
+  /* Make responsive for mobile */
+  @media (max-width: 600px) {
+    .page-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  }
+</style> 
