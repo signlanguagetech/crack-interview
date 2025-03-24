@@ -5,11 +5,12 @@ const port = 4300;
 const localHostUrl = `http://localhost:${port}`;
 const liveUrl = "https://signlanguagetech.github.io";
 const isProd = import.meta.env.PROD;
+const isPreview = import.meta.env.PREVIEW;
 
 export default defineConfig({
   server: { port },
   site: isProd ? liveUrl : localHostUrl,
-  base: isProd ? "/crack-interview" : "/",
+  base: isPreview ? "/preview" : (isProd ? "/crack-interview" : "/"),
   integrations: [
     starlight({
       plugins: [],

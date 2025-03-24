@@ -70,7 +70,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build site
-        run: pnpm build
+        run: PREVIEW=${{ github.event_name == 'pull_request' }} pnpm build
 
       - name: Setup Pages
         id: pages
@@ -98,7 +98,8 @@ jobs:
         with:
           script: |
             const previewUrl = `${{ steps.deployment.outputs.page_url }}`;
-            const comment = `🚀 Preview disponible en: ${previewUrl}`;
+            const branchName = context.payload.pull_request.head.ref;
+            const comment = `🚀 Preview disponible en: ${previewUrl}/preview/${branchName}`;
             
             // Buscar si ya existe un comentario con la URL de preview
             const { data: comments } = await github.rest.issues.listComments({
