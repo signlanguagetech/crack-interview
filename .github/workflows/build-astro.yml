@@ -2,8 +2,10 @@ name: Deploy to GitHub Pages
 
 on:
   # Trigger the workflow every time you push to the `main` branch
-  # Using a different branch name? Replace `main` with your branch's name
   push:
+    branches: [main]
+  # Trigger on pull requests
+  pull_request:
     branches: [main]
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
@@ -13,6 +15,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  pull-requests: write
 
 # Avoid running redundant workflows
 concurrency:
@@ -82,9 +85,45 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     environment:
-      name: github-pages
+      name: ${{ github.event_name == 'pull_request' && 'preview' || 'production' }}
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Comment PR with Preview URL
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const previewUrl = `${{ steps.deployment.outputs.page_url }}`;
+            const comment = `🚀 Preview disponible en: ${previewUrl}`;
+            
+            // Buscar si ya existe un comentario con la URL de preview
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              per_page: 100
+            });
+            
+            const existingComment = comments.find(c => c.body.includes('🚀 Preview disponible en:'));
+            
+            if (existingComment) {
+              // Actualizar el comentario existente
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existingComment.id,
+                body: comment
+              });
+            } else {
+              // Crear nuevo comentario
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: comment
+              });
+            }
