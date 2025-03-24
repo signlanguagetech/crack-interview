@@ -1,0 +1,88 @@
+---
+interface Author {
+  name: string;
+  picture?: string;
+  url?: string;
+  title?: string;
+}
+
+interface Props {
+  author: Author;
+}
+
+const { author } = Astro.props;
+---
+
+<div class='author-item'>
+  {author.picture && (
+    <div class='author-avatar'>
+      <img src={author.picture} alt={author.name} />
+    </div>
+  )}
+  <div class='author-info'>
+    {author.url ? (
+      <a
+        href={author.url}
+        class='author-name'
+        target='_blank'
+        rel='noopener'
+      >
+        {author.name}
+      </a>
+    ) : (
+      <span class='author-name'>{author.name}</span>
+    )}
+    {author.title && <span class='author-title'>{author.title}</span>}
+  </div>
+</div>
+
+<style>
+  .author-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    height: 100%;
+  }
+
+  .author-avatar {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .author-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .author-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .author-name {
+    font-weight: 500;
+    color: var(--sl-color-accent);
+    text-decoration: none;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .author-title {
+    font-size: 0.9rem;
+    color: var(--sl-color-gray-3);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style> 
