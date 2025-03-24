@@ -3,13 +3,13 @@ import starlight from "@astrojs/starlight";
 
 const port = 4300;
 const localHostUrl = `http://localhost:${port}`;
-const liveUrl = "https://signlanguagetech.github.io";
+const liveUrl = "https://interview.signlanguagetech.com";
 const isProd = import.meta.env.PROD;
 
 export default defineConfig({
   server: { port },
   site: isProd ? liveUrl : localHostUrl,
-  base: isProd ? "/crack-interview" : "/",
+  // base: isProd ? "/crack-interview" : "/",
   integrations: [
     starlight({
       plugins: [],
