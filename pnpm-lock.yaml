@@ -9,10 +9,10 @@ importers:
   .:
     dependencies:
       '@astrojs/starlight':
-        specifier: ^0.32.2
+        specifier: ^0.32.4
         version: 0.32.4(astro@5.5.4(rollup@4.35.0)(typescript@5.8.2))
       astro:
-        specifier: ^5.4.2
+        specifier: ^5.5.4
         version: 5.5.4(rollup@4.35.0)(typescript@5.8.2)
       sharp:
         specifier: ^0.33.5
