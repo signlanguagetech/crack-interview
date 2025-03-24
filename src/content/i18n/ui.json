@@ -16,5 +16,14 @@
         "unknownDate": "Fecha desconocida"
       }
     }
+  },
+  "fr": {
+    "components": {
+      "pageTitle": {
+        "authors": "Auteurs",
+        "created": "Créé le",
+        "unknownDate": "Date inconnue"
+      }
+    }
   }
 }

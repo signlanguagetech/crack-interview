@@ -7,12 +7,20 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "i18n:generate": "npx ts-node --esm src/scripts/i18n-tools.ts generate",
+    "i18n:validate": "npx ts-node --esm src/scripts/i18n-tools.ts validate",
+    "i18n:create": "npx ts-node --esm src/scripts/i18n-tools.ts create",
+    "i18n:config": "npx ts-node --esm src/scripts/i18n-tools.ts config",
+    "i18n:help": "npx ts-node --esm src/scripts/i18n-tools.ts"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.32.4",
     "astro": "^5.5.4",
     "sharp": "^0.33.5",
     "starlight-blog": "^0.18.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2"
   }
 }
