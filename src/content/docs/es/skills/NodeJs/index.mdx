@@ -1,0 +1,701 @@
+---
+title: Preguntas y respuestas de NodeJs
+description: Node.js es un entorno de ejecución de JavaScript de código abierto, multiplataforma. Permite ejecutar JavaScript en el lado del servidor. Node.js está construido sobre el motor V8 de Google y utiliza un modelo de E/S de eventos no bloqueantes, lo que lo convierte en una herramienta ideal para construir aplicaciones escalables, especialmente para sistemas en tiempo real.
+tags: ["NodeJs", "JavaScript", "Backend"]
+createdDate: 2025-03-24
+authors:
+  - name: Milad Vafaeifard (Autor Original)
+    title: Lead Software Engineer at Epam
+    picture: https://avatars.githubusercontent.com/u/16865649?v=4&s=200
+    url: https://signlanguagetech.com/
+  - name: Andrés García (Traductor)
+    title: Flutter Developer
+    picture: https://avatars.githubusercontent.com/u/19521054?v=4&s=200
+    url: https://tech-andgar.me
+---
+
+# Preparación de entrevistas sobre Node.js
+
+A veces, incluso con muchos años de experiencia en NodeJs, nos encontramos con preguntas difíciles que no podemos responder de manera clara. Para aprobar la entrevista, es crucial practicar y escribir sobre estos temas.
+
+- [Preparación de entrevistas sobre Node.js](#preparación-de-entrevistas-sobre-nodejs)
+  - [Tema esencial](#tema-esencial)
+    - [¿Qué es Node.js?](#qué-es-nodejs)
+    - [¿Qué es package.json?](#qué-es-packagejson)
+    - [¿Cómo funciona el Event Loop?](#cómo-funciona-el-event-loop)
+    - [¿Es Node.js completamente basado en un solo hilo?](#es-nodejs-completamente-basado-en-un-solo-hilo)
+    - [¿Qué tipos de streams tiene Node.js?](#qué-tipos-de-streams-tiene-nodejs)
+    - [¿Cómo entiendes el patrón de devolución de llamada? ¿Qué es un callback hell?](#cómo-entiendes-el-patrón-de-devolución-de-llamada-qué-es-un-callback-hell)
+    - [¿Qué es una Promise?](#qué-es-una-promise)
+    - [¿Qué estados tiene la Promise? ¿Puede el estado cambiar una vez que se haya cumplido o rechazado?](#qué-estados-tiene-la-promise-puede-el-estado-cambiar-una-vez-que-se-haya-cumplido-o-rechazado)
+    - [¿Cuáles son los propósitos de los middlewares en Express.js?](#cuáles-son-los-propósitos-de-los-middlewares-en-expressjs)
+    - [¿Qué es una pirámide de pruebas? ¿Cómo puedes implementarlo respecto a APIs HTTP?](#qué-es-una-pirámide-de-pruebas-cómo-puedes-implementarlo-respecto-a-apis-http)
+    - [¿Qué es la prueba unitaria? ¿Cuáles son los principios FIRST?](#qué-es-la-prueba-unitaria-cuáles-son-los-principios-first)
+    - [¿Qué es una API REST?](#qué-es-una-api-rest)
+    - [¿Qué son los métodos HTTP principales? ¿Cuál es la diferencia entre PUT y PATCH?](#qué-son-los-métodos-http-principales-cuál-es-la-diferencia-entre-put-y-patch)
+    - [¿Qué es el patrón MVC?](#qué-es-el-patrón-mvc)
+    - [¿Cuáles son los principios clave de la programación orientada a objetos?](#cuáles-son-los-principios-clave-de-la-programación-orientada-a-objetos)
+    - [¿Qué es un RDBMS?](#qué-es-un-rdbms)
+    - [¿Cómo se almacena la información en un RDBMS?](#cómo-se-almacena-la-información-en-un-rdbms)
+    - [¿Cómo se pueden unir tablas?](#cómo-se-pueden-unir-tablas)
+    - [¿Qué es una transacción y qué es ACID?](#qué-es-una-transacción-y-qué-es-acid)
+    - [¿Qué tipos de índices conoces? ¿Cuándo se utilizan?](#qué-tipos-de-índices-conoces-cuándo-se-utilizan)
+    - [¿Cómo se puede cambiar una estructura de tabla ya definida con TypeORM?](#cómo-se-puede-cambiar-una-estructura-de-tabla-ya-definida-con-typeorm)
+    - [¿Qué es MongoDB?](#qué-es-mongodb)
+    - [¿Cuál es la diferencia en la escalabilidad entre bases de datos NoSQL y SQL?](#cuál-es-la-diferencia-en-la-escalabilidad-entre-bases-de-datos-nosql-y-sql)
+    - [¿Qué es JWT? ¿Es seguro almacenar información sensible dentro de JWT?](#qué-es-jwt-es-seguro-almacenar-información-sensible-dentro-de-jwt)
+  - [Preguntas frecuentes](#preguntas-frecuentes)
+    - [¿Qué son los componentes puros?](#qué-son-los-componentes-puros)
+    - [¿Cuándo usar Node.js y cuándo no usarlo?](#cuándo-usar-nodejs-y-cuándo-no-usarlo)
+    - [¿Qué es npm?](#qué-es-npm)
+    - [¿Cuál es la diferencia entre operaciones sincrónicas y asincrónicas?](#cuál-es-la-diferencia-entre-operaciones-sincrónicas-y-asincrónicas)
+    - [¿Cuándo se pueden usar Streams en Node.js?](#cuándo-se-pueden-usar-streams-en-nodejs)
+    - [¿Qué es un Memory Leak? ¿Cómo se puede prevenir?](#qué-es-un-memory-leak-cómo-se-puede-prevenir)
+    - [¿Cuáles son las ventajas de async/await sobre Promises?](#cuáles-son-las-ventajas-de-asyncawait-sobre-promises)
+    - [¿Qué es Express.js y para qué se utiliza?](#qué-es-expressjs-y-para-qué-se-utiliza)
+    - [¿Cuáles son los bloques de construcción principales de Express.js?](#cuáles-son-los-bloques-de-construcción-principales-de-expressjs)
+    - [¿Qué es el uso de `next()` en Express.js?](#qué-es-el-uso-de-next-en-expressjs)
+    - [¿Qué es un patrón Given-When-Then?](#qué-es-un-patrón-given-when-then)
+    - [¿Qué son los mocks y stubs? ¿Cómo se utilizan en las pruebas de integración?](#qué-son-los-mocks-y-stubs-cómo-se-utilizan-en-las-pruebas-de-integración)
+    - [¿Qué restricciones tiene una API REST?](#qué-restricciones-tiene-una-api-rest)
+    - [¿Qué estado HTTP debe enviarse en una respuesta a una solicitud de creación de objeto?](#qué-estado-http-debe-enviarse-en-una-respuesta-a-una-solicitud-de-creación-de-objeto)
+    - [¿Qué es la inyección de dependencias?](#qué-es-la-inyección-de-dependencias)
+    - [¿Qué es una arquitectura de capas?](#qué-es-una-arquitectura-de-capas)
+    - [¿Qué es un concepto de normalización?](#qué-es-un-concepto-de-normalización)
+    - [¿Qué tipos de relaciones de tablas conoces? ¿Cómo se crean?](#qué-tipos-de-relaciones-de-tablas-conoces-cómo-se-crean)
+    - [¿Cuál es la diferencia entre DDL y DML?](#cuál-es-la-diferencia-entre-ddl-y-dml)
+    - [¿Cómo se organiza el dato en MongoDB?](#cómo-se-organiza-el-dato-en-mongodb)
+    - [¿Qué significa BASE?](#qué-significa-base)
+    - [¿Cómo se puede crear una relación entre documentos en MongoDB?](#cómo-se-puede-crear-una-relación-entre-documentos-en-mongodb)
+    - [¿Cuál es la diferencia entre Encoding, Encryption, y Hashing?](#cuál-es-la-diferencia-entre-encoding-encryption-y-hashing)
+    - [¿Cuáles son los casos de uso para Encoding, Encryption, y Hashing?](#cuáles-son-los-casos-de-uso-para-encoding-encryption-y-hashing)
+    - [¿Qué es HTTPS? ¿Cómo funciona?](#qué-es-https-cómo-funciona)
+    - [¿Qué es Authentication y Authorization?](#qué-es-authentication-y-authorization)
+    - [¿Cuáles son las ventajas principales de la arquitectura de Microservicios sobre la arquitectura Monolítica?](#cuáles-son-las-ventajas-principales-de-la-arquitectura-de-microservicios-sobre-la-arquitectura-monolítica)
+    - [¿Cómo entiendes una arquitectura orientada a eventos? ¿Qué es un patrón pub-sub?](#cómo-entiendes-una-arquitectura-orientada-a-eventos-qué-es-un-patrón-pub-sub)
+  - [Áreas de conocimiento](#áreas-de-conocimiento)
+    - [¿Cuáles son las diferencias entre dependencias y devDependencies en package.json?](#cuáles-son-las-diferencias-entre-dependencias-y-devdependencies-en-packagejson)
+    - [¿Cuáles son las diferencias entre worker thread y child\_process?](#cuáles-son-las-diferencias-entre-worker-thread-y-child_process)
+    - [¿Qué es la clase Event Emitter? ¿Cómo está relacionada con otras clases?](#qué-es-la-clase-event-emitter-cómo-está-relacionada-con-otras-clases)
+    - [¿Cuáles son las diferencias entre CommonJS y ES modules?](#cuáles-son-las-diferencias-entre-commonjs-y-es-modules)
+    - [¿Cómo puedes hacer que Node.js trate tus archivos `.js` como ES modules?](#cómo-puedes-hacer-que-nodejs-trate-tus-archivos-js-como-es-modules)
+    - [¿Qué es Promisification y cuándo se utiliza?](#qué-es-promisification-y-cuándo-se-utiliza)
+    - [¿Cómo puedes diferenciar una función de manejo de errores de una función de controlador de solicitudes?](#cómo-puedes-diferenciar-una-función-de-manejo-de-errores-de-una-función-de-controlador-de-solicitudes)
+    - [¿Qué puede ser un Provider en NestJS?](#qué-puede-ser-un-provider-en-nestjs)
+    - [¿Cuáles son los casos de uso para Pipes en NestJS?](#cuáles-son-los-casos-de-uso-para-pipes-en-nestjs)
+    - [¿Es posible en NestJS enlazar lógica extra antes/después de la ejecución de un método?](#es-posible-en-nestjs-enlazar-lógica-extra-antesdespués-de-la-ejecución-de-un-método)
+    - [¿Cómo se procesan todas las excepciones no manejadas en NestJS?](#cómo-se-procesan-todas-las-excepciones-no-manejadas-en-nestjs)
+    - [¿Qué es un Health Check? ¿Por qué es necesario?](#qué-es-un-health-check-por-qué-es-necesario)
+    - [¿Qué es un ID de correlación? ¿Cómo ayuda a depurar tu aplicación?](#qué-es-un-id-de-correlación-cómo-ayuda-a-depurar-tu-aplicación)
+    - [¿Qué test runner libraries conoces?](#qué-test-runner-libraries-conoces)
+    - [¿Qué niveles de API REST conoces?](#qué-niveles-de-api-rest-conoces)
+    - [¿Qué es GraphQL? ¿Cuáles son sus ventajas sobre REST API?](#qué-es-graphql-cuáles-son-sus-ventajas-sobre-rest-api)
+    - [¿Qué tipos de datos están presentes en PostgreSQL?](#qué-tipos-de-datos-están-presentes-en-postgresql)
+    - [¿Qué es una subquery?](#qué-es-una-subquery)
+    - [¿Qué son los Lock Levels en PostgreSQL?](#qué-son-los-lock-levels-en-postgresql)
+    - [¿Qué es un ORM? ¿Qué problemas resuelve?](#qué-es-un-orm-qué-problemas-resuelve)
+    - [¿Qué es un Query Builder?](#qué-es-un-query-builder)
+    - [¿Qué patrones de diseño conoces?](#qué-patrones-de-diseño-conoces)
+    - [¿Cuál es la diferencia entre Entidades sin formato y Entidades?](#cuál-es-la-diferencia-entre-entidades-sin-formato-y-entidades)
+    - [¿Cómo procesas tablas con mucha data usando TypeORM?](#cómo-procesas-tablas-con-mucha-data-usando-typeorm)
+    - [¿Cómo entiendes la criptografía simétrica y asimétrica?](#cómo-entiendes-la-criptografía-simétrica-y-asimétrica)
+    - [¿Cuál es la diferencia entre una clave privada y una clave pública?](#cuál-es-la-diferencia-entre-una-clave-privada-y-una-clave-pública)
+    - [¿Qué tipos de autenticación conoces? ¿Cuándo usarlos?](#qué-tipos-de-autenticación-conoces-cuándo-usarlos)
+    - [¿Qué es una aplicación web de 3 capas? ¿Son las capas lógicas o físicas?](#qué-es-una-aplicación-web-de-3-capas-son-las-capas-lógicas-o-físicas)
+
+
+##  Tema esencial
+
+### ¿Qué es Node.js?
+
+**Node.js** es un entorno de ejecución de JavaScript de código abierto, multiplataforma. Permite ejecutar JavaScript en el lado del servidor. Node.js está construido sobre el motor V8 de Google y utiliza un modelo de E/S de eventos no bloqueantes, lo que lo convierte en una herramienta ideal para construir aplicaciones escalables, especialmente para sistemas en tiempo real.
+
+### ¿Qué es package.json?
+
+**`package.json`** es el archivo de configuración en un proyecto de Node.js. Contiene metadatos sobre el proyecto, como su nombre, versión, descripción y scripts. También incluye información sobre las dependencias (`dependencies`) y las dependencias de desarrollo (`devDependencies`).
+
+### ¿Cómo funciona el Event Loop?
+
+El **Event Loop** es el mecanismo que hace que Node.js sea no bloqueante. Node.js ejecuta tareas de forma asíncrona utilizando su bucle de eventos, y maneja solicitudes en una arquitectura de un solo hilo. El bucle de eventos procesa tareas de diferentes colas (timers, callbacks de E/S, etc.), delegando tareas pesadas a hilos de trabajo (mediante `libuv`) y ejecutando callbacks de JavaScript cuando se completa la operación.
+
+### ¿Es Node.js completamente basado en un solo hilo?
+
+No, mientras **Node.js** utiliza un modelo de un solo hilo para su bucle de eventos, utiliza un grupo de hilos internamente mediante la biblioteca `libuv` para manejar tareas pesadas como E/S de archivos, networking o cálculos de CPU intensivos.
+
+### ¿Qué tipos de streams tiene Node.js?
+
+**Node.js streams** son utilizados para manejar datos de streaming. Los cuatro tipos de streams son:
+
+- **Readable Streams**: Usados para leer datos (e.g., `fs.createReadStream`).
+- **Writable Streams**: Usados para escribir datos (e.g., `fs.createWriteStream`).
+- **Duplex Streams**: Used for both reading and writing (e.g., `net.Socket`).
+- **Transform Streams**: Used for modifying or transforming data during streaming (e.g., `zlib.createGzip`).
+
+### ¿Cómo entiendes el patrón de devolución de llamada? ¿Qué es un callback hell?
+
+El **patrón de devolución de llamada** es un mecanismo donde una función se pasa como argumento a otra función y se llama después de una cierta operación.
+
+**Callback hell** se refiere a devoluciones de llamada anidadas que hacen que el código sea más difícil de leer y depurar. Puede evitarse utilizando programación modular, Promises o async/await.
+
+### ¿Qué es una Promise?
+
+**Promise** es un objeto que representa la eventual finalización (o falla) de una operación asíncrona. Con Promises, puedes adjuntar devoluciones de llamada (`then`, `catch`) después de que se complete una operación.
+
+### ¿Qué estados tiene la Promise? ¿Puede el estado cambiar una vez que se haya cumplido o rechazado?
+
+Una **Promise** tiene los siguientes estados:
+
+1. **Pending**: Estado inicial, la operación no se ha completado todavía.
+2. **Fulfilled**: La operación se ha completado con éxito.
+3. **Rejected**: La operación ha fallado.
+
+Una vez que una Promise se cumple o se rechaza, su estado no puede cambiar más.
+
+### ¿Cuáles son los propósitos de los middlewares en Express.js?
+
+**Express.js middlewares** son funciones que procesan solicitudes antes de enviar una respuesta. Los propósitos incluyen:
+
+- Manejo de autenticación.
+- Registro de solicitudes.
+- Análisis de cuerpos de solicitudes (e.g., `body-parser`).
+- Manejo de errores.
+
+### ¿Qué es una pirámide de pruebas? ¿Cómo puedes implementarlo respecto a APIs HTTP?
+
+Una **Pirámide de Pruebas** es una estrategia de pruebas que enfatiza diferentes capas en las pruebas:
+
+- **Pruebas unitarias**: Pruebe los componentes individuales del código.
+- **Pruebas de integración**: Pruebe los componentes trabajando juntos.
+- **Pruebas de extremo a extremo**: Pruebe el flujo de trabajo completo de la aplicación.
+
+Para APIs HTTP:
+- Escribe **Pruebas unitarias** para los controladores de API.
+- Escribe **Pruebas de integración** para la interacción de la base de datos/API.
+- Escribe **Pruebas de extremo a extremo** para los flujos de trabajo completos.
+
+### ¿Qué es la prueba unitaria? ¿Cuáles son los principios FIRST?
+
+La **prueba unitaria** implica probar los módulos o componentes individuales del software.
+
+Los **principios FIRST**:
+- **Fast**: Las pruebas deben ser rápidas.
+- **Independent**: Las pruebas no deben depender de otras.
+- **Repeatable**: Los resultados deben ser consistentes después de cada ejecución.
+- **Self-validating**: Las pruebas deben validar la corrección automáticamente.
+- **Timely**: Las pruebas deben escribirse antes del código.
+
+### ¿Qué es una API REST?
+
+**REST (Representational State Transfer)** es un estilo arquitectónico para construir servicios web. Las APIs REST utilizan métodos HTTP y deben ser sin estado.
+
+### ¿Qué son los métodos HTTP principales? ¿Cuál es la diferencia entre PUT y PATCH?
+
+Main HTTP methods:
+- **GET**: Retrieve data.
+- **POST**: Create data.
+- **PUT**: Actualizar datos (reemplazar el recurso completo).
+- **PATCH**: Actualizar datos (modificar partes específicas del recurso).
+- **DELETE**: Eliminar datos.
+
+### ¿Qué es el patrón MVC?
+
+El patrón **MVC (Model-View-Controller)** es un patrón de diseño:
+
+1. **Model**: Lógica de negocio y datos.
+2. **View**: Representación de la interfaz de usuario.
+3. **Controller**: Mediación entre Model y View.
+
+### ¿Cuáles son los principios clave de la programación orientada a objetos?
+
+Los cuatro principios clave de la **programación orientada a objetos**:
+1. **Encapsulación**: Envolver datos y métodos.
+2. **Abstracción**: Ocultar detalles complejos de implementación.
+3. **Herencia**: Habilita la reutilización de código entre clases.
+4. **Polimorfismo**: Habilita métodos para comportarse de manera diferente según el contexto.
+
+### ¿Qué es un RDBMS?
+
+**RDBMS (Relational Database Management System)** es software que gestiona bases de datos relacionales con datos estructurados organizados en tablas.
+
+### ¿Cómo se almacena la información en un RDBMS?
+
+La información se almacena en **filas** dentro de tablas relacionales. Las tablas tienen **columnas** que definen atributos. Cada fila representa un registro individual.
+
+### ¿Cómo se pueden unir tablas?
+
+Las tablas se pueden unir utilizando declaraciones SQL:
+- **INNER JOIN**: Coincide con registros con datos relacionados en ambas tablas.
+- **LEFT JOIN**: Incluye todas las filas de la tabla izquierda y las coincidencias de la derecha.
+- **RIGHT JOIN**: Incluye todas las filas de la tabla derecha y las coincidencias de la izquierda.
+- **FULL JOIN**: Combina filas de ambas tablas.
+
+### ¿Qué es una transacción y qué es ACID?
+
+**Transaction** se refiere a una secuencia de operaciones tratadas como una unidad. **ACID** garantiza la confiabilidad:
+1. **Atomicidad**: Las operaciones se completan o se deshacen.
+2. **Consistencia**: Garantiza que se cumplan las reglas de la base de datos.
+3. **Aislamiento**: Las transacciones no afectan a otras.
+4. **Durability**: Los cambios persisten incluso después de un fallo.
+
+### ¿Qué tipos de índices conoces? ¿Cuándo se utilizan?
+
+**Tipos de índices**:
+1. **Índice principal**: Se crea automáticamente para las claves primarias.
+2. **Índice único**: Evita valores duplicados.
+3. **Índice agrupado**: Organización física de datos optimizada para recuperación eficiente.
+4. **Índice no agrupado**: Orden lógico de datos separado de la almacenamiento físico.
+
+Utiliza índices para mejorar el rendimiento de las consultas.
+
+### ¿Cómo se puede cambiar una estructura de tabla ya definida con TypeORM?
+
+Para cambiar una estructura de tabla ya definida con **TypeORM**, utiliza scripts de migración:
+1. Generar migración: `typeorm migration:generate`
+2. Editar comandos de cambio de esquema.
+3. Ejecutar migración: `typeorm migration:run`.
+
+### ¿Qué es MongoDB?
+
+**MongoDB** es una base de datos NoSQL que almacena datos en documentos flexibles, sin esquema, en formato BSON. Es ideal para aplicaciones rápidas y escalables.
+
+### ¿Cuál es la diferencia en la escalabilidad entre bases de datos NoSQL y SQL?
+
+- **Escalado de NoSQL**: Escalado horizontal (añadir más máquinas).
+- **Escalado de SQL**: Escalado vertical (aumentar recursos en la máquina existente).
+
+### ¿Qué es JWT? ¿Es seguro almacenar información sensible dentro de JWT?
+
+**JWT (JSON Web Token)** se utiliza para la transmisión de datos seguros. Incluye:
+- **Header**: Metadatos.
+- **Payload**: Datos.
+- **Signature**: Garantiza la integridad.
+
+La información sensible **no debería ser almacenada** dentro del payload de JWT ya que puede ser decodificada.
+
+##  Preguntas frecuentes
+
+### ¿Qué son los componentes puros?
+
+**Pure Components** en React son componentes que solo se vuelven a renderizar cuando cambian sus props o estado. Implementan una comparación superficial de props y estado para evitar renderizaciones innecesarias. Este comportamiento mejora el rendimiento.
+
+### ¿Cuándo usar Node.js y cuándo no usarlo?
+
+**Cuando usar Node.js:**
+- Para construir aplicaciones en tiempo real (e.g., chat, juegos en línea).
+- Para tareas intensivas en E/S (e.g., APIs, streaming de datos).
+- Cuando la escalabilidad es importante.
+
+**Cuando no usar Node.js:**
+- Para tareas intensivas en CPU, como machine learning o cálculos pesados, ya que Node.js es de un solo hilo.
+- Aplicaciones que requieren operaciones relacionales complejas (usa RDBMS en su lugar).
+
+### ¿Qué es npm?
+
+**npm (Node Package Manager)** es el administrador de paquetes predeterminado para Node.js. Se utiliza para administrar bibliotecas, marcos de trabajo y dependencias para proyectos de Node.js. Permite a los desarrolladores instalar, publicar y gestionar paquetes de JavaScript.
+
+### ¿Cuál es la diferencia entre operaciones sincrónicas y asincrónicas?
+
+- **Operaciones sincrónicas**: Bloquean la ejecución del código hasta que se complete la operación.
+- **Operaciones asincrónicas**: No bloquean la ejecución del código. La operación continúa en segundo plano, permitiendo que el programa progrese.
+
+### ¿Cuándo se pueden usar Streams en Node.js?
+
+**Streams** en Node.js se utilizan para manejar datos de gran escala secuencialmente. Usa Streams:
+- Cuando se lee/escribe archivos grandes (e.g., `fs.createReadStream`).
+- Para solicitudes HTTP y respuestas (e.g., streaming de datos de API).
+- Cuando se comprime/transforma datos (e.g., `zlib.createGzip`).
+
+### ¿Qué es un Memory Leak? ¿Cómo se puede prevenir?
+
+**Memory Leak** ocurre cuando la memoria asignada no se libera, causando problemas de rendimiento con el tiempo.
+
+**Prevention strategies:**
+- Usa el ámbito correcto para las variables.
+- Limpia los temporizadores y los oyentes de eventos después de su uso.
+- Evita almacenar objetos globales con datos grandes.
+
+### ¿Cuáles son las ventajas de async/await sobre Promises?
+
+**Ventajas de async/await:**
+- Sintaxis simplificada: El código se vuelve más legible y secuencial.
+- Depuración más fácil: Los errores se pueden capturar usando `try...catch`.
+- Maneja múltiples llamadas asíncronas más limpiamente en comparación con encadenados `.then()`.
+
+### ¿Qué es Express.js y para qué se utiliza?
+
+**Express.js** es un marco de aplicación web ligero y flexible para Node.js. Se utiliza para construir:
+- APIs RESTful.
+- Servidores web capaces de manejar solicitudes HTTP.
+
+### ¿Cuáles son los bloques de construcción principales de Express.js?
+
+**Bloques de construcción principales:**
+1. **Middleware**: Funciones ejecutadas durante el procesamiento de solicitudes.
+2. **Routing**: Define la lógica de los endpoints de la aplicación.
+3. **Request Object**: Representa la solicitud HTTP.
+4. **Response Object**: Envía respuestas HTTP.
+5. **Error Handling**: Maneja excepciones en tiempo de ejecución.
+
+### ¿Qué es el uso de `next()` en Express.js?
+
+La **función `next()`** pasa el control a la siguiente función middleware en la cadena. Es crucial en el procesamiento de middleware para garantizar un flujo de ejecución correcto.
+
+### ¿Qué es un patrón Given-When-Then?
+
+**Given-When-Then** es un patrón de desarrollo dirigido por comportamiento (BDD) utilizado para escribir casos de prueba:
+- **Given**: Precondición/configuración.
+- **When**: Acción bajo prueba.
+- **Then**: Resultado esperado.
+
+### ¿Qué son los mocks y stubs? ¿Cómo se utilizan en las pruebas de integración?
+
+- **Mocks**: Objetos falsos que controlan el comportamiento de las dependencias durante una prueba.
+- **Stubs**: Respuestas fijas para llamadas a métodos.
+
+Se utilizan en las pruebas de integración para aislar componentes y simular interacciones externas.
+
+### ¿Qué restricciones tiene una API REST?
+
+**REST API constraints**:
+1. **Statelessness**: El servidor no mantiene el estado del cliente.
+2. **Client-Server Separation**: Independiente layers.
+3. **Cacheability**: Las respuestas deben ser cacheables donde sea posible.
+4. **Uniform Interface**: Representación consistente de recursos.
+
+### ¿Qué estado HTTP debe enviarse en una respuesta a una solicitud de creación de objeto?
+
+La respuesta debe devolver **HTTP status 201 (Created)**, indicando que el recurso se ha creado correctamente.
+
+### ¿Qué es la inyección de dependencias?
+
+**Inyección de dependencias** es un patrón de diseño que proporciona las dependencias requeridas a un objeto, en lugar de que el objeto se las instancie por sí mismo.
+
+### ¿Qué es una arquitectura de capas?
+
+**Arquitectura de capas** organiza el software en capas con roles específicos. Ejemplos:
+- **Capa de presentación**: Lógica de la interfaz de usuario.
+- **Capa de lógica de negocio**: Reglas centrales de la aplicación.
+- **Capa de acceso a datos**: Interacción con la base de datos.
+
+### ¿Qué es un concepto de normalización?
+
+El concepto de **normalización** es el proceso de organizar datos de base de datos relacionales para reducir la redundancia y garantizar la integridad de los datos. Las formas normales comunes incluyen:
+- **1NF**: Elimina duplicaciones.
+- **2NF**: Elimina dependencias parciales.
+- **3NF**: Elimina dependencias transitivas.
+
+### ¿Qué tipos de relaciones de tablas conoces? ¿Cómo se crean?
+
+**Tipos de relaciones:**
+1. **One-to-One**: Usa una clave externa en una tabla para referenciar otra.
+2. **One-to-Many**: Una clave externa mapea múltiples registros en una tabla a un solo registro en otra.
+3. **Many-to-Many**: Usa una tabla intermedia para mapear registros.
+
+### ¿Cuál es la diferencia entre DDL y DML?
+
+- **DDL (Data Definition Language)**: Define la estructura de la base de datos (e.g., `CREATE`, `ALTER`, `DROP`).
+- **DML (Data Manipulation Language)**: Manipula datos (e.g., `SELECT`, `INSERT`, `UPDATE`, `DELETE`).
+
+### ¿Cómo se organiza el dato en MongoDB?
+
+Los datos en MongoDB se organizan en:
+- **Documents**: Objetos JSON-like en formato BSON.
+- **Collections**: Grupos de documentos.
+- **Databases**: Grupos de colecciones.
+
+### ¿Qué significa BASE?
+
+**BASE** es un principio arquitectónico para NoSQL:
+- **Basically Available**: El sistema garantiza la disponibilidad.
+- **Soft State**: El estado del cliente puede cambiar con el tiempo.
+- **Eventual Consistency**: Garantiza la consistencia de los datos eventualmente.
+
+### ¿Cómo se puede crear una relación entre documentos en MongoDB?
+
+Las relaciones se pueden lograr mediante:
+- **Embedding Documents**: Anidar datos relacionados.
+- **Referencing Documents**: Almacenar el ID de un documento externo.
+
+### ¿Cuál es la diferencia entre Encoding, Encryption, y Hashing?
+
+- **Encoding**: Convertir datos en otro formato para la transmisión (e.g., Base64). 
+- **Encryption**: Segurizar datos usando claves. Requiere descifrar usando la misma clave (simétrica) o una clave pareada (asimétrica).
+- **Hashing**: Transformación unidireccional creando una representación de longitud fija.
+
+### ¿Cuáles son los casos de uso para Encoding, Encryption, y Hashing?
+
+- **Encoding**: Transferencia de datos sobre sistemas no compatibles.
+- **Encryption**: Segurización de datos sensibles.
+- **Hashing**: Almacenamiento de contraseñas, verificación de integridad de datos.
+
+### ¿Qué es HTTPS? ¿Cómo funciona?
+
+**HTTPS (Hypertext Transfer Protocol Secure)** usa cifrado (mediante SSL/TLS) para transmitir datos de forma segura entre el cliente y el servidor. Usa claves públicas y privadas para la comunicación segura.
+
+### ¿Qué es Authentication y Authorization?
+
+- **Authentication**: Verifica la identidad del usuario (e.g., nombre de usuario y contraseña).
+- **Authorization**: Otorga permisos a los usuarios para acceder a recursos.
+
+### ¿Cuáles son las ventajas principales de la arquitectura de Microservicios sobre la arquitectura Monolítica?
+
+**Ventajas de la arquitectura de Microservicios sobre la arquitectura Monolítica:**
+- Escalabilidad: Escalado independiente de servicios.
+- Aislamiento de fallos: El fallo de un servicio no provoca el colapso del sistema.
+- Diversidad de tecnologías: Cada servicio puede usar tecnologías diferentes.
+
+### ¿Cómo entiendes una arquitectura orientada a eventos? ¿Qué es un patrón pub-sub?
+
+**Arquitectura orientada a eventos** reacciona a eventos y es asíncrona. Las aplicaciones usan patrones **publish-subscribe (pub/sub)**, donde los publicadores envían mensajes a temas y los suscriptores escuchan eventos específicos.
+
+##  Áreas de conocimiento
+
+### ¿Cuáles son las diferencias entre dependencias y devDependencies en package.json?
+
+- **dependencies**: Bibliotecas requeridas en producción para que la aplicación se ejecute. Estas paquetes se instalan con el comando `npm install` por defecto.
+- **devDependencies**: Bibliotecas solo requeridas durante el desarrollo (e.g., herramientas de prueba, linters). Instaladas usando `npm install --only=dev`.
+
+En el archivo `package.json`:
+```json
+"dependencies": {
+  "express": "^4.18.2"
+},
+"devDependencies": {
+  "jest": "^27.4.5"
+}
+```
+
+### ¿Cuáles son las diferencias entre worker thread y child_process?
+
+- **Worker Threads**: Usados para ejecutar JavaScript en múltiples hilos. Ligeros y comparten la misma memoria.
+- **Child Processes**: Crean procesos separados. Más pesados ya que cada hijo tiene su propia memoria.
+
+Use **worker threads** for parallel execution and **child processes** for isolated operations.
+
+### ¿Qué es la clase Event Emitter? ¿Cómo está relacionada con otras clases?
+
+- **`EventEmitter`** es una clase core en Node.js que facilita la programación orientada a eventos. Permite a los objetos emitir y escuchar eventos.
+- Las clases como `fs.ReadStream` y `http.Server` heredan de **EventEmitter**.
+
+Ejemplo de uso:
+```javascript
+const EventEmitter = require('events');
+const emitter = new EventEmitter();
+
+emitter.on('event', () => console.log('Event triggered!'));
+emitter.emit('event'); // Outputs: Event triggered!
+```
+
+### ¿Cuáles son las diferencias entre CommonJS y ES modules?
+
+- **CommonJS**:
+  - Usado en versiones anteriores de Node.js.
+  - Sintaxis: `require` para importar y `module.exports` para exportar.
+  - Example:
+    ```javascript
+    const moduleA = require('./moduleA');
+    module.exports = { functionA };
+    ```
+
+- **ES Modules (ESM)**:
+  - Native in modern JavaScript.
+  - Syntax: `import` and `export`.
+  - Example:
+    ```javascript
+    import moduleA from './moduleA';
+    export const functionA = () => {};
+    ```
+
+### ¿Cómo puedes hacer que Node.js trate tus archivos `.js` como ES modules?
+
+Para hacer que Node.js trate tus archivos `.js` como ES modules, puedes:
+1. Añadir `"type": "module"` en tu `package.json`.
+2. Usar la extensión `.mjs` para ES modules.
+
+Ejemplo de `package.json`:
+```json
+{
+  "type": "module"
+}
+```
+
+### ¿Qué es Promisification y cuándo se utiliza?
+
+**Promisification** transforma una función basada en callbacks en una función basada en promesas. 
+
+**Uso**: Cuando trabajas con bibliotecas que solo soportan callbacks, la promisificación facilita la interacción usando `Promise` o `async/await`.
+
+Ejemplo:
+```javascript
+const fs = require('fs');
+const util = require('util');
+
+const readFileAsync = util.promisify(fs.readFile);
+
+readFileAsync('./file.txt', 'utf-8').then(console.log).catch(console.error);
+```
+
+### ¿Cómo puedes diferenciar una función de manejo de errores de una función de controlador de solicitudes?
+
+En Express.js:
+- Un **middleware de manejo de errores** tiene cuatro argumentos: `(err, req, res, next)` y se usa específicamente para capturar y procesar errores.
+- Un **middleware de solicitud regular** no tiene el argumento `err`: `(req, res, next)`.
+
+Ejemplo:
+```javascript
+// Request Handler
+app.get('/endpoint', (req, res) => res.send('Request handled'));
+
+// Error-Handling Middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+```
+
+### ¿Qué puede ser un Provider en NestJS?
+
+En **NestJS**, un **Provider** es una clase, servicio o fábrica que puede ser inyectada en otros componentes. Los Providers se declaran en el decorador `@Module` bajo el array `providers`. Ejemplos: servicios, repositorios y utilidades personalizadas.
+
+### ¿Cuáles son los casos de uso para Pipes en NestJS?
+
+**Pipes** en NestJS se utilizan para:
+1. **Validation**: Garantizar que los datos de entrada cumplan con ciertos criterios (e.g., `ValidationPipe`).
+2. **Transformation**: Convertir datos de entrada en un formato deseado.
+
+Ejemplo:
+```typescript
+import { PipeTransform, Injectable } from '@nestjs/common';
+
+@Injectable()
+export class UppercasePipe implements PipeTransform {
+  transform(value: string) {
+    return value.toUpperCase();
+  }
+}
+```
+
+### ¿Es posible en NestJS enlazar lógica extra antes/después de la ejecución de un método?
+
+Sí, puedes enlazar lógica extra usando **Interceptors** o **Guards**:
+- **Interceptors**: Modificar solicitudes y respuestas (antes/después de la ejecución).
+- **Guards**: Añadir lógica previa a la ejecución, como autenticación.
+
+### ¿Cómo se procesan todas las excepciones no manejadas en NestJS?
+
+**Excepciones no manejadas** son capturadas por el **Filtro de Excepciones integrado** en NestJS. También puedes crear filtros personalizados extendiendo la interfaz `ExceptionFilter<T>` para manejar escenarios de error específicos.
+
+### ¿Qué es un Health Check? ¿Por qué es necesario?
+
+Un **Health Check** ayuda a monitorear el estado operativo de un servicio (e.g., disponibilidad de DBs, APIs). Garantiza que el sistema esté funcionando y listo para manejar solicitudes.
+
+### ¿Qué es un ID de correlación? ¿Cómo ayuda a depurar tu aplicación?
+
+Un **ID de correlación** es un identificador único para una solicitud que fluye a través de microservicios. Ayuda a rastrear y depurar problemas efectivamente vinculando logs y métricas a una sola interacción del usuario.
+
+### ¿Qué test runner libraries conoces?
+
+Popular test runner libraries:
+- **Jest** (JavaScript/Node.js).
+- **Mocha** & **Chai** (JavaScript/Node.js).
+- **Jasmine**.
+- **Cypress** (Frontend and end-to-end testing).
+
+### ¿Qué niveles de API REST conoces?
+
+El **Richardson Maturity Model** define los niveles de diseño de API REST:
+1. **Nivel 0**: URI única, método HTTP único.
+2. **Nivel 1**: Recursos (URIs representan objetos).
+3. **Nivel 2**: Métodos HTTP (GET, POST, etc.).
+4. **Nivel 3**: HATEOAS (Hipermedia como estado de la aplicación).
+
+### ¿Qué es GraphQL? ¿Cuáles son sus ventajas sobre REST API?
+
+**GraphQL** es una lenguaje de consulta para APIs que recupera solo los datos requeridos. 
+
+**Ventajas**:
+- Flexibilidad en la consulta comparada con REST’s endpoints fijos.
+- Reduce el sobre-fetching/sub-fetching de datos.
+- Esquema fuertemente tipado para consultas predecibles.
+
+### ¿Qué tipos de datos están presentes en PostgreSQL?
+
+Tipos de datos comunes en PostgreSQL:
+1. **Numeric**: `INTEGER`, `BIGINT`, `DECIMAL`.
+2. **String**: `TEXT`, `VARCHAR`.
+3. **Date/Time**: `DATE`, `TIMESTAMP`.
+4. **JSON**: `JSON`, `JSONB`.
+5. **Geospatial**: `POINT`, `GEOMETRY`.
+
+### ¿Qué es una subquery?
+
+Una **subquery** es una consulta SQL anidada dentro de otra consulta. Se ejecuta primero y su resultado se usa para la consulta externa.
+
+Ejemplo:
+```sql
+SELECT * FROM Employees WHERE id IN (SELECT employee_id FROM Salaries);
+```
+
+### ¿Qué son los Lock Levels en PostgreSQL?
+
+**Lock Levels** define el nivel de restricciones en tablas o filas:
+1. **Row-Level Locks**: Bloquea solo filas específicas (e.g., `SELECT FOR UPDATE`).
+2. **Table-Level Locks**: Afecta toda la tabla (e.g., `ACCESS EXCLUSIVE` lock).
+
+### ¿Qué es un ORM? ¿Qué problemas resuelve?
+
+**ORM (Object Relational Mapping)** abstracta las operaciones de la base de datos usando objetos/modelos. Resuelve:
+- Complejidad en las consultas SQL.
+- Compatibilidad entre bases de datos.
+- Código boilerplate.
+
+Ejemplos de librerías: Sequelize, TypeORM.
+
+### ¿Qué es un Query Builder?
+
+Un **Query Builder** es una herramienta proporcionada por ORMs para construir consultas SQL usando métodos y objetos, en lugar de escribir SQL sin formato.
+
+### ¿Qué patrones de diseño conoces?
+
+- **Active Record Pattern**: Los modelos tienen métodos para persistirse (usado en Rails/ActiveRecord).
+- **Data Mapper Pattern**: Separa la lógica de negocio de la lógica de persistencia. Usado en TypeORM.
+
+
+### ¿Cuál es la diferencia entre Entidades sin formato y Entidades?
+
+- **Entidades sin formato**: Resultado de una consulta a la base de datos (datos sin mapear).
+- **Entidades**: Objetos mapeados usando modelos de ORM, conteniendo lógica y relaciones.
+
+### ¿Cómo procesas tablas con mucha data usando TypeORM?
+
+Usa técnicas como:
+- Procesamiento por lotes: Divide la ejecución en trozos más pequeños.
+- Query Streams: Recupera datos incrementalmente.
+
+### ¿Cómo entiendes la criptografía simétrica y asimétrica?
+
+- **Criptografía simétrica**: Usa una sola clave para cifrar y descifrar (e.g., AES).
+- **Criptografía asimétrica**: Usa un par de claves (pública y privada). La clave pública cifra, y la clave privada descifra (e.g., RSA).
+
+### ¿Cuál es la diferencia entre una clave privada y una clave pública?
+
+- **Clave pública**: Compartida públicamente y usada para cifrar.
+- **Clave privada**: Mantenida en secreto y usada para descifrar.
+
+### ¿Qué tipos de autenticación conoces? ¿Cuándo usarlos?
+
+**Tipos de autenticación**:
+1. **API Key**: Para aplicaciones simples.
+2. **Session-Based**: Para aplicaciones web.
+3. **Token-Based (e.g., JWT)**: Para sistemas distribuidos.
+4. **OAuth**: Para integraciones de terceros.
+5. **Biometric**: Para necesidades de alta seguridad.
+
+### ¿Qué es una aplicación web de 3 capas? ¿Son las capas lógicas o físicas?
+
+Una **aplicación web de 3 capas** incluye:
+1. **Capa de presentación**: Frontend (UI/UX).
+2. **Capa de lógica de negocio**: Backend (API/lógica).
+3. **Capa de datos**: Base de datos.
+
+Las capas pueden ser **lógicas** o **físicas**, dependiendo de la implementación.
