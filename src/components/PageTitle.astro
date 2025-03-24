@@ -1,54 +1,98 @@
 ---
-import Default from '@astrojs/starlight/components/PageTitle.astro';
-
-const { title } = Astro.locals.starlightRoute.entry.data;
-// console.log(Astro.locals.starlightRoute.entry.data);
-
-const email = 'houston@example.com';
-
-// // const { authors, createdDate} = Astro.locals.starlightRoute.entry.data;
-
-// // const { authors, createdDate} = Astro.locals.starlightRoute.entry.data;
-// const { authors, createdDate} = Astro.locals.starlightRoute.entry.data as {
-//   authors?: string[];
-//   createdDate?: Date;
-//   [key: string]: any; // Allow other properties
-// };
-
-// console.log(authors, createdDate);
+import Default from "@astrojs/starlight/components/PageTitle.astro";
 
 const data = Astro.locals.starlightRoute.entry.data;
 
-console.log('Full Data:', data); // Inspect the entire data object
-
-const { authors, createdDate} = data;
-
-console.log('Authors:', authors, 'Create Date:', createdDate); // Check individual values
-
+const { authors, createdDate } = data;
 
 function formatDate(date: Date | undefined): string {
-  if (!date) return 'Unknown Date';
-  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  if (!date) return "Unknown Date";
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 }
-
 ---
 
-<a href=`mailto:${email}`>E-mail Me</a>
+<div class="page-header">
+  <div class="page-title">
+    <Default>
+      <slot />
+    </Default>
+  </div>
 
-<h1>My Custom Page</h1>
+  <div class="page-meta">
+    {
+      authors && (
+        <div class="authors">
+          <span class="meta-label">Authors:</span>
+          <div class="authors-list">
+            {authors.map((author) => (
+              <span class="author-tag">{author}</span>
+            ))}
+          </div>
+        </div>
+      )
+    }
 
-{authors && (
-  <p>
-    <strong>Authors:</strong> {authors.join(', ')}
-  </p>
-)}
+    {
+      createdDate && (
+        <div class="date">
+          <span class="meta-label">Created:</span>
+          <span class="date-value">{formatDate(createdDate)}</span>
+        </div>
+      )
+    }
+  </div>
+</div>
 
-{createdDate&& (
-  <p>
-    <strong>Created:</strong> {formatDate(createdDate)}
-  </p>
-)}
+<style>
+  .page-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--sl-color-gray-5);
+  }
 
-<Default>
-  <slot />
-</Default>
+  .page-title {
+    margin-bottom: 1rem;
+  }
+
+  .page-meta {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--sl-color-gray-2);
+  }
+
+  .authors,
+  .date {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .meta-label {
+    font-weight: 500;
+    color: var(--sl-color-gray-1);
+  }
+
+  .authors-list {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .author-tag {
+    background-color: var(--sl-color-gray-6);
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.85rem;
+    color: var(--sl-color-gray-1);
+  }
+
+  .date-value {
+    color: var(--sl-color-gray-2);
+  }
+</style>
