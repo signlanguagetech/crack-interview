@@ -10,7 +10,7 @@ const isPreview = import.meta.env.PREVIEW;
 export default defineConfig({
   server: { port },
   site: isProd ? liveUrl : localHostUrl,
-  base: isPreview ? "/preview" : (isProd ? "/crack-interview" : "/"),
+  base: isPreview ? "/crack-interview/preview" : (isProd ? "/crack-interview" : "/"),
   integrations: [
     starlight({
       plugins: [],
