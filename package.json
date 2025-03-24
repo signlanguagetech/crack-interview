@@ -14,8 +14,5 @@
     "astro": "^5.5.4",
     "sharp": "^0.33.5",
     "starlight-blog": "^0.18.0"
-  },
-  "devDependencies": {
-    "ts-node": "^10.9.2"
   }
 }
