@@ -1,4 +1,4 @@
-# Crack Interview
+# Sign Tech Interview
 
 A comprehensive resource collection and practice platform to help you prepare for technical interviews.
 
