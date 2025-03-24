@@ -1,74 +1,45 @@
 ---
-import Default from "@astrojs/starlight/components/PageTitle.astro";
-import { getCurrentLocale, getTranslation, formatDate } from "../utils/i18n";
+import PageTitleBase from '@astrojs/starlight/components/PageTitle.astro';
+import LastUpdatedBase from '@astrojs/starlight/components/LastUpdated.astro';
 
-const data = Astro.locals.starlightRoute.entry.data;
-const { authors, createdDate } = data;
+const { authors } = Astro.locals.starlightRoute.entry.data;
 
-// Get current locale using our utility
-const locale = getCurrentLocale(Astro);
-
-// Get translations using our utility
-const authorsLabel = getTranslation(locale, "components.pageTitle.authors");
-const createdLabel = getTranslation(locale, "components.pageTitle.created");
-const updatedLabel =
-  getTranslation(locale, "components.pageTitle.updated") || "Last update";
-
-// Process authors to handle different formats (string, object, array)
-const processedAuthors = (() => {
-  if (!authors) return [];
-
-  if (typeof authors === "string") {
-    return [{ name: authors }];
-  }
-
-  if (Array.isArray(authors)) {
-    return authors.map((author) =>
-      typeof author === "string" ? { name: author } : author,
-    );
-  }
-
-  return [authors];
-})();
+const processedAuthors = authors.map((author) =>
+  typeof author === 'string' ? { name: author } : author
+);
 ---
 
-<div class="page-header">
-  <div class="page-title">
-    <Default>
-      <slot />
-    </Default>
+<div class='page-header'>
+  <div class='page-title'>
+    <PageTitleBase />
   </div>
 
-  {
-    createdDate && (
-      <div class="date-info">{formatDate(createdDate, locale)}</div>
-    )
-  }
+  <LastUpdatedBase />
 
   {
     processedAuthors.length > 0 && (
-      <div class="authors-container">
+      <div class='authors-container'>
         {processedAuthors.map((author) => (
-          <div class="author-item">
+          <div class='author-item'>
             {author.picture && (
-              <div class="author-avatar">
+              <div class='author-avatar'>
                 <img src={author.picture} alt={author.name} />
               </div>
             )}
-            <div class="author-info">
+            <div class='author-info'>
               {author.url ? (
                 <a
                   href={author.url}
-                  class="author-name"
-                  target="_blank"
-                  rel="noopener"
+                  class='author-name'
+                  target='_blank'
+                  rel='noopener'
                 >
                   {author.name}
                 </a>
               ) : (
-                <span class="author-name">{author.name}</span>
+                <span class='author-name'>{author.name}</span>
               )}
-              {author.title && <span class="author-title">{author.title}</span>}
+              {author.title && <span class='author-title'>{author.title}</span>}
             </div>
           </div>
         ))}
