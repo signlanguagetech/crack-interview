@@ -1,0 +1,22 @@
+---
+import FooterBase from '@astrojs/starlight/components/Footer.astro'
+---
+
+<FooterBase />
+<div class="footer">
+  <a href="https://signlanguagetech.com/privacy-policy/" target="_blank">Privacy Policy</a>
+</div>
+
+<style>
+  footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer a {
+    color: var(--starlight-color-text);
+  }
+  footer a:hover {
+    color: var(--starlight-color-primary);
+  }
+  </style>
