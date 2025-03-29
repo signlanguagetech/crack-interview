@@ -13,3 +13,11 @@
     max-width: calc(100% - 200px) !important;
   }
 }
+
+/* Styles for hero component for desktop fix bug with padding bottom */
+@media (min-width: 50rem) {
+  div.hero {
+    padding-block-start: 3rem;
+    padding-block-end: 0;
+  }
+}

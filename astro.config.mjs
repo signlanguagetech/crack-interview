@@ -60,7 +60,7 @@ export default defineConfig({
         },
         {
           tag: 'script',
-          content: `          
+          content: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
