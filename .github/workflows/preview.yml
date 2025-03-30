@@ -61,9 +61,32 @@ jobs:
     # Only run on closed PR events
     if: github.event.action == 'closed'
     steps:
-      - name: Teardown Surge deployment
-        uses: afc163/surge-preview@v1
+      - name: Generate preview domain
+        id: preview-domain
+        run: |
+          PR_NUMBER="${{ github.event.number }}"
+          REPO_NAME=$(echo "${{ github.repository }}" | sed 's/\//-/g' | tr '[:upper:]' '[:lower:]')
+          PREVIEW_DOMAIN="${REPO_NAME}-preview-pr-${PR_NUMBER}.surge.sh"
+          echo "domain=${PREVIEW_DOMAIN}" >> $GITHUB_OUTPUT
+          echo "Preview domain: ${PREVIEW_DOMAIN}"
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
         with:
-          surge_token: ${{ secrets.SURGE_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          teardown: true
+          version: latest
+
+      - name: Teardown Surge deployment
+        id: teardown
+        env:
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+          PREVIEW_DOMAIN: ${{ steps.preview-domain.outputs.domain }}
+        run: |
+          echo "Attempting to teardown ${PREVIEW_DOMAIN}"
+          pnpm dlx surge teardown ${PREVIEW_DOMAIN} --token ${SURGE_TOKEN}
+        continue-on-error: true
+
+      - name: List current deployments
+        if: steps.teardown.outcome == 'failure'
+        env:
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+        run: pnpm dlx surge list --token ${SURGE_TOKEN}
