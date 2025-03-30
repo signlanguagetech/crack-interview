@@ -9,17 +9,17 @@ importers:
   .:
     dependencies:
       '@astrojs/starlight':
-        specifier: ^0.32.4
-        version: 0.32.4(astro@5.5.4(rollup@4.35.0)(typescript@5.8.2))
+        specifier: ^0.32.5
+        version: 0.32.5(astro@5.5.5(rollup@4.35.0)(typescript@5.8.2))
       astro:
-        specifier: ^5.5.4
-        version: 5.5.4(rollup@4.35.0)(typescript@5.8.2)
+        specifier: ^5.5.5
+        version: 5.5.5(rollup@4.35.0)(typescript@5.8.2)
       sharp:
         specifier: ^0.33.5
         version: 0.33.5
       starlight-blog:
-        specifier: ^0.18.0
-        version: 0.18.0(@astrojs/starlight@0.32.4(astro@5.5.4(rollup@4.35.0)(typescript@5.8.2)))(astro@5.5.4(rollup@4.35.0)(typescript@5.8.2))
+        specifier: ^0.19.0
+        version: 0.19.0(@astrojs/starlight@0.32.5(astro@5.5.5(rollup@4.35.0)(typescript@5.8.2)))(astro@5.5.5(rollup@4.35.0)(typescript@5.8.2))
 
 packages:
 
@@ -54,8 +54,8 @@ packages:
   '@astrojs/sitemap@3.2.1':
     resolution: {integrity: sha512-uxMfO8f7pALq0ADL6Lk68UV6dNYjJ2xGUzyjjVj60JLBs5a6smtlkBYv3tQ0DzoqwS7c9n4FUx5lgv0yPo/fgA==}
 
-  '@astrojs/starlight@0.32.4':
-    resolution: {integrity: sha512-l6aHQ4wzFPdw2G2XPqft/SrzhOYWYBYPkIHlLdgFT09Lt3NUpHnHwdcomtDJfHPlvrAqBKt/C+aJqQjLBApu0Q==}
+  '@astrojs/starlight@0.32.5':
+    resolution: {integrity: sha512-KYZsYbA5eEAsCO3XNc6DWDPml1JCD6GVusuB15fYq5dbxyB7RtC6kgwbtiEmr84maIjcQUmDtFJCz3sN4CdaSg==}
     peerDependencies:
       astro: ^5.1.5
 
@@ -638,8 +638,8 @@ packages:
     resolution: {integrity: sha512-ufS/aOBXQKAe6hZ5NbiHUsC01o0ZcEwS+nNhd/mr1avLV+NbgYJEbwY8VRorzLs/GH5COOTaxl2795DkGIUTcw==}
     engines: {node: '>=18.14.1'}
 
-  astro@5.5.4:
-    resolution: {integrity: sha512-rc9Mj6dIKM9ylTSQ0/S1l5f1iSDNs0PEjRMnvVpZ0W+wfBCu99JEuXy+fiWDNT6gf60bC4dKQehZxZGdSJB9kg==}
+  astro@5.5.5:
+    resolution: {integrity: sha512-fdnnK5dhWNIQT/cXzvaGs9il4T5noi4jafobdntbuNOrRxI1JnOxDfrtBadUo6cknCRCFhYrXh4VndCqj1a4Sg==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -1491,8 +1491,8 @@ packages:
   space-separated-tokens@2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
 
-  starlight-blog@0.18.0:
-    resolution: {integrity: sha512-8PzDqJQ0i0nWdXTYjs2OiCM4AiqSQgW2gEFNvFg5hGyULrHCModOnR+Byy9LShZiFyFzcBtbX2HGZC7SXpsVcw==}
+  starlight-blog@0.19.0:
+    resolution: {integrity: sha512-GWeSxqy4PPClbaDHZ0viWNSGdWwvB93DB6GQypSg+TzdxcmdXFjGLSqxHfeGXMR3gAYJj9ly3HkRXRL5zw7HEw==}
     engines: {node: '>=18.17.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.32.0'
@@ -1676,8 +1676,8 @@ packages:
   vfile@6.0.3:
     resolution: {integrity: sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==}
 
-  vite@6.2.1:
-    resolution: {integrity: sha512-n2GnqDb6XPhlt9B8olZPrgMD/es/Nd1RdChF6CBD/fHW6pUyUTt2sQW2fPRX5GiD9XEa6+8A6A4f2vT6pSsE7Q==}
+  vite@6.2.3:
+    resolution: {integrity: sha512-IzwM54g4y9JA/xAeBPNaDXiBF8Jsgl3VBQ2YQ/wOY6fyW3xMdSoltIV3Bo59DErdqdE6RxUfv8W69DvUorE4Eg==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -1835,12 +1835,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@4.1.0(astro@5.5.4(rollup@4.35.0)(typescript@5.8.2))':
+  '@astrojs/mdx@4.1.0(astro@5.5.5(rollup@4.35.0)(typescript@5.8.2))':
     dependencies:
       '@astrojs/markdown-remark': 6.2.0
       '@mdx-js/mdx': 3.1.0(acorn@8.14.1)
       acorn: 8.14.1
-      astro: 5.5.4(rollup@4.35.0)(typescript@5.8.2)
+      astro: 5.5.5(rollup@4.35.0)(typescript@5.8.2)
       es-module-lexer: 1.6.0
       estree-util-visit: 2.0.0
       hast-util-to-html: 9.0.5
@@ -1869,16 +1869,16 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 3.24.2
 
-  '@astrojs/starlight@0.32.4(astro@5.5.4(rollup@4.35.0)(typescript@5.8.2))':
+  '@astrojs/starlight@0.32.5(astro@5.5.5(rollup@4.35.0)(typescript@5.8.2))':
     dependencies:
-      '@astrojs/mdx': 4.1.0(astro@5.5.4(rollup@4.35.0)(typescript@5.8.2))
+      '@astrojs/mdx': 4.1.0(astro@5.5.5(rollup@4.35.0)(typescript@5.8.2))
       '@astrojs/sitemap': 3.2.1
       '@pagefind/default-ui': 1.3.0
       '@types/hast': 3.0.4
       '@types/js-yaml': 4.0.9
       '@types/mdast': 4.0.4
-      astro: 5.5.4(rollup@4.35.0)(typescript@5.8.2)
-      astro-expressive-code: 0.40.2(astro@5.5.4(rollup@4.35.0)(typescript@5.8.2))
+      astro: 5.5.5(rollup@4.35.0)(typescript@5.8.2)
+      astro-expressive-code: 0.40.2(astro@5.5.5(rollup@4.35.0)(typescript@5.8.2))
       bcp-47: 2.1.0
       hast-util-from-html: 2.0.3
       hast-util-select: 6.0.4
@@ -2368,9 +2368,9 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro-expressive-code@0.40.2(astro@5.5.4(rollup@4.35.0)(typescript@5.8.2)):
+  astro-expressive-code@0.40.2(astro@5.5.5(rollup@4.35.0)(typescript@5.8.2)):
     dependencies:
-      astro: 5.5.4(rollup@4.35.0)(typescript@5.8.2)
+      astro: 5.5.5(rollup@4.35.0)(typescript@5.8.2)
       rehype-expressive-code: 0.40.2
 
   astro-remote@0.3.3:
@@ -2381,7 +2381,7 @@ snapshots:
       marked-smartypants: 1.1.9(marked@12.0.2)
       ultrahtml: 1.5.3
 
-  astro@5.5.4(rollup@4.35.0)(typescript@5.8.2):
+  astro@5.5.5(rollup@4.35.0)(typescript@5.8.2):
     dependencies:
       '@astrojs/compiler': 2.11.0
       '@astrojs/internal-helpers': 0.6.1
@@ -2432,8 +2432,8 @@ snapshots:
       unist-util-visit: 5.0.0
       unstorage: 1.15.0
       vfile: 6.0.3
-      vite: 6.2.1
-      vitefu: 1.0.6(vite@6.2.1)
+      vite: 6.2.3
+      vitefu: 1.0.6(vite@6.2.3)
       xxhash-wasm: 1.1.0
       yargs-parser: 21.1.1
       yocto-spinner: 0.2.1
@@ -3861,11 +3861,11 @@ snapshots:
 
   space-separated-tokens@2.0.2: {}
 
-  starlight-blog@0.18.0(@astrojs/starlight@0.32.4(astro@5.5.4(rollup@4.35.0)(typescript@5.8.2)))(astro@5.5.4(rollup@4.35.0)(typescript@5.8.2)):
+  starlight-blog@0.19.0(@astrojs/starlight@0.32.5(astro@5.5.5(rollup@4.35.0)(typescript@5.8.2)))(astro@5.5.5(rollup@4.35.0)(typescript@5.8.2)):
     dependencies:
-      '@astrojs/mdx': 4.1.0(astro@5.5.4(rollup@4.35.0)(typescript@5.8.2))
+      '@astrojs/mdx': 4.1.0(astro@5.5.5(rollup@4.35.0)(typescript@5.8.2))
       '@astrojs/rss': 4.0.11
-      '@astrojs/starlight': 0.32.4(astro@5.5.4(rollup@4.35.0)(typescript@5.8.2))
+      '@astrojs/starlight': 0.32.5(astro@5.5.5(rollup@4.35.0)(typescript@5.8.2))
       astro-remote: 0.3.3
       github-slugger: 2.0.0
       marked: 15.0.7
@@ -4024,7 +4024,7 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.2
 
-  vite@6.2.1:
+  vite@6.2.3:
     dependencies:
       esbuild: 0.25.1
       postcss: 8.5.3
@@ -4032,9 +4032,9 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  vitefu@1.0.6(vite@6.2.1):
+  vitefu@1.0.6(vite@6.2.3):
     optionalDependencies:
-      vite: 6.2.1
+      vite: 6.2.3
 
   web-namespaces@2.0.1: {}
 
