@@ -1,65 +1,131 @@
-# Sign Tech Interview
+# 🚀 Sign Tech Interview
 
-A comprehensive resource collection and practice platform to help you prepare for technical interviews.
+<div align="center">
 
-## Overview
+## Thanking all Awesome Contributors :heart:
 
-This repository contains curated resources, practice problems, and strategies to help you succeed in technical interviews across various domains including algorithms, data structures, system design, and behavioral questions.
+[![Contributors](https://contrib.rocks/image?repo=signlanguagetech/crack-interview)](https://github.com/signlanguagetech/crack-interview/graphs/contributors)
 
-## Contents
+**A comprehensive platform for technical interview preparation**
 
-- **Algorithms**: Common algorithmic challenges and their solutions
-- **Data Structures**: Implementation and usage of essential data structures
-- **System Design**: Approaches to solving system design problems
-- **Behavioral Questions**: Preparation for non-technical interview components
-- **Mock Interviews**: Practice scenarios and feedback templates
+[English (current) | [Español](README.es.md)]
 
-## Getting Started
+</div>
+
+## 🔍 Overview
+
+This repository provides curated resources and practice materials to help developers succeed in technical interviews, with special focus on accessibility for deaf and hard of hearing individuals. Our platform covers multiple technologies and includes practice problems, interview strategies, and reference materials.
+
+### 💼 Who is this for?
+
+- Software developers preparing for technical interviews
+- Career changers looking to break into tech
+- Deaf and hard of hearing individuals who need accessible interview preparation
+- Tech leads and hiring managers seeking to understand interview best practices
+
+## ✨ Key Features
+
+- 📱 **Comprehensive Technology Coverage**
+  - Angular, Flutter, and Node.js interview preparation
+  - Real-world examples and coding challenges
+  - Best practices and common pitfalls
+
+- 🌎 **Multilingual Support**
+  - English
+  - Spanish (Español)
+
+- 📊 **Interactive Learning**
+  - Practical examples
+  - Self-assessment tools
+  - Progress tracking
+
+- 🛠️ **Modern Infrastructure**
+  - PR preview deployments
+  - Astro-powered documentation
+  - Optimized for accessibility
+
+## 📚 Contents
+
+- **Technology Skills**:
+  - **Angular**: Component architecture, RxJS, state management, performance optimization
+  - **Flutter**: Widget lifecycle, state management, cross-platform development, testing
+  - **Node.js**: Event loop, async programming, APIs, database integration, microservices
+
+## 🚦 Getting Started
 
 ```bash
 git clone git@github.com:signlanguagetech/crack-interview.git
 cd crack-interview
+pnpm install
+pnpm dev         # Starts local server at localhost:4321
 ```
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
+## 📋 Available Commands
 
 | Command                | Action                                           |
 | :--------------------- | :----------------------------------------------- |
 | `pnpm install`         | Installs dependencies                            |
 | `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
+| `pnpm build`           | Build production site to `./dist/`               |
+| `pnpm preview`         | Preview build locally                            |
+| `pnpm run deploy:surge`| Deploy to Surge manually                         |
 | `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `pnpm astro -- --help` | Get help using the Astro CLI                     |
 
-## How to Use
+## 📖 How to Use This Resource
 
-1. Browse the different sections based on your interview preparation needs
-2. Solve practice problems in your preferred programming language
-3. Review the provided solutions after attempting problems
-4. Track your progress using the provided templates
-## Thanking all Awesome Contributors :heart:
+1. **Identify Your Target Role**: Focus on the technology stack relevant to your desired position
+2. **Study Core Concepts**: Review fundamental concepts in your target technologies
+3. **Practice Coding Problems**: Work through the provided exercises
+4. **Mock Interviews**: Use our materials to simulate real interview scenarios
 
-[![Contributors](https://contrib.rocks/image?repo=signlanguagetech/crack-interview)](https://github.com/signlanguagetech/crack-interview/graphs/contributors)
+## 🔄 Development & Deployment
 
-Contributions of any kind are welcome!
+### Deployment Environments
 
-## Contributing
+This project uses a dual deployment strategy:
+- **Preview (Surge.sh)**: Automatically deployed for each PR
+- **Production (GitHub Pages)**: Deployed when changes reach the `main` branch
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+### Setting up Preview Deployments
 
-## Preview Deployments
+To enable automatic PR previews:
 
-When you create a pull request, a preview deployment will be automatically generated using Surge.sh. This allows you to see your changes live before they are merged.
+1. **Generate a Surge token**
+   ```bash
+   npx surge token   # Or: pnpm exec surge token
+   ```
 
-To use this feature:
-1. Create a pull request
-2. Wait for the GitHub Action to complete
-3. Click on the preview link posted in the PR comments
-4. Review how your changes look in a live environment
+2. **Configure in GitHub**
+   - Go to repository Settings → Secrets and variables → Actions
+   - Add new repository secret: `SURGE_TOKEN`
 
-The preview deployment will be automatically removed when the pull request is closed or merged.
+For detailed troubleshooting, see [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
 
-Note: You'll need to have the SURGE_TOKEN secret set up in your repository settings.
+## 👥 Contributing
+
+We deeply appreciate all our amazing contributors who have helped make this project possible! ❤️
+
+Contributions are welcome! Whether it's:
+- Adding new interview questions
+- Translating content
+- Fixing bugs
+- Improving documentation
+
+Please feel free to submit a Pull Request or open an Issue.
+
+## 🔧 Technical Details
+
+- **Framework**: Astro
+- **Node.js**: v23
+- **Package Manager**: pnpm (v10.6.5)
+- **CI/CD**: GitHub Actions
+- **Deployment**: Surge.sh (preview) and GitHub Pages (production)
+
+For more detailed information about the deployment system, see [DEPLOYMENT.md](docs/DEPLOYMENT.md).
+
+---
+
+<div align="center">
+  <sub>Built with ❤️ by the Sign Language Tech community</sub>
+</div>
