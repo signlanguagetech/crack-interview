@@ -49,3 +49,15 @@ Contributions of any kind are welcome!
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Preview Deployments
+
+When you create a pull request, a preview deployment will be automatically generated using Surge.sh. This allows you to see your changes live before they are merged.
+
+To use this feature:
+1. Create a pull request
+2. Wait for the GitHub Action to complete
+3. Click on the preview link posted in the PR comments
+4. Review how your changes look in a live environment
+
+Note: You'll need to have the SURGE_TOKEN secret set up in your repository settings.
