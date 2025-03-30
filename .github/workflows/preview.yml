@@ -2,7 +2,7 @@ name: PR Preview
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, closed]
 
 permissions:
   contents: read
@@ -11,6 +11,8 @@ permissions:
 jobs:
   preview:
     runs-on: ubuntu-latest
+    # Skip running on closed PR events
+    if: github.event.action != 'closed'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -52,4 +54,16 @@ jobs:
           build: echo "Skip build"  # Build already done in previous step
 
       - name: Get Preview URL
-        run: echo "Preview URL is ${{ steps.deploy-surge.outputs.preview_url }}" 
+        run: echo "Preview URL is ${{ steps.deploy-surge.outputs.preview_url }}"
+
+  teardown:
+    runs-on: ubuntu-latest
+    # Only run on closed PR events
+    if: github.event.action == 'closed'
+    steps:
+      - name: Teardown Surge deployment
+        uses: afc163/surge-preview@v1
+        with:
+          surge_token: ${{ secrets.SURGE_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          teardown: true

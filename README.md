@@ -60,4 +60,6 @@ To use this feature:
 3. Click on the preview link posted in the PR comments
 4. Review how your changes look in a live environment
 
+The preview deployment will be automatically removed when the pull request is closed or merged.
+
 Note: You'll need to have the SURGE_TOKEN secret set up in your repository settings.
