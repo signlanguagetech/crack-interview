@@ -86,7 +86,105 @@ jobs:
         continue-on-error: true
 
       - name: List current deployments
+        id: list-deployments
         if: steps.teardown.outcome == 'failure'
         env:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
         run: pnpm dlx surge list --token ${SURGE_TOKEN}
+
+      - name: Comment on PR success
+        if: steps.teardown.outcome == 'success'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const domain = "${{ steps.preview-domain.outputs.domain }}";
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number,
+              body: `✅ Preview deployment \`${domain}\` has been successfully deleted.`
+            });
+
+      - name: Comment on PR failure
+        if: steps.teardown.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const domain = "${{ steps.preview-domain.outputs.domain }}";
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number,
+              body: `❌ Error removing preview deployment \`${domain}\`. Please check the logs for more details.`
+            });
+
+  delete-branch:
+    runs-on: ubuntu-latest
+    # Solo ejecutar cuando el PR se cierra después de fusionarse
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Delete branch
+        id: delete-branch
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const branch = context.payload.pull_request.head.ref;
+
+            console.log(`Deleting branch ${branch} in ${owner}/${repo}`);
+
+            try {
+              await github.rest.git.deleteRef({
+                owner,
+                repo,
+                ref: `heads/${branch}`
+              });
+              console.log(`Branch ${branch} deleted successfully`);
+              return { success: true, branch: branch };
+            } catch (error) {
+              console.log(`Error deleting branch: ${error.message}`);
+              return { success: false, branch: branch, error: error.message };
+            }
+
+      - name: Comment on PR success
+        if: fromJSON(steps.delete-branch.outputs.result).success == true
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const result = JSON.parse('${{ steps.delete-branch.outputs.result }}');
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number,
+              body: `🗑️ Branch \`${result.branch}\` has been successfully deleted.`
+            });
+
+      - name: Comment on PR failure
+        if: fromJSON(steps.delete-branch.outputs.result).success == false
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const result = JSON.parse('${{ steps.delete-branch.outputs.result }}');
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number,
+              body: `❌ Error deleting branch \`${result.branch}\`: ${result.error}`
+            });
