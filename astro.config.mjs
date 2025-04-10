@@ -1,15 +1,13 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
+import { detectEnvironment } from './config/environment.js';
 
-const port = 4300;
-const localHostUrl = `http://localhost:${port}`;
-const liveUrl = "https://interview.signlanguagetech.com";
-const isProd = import.meta.env.PROD;
+const env = detectEnvironment();
 
 export default defineConfig({
-  server: { port },
-  site: isProd ? liveUrl : localHostUrl,
+  server: { port: env.port },
+  site: env.siteUrl,
   integrations: [
     starlight({
       plugins: [],
