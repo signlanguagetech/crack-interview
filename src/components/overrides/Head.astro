@@ -3,6 +3,18 @@ import HeadBase from "@astrojs/starlight/components/Head.astro";
 import { detectEnvironment } from "../../../config/environment.js";
 import { generateMetaTags } from "../../../config/seo.js";
 
+// Define interfaces for better type safety
+interface MetaTag {
+  tag: string;
+  attrs: {
+    property?: string;
+    name?: string;
+    content?: string;
+    [key: string]: string | undefined;
+  };
+  content?: string;
+}
+
 // Get page info from the props passed by Starlight
 const page = Astro.props.entry;
 const { head: originalHead = [] } = Astro.props;
@@ -15,11 +27,16 @@ const siteUrl =
     ? (env.siteUrl as string)
     : "";
 
+console.log("Current site URL:", siteUrl);
+console.log("Current page data:", page?.slug, page?.data?.title);
+
 // Generate page-specific URL
 let pageUrl = siteUrl;
 if (page?.slug && page.slug !== "index") {
   pageUrl = `${siteUrl}/${page.slug}`;
 }
+
+console.log("Generated page URL:", pageUrl);
 
 // Generate page-specific meta tags
 const pageTags = generateMetaTags({
@@ -30,25 +47,85 @@ const pageTags = generateMetaTags({
   pageUrl,
 });
 
-// Replace default Open Graph tags with our custom ones
-const customHead = [...originalHead];
+// Log all generated tags for debugging
+console.log(
+  "Generated OG tags:",
+  pageTags
+    .filter(
+      (tag) =>
+        tag.attrs && tag.attrs.property && tag.attrs.property.startsWith("og:"),
+    )
+    .map((tag) => `${tag.attrs.property}: ${tag.attrs.content}`),
+);
 
-// Add our custom tags
-pageTags.forEach((tag) => {
-  if (tag.attrs && tag.attrs.property && tag.attrs.property.startsWith("og:")) {
-    // Find and remove existing tag with same property
-    const index = customHead.findIndex(
-      (item) => item.attrs && item.attrs.property === tag.attrs.property,
-    );
+// Create a fresh meta tags array to ensure we have control
+const metaTags: MetaTag[] = [];
 
-    if (index >= 0) {
-      customHead.splice(index, 1);
-    }
-
-    // Add our custom tag
-    customHead.push(tag);
+// Add all our OG and Twitter tags
+pageTags.forEach((tag: MetaTag) => {
+  if (
+    tag.attrs &&
+    ((tag.attrs.property && tag.attrs.property.startsWith("og:")) ||
+      (tag.attrs.name && tag.attrs.name.startsWith("twitter:")))
+  ) {
+    metaTags.push(tag);
   }
 });
+
+// Make sure we have explicit og:image and og:logo tags
+const imageUrl = `${siteUrl}/logo.png`;
+
+// Only add if not already present
+if (!metaTags.some((tag) => tag.attrs && tag.attrs.property === "og:image")) {
+  metaTags.push({
+    tag: "meta",
+    attrs: {
+      property: "og:image",
+      content: imageUrl,
+    },
+  });
+}
+
+if (!metaTags.some((tag) => tag.attrs && tag.attrs.property === "og:logo")) {
+  metaTags.push({
+    tag: "meta",
+    attrs: {
+      property: "og:logo",
+      content: imageUrl,
+    },
+  });
+}
+
+// Start with a clean slate by removing all OG tags from the original head
+const cleanedOriginalHead = originalHead.filter((tag: MetaTag) => {
+  if (tag.attrs && tag.attrs.property && tag.attrs.property.startsWith("og:")) {
+    return false;
+  }
+  if (tag.attrs && tag.attrs.name && tag.attrs.name.startsWith("twitter:")) {
+    return false;
+  }
+  return true;
+});
+
+// Combine our meta tags with the cleaned original head
+const customHead = [...cleanedOriginalHead, ...metaTags];
+
+// Final check to see what og:image and og:logo tags we have
+const ogImageTags = customHead.filter(
+  (tag: MetaTag) => tag.attrs && tag.attrs.property === "og:image",
+);
+const ogLogoTags = customHead.filter(
+  (tag: MetaTag) => tag.attrs && tag.attrs.property === "og:logo",
+);
+
+console.log(
+  "Final og:image tags:",
+  ogImageTags.map((tag) => tag.attrs.content),
+);
+console.log(
+  "Final og:logo tags:",
+  ogLogoTags.map((tag) => tag.attrs.content),
+);
 ---
 
 <HeadBase head={customHead} />

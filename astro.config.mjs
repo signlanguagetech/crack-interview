@@ -65,6 +65,14 @@ export default defineConfig({
         Head: './src/components/overrides/Head.astro'
       },
       head: [
+        // Minimal meta tags only for fallback
+        {
+          tag: 'meta',
+          attrs: {
+            name: 'description',
+            content: 'A comprehensive platform for technical interview preparation, with special focus on accessibility for deaf and hard of hearing individuals.'
+          }
+        },
         // Analytics scripts
         ...generateAnalyticsTags()
       ],

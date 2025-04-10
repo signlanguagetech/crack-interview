@@ -30,6 +30,9 @@ function generateMetaTags({
     ? imagePath
     : `${siteUrl}${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
 
+  // For debugging - log the image URL we're generating
+  console.log('Generated OG image URL:', imageUrl);
+  
   return [
     // Basic SEO
     {
@@ -68,6 +71,7 @@ function generateMetaTags({
         content: currentUrl
       }
     },
+    // Image tags - explicitly defined with absolute URLs
     {
       tag: 'meta',
       attrs: {
@@ -86,6 +90,35 @@ function generateMetaTags({
       tag: 'meta',
       attrs: {
         property: 'og:logo',
+        content: imageUrl
+      }
+    },
+    // Twitter Card tags to improve sharing on Twitter
+    {
+      tag: 'meta',
+      attrs: {
+        name: 'twitter:card',
+        content: 'summary_large_image'
+      }
+    },
+    {
+      tag: 'meta',
+      attrs: {
+        name: 'twitter:title',
+        content: title
+      }
+    },
+    {
+      tag: 'meta',
+      attrs: {
+        name: 'twitter:description',
+        content: metaDescription
+      }
+    },
+    {
+      tag: 'meta',
+      attrs: {
+        name: 'twitter:image',
         content: imageUrl
       }
     }
