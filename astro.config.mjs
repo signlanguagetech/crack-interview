@@ -64,6 +64,55 @@ export default defineConfig({
       },
       head: [
         {
+          tag: 'meta',
+          attrs: {
+            name: 'description',
+            content: 'A comprehensive platform for technical interview preparation, with special focus on accessibility for deaf and hard of hearing individuals. Learn Angular, Flutter, and Node.js interview strategies.'
+          }
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            property: 'og:title',
+            content: 'Sign Tech Interview'
+          }
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            property: 'og:description',
+            content: 'A comprehensive platform for technical interview preparation, with special focus on accessibility for deaf and hard of hearing individuals. Learn Angular, Flutter, and Node.js interview strategies.'
+          }
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            property: 'og:type',
+            content: 'website'
+          }
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            property: 'og:url',
+            content: 'https://interview.signlanguagetech.com'
+          }
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            property: 'og:image',
+            content: 'https://interview.signlanguagetech.com/og-image.jpg'
+          }
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            property: 'og:site_name',
+            content: 'Sign Tech Interview'
+          }
+        },
+        {
           tag: 'script',
           attrs: {
             src: 'https://www.googletagmanager.com/gtag/js?id=G-EM5400YMC3',
