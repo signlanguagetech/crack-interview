@@ -10,9 +10,11 @@ const PRODUCTION_URL = "https://interview.signlanguagetech.com";
 
 /**
  * Detects if we're running in a PR preview environment by checking GitHub Actions environment variables
+ * @param {Object} options Configuration options
+ * @param {boolean} options.forceHttps Force HTTPS in all environments (default: false)
  * @returns {Object} Information about the current environment
  */
-function detectEnvironment() {
+function detectEnvironment({ forceHttps = false } = {}) {
   // Detect if running in a PR preview environment (Surge.sh)
   // Check for PR number directly if we're in a GitHub Actions environment
   const prNumber = process.env.GITHUB_EVENT_NUMBER ||
@@ -27,7 +29,11 @@ function detectEnvironment() {
 
   // Determine site URL - PR preview takes priority, then production, then local
   const isProduction = process.env.NODE_ENV === 'production';
-  const siteUrl = previewUrl || (isProduction ? PRODUCTION_URL : LOCAL_HOST_URL);
+
+  // Use the correct scheme for localhost (http by default, unless forced to https)
+  const localUrl = forceHttps ? LOCAL_HOST_URL.replace('http:', 'https:') : LOCAL_HOST_URL;
+
+  const siteUrl = previewUrl || (isProduction ? PRODUCTION_URL : localUrl);
 
   // For debugging purposes
   if (process.env.NODE_ENV !== 'production') {
@@ -40,6 +46,8 @@ function detectEnvironment() {
       prNumber,
       repoName,
       previewUrl,
+      forceHttps,
+      localUrl
     });
     console.log('Using site URL:', siteUrl);
   }
@@ -61,4 +69,4 @@ export {
   PORT,
   LOCAL_HOST_URL,
   PRODUCTION_URL
-}; 
+};

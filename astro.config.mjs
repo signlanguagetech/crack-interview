@@ -2,8 +2,10 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
 import { detectEnvironment } from './config/environment.js';
+import { generateMetaTags, generateAnalyticsTags } from './config/seo.js';
 
 const env = detectEnvironment();
+const logoPath = "/logo.png";
 
 export default defineConfig({
   server: { port: env.port },
@@ -62,79 +64,13 @@ export default defineConfig({
         Footer: './src/components/overrides/Footer.astro',
       },
       head: [
-        {
-          tag: 'meta',
-          attrs: {
-            name: 'description',
-            content: 'A comprehensive platform for technical interview preparation, with special focus on accessibility for deaf and hard of hearing individuals. Learn Angular, Flutter, and Node.js interview strategies.'
-          }
-        },
-        {
-          tag: 'meta',
-          attrs: {
-            property: 'og:title',
-            content: 'Sign Tech Interview'
-          }
-        },
-        {
-          tag: 'meta',
-          attrs: {
-            property: 'og:description',
-            content: 'A comprehensive platform for technical interview preparation, with special focus on accessibility for deaf and hard of hearing individuals. Learn Angular, Flutter, and Node.js interview strategies.'
-          }
-        },
-        {
-          tag: 'meta',
-          attrs: {
-            property: 'og:type',
-            content: 'website'
-          }
-        },
-        {
-          tag: 'meta',
-          attrs: {
-            property: 'og:url',
-            content: 'https://interview.signlanguagetech.com'
-          }
-        },
-        {
-          tag: 'meta',
-          attrs: {
-            property: 'og:image',
-            content: 'https://interview.signlanguagetech.com/logo.png'
-          }
-        },
-        {
-          tag: 'meta',
-          attrs: {
-            property: 'og:site_name',
-            content: 'Sign Tech Interview'
-          }
-        },
-        {
-          tag: 'meta',
-          attrs: {
-            property: 'og:logo',
-            content: 'https://interview.signlanguagetech.com/logo.png'
-          }
-        },
-        {
-          tag: 'script',
-          attrs: {
-            src: 'https://www.googletagmanager.com/gtag/js?id=G-EM5400YMC3',
-            async: true,
-          }
-        },
-        {
-          tag: 'script',
-          content: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-EM5400YMC3');
-          `
-        }
+        // Metadatos SEO y Open Graph
+        ...generateMetaTags({ 
+          siteUrl: env.siteUrl,
+          imagePath: logoPath 
+        }),
+        // Scripts de analítica
+        ...generateAnalyticsTags()
       ],
     }),
   ],
