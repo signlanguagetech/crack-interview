@@ -126,6 +126,21 @@ console.log(
   "Final og:logo tags:",
   ogLogoTags.map((tag) => tag.attrs.content),
 );
+
+// Get title and description for direct inclusion
+const title = page?.data?.title || "Sign Tech Interview";
+const description = page?.data?.description || 'A comprehensive platform for technical interview preparation, with special focus on accessibility for deaf and hard of hearing individuals. Learn Angular, Flutter, and Node.js interview strategies.';
 ---
 
 <HeadBase head={customHead} />
+
+<!-- Ensure critical OG tags are rendered even if HeadBase misses them -->
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={pageUrl} />
+<meta property="og:image" content={`${siteUrl}/logo.png`} />
+<meta property="og:logo" content={`${siteUrl}/logo.png`} />
+<meta property="og:site_name" content="Sign Tech Interview" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content={`${siteUrl}/logo.png`} />
