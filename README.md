@@ -67,7 +67,7 @@ pnpm dev         # Starts local server at localhost:4300
 | :--------------------- | :----------------------------------------------- |
 | `pnpm install`         | Installs dependencies                            |
 | `pnpm dev`             | Starts local dev server at `localhost:4300`      |
-| `pnpm build`           | Build production site to `./dist/`               |
+| `pnpm build`           | Builds production site to `./dist/`              |
 | `pnpm preview`         | Preview build locally                            |
 | `pnpm run deploy:surge`| Deploy to Surge manually                         |
 | `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
