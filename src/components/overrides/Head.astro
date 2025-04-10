@@ -19,17 +19,14 @@ const { head: originalHead = [] } = Astro.props;
 
 // Get environment information
 const env = detectEnvironment();
-const siteUrl =
-  env && typeof env === "object" && "siteUrl" in env
-    ? (env.siteUrl as string)
-    : "";
+const { siteUrl = "" } = env as { siteUrl: string };
 
-const hasOgImage = originalHead.some(
-  (tag: MetaTag) => tag.attrs?.property === "og:image",
-);
-const hasOgLogo = originalHead.some(
-  (tag: MetaTag) => tag.attrs?.property === "og:logo",
-);
+// Check if OG tags already exist
+const hasOgTag = (property: string) => 
+  originalHead.some((tag: MetaTag) => tag.attrs?.property === property);
+
+const hasOgImage = hasOgTag("og:image");
+const hasOgLogo = hasOgTag("og:logo");
 ---
 
 <HeadBase head={originalHead} />
