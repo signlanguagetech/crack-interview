@@ -36,42 +36,13 @@ console.log("Current site URL:", siteUrl);
 console.log("Current page data:", page?.slug, page?.data?.title);
 console.log("Generated page URL:", pageUrl);
 
-// Generate page-specific meta tags
-const pageTags = generateMetaTags({
-  siteUrl,
-  title: page?.data?.title || "Sign Tech Interview",
-  description: page?.data?.description || "",
-  imagePath: "/logo.png",
-  pageUrl,
-});
+// For debugging - log the page description
+console.log("Page description:", page?.data?.description);
 
-// Find which OG tags already exist in original head
-const existingOgProperties = originalHead
-  .filter((tag: MetaTag) => tag.attrs?.property?.startsWith("og:"))
-  .map((tag: MetaTag) => tag.attrs.property);
+// Simply use original head without modification - Starlight already includes correct metadata
+const customHead = originalHead;
 
-const existingTwitterProperties = originalHead
-  .filter((tag: MetaTag) => tag.attrs?.name?.startsWith("twitter:"))
-  .map((tag: MetaTag) => tag.attrs.name);
-
-console.log("Existing OG properties:", existingOgProperties);
-console.log("Existing Twitter properties:", existingTwitterProperties);
-
-// Filter out page tags that already exist
-const newMetaTags = pageTags.filter((tag: MetaTag) => {
-  if (tag.attrs?.property?.startsWith("og:")) {
-    return !existingOgProperties.includes(tag.attrs.property);
-  }
-  if (tag.attrs?.name?.startsWith("twitter:")) {
-    return !existingTwitterProperties.includes(tag.attrs.name);
-  }
-  return false;
-});
-
-// Create final head by combining original tags with new ones
-const customHead = [...originalHead, ...newMetaTags];
-
-// Check if we still need to add og:image and og:logo manually
+// Check if we need to add og:image and og:logo manually
 const hasOgImage = customHead.some(
   (tag: MetaTag) => tag.attrs?.property === "og:image",
 );
