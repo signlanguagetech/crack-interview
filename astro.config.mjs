@@ -20,11 +20,23 @@ export default defineConfig({
       editLink: {
         baseUrl: 'https://github.com/signlanguagetech/crack-interview/edit/main/',
       },
-      social: {
-        github: "https://github.com/signlanguagetech/crack-interview",
-        youtube: "https://www.youtube.com/@SignLanguageTech",
-        linkedin: "https://www.linkedin.com/company/sign-language-tech"
-      },
+      social: [
+        {
+          icon: 'github',
+          label: 'GitHub',
+          href: 'https://github.com/signlanguagetech/crack-interview',
+        },
+        {
+          icon: 'youtube',
+          label: 'YouTube',
+          href: 'https://www.youtube.com/@SignLanguageTech',
+        },
+        {
+          icon: 'linkedin',
+          label: 'LinkedIn',
+          href: 'https://www.linkedin.com/company/sign-language-tech',
+        },
+      ],
       defaultLocale: 'root',
       locales: {
         root: {
