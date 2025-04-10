@@ -69,7 +69,7 @@ export default defineConfig({
           siteUrl: env.siteUrl,
           imagePath: logoPath 
         }),
-        // Scripts de analítica
+        // Analytics scripts
         ...generateAnalyticsTags()
       ],
     }),
