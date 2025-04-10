@@ -15,67 +15,70 @@ interface MetaTag {
 }
 
 // Get page info from the props passed by Starlight
-const { head: originalHead = [] } = Astro.props;
+const { head: originalHead = [], page } = Astro.props;
 
 // Get environment information
 const env = detectEnvironment();
 const { siteUrl = "" } = env as { siteUrl: string };
 
-// Check if OG tags already exist
+// -------------------------------------------------------
+// Helper functions for metadata management
+// -------------------------------------------------------
+
+// Check if meta tags exist
 const hasOgTag = (property: string) =>
   originalHead.some((tag: MetaTag) => tag.attrs?.property === property);
 
-const hasTwitterTag = (name: string) =>
+const hasStandardMetaTag = (name: string) =>
   originalHead.some((tag: MetaTag) => tag.attrs?.name === name);
 
+// Retrieve content from meta tags
+const getContentByProperty = (
+  property: string,
+  defaultValue: string = "",
+): string => {
+  const tag = originalHead.find(
+    (tag: MetaTag) => tag.attrs?.property === property,
+  );
+  return tag?.attrs?.content || defaultValue;
+};
+
+// -------------------------------------------------------
+// Check for existing meta tags
+// -------------------------------------------------------
+
+// Standard HTML meta tags
+const hasDescription = hasStandardMetaTag("description");
+
+// Open Graph tags
 const hasOgImage = hasOgTag("og:image");
 const hasOgLogo = hasOgTag("og:logo");
-const hasTwitterCard = hasTwitterTag("twitter:card");
-const hasTwitterSite = hasTwitterTag("twitter:site");
-const hasTwitterTitle = hasTwitterTag("twitter:title");
-const hasTwitterDescription = hasTwitterTag("twitter:description");
-const hasTwitterImage = hasTwitterTag("twitter:image");
+
+// Twitter Card tags
+const hasTwitterCard = hasStandardMetaTag("twitter:card");
+const hasTwitterSite = hasStandardMetaTag("twitter:site");
+const hasTwitterTitle = hasStandardMetaTag("twitter:title");
+const hasTwitterDescription = hasStandardMetaTag("twitter:description");
+const hasTwitterImage = hasStandardMetaTag("twitter:image");
+const hasTwitterImageAlt = hasStandardMetaTag("twitter:image:alt");
+
+// -------------------------------------------------------
+// Get metadata content values
+// -------------------------------------------------------
+const title = page?.data?.title || "Sign Tech Interview";
+const description =
+  page?.data?.description ||
+  "Your comprehensive guide to technical interviews in sign language technology and software development.";
 ---
 
 <HeadBase head={originalHead} />
 
-<!-- Add critical OG tags only if missing -->
+<!-- Standard HTML meta tags -->
+{!hasDescription && <meta name="description" content={description} />}
+
+<!-- Open Graph meta tags -->
 {!hasOgImage && <meta property="og:image" content={`${siteUrl}/logo.png`} />}
 {!hasOgLogo && <meta property="og:logo" content={`${siteUrl}/logo.png`} />}
-
-<!-- Add Twitter Card tags if missing -->
-{!hasTwitterCard && <meta name="twitter:card" content="summary_large_image" />}
-{!hasTwitterSite && <meta name="twitter:site" content="@SignLanguageTech" />}
-{
-  !hasTwitterTitle && (
-    <meta
-      name="twitter:title"
-      content={
-        originalHead.find((tag: MetaTag) => tag.attrs?.property === "og:title")
-          ?.attrs?.content || "Sign Tech Interview"
-      }
-    />
-  )
-}
-{
-  !hasTwitterDescription && (
-    <meta
-      name="twitter:description"
-      content={
-        originalHead.find(
-          (tag: MetaTag) => tag.attrs?.property === "og:description",
-        )?.attrs?.content || ""
-      }
-    />
-  )
-}
-{
-  !hasTwitterImage && (
-    <meta name="twitter:image" content={`${siteUrl}/logo.png`} />
-  )
-}
-
-<!-- Add additional OG image metadata -->
 {
   !hasOgTag("og:image:type") && (
     <meta property="og:image:type" content="image/png" />
@@ -84,5 +87,25 @@ const hasTwitterImage = hasTwitterTag("twitter:image");
 {
   !hasOgTag("og:image:alt") && (
     <meta property="og:image:alt" content="Sign Tech Interview Logo" />
+  )
+}
+
+<!-- Twitter Card meta tags -->
+{!hasTwitterCard && <meta name="twitter:card" content="summary_large_image" />}
+{!hasTwitterSite && <meta name="twitter:site" content="@SignLanguageTech" />}
+{!hasTwitterTitle && <meta name="twitter:title" content={title} />}
+{
+  !hasTwitterDescription && (
+    <meta name="twitter:description" content={description} />
+  )
+}
+{
+  !hasTwitterImage && (
+    <meta name="twitter:image" content={`${siteUrl}/logo.png`} />
+  )
+}
+{
+  !hasTwitterImageAlt && (
+    <meta name="twitter:image:alt" content="Sign Tech Interview Logo" />
   )
 }
