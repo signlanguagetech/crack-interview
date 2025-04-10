@@ -1,0 +1,54 @@
+---
+import HeadBase from "@astrojs/starlight/components/Head.astro";
+import { detectEnvironment } from "../../../config/environment.js";
+import { generateMetaTags } from "../../../config/seo.js";
+
+// Get page info from the props passed by Starlight
+const page = Astro.props.entry;
+const { head: originalHead = [] } = Astro.props;
+
+// Get environment information
+const env = detectEnvironment();
+// Use a string fallback for TypeScript
+const siteUrl =
+  env && typeof env === "object" && "siteUrl" in env
+    ? (env.siteUrl as string)
+    : "";
+
+// Generate page-specific URL
+let pageUrl = siteUrl;
+if (page?.slug && page.slug !== "index") {
+  pageUrl = `${siteUrl}/${page.slug}`;
+}
+
+// Generate page-specific meta tags
+const pageTags = generateMetaTags({
+  siteUrl,
+  title: page?.data?.title || "Sign Tech Interview",
+  description: page?.data?.description || "",
+  imagePath: "/logo.png",
+  pageUrl,
+});
+
+// Replace default Open Graph tags with our custom ones
+const customHead = [...originalHead];
+
+// Add our custom tags
+pageTags.forEach((tag) => {
+  if (tag.attrs && tag.attrs.property && tag.attrs.property.startsWith("og:")) {
+    // Find and remove existing tag with same property
+    const index = customHead.findIndex(
+      (item) => item.attrs && item.attrs.property === tag.attrs.property,
+    );
+
+    if (index >= 0) {
+      customHead.splice(index, 1);
+    }
+
+    // Add our custom tag
+    customHead.push(tag);
+  }
+});
+---
+
+<HeadBase head={customHead} />

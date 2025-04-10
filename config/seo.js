@@ -9,17 +9,21 @@
  * @param {string} options.title Site title (defaults to "Sign Tech Interview")
  * @param {string} options.description Site description
  * @param {string} options.imagePath Path to the image (defaults to "/logo.png")
+ * @param {string} options.pageUrl Full URL for the current page (defaults to siteUrl)
  * @returns {Array} Array of meta tag configurations for Astro
  */
 function generateMetaTags({
   siteUrl,
   title = "Sign Tech Interview",
-  description,
-  imagePath = "/logo.png"
+  description = '',
+  imagePath = "/logo.png",
+  pageUrl = ''
 }) {
-  if (!description) {
-    description = 'A comprehensive platform for technical interview preparation, with special focus on accessibility for deaf and hard of hearing individuals. Learn Angular, Flutter, and Node.js interview strategies.';
-  }
+  // Use default description if not provided
+  const metaDescription = description || 'A comprehensive platform for technical interview preparation, with special focus on accessibility for deaf and hard of hearing individuals. Learn Angular, Flutter, and Node.js interview strategies.';
+
+  // Use page-specific URL if provided, otherwise use site URL
+  const currentUrl = pageUrl || siteUrl;
 
   // Ensure image path has the correct format
   const imageUrl = imagePath.startsWith('http')
@@ -32,7 +36,7 @@ function generateMetaTags({
       tag: 'meta',
       attrs: {
         name: 'description',
-        content: description
+        content: metaDescription
       }
     },
     // Open Graph tags
@@ -47,7 +51,7 @@ function generateMetaTags({
       tag: 'meta',
       attrs: {
         property: 'og:description',
-        content: description
+        content: metaDescription
       }
     },
     {
@@ -61,7 +65,7 @@ function generateMetaTags({
       tag: 'meta',
       attrs: {
         property: 'og:url',
-        content: siteUrl
+        content: currentUrl
       }
     },
     {

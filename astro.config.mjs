@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
 import { detectEnvironment } from './config/environment.js';
-import { generateMetaTags, generateAnalyticsTags } from './config/seo.js';
+import { generateAnalyticsTags } from './config/seo.js';
 
 const env = detectEnvironment();
 const logoPath = "/logo.png";
@@ -62,13 +62,9 @@ export default defineConfig({
       components: {
         PageTitle: './src/components/PageTitle.astro',
         Footer: './src/components/overrides/Footer.astro',
+        Head: './src/components/overrides/Head.astro'
       },
       head: [
-        // Metadatos SEO y Open Graph
-        ...generateMetaTags({ 
-          siteUrl: env.siteUrl,
-          imagePath: logoPath 
-        }),
         // Analytics scripts
         ...generateAnalyticsTags()
       ],
