@@ -22,11 +22,19 @@ const env = detectEnvironment();
 const { siteUrl = "" } = env as { siteUrl: string };
 
 // Check if OG tags already exist
-const hasOgTag = (property: string) => 
+const hasOgTag = (property: string) =>
   originalHead.some((tag: MetaTag) => tag.attrs?.property === property);
+
+const hasTwitterTag = (name: string) =>
+  originalHead.some((tag: MetaTag) => tag.attrs?.name === name);
 
 const hasOgImage = hasOgTag("og:image");
 const hasOgLogo = hasOgTag("og:logo");
+const hasTwitterCard = hasTwitterTag("twitter:card");
+const hasTwitterSite = hasTwitterTag("twitter:site");
+const hasTwitterTitle = hasTwitterTag("twitter:title");
+const hasTwitterDescription = hasTwitterTag("twitter:description");
+const hasTwitterImage = hasTwitterTag("twitter:image");
 ---
 
 <HeadBase head={originalHead} />
@@ -34,3 +42,47 @@ const hasOgLogo = hasOgTag("og:logo");
 <!-- Add critical OG tags only if missing -->
 {!hasOgImage && <meta property="og:image" content={`${siteUrl}/logo.png`} />}
 {!hasOgLogo && <meta property="og:logo" content={`${siteUrl}/logo.png`} />}
+
+<!-- Add Twitter Card tags if missing -->
+{!hasTwitterCard && <meta name="twitter:card" content="summary_large_image" />}
+{!hasTwitterSite && <meta name="twitter:site" content="@SignLanguageTech" />}
+{
+  !hasTwitterTitle && (
+    <meta
+      name="twitter:title"
+      content={
+        originalHead.find((tag: MetaTag) => tag.attrs?.property === "og:title")
+          ?.attrs?.content || "Sign Tech Interview"
+      }
+    />
+  )
+}
+{
+  !hasTwitterDescription && (
+    <meta
+      name="twitter:description"
+      content={
+        originalHead.find(
+          (tag: MetaTag) => tag.attrs?.property === "og:description",
+        )?.attrs?.content || ""
+      }
+    />
+  )
+}
+{
+  !hasTwitterImage && (
+    <meta name="twitter:image" content={`${siteUrl}/logo.png`} />
+  )
+}
+
+<!-- Add additional OG image metadata -->
+{
+  !hasOgTag("og:image:type") && (
+    <meta property="og:image:type" content="image/png" />
+  )
+}
+{
+  !hasOgTag("og:image:alt") && (
+    <meta property="og:image:alt" content="Sign Tech Interview Logo" />
+  )
+}
