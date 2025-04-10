@@ -15,7 +15,6 @@ interface MetaTag {
 }
 
 // Get page info from the props passed by Starlight
-const page = Astro.props.entry;
 const { head: originalHead = [] } = Astro.props;
 
 // Get environment information
@@ -24,12 +23,6 @@ const siteUrl =
   env && typeof env === "object" && "siteUrl" in env
     ? (env.siteUrl as string)
     : "";
-
-// Generate page-specific URL
-let pageUrl = siteUrl;
-if (page?.slug && page.slug !== "index") {
-  pageUrl = `${siteUrl}/${page.slug}`;
-}
 
 const hasOgImage = originalHead.some(
   (tag: MetaTag) => tag.attrs?.property === "og:image",
