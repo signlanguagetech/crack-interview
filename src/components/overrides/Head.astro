@@ -1,7 +1,6 @@
 ---
 import HeadBase from "@astrojs/starlight/components/Head.astro";
 import { detectEnvironment } from "../../../config/environment.js";
-import { generateMetaTags } from "../../../config/seo.js";
 
 // Define interfaces for better type safety
 interface MetaTag {
@@ -32,26 +31,15 @@ if (page?.slug && page.slug !== "index") {
   pageUrl = `${siteUrl}/${page.slug}`;
 }
 
-console.log("Current site URL:", siteUrl);
-console.log("Current page data:", page?.slug, page?.data?.title);
-console.log("Generated page URL:", pageUrl);
-
-// For debugging - log the page description
-console.log("Page description:", page?.data?.description);
-
-// Simply use original head without modification - Starlight already includes correct metadata
-const customHead = originalHead;
-
-// Check if we need to add og:image and og:logo manually
-const hasOgImage = customHead.some(
+const hasOgImage = originalHead.some(
   (tag: MetaTag) => tag.attrs?.property === "og:image",
 );
-const hasOgLogo = customHead.some(
+const hasOgLogo = originalHead.some(
   (tag: MetaTag) => tag.attrs?.property === "og:logo",
 );
 ---
 
-<HeadBase head={customHead} />
+<HeadBase head={originalHead} />
 
 <!-- Add critical OG tags only if missing -->
 {!hasOgImage && <meta property="og:image" content={`${siteUrl}/logo.png`} />}
