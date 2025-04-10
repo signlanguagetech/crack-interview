@@ -1,6 +1,5 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
-import lighthouse from 'astro-lighthouse';
 
 
 const port = 4300;
@@ -12,7 +11,6 @@ export default defineConfig({
   server: { port },
   site: isProd ? liveUrl : localHostUrl,
   integrations: [
-    lighthouse(),
     starlight({
       plugins: [],
       title: {
@@ -105,7 +103,7 @@ export default defineConfig({
           tag: 'meta',
           attrs: {
             property: 'og:image',
-            content: 'https://interview.signlanguagetech.com/og-image.jpg'
+            content: 'https://interview.signlanguagetech.com/logo.png'
           }
         },
         {
