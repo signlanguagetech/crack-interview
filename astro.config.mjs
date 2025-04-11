@@ -2,10 +2,8 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
 import { detectEnvironment } from './config/environment.js';
-import { generateAnalyticsTags } from './config/seo.js';
 
 const env = detectEnvironment();
-const logoPath = "/logo.png";
 
 export default defineConfig({
   server: { port: env.port },
@@ -65,8 +63,23 @@ export default defineConfig({
         Head: './src/components/overrides/Head.astro'
       },
       head: [
-        // Analytics scripts
-        ...generateAnalyticsTags()
+        {
+          tag: 'script',
+          attrs: {
+            src: 'https://www.googletagmanager.com/gtag/js?id=G-EM5400YMC3',
+            async: true,
+          }
+        },
+        {
+          tag: 'script',
+          content: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-EM5400YMC3');
+          `
+        }
       ],
     }),
   ],
