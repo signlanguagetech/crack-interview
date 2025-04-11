@@ -40,6 +40,8 @@ const defaultDescription = "Comprehensive guide for technical interviews coverin
 // 2. Get page metadata with fallbacks
 const pageTitle = entryData?.title || defaultTitle;
 const pageDescription = entryData?.description || defaultDescription;
+const authors = entryData?.authors;
+const isArticle = Array.isArray(authors) && authors.length > 0;
 
 // 3. Build image URLs
 const logoUrl = new URL("/logo.png", baseUrl).toString();
@@ -72,7 +74,7 @@ const customHead = [
   { tag: "meta", attrs: { property: "og:title", content: pageTitle } },
   { tag: "meta", attrs: { property: "og:description", content: pageDescription } },
   { tag: "meta", attrs: { property: "og:locale", content: starlightRoute?.locale || 'en' } },
-  { tag: "meta", attrs: { property: "og:type", content: "website" } },
+  { tag: "meta", attrs: { property: "og:type", content: isArticle ? "article" : "website" } },
   
   // Open Graph - Image
   { tag: "meta", attrs: { property: "og:image", content: logoUrl } },
@@ -82,6 +84,14 @@ const customHead = [
   { tag: "meta", attrs: { property: "og:image:height", content: "630" } },
   { tag: "meta", attrs: { property: "og:image:alt", content: "Sign Tech Interview Logo" } },
   { tag: "meta", attrs: { property: "og:logo", content: logoUrl } },
+  
+  // Open Graph - Article Specific (if applicable)
+  ...(isArticle ? [
+      { tag: "meta", attrs: { property: "og:article:author", content: authors[0].name } },
+      // You could add more article tags here if needed, e.g., published_time
+      // { tag: "meta", attrs: { property: "og:article:published_time", content: entryData.publishedDate?.toISOString() } }
+     ] : []
+  ),
   
   // Open Graph - Optional Time
   ...(entryData?.lastUpdated && entryData.lastUpdated instanceof Date ? 
@@ -133,9 +143,12 @@ const mergedHead = [...baseHead, ...additionalHead];
 {!hasMetaTag("description", false) && pageDescription && <meta name="description" content={pageDescription} />}
 {!hasMetaTag("og:title") && pageTitle && <meta property="og:title" content={pageTitle} />}
 {!hasMetaTag("og:description") && pageDescription && <meta property="og:description" content={pageDescription} />}
+{!hasMetaTag("og:type") && <meta property="og:type" content={isArticle ? "article" : "website"} />}
+{isArticle && !hasMetaTag("og:article:author") && authors[0]?.name && (
+  <meta property="og:article:author" content={authors[0].name} />
+)}
 
 <!-- Add critical OG tags if missing -->
-{!hasMetaTag("og:type") && <meta property="og:type" content="website" />}
 {!hasMetaTag("og:locale") && <meta property="og:locale" content={starlightRoute?.locale || 'en'} />}
 {!hasOgImage && <meta property="og:image" content={`${baseUrl}/logo.png`} />}
 {!hasMetaTag("og:image:secure_url") && <meta property="og:image:secure_url" content={`${baseUrl}/logo.png`} />}
