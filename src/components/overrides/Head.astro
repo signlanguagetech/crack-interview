@@ -44,12 +44,14 @@ const pageDescription = entryData?.description || defaultDescription;
 // 3. Build image URLs
 const logoUrl = new URL("/logo.png", baseUrl).toString();
 
-// 4. Combine head arrays from all sources
-const originalHead = [...propsHead, ...(entryData?.head || [])];
+// 4. Combine head arrays from all sources, removing existing description/title from original
+const baseHead = [...propsHead, ...(entryData?.head || [])].filter(tag => 
+  tag.attrs?.name !== 'description' && tag.attrs?.property !== 'og:title' && tag.attrs?.property !== 'og:description'
+);
 
-// 5. Check for existing tags
+// 5. Check for existing tags *in the base head* (excluding description/title we just removed)
 const hasMetaTag = (propOrName: string, isProperty = true) => 
-  originalHead.some((tag: MetaTag) => 
+  baseHead.some((tag: MetaTag) => // Check in baseHead now
     isProperty ? tag.attrs?.property === propOrName : tag.attrs?.name === propOrName
   );
 
@@ -61,12 +63,12 @@ const hasTwitterTitle = hasMetaTag("twitter:title", false);
 const hasTwitterDescription = hasMetaTag("twitter:description", false);
 const hasTwitterImage = hasMetaTag("twitter:image", false);
 
-// 6. Create custom meta tags
+// 6. Create custom meta tags (ensuring description and title are always included here)
 const customHead = [
-  // Standard meta tags
+  // Standard meta tags (will always be included now)
   { tag: "meta", attrs: { name: "description", content: pageDescription } },
   
-  // Open Graph - Basic
+  // Open Graph - Basic (title/description will always be included)
   { tag: "meta", attrs: { property: "og:title", content: pageTitle } },
   { tag: "meta", attrs: { property: "og:description", content: pageDescription } },
   { tag: "meta", attrs: { property: "og:locale", content: starlightRoute?.locale || 'en' } },
@@ -99,26 +101,38 @@ const customHead = [
   { tag: "meta", attrs: { name: "twitter:image:alt", content: "Sign Tech Interview Logo" } },
 ];
 
-// 7. Filter out duplicate tags
+// 7. Filter out *other* duplicate tags from customHead that might exist in baseHead
 const existingProperties = new Set<string>();
 const existingNames = new Set<string>();
 
-originalHead.forEach((tag: MetaTag) => {
+baseHead.forEach((tag: MetaTag) => { // Iterate baseHead
   if (tag.attrs?.property) existingProperties.add(tag.attrs.property);
   if (tag.attrs?.name) existingNames.add(tag.attrs.name);
 });
 
+// Filter customHead, but *always keep* our description/og:title/og:description
 const additionalHead = customHead.filter((tag: MetaTag) => {
+  const isCoreTag = tag.attrs?.name === 'description' || 
+                    tag.attrs?.property === 'og:title' || 
+                    tag.attrs?.property === 'og:description';
+  if (isCoreTag) return true; // Always include these core tags
+
+  // Filter others based on existence in baseHead
   if (tag.attrs?.property) return !existingProperties.has(tag.attrs.property);
   if (tag.attrs?.name) return !existingNames.has(tag.attrs.name);
   return true;
 });
 
-// 8. Combine all head tags
-const mergedHead = [...originalHead, ...additionalHead];
+// 8. Combine base head with our filtered additional tags
+const mergedHead = [...baseHead, ...additionalHead];
 ---
 
 <HeadBase head={mergedHead} />
+
+<!-- Ensure core meta tags are present -->
+{!hasMetaTag("description", false) && pageDescription && <meta name="description" content={pageDescription} />}
+{!hasMetaTag("og:title") && pageTitle && <meta property="og:title" content={pageTitle} />}
+{!hasMetaTag("og:description") && pageDescription && <meta property="og:description" content={pageDescription} />}
 
 <!-- Add critical OG tags if missing -->
 {!hasMetaTag("og:type") && <meta property="og:type" content="website" />}
