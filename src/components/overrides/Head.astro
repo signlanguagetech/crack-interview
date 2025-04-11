@@ -22,90 +22,56 @@ const env = detectEnvironment();
 const { siteUrl = "" } = env as { siteUrl: string };
 
 // -------------------------------------------------------
-// Helper functions for metadata management
+// Define fallback values
 // -------------------------------------------------------
+const defaultTitle = "Sign Tech Interview";
+const defaultDescription = "Your comprehensive guide to technical interviews in sign language technology and software development.";
 
-// Check if meta tags exist
-const hasOgTag = (property: string) =>
-  originalHead.some((tag: MetaTag) => tag.attrs?.property === property);
-
-const hasStandardMetaTag = (name: string) =>
-  originalHead.some((tag: MetaTag) => tag.attrs?.name === name);
-
-// Retrieve content from meta tags
-const getContentByProperty = (
-  property: string,
-  defaultValue: string = "",
-): string => {
-  const tag = originalHead.find(
-    (tag: MetaTag) => tag.attrs?.property === property,
-  );
-  return tag?.attrs?.content || defaultValue;
-};
+// Get the current page title and description from the page data
+const pageTitle = page?.data?.title || defaultTitle;
+const pageDescription = page?.data?.description || defaultDescription;
 
 // -------------------------------------------------------
-// Check for existing meta tags
+// Add custom meta tags that don't exist in the original head
 // -------------------------------------------------------
+const customHead = [
+  // Standard meta tags
+  { tag: "meta", attrs: { name: "description", content: pageDescription } },
+  
+  // Open Graph
+  { tag: "meta", attrs: { property: "og:title", content: pageTitle } },
+  { tag: "meta", attrs: { property: "og:description", content: pageDescription } },
+  { tag: "meta", attrs: { property: "og:image", content: `${siteUrl}/logo.png` } },
+  { tag: "meta", attrs: { property: "og:logo", content: `${siteUrl}/logo.png` } },
+  { tag: "meta", attrs: { property: "og:image:type", content: "image/png" } },
+  { tag: "meta", attrs: { property: "og:image:alt", content: "Sign Tech Interview Logo" } },
+  
+  // Twitter Card
+  { tag: "meta", attrs: { name: "twitter:card", content: "summary_large_image" } },
+  { tag: "meta", attrs: { name: "twitter:site", content: "@SignLanguageTech" } },
+  { tag: "meta", attrs: { name: "twitter:title", content: pageTitle } },
+  { tag: "meta", attrs: { name: "twitter:description", content: pageDescription } },
+  { tag: "meta", attrs: { name: "twitter:image", content: `${siteUrl}/logo.png` } },
+  { tag: "meta", attrs: { name: "twitter:image:alt", content: "Sign Tech Interview Logo" } },
+];
 
-// Standard HTML meta tags
-const hasDescription = hasStandardMetaTag("description");
+// Filter out custom tags that already exist in the originalHead
+const existingProperties = new Set<string>();
+const existingNames = new Set<string>();
 
-// Open Graph tags
-const hasOgImage = hasOgTag("og:image");
-const hasOgLogo = hasOgTag("og:logo");
+originalHead.forEach((tag: MetaTag) => {
+  if (tag.attrs?.property) existingProperties.add(tag.attrs.property);
+  if (tag.attrs?.name) existingNames.add(tag.attrs.name);
+});
 
-// Twitter Card tags
-const hasTwitterCard = hasStandardMetaTag("twitter:card");
-const hasTwitterSite = hasStandardMetaTag("twitter:site");
-const hasTwitterTitle = hasStandardMetaTag("twitter:title");
-const hasTwitterDescription = hasStandardMetaTag("twitter:description");
-const hasTwitterImage = hasStandardMetaTag("twitter:image");
-const hasTwitterImageAlt = hasStandardMetaTag("twitter:image:alt");
+const additionalHead = customHead.filter((tag: MetaTag) => {
+  if (tag.attrs?.property) return !existingProperties.has(tag.attrs.property);
+  if (tag.attrs?.name) return !existingNames.has(tag.attrs.name);
+  return true;
+});
 
-// -------------------------------------------------------
-// Get metadata content values
-// -------------------------------------------------------
-const title = page?.data?.title || "Sign Tech Interview";
-const description =
-  page?.data?.description ||
-  "Your comprehensive guide to technical interviews in sign language technology and software development.";
+// Combine original head with our additional tags
+const mergedHead = [...originalHead, ...additionalHead];
 ---
 
-<HeadBase head={originalHead} />
-
-<!-- Standard HTML meta tags -->
-{!hasDescription && <meta name="description" content={description} />}
-
-<!-- Open Graph meta tags -->
-{!hasOgImage && <meta property="og:image" content={`${siteUrl}/logo.png`} />}
-{!hasOgLogo && <meta property="og:logo" content={`${siteUrl}/logo.png`} />}
-{
-  !hasOgTag("og:image:type") && (
-    <meta property="og:image:type" content="image/png" />
-  )
-}
-{
-  !hasOgTag("og:image:alt") && (
-    <meta property="og:image:alt" content="Sign Tech Interview Logo" />
-  )
-}
-
-<!-- Twitter Card meta tags -->
-{!hasTwitterCard && <meta name="twitter:card" content="summary_large_image" />}
-{!hasTwitterSite && <meta name="twitter:site" content="@SignLanguageTech" />}
-{!hasTwitterTitle && <meta name="twitter:title" content={title} />}
-{
-  !hasTwitterDescription && (
-    <meta name="twitter:description" content={description} />
-  )
-}
-{
-  !hasTwitterImage && (
-    <meta name="twitter:image" content={`${siteUrl}/logo.png`} />
-  )
-}
-{
-  !hasTwitterImageAlt && (
-    <meta name="twitter:image:alt" content="Sign Tech Interview Logo" />
-  )
-}
+<HeadBase head={mergedHead} />
