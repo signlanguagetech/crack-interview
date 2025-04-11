@@ -34,6 +34,18 @@ const defaultDescription = "Comprehensive guide for technical interviews coverin
 const pageTitle = page?.data?.title || defaultTitle;
 const pageDescription = page?.data?.description || defaultDescription;
 
+// Check if OG tags already exist
+const hasOgTag = (property: string) =>
+  originalHead.some((tag: MetaTag) => tag.attrs?.property === property);
+
+const hasOgImage = hasOgTag("og:image");
+const hasOgLogo = hasOgTag("og:logo");
+const hasTwitterCard = hasOgTag("twitter:card");
+const hasTwitterSite = hasOgTag("twitter:site");
+const hasTwitterTitle = hasOgTag("twitter:title");
+const hasTwitterDescription = hasOgTag("twitter:description");
+const hasTwitterImage = hasOgTag("twitter:image");
+
 // Ensure we have absolute URLs for images
 const logoUrl = new URL("/logo.png", baseUrl).toString();
 
@@ -78,6 +90,56 @@ const additionalHead = customHead.filter((tag: MetaTag) => {
 
 // Combine original head with our additional tags
 const mergedHead = [...originalHead, ...additionalHead];
+
 ---
 
 <HeadBase head={mergedHead} />
+
+<!-- Add critical OG tags only if missing -->
+{!hasOgImage && <meta property="og:image" content={`${siteUrl}/logo.png`} />}
+{!hasOgLogo && <meta property="og:logo" content={`${siteUrl}/logo.png`} />}
+
+
+<!-- Add Twitter Card tags if missing -->
+{!hasTwitterCard && <meta name="twitter:card" content="summary_large_image" />}
+{!hasTwitterSite && <meta name="twitter:site" content="@SignLanguageTech" />}
+{
+  !hasTwitterTitle && (
+    <meta
+      name="twitter:title"
+      content={
+        originalHead.find((tag: MetaTag) => tag.attrs?.property === "og:title")
+          ?.attrs?.content || "Sign Tech Interview"
+      }
+    />
+  )
+}
+{
+  !hasTwitterDescription && (
+    <meta
+      name="twitter:description"
+      content={
+        originalHead.find(
+          (tag: MetaTag) => tag.attrs?.property === "og:description",
+        )?.attrs?.content || ""
+      }
+    />
+  )
+}
+{
+  !hasTwitterImage && (
+    <meta name="twitter:image" content={`${siteUrl}/logo.png`} />
+  )
+}
+
+<!-- Add additional OG image metadata -->
+{
+  !hasOgTag("og:image:type") && (
+    <meta property="og:image:type" content="image/png" />
+  )
+}
+{
+  !hasOgTag("og:image:alt") && (
+    <meta property="og:image:alt" content="Sign Tech Interview Logo" />
+  )
+}
