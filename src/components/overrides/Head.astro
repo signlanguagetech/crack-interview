@@ -2,7 +2,9 @@
 import HeadBase from "@astrojs/starlight/components/Head.astro";
 import { detectEnvironment } from "../../../config/environment.js";
 
-// Define interfaces for better type safety
+// ---------------------------------------------------
+// Interfaces
+// ---------------------------------------------------
 interface MetaTag {
   tag: string;
   attrs: {
@@ -14,44 +16,52 @@ interface MetaTag {
   content?: string;
 }
 
-// Get page info from the props passed by Starlight
-const { head: originalHead = [], page } = Astro.props;
+// ---------------------------------------------------
+// Data Collection
+// ---------------------------------------------------
+// 1. Get data from Starlight
+const { head: propsHead = [] } = Astro.props;
+const starlightRoute = Astro.locals.starlightRoute || {};
+const entryData = starlightRoute?.entry?.data || {};
+const pagePath = starlightRoute?.pathname || starlightRoute?.entry?.slug || '';
 
-// Get environment information
+// 2. Get environment information
 const env = detectEnvironment();
 const { siteUrl = "" } = env as { siteUrl: string };
-
-// Ensure siteUrl is not empty, fallback to production URL if needed
 const baseUrl = siteUrl || "https://interview.signlanguagetech.com";
 
-// -------------------------------------------------------
-// Define fallback values
-// -------------------------------------------------------
+// ---------------------------------------------------
+// Build Metadata
+// ---------------------------------------------------
+// 1. Define defaults
 const defaultTitle = "Sign Tech Interview";
 const defaultDescription = "Comprehensive guide for technical interviews covering various programming languages and software development concepts.";
 
-// Get the current page title and description from the page data
-const pageTitle = page?.data?.title || defaultTitle;
-const pageDescription = page?.data?.description || defaultDescription;
+// 2. Get page metadata with fallbacks
+const pageTitle = entryData?.title || defaultTitle;
+const pageDescription = entryData?.description || defaultDescription;
 
-// Check if OG tags already exist
-const hasOgTag = (property: string) =>
-  originalHead.some((tag: MetaTag) => tag.attrs?.property === property);
-
-const hasOgImage = hasOgTag("og:image");
-const hasOgLogo = hasOgTag("og:logo");
-const hasTwitterCard = hasOgTag("twitter:card");
-const hasTwitterSite = hasOgTag("twitter:site");
-const hasTwitterTitle = hasOgTag("twitter:title");
-const hasTwitterDescription = hasOgTag("twitter:description");
-const hasTwitterImage = hasOgTag("twitter:image");
-
-// Ensure we have absolute URLs for images
+// 3. Build image URLs
 const logoUrl = new URL("/logo.png", baseUrl).toString();
 
-// -------------------------------------------------------
-// Add custom meta tags that don't exist in the original head
-// -------------------------------------------------------
+// 4. Combine head arrays from all sources
+const originalHead = [...propsHead, ...(entryData?.head || [])];
+
+// 5. Check for existing tags
+const hasMetaTag = (propOrName: string, isProperty = true) => 
+  originalHead.some((tag: MetaTag) => 
+    isProperty ? tag.attrs?.property === propOrName : tag.attrs?.name === propOrName
+  );
+
+const hasOgImage = hasMetaTag("og:image");
+const hasOgLogo = hasMetaTag("og:logo");
+const hasTwitterCard = hasMetaTag("twitter:card", false);
+const hasTwitterSite = hasMetaTag("twitter:site", false);
+const hasTwitterTitle = hasMetaTag("twitter:title", false);
+const hasTwitterDescription = hasMetaTag("twitter:description", false);
+const hasTwitterImage = hasMetaTag("twitter:image", false);
+
+// 6. Create custom meta tags
 const customHead = [
   // Standard meta tags
   { tag: "meta", attrs: { name: "description", content: pageDescription } },
@@ -73,7 +83,7 @@ const customHead = [
   { tag: "meta", attrs: { name: "twitter:image:alt", content: "Sign Tech Interview Logo" } },
 ];
 
-// Filter out custom tags that already exist in the originalHead
+// 7. Filter out duplicate tags
 const existingProperties = new Set<string>();
 const existingNames = new Set<string>();
 
@@ -88,58 +98,23 @@ const additionalHead = customHead.filter((tag: MetaTag) => {
   return true;
 });
 
-// Combine original head with our additional tags
+// 8. Combine all head tags
 const mergedHead = [...originalHead, ...additionalHead];
-
 ---
 
 <HeadBase head={mergedHead} />
 
-<!-- Add critical OG tags only if missing -->
-{!hasOgImage && <meta property="og:image" content={`${siteUrl}/logo.png`} />}
-{!hasOgLogo && <meta property="og:logo" content={`${siteUrl}/logo.png`} />}
-
+<!-- Add critical OG tags if missing -->
+{!hasOgImage && <meta property="og:image" content={`${baseUrl}/logo.png`} />}
+{!hasOgLogo && <meta property="og:logo" content={`${baseUrl}/logo.png`} />}
 
 <!-- Add Twitter Card tags if missing -->
 {!hasTwitterCard && <meta name="twitter:card" content="summary_large_image" />}
 {!hasTwitterSite && <meta name="twitter:site" content="@SignLanguageTech" />}
-{
-  !hasTwitterTitle && (
-    <meta
-      name="twitter:title"
-      content={
-        originalHead.find((tag: MetaTag) => tag.attrs?.property === "og:title")
-          ?.attrs?.content || "Sign Tech Interview"
-      }
-    />
-  )
-}
-{
-  !hasTwitterDescription && (
-    <meta
-      name="twitter:description"
-      content={
-        originalHead.find(
-          (tag: MetaTag) => tag.attrs?.property === "og:description",
-        )?.attrs?.content || ""
-      }
-    />
-  )
-}
-{
-  !hasTwitterImage && (
-    <meta name="twitter:image" content={`${siteUrl}/logo.png`} />
-  )
-}
+{!hasTwitterTitle && <meta name="twitter:title" content={pageTitle} />}
+{!hasTwitterDescription && <meta name="twitter:description" content={pageDescription} />}
+{!hasTwitterImage && <meta name="twitter:image" content={`${baseUrl}/logo.png`} />}
 
 <!-- Add additional OG image metadata -->
-{
-  !hasOgTag("og:image:type") && (
-    <meta property="og:image:type" content="image/png" />
-  )
-}
-{
-  !hasOgTag("og:image:alt") && (
-    <meta property="og:image:alt" content="Sign Tech Interview Logo" />
-  )
-}
+{!hasMetaTag("og:image:type") && <meta property="og:image:type" content="image/png" />}
+{!hasMetaTag("og:image:alt") && <meta property="og:image:alt" content="Sign Tech Interview Logo" />}
