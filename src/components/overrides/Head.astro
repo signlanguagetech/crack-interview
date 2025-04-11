@@ -21,15 +21,21 @@ const { head: originalHead = [], page } = Astro.props;
 const env = detectEnvironment();
 const { siteUrl = "" } = env as { siteUrl: string };
 
+// Ensure siteUrl is not empty, fallback to production URL if needed
+const baseUrl = siteUrl || "https://interview.signlanguagetech.com";
+
 // -------------------------------------------------------
 // Define fallback values
 // -------------------------------------------------------
 const defaultTitle = "Sign Tech Interview";
-const defaultDescription = "Your comprehensive guide to technical interviews in sign language technology and software development.";
+const defaultDescription = "Comprehensive guide for technical interviews covering various programming languages and software development concepts.";
 
 // Get the current page title and description from the page data
 const pageTitle = page?.data?.title || defaultTitle;
 const pageDescription = page?.data?.description || defaultDescription;
+
+// Ensure we have absolute URLs for images
+const logoUrl = new URL("/logo.png", baseUrl).toString();
 
 // -------------------------------------------------------
 // Add custom meta tags that don't exist in the original head
@@ -41,8 +47,8 @@ const customHead = [
   // Open Graph
   { tag: "meta", attrs: { property: "og:title", content: pageTitle } },
   { tag: "meta", attrs: { property: "og:description", content: pageDescription } },
-  { tag: "meta", attrs: { property: "og:image", content: `${siteUrl}/logo.png` } },
-  { tag: "meta", attrs: { property: "og:logo", content: `${siteUrl}/logo.png` } },
+  { tag: "meta", attrs: { property: "og:image", content: logoUrl } },
+  { tag: "meta", attrs: { property: "og:logo", content: logoUrl } },
   { tag: "meta", attrs: { property: "og:image:type", content: "image/png" } },
   { tag: "meta", attrs: { property: "og:image:alt", content: "Sign Tech Interview Logo" } },
   
@@ -51,7 +57,7 @@ const customHead = [
   { tag: "meta", attrs: { name: "twitter:site", content: "@SignLanguageTech" } },
   { tag: "meta", attrs: { name: "twitter:title", content: pageTitle } },
   { tag: "meta", attrs: { name: "twitter:description", content: pageDescription } },
-  { tag: "meta", attrs: { name: "twitter:image", content: `${siteUrl}/logo.png` } },
+  { tag: "meta", attrs: { name: "twitter:image", content: logoUrl } },
   { tag: "meta", attrs: { name: "twitter:image:alt", content: "Sign Tech Interview Logo" } },
 ];
 
