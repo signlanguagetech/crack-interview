@@ -43,6 +43,7 @@ This repository provides curated resources and practice materials to help develo
   - PR preview deployments
   - Astro-powered documentation
   - Optimized for accessibility
+  - Open Graph meta tags for better social sharing
 
 ## 📚 Contents
 
@@ -57,7 +58,7 @@ This repository provides curated resources and practice materials to help develo
 git clone git@github.com:signlanguagetech/crack-interview.git
 cd crack-interview
 pnpm install
-pnpm dev         # Starts local server at localhost:4321
+pnpm dev         # Starts local server at localhost:4300
 ```
 
 ## 📋 Available Commands
@@ -65,8 +66,8 @@ pnpm dev         # Starts local server at localhost:4321
 | Command                | Action                                           |
 | :--------------------- | :----------------------------------------------- |
 | `pnpm install`         | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build production site to `./dist/`               |
+| `pnpm dev`             | Starts local dev server at `localhost:4300`      |
+| `pnpm build`           | Builds production site to `./dist/`              |
 | `pnpm preview`         | Preview build locally                            |
 | `pnpm run deploy:surge`| Deploy to Surge manually                         |
 | `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
@@ -98,9 +99,24 @@ To enable automatic PR previews:
 
 2. **Configure in GitHub**
    - Go to repository Settings → Secrets and variables → Actions
-   - Add new repository secret: `SURGE_TOKEN`
+   - Add the following secrets:
+     - `SURGE_TOKEN`: Your Surge.sh authentication token
+     - `SURGE_DOMAIN`: Your Surge.sh domain (e.g., `your-project.surge.sh`)
 
 For detailed troubleshooting, see [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
+
+### SEO and Social Sharing
+
+The project includes:
+- Open Graph meta tags for better social media sharing
+- Structured data for improved search engine visibility
+- Multilingual support with proper language tags
+- Responsive design for all devices
+
+> **Note**: You'll need to create and add an actual image file at `/public/og-image.jpg` for the `og:image` tag to work. This image should be:
+> - At least 1200x630 pixels for optimal display on most social media platforms
+> - Less than 1MB in file size
+> - In JPG or PNG format
 
 ## 👥 Contributing
 
@@ -123,6 +139,16 @@ Please feel free to submit a Pull Request or open an Issue.
 - **Deployment**: Surge.sh (preview) and GitHub Pages (production)
 
 For more detailed information about the deployment system, see [DEPLOYMENT.md](docs/DEPLOYMENT.md).
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- All our contributors and supporters
+- The Astro and Starlight teams for their amazing documentation framework
+- The open-source community for their invaluable resources
 
 ---
 
