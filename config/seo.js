@@ -30,8 +30,10 @@ function generateMetaTags({
     ? imagePath
     : `${siteUrl}${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
 
-  // For debugging - log the image URL we're generating
-  console.log('Generated OG image URL:', imageUrl);
+  // For debugging - log the image URL we're generating only in development
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('Generated OG image URL:', imageUrl);
+  }
   
   return [
     // Basic SEO
