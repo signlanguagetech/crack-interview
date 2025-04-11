@@ -66,13 +66,29 @@ const customHead = [
   // Standard meta tags
   { tag: "meta", attrs: { name: "description", content: pageDescription } },
   
-  // Open Graph
+  // Open Graph - Basic
   { tag: "meta", attrs: { property: "og:title", content: pageTitle } },
   { tag: "meta", attrs: { property: "og:description", content: pageDescription } },
+  { tag: "meta", attrs: { property: "og:locale", content: starlightRoute?.locale || 'en' } },
+  { tag: "meta", attrs: { property: "og:type", content: "website" } },
+  
+  // Open Graph - Image
   { tag: "meta", attrs: { property: "og:image", content: logoUrl } },
-  { tag: "meta", attrs: { property: "og:logo", content: logoUrl } },
+  { tag: "meta", attrs: { property: "og:image:secure_url", content: logoUrl } },
   { tag: "meta", attrs: { property: "og:image:type", content: "image/png" } },
+  { tag: "meta", attrs: { property: "og:image:width", content: "1200" } },
+  { tag: "meta", attrs: { property: "og:image:height", content: "630" } },
   { tag: "meta", attrs: { property: "og:image:alt", content: "Sign Tech Interview Logo" } },
+  { tag: "meta", attrs: { property: "og:logo", content: logoUrl } },
+  
+  // Open Graph - Optional Time
+  ...(entryData?.lastUpdated && entryData.lastUpdated instanceof Date ? 
+      [{ tag: "meta", attrs: { property: "og:updated_time", content: entryData.lastUpdated.toISOString() } }] 
+      : []
+  ),
+  
+  // Open Graph - Alternate Locale (Example for Spanish)
+  { tag: "meta", attrs: { property: "og:locale:alternate", content: "es" } },
   
   // Twitter Card
   { tag: "meta", attrs: { name: "twitter:card", content: "summary_large_image" } },
@@ -105,8 +121,18 @@ const mergedHead = [...originalHead, ...additionalHead];
 <HeadBase head={mergedHead} />
 
 <!-- Add critical OG tags if missing -->
+{!hasMetaTag("og:type") && <meta property="og:type" content="website" />}
+{!hasMetaTag("og:locale") && <meta property="og:locale" content={starlightRoute?.locale || 'en'} />}
 {!hasOgImage && <meta property="og:image" content={`${baseUrl}/logo.png`} />}
+{!hasMetaTag("og:image:secure_url") && <meta property="og:image:secure_url" content={`${baseUrl}/logo.png`} />}
+{!hasMetaTag("og:image:width") && <meta property="og:image:width" content="1200" />}
+{!hasMetaTag("og:image:height") && <meta property="og:image:height" content="630" />}
 {!hasOgLogo && <meta property="og:logo" content={`${baseUrl}/logo.png`} />}
+
+<!-- Add Optional OG tags if missing -->
+{entryData?.lastUpdated && entryData.lastUpdated instanceof Date && !hasMetaTag("og:updated_time") && (
+  <meta property="og:updated_time" content={entryData.lastUpdated.toISOString()} />
+)}
 
 <!-- Add Twitter Card tags if missing -->
 {!hasTwitterCard && <meta name="twitter:card" content="summary_large_image" />}
