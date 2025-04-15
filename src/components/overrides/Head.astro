@@ -27,7 +27,7 @@ const locale = starlightRoute?.locale || "en";
 
 // Environment information
 const env = detectEnvironment();
-const { siteUrl = "" } = env as { siteUrl: string };
+const { siteUrl = "" } = env;
 const baseUrl = siteUrl || "https://interview.signlanguagetech.com";
 
 // ---------------------------------------------------

@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
-import { detectEnvironment } from './config/environment.js';
+import { detectEnvironment } from './config/environment.ts';
 
 const env = detectEnvironment();
 

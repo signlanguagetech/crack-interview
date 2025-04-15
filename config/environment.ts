@@ -3,93 +3,167 @@
  * Helps determine the correct site URL based on the current environment
  */
 
-// Constants for URLs
-const PORT: number = 4300;
-const LOCAL_HOST_URL: string = `http://localhost:${PORT}`;
-const PRODUCTION_URL: string = "https://interview.signlanguagetech.com";
+// Environment types
+enum EnvironmentType {
+  DEVELOPMENT = 'development',
+  PRODUCTION = 'production',
+  PR_PREVIEW = 'pr_preview'
+}
+
+// Configuration constants
+const CONFIG = {
+  PORT: 4300,
+  URLS: {
+    LOCAL: (port: number) => `http://localhost:${port}`,
+    PRODUCTION: 'https://interview.signlanguagetech.com',
+    PREVIEW: (repo: string, pr: string) => `https://${repo}-preview-pr-${pr}.surge.sh`
+  },
+  DEFAULT_REPO: 'signlanguagetech-sign-tech-interview'
+} as const;
 
 /**
  * Options for environment detection
  */
-interface EnvironmentOptions {
+export interface EnvironmentOptions {
+  /** Force HTTPS in all environments (default: false) */
   forceHttps?: boolean;
 }
 
 /**
  * Environment information returned by the detection function
  */
-interface EnvironmentInfo {
+export interface EnvironmentInfo {
+  /** Server port number */
   port: number;
+  /** Whether running in production environment */
   isProduction: boolean;
+  /** Whether running in PR preview environment */
   isPRPreview: boolean;
+  /** The fully qualified site URL to use */
   siteUrl: string;
+  /** Preview URL if in PR environment, null otherwise */
   previewUrl: string | null;
+  /** PR number if in PR environment, null otherwise */
   prNumber: string | null;
+  /** Repository name */
   repoName: string;
+  /** Environment type identifier */
+  environment: EnvironmentType;
 }
 
 /**
- * Detects if we're running in a PR preview environment by checking GitHub Actions environment variables
+ * Extracts PR number from GitHub environment variables
+ * @returns PR number or null if not in PR environment
+ */
+function extractPrNumber(): string | null {
+  return process.env.GITHUB_EVENT_NUMBER ||
+    (process.env.GITHUB_REF && process.env.GITHUB_REF.match(/refs\/pull\/(\d+)\/merge/)?.[1]) ||
+    null;
+}
+
+/**
+ * Extracts repository name from GitHub environment variables
+ * @returns Repository name
+ */
+function getRepoName(): string {
+  return process.env.GITHUB_REPOSITORY?.replace('/', '-')?.toLowerCase() ||
+    CONFIG.DEFAULT_REPO;
+}
+
+/**
+ * Determines the current environment type
+ * @param previewUrl PR preview URL if available
+ * @returns Environment type
+ */
+function determineEnvironment(previewUrl: string | null): EnvironmentType {
+  if (previewUrl) return EnvironmentType.PR_PREVIEW;
+  return process.env.NODE_ENV === 'production' 
+    ? EnvironmentType.PRODUCTION 
+    : EnvironmentType.DEVELOPMENT;
+}
+
+/**
+ * Logs environment information in non-production environments
+ * @param envInfo Environment details to log
+ */
+function logEnvironmentInfo(envInfo: Record<string, unknown>): void {
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('Environment variables:', envInfo);
+    console.log('Using site URL:', envInfo.siteUrl);
+  }
+}
+
+/**
+ * Detects the current environment and returns configuration information
+ * 
+ * This utility determines where the application is running (local dev, production, or 
+ * PR preview) and provides the correct site URL and other environment details.
+ * 
  * @param options Configuration options
  * @returns Information about the current environment
  */
-function detectEnvironment({ forceHttps = false }: EnvironmentOptions = {}): EnvironmentInfo {
-  // Detect if running in a PR preview environment (Surge.sh)
-  // Check for PR number directly if we're in a GitHub Actions environment
-  const prNumber: string | null = process.env.GITHUB_EVENT_NUMBER ||
-    (process.env.GITHUB_REF && process.env.GITHUB_REF.match(/refs\/pull\/(\d+)\/merge/)?.[1]) ||
-    null;
+export function detectEnvironment({ forceHttps = false }: EnvironmentOptions = {}): EnvironmentInfo {
+  // Extract environment information
+  const prNumber = extractPrNumber();
+  const repoName = getRepoName();
 
-  const repoName: string = process.env.GITHUB_REPOSITORY?.replace('/', '-')?.toLowerCase() ||
-    'signlanguagetech-sign-tech-interview';
-
-  // Generate the preview URL or null if not in a PR environment
-  const previewUrl: string | null = prNumber
-    ? `https://${repoName}-preview-pr-${prNumber}.surge.sh`
+  // Generate preview URL if in PR environment
+  const previewUrl = prNumber
+    ? CONFIG.URLS.PREVIEW(repoName, prNumber)
     : null;
 
-  // Determine site URL - PR preview takes priority, then production, then local
-  const isProduction: boolean = process.env.NODE_ENV === 'production';
+  // Determine environment type
+  const environmentType = determineEnvironment(previewUrl);
+  const isProduction = environmentType === EnvironmentType.PRODUCTION;
 
-  // Use the correct scheme for localhost (http by default, unless forced to https)
-  const localUrl: string = forceHttps ? LOCAL_HOST_URL.replace('http:', 'https:') : LOCAL_HOST_URL;
+  // Determine the site URL
+  const localUrl = forceHttps 
+    ? CONFIG.URLS.LOCAL(CONFIG.PORT).replace('http:', 'https:') 
+    : CONFIG.URLS.LOCAL(CONFIG.PORT);
 
-  const siteUrl: string = previewUrl || (isProduction ? PRODUCTION_URL : localUrl);
+  const siteUrl = previewUrl || (isProduction ? CONFIG.URLS.PRODUCTION : localUrl);
 
-  // For debugging purposes
-  if (process.env.NODE_ENV !== 'production') {
-    console.log('Environment variables:', {
-      NODE_ENV: process.env.NODE_ENV,
-      GITHUB_REF: process.env.GITHUB_REF,
-      GITHUB_HEAD_REF: process.env.GITHUB_HEAD_REF,
-      GITHUB_REPOSITORY: process.env.GITHUB_REPOSITORY,
-      GITHUB_EVENT_NUMBER: process.env.GITHUB_EVENT_NUMBER,
-      prNumber,
-      repoName,
-      previewUrl,
-      forceHttps,
-      localUrl
-    });
-    console.log('Using site URL:', siteUrl);
-  }
-
-  return {
-    port: PORT,
+  // Prepare environment information
+  const envInfo = {
+    port: CONFIG.PORT,
     isProduction,
     isPRPreview: !!previewUrl,
     siteUrl,
     previewUrl,
     prNumber,
-    repoName
+    repoName,
+    environment: environmentType,
+    
+    // Debug info
+    NODE_ENV: process.env.NODE_ENV,
+    GITHUB_REF: process.env.GITHUB_REF,
+    GITHUB_HEAD_REF: process.env.GITHUB_HEAD_REF,
+    GITHUB_REPOSITORY: process.env.GITHUB_REPOSITORY,
+    GITHUB_EVENT_NUMBER: process.env.GITHUB_EVENT_NUMBER,
+    forceHttps,
+    localUrl
+  };
+
+  // Log debug information in non-production environments
+  logEnvironmentInfo(envInfo);
+
+  // Return only the required information for the consumer
+  return {
+    port: CONFIG.PORT,
+    isProduction,
+    isPRPreview: !!previewUrl,
+    siteUrl,
+    previewUrl,
+    prNumber,
+    repoName,
+    environment: environmentType
   };
 }
 
-// Exportación para ES modules
-export {
-  detectEnvironment,
-  PORT,
-  LOCAL_HOST_URL,
-  PRODUCTION_URL,
-  type EnvironmentOptions,
-  type EnvironmentInfo
-};
+// Constants exports (for backward compatibility)
+export const PORT = CONFIG.PORT;
+export const LOCAL_HOST_URL = CONFIG.URLS.LOCAL(CONFIG.PORT);
+export const PRODUCTION_URL = CONFIG.URLS.PRODUCTION;
+
+// Type exports
+export { EnvironmentType };
