@@ -2,11 +2,11 @@
 
 <div align="center">
 
-## Agradeciendo a todos los Increíbles Contribuidores :heart:
+## Gracias a todos los increíbles colaboradores :heart:
 
-[![Contribuidores](https://contrib.rocks/image?repo=signlanguagetech/crack-interview)](https://github.com/signlanguagetech/crack-interview/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=signlanguagetech/crack-interview)](https://github.com/signlanguagetech/crack-interview/graphs/contributors)
 
-**Una plataforma integral para la preparación de entrevistas técnicas**
+**Una plataforma completa para preparar entrevistas técnicas**
 
 [[English](README.md) | Español (actual)]
 
@@ -14,20 +14,20 @@
 
 ## 🔍 Descripción General
 
-Este repositorio proporciona recursos seleccionados y materiales de práctica para ayudar a los desarrolladores a tener éxito en las entrevistas técnicas, con especial énfasis en la accesibilidad para personas sordas y hipoacusias. Nuestra plataforma cubre múltiples tecnologías e incluye problemas de práctica, estrategias de entrevista y materiales de referencia.
+Este repositorio proporciona recursos y materiales de práctica para ayudar a los desarrolladores a tener éxito en entrevistas técnicas, con especial atención a la accesibilidad para personas sordas o con problemas de audición. Nuestra plataforma cubre múltiples tecnologías e incluye problemas de práctica, estrategias para entrevistas y materiales de referencia.
 
-### 💼 ¿Para quién es esto?
+### 💼 ¿Para quién es?
 
-- Desarrolladores de software que se preparan para entrevistas técnicas
-- Personas que buscan cambiar de carrera hacia la tecnología
-- Personas sordas y con discapacidad auditiva que necesitan preparación accesible para entrevistas
-- Líderes técnicos y gerentes de contratación que buscan entender las mejores prácticas de entrevista
+- Desarrolladores de software preparándose para entrevistas técnicas
+- Personas cambiando de carrera que buscan entrar en el sector tecnológico
+- Personas sordas o con problemas de audición que necesitan preparación accesible para entrevistas
+- Líderes técnicos y gerentes de contratación que buscan comprender las mejores prácticas de entrevistas
 
 ## ✨ Características Principales
 
-- 📱 **Cobertura Tecnológica Integral**
+- 📱 **Cobertura Tecnológica Completa**
   - Preparación para entrevistas de Angular, Flutter y Node.js
-  - Ejemplos del mundo real y desafíos de programación
+  - Ejemplos reales y desafíos de codificación
   - Mejores prácticas y errores comunes
 
 - 🌎 **Soporte Multilingüe**
@@ -37,48 +37,47 @@ Este repositorio proporciona recursos seleccionados y materiales de práctica pa
 - 📊 **Aprendizaje Interactivo**
   - Ejemplos prácticos
   - Herramientas de autoevaluación
-  - Seguimiento del progreso
+  - Seguimiento de progreso
 
 - 🛠️ **Infraestructura Moderna**
   - Despliegues de vista previa para PR
-  - Documentación impulsada por Astro
+  - Documentación potenciada por Astro
   - Optimizado para accesibilidad
-  - Etiquetas meta Open Graph para mejor compartición en redes sociales
 
 ## 📚 Contenido
 
 - **Habilidades Tecnológicas**:
   - **Angular**: Arquitectura de componentes, RxJS, gestión de estado, optimización de rendimiento
   - **Flutter**: Ciclo de vida de widgets, gestión de estado, desarrollo multiplataforma, pruebas
-  - **Node.js**: Bucle de eventos, programación asíncrona, APIs, integración de bases de datos, microservicios
+  - **Node.js**: Event loop, programación asíncrona, APIs, integración de bases de datos, microservicios
 
-## 🚦 Comenzando
+## 🚦 Primeros Pasos
 
 ```bash
 git clone git@github.com:signlanguagetech/crack-interview.git
 cd crack-interview
 pnpm install
-pnpm dev         # Inicia el servidor local en localhost:4300
+pnpm dev         # Inicia servidor local en localhost:4321
 ```
 
 ## 📋 Comandos Disponibles
 
 | Comando                 | Acción                                               |
 | :---------------------- | :--------------------------------------------------- |
-| `pnpm install`          | Instala las dependencias                             |
-| `pnpm dev`              | Inicia el servidor de desarrollo en `localhost:4300` |
-| `pnpm build`            | Construye el sitio de producción en `./dist/`        |
-| `pnpm preview`          | Vista previa de la construcción localmente           |
+| `pnpm install`          | Instala dependencias                                 |
+| `pnpm dev`              | Inicia servidor de desarrollo en `localhost:4321`    |
+| `pnpm build`            | Construye el sitio para producción en `./dist/`      |
+| `pnpm preview`          | Vista previa local de la compilación                 |
 | `pnpm run deploy:surge` | Despliega manualmente a Surge                        |
-| `pnpm astro ...`        | Ejecuta comandos CLI como `astro add`, `astro check` |
-| `pnpm astro -- --help`  | Obtiene ayuda usando el CLI de Astro                 |
+| `pnpm astro ...`        | Ejecuta CLI comandos como `astro add`, `astro check` |
+| `pnpm astro -- --help`  | Obtener ayuda utiliza el Astro CLI                   |
 
 ## 📖 Cómo Usar Este Recurso
 
-1. **Identifica Tu Rol Objetivo**: Enfócate en la pila tecnológica relevante para tu posición deseada
-2. **Estudia Conceptos Fundamentales**: Revisa conceptos fundamentales en tus tecnologías objetivo
-3. **Practica Problemas de Código**: Trabaja en los ejercicios proporcionados
-4. **Entrevistas Simuladas**: Usa nuestros materiales para simular escenarios reales de entrevista
+1. **Identifica Tu Rol Objetivo**: Enfócate en la tecnología relevante para tu posición deseada
+2. **Estudia Conceptos Fundamentales**: Revisa los conceptos fundamentales en tus tecnologías objetivo
+3. **Practica Problemas de Codificación**: Trabaja en los ejercicios proporcionados
+4. **Simulacros de Entrevistas**: Usa nuestros materiales para simular escenarios reales de entrevista
 
 ## 🔄 Desarrollo y Despliegue
 
@@ -90,7 +89,7 @@ Este proyecto utiliza una estrategia de despliegue dual:
 
 ### Configuración de Despliegues de Vista Previa
 
-Para habilitar las vistas previas automáticas de PR:
+Para habilitar vistas previas automáticas de PR:
 
 1. **Genera un token de Surge**
    ```bash
@@ -98,35 +97,20 @@ Para habilitar las vistas previas automáticas de PR:
    ```
 
 2. **Configura en GitHub**
-   - Ve a Configuración del repositorio → Secretos y variables → Acciones
-   - Agrega los siguientes secretos:
-     - `SURGE_TOKEN`: Tu token de autenticación de Surge.sh
-     - `SURGE_DOMAIN`: Tu dominio de Surge.sh (ej: `tu-proyecto.surge.sh`)
+   - Ve a Configuración del repositorio → Secrets and variables → Actions
+   - Añade un nuevo secreto de repositorio: `SURGE_TOKEN`
 
 Para solución de problemas detallada, consulta [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
 
-### SEO y Compartición en Redes Sociales
+## 👥 Contribuciones
 
-El proyecto incluye:
-- Etiquetas meta Open Graph para mejor compartición en redes sociales
-- Datos estructurados para mejorar la visibilidad en motores de búsqueda
-- Soporte multilingüe con etiquetas de idioma apropiadas
-- Diseño responsivo para todos los dispositivos
-
-> **Nota**: Necesitarás crear y agregar un archivo de imagen real en `/public/og-image.jpg` para que la etiqueta `og:image` funcione. Esta imagen debe ser:
-> - Al menos 1200x630 píxeles para una visualización óptima en la mayoría de las plataformas de redes sociales
-> - Menos de 1MB de tamaño de archivo
-> - En formato JPG o PNG
-
-## 👥 Contribuir
-
-¡Agradecemos profundamente a todos nuestros increíbles contribuidores que han ayudado a hacer posible este proyecto! ❤️
+¡Agradecemos profundamente a todos nuestros increíbles colaboradores que han ayudado a hacer posible este proyecto! ❤️
 
 ¡Las contribuciones son bienvenidas! Ya sea:
-- Agregar nuevas preguntas de entrevista
-- Traducir contenido
-- Corregir errores
-- Mejorar la documentación
+- Añadiendo nuevas preguntas de entrevista
+- Traduciendo contenido
+- Arreglando errores
+- Mejorando la documentación
 
 No dudes en enviar un Pull Request o abrir un Issue.
 
@@ -138,17 +122,7 @@ No dudes en enviar un Pull Request o abrir un Issue.
 - **CI/CD**: GitHub Actions
 - **Despliegue**: Surge.sh (vista previa) y GitHub Pages (producción)
 
-Para información más detallada sobre el sistema de despliegue, consulta [DEPLOYMENT.md](docs/DEPLOYMENT.md).
-
-## 📝 Licencia
-
-Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo [LICENSE](LICENSE) para más detalles.
-
-## 🙏 Agradecimientos
-
-- Todos nuestros contribuidores y seguidores
-- Los equipos de Astro y Starlight por su increíble framework de documentación
-- La comunidad de código abierto por sus invaluables recursos
+Para más información detallada sobre el sistema de despliegue, consulta [DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ---
 
