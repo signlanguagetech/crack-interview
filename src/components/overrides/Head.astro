@@ -72,8 +72,20 @@ const hasMetaTag = (propOrName: string, isProperty = true) =>
   );
 
 // Check for specific tags
-const hasOgImage = hasMetaTag("og:image");
+const hasDescription = hasMetaTag("description", false);
+const hasOgType = hasMetaTag("og:type");
+const hasOgTitle = hasMetaTag("og:title");
+const hasOgDescription = hasMetaTag("og:description");
+const hasOgArticleAuthor = hasMetaTag("og:article:author");
+const hasOgUpdatedTime = hasMetaTag("og:updated_time");
 const hasOgLogo = hasMetaTag("og:logo");
+const hasOgLocale = hasMetaTag("og:locale");
+const hasOgImage = hasMetaTag("og:image");
+const hasOgImageAlt = hasMetaTag("og:image:alt");
+const hasOgImageType = hasMetaTag("og:image:type");
+const hasImageSecureUrl = hasMetaTag("og:image:secure_url");
+const hasOgImageHeight = hasMetaTag("og:image:height");
+const hasOgImageWidth = hasMetaTag("og:image:width");
 const hasTwitterCard = hasMetaTag("twitter:card", false);
 const hasTwitterSite = hasMetaTag("twitter:site", false);
 const hasTwitterTitle = hasMetaTag("twitter:title", false);
@@ -100,58 +112,49 @@ const mergedHead = [...baseHead, ...customHead];
 
 <HeadBase head={mergedHead} />
 
-<!-- Ensure core meta tags are present -->
 {
-  !hasMetaTag("description", false) && pageDescription && (
+  !hasDescription && pageDescription && (
     <meta name="description" content={pageDescription} />
   )
 }
+{!hasOgTitle && pageTitle && <meta property="og:title" content={pageTitle} />}
 {
-  !hasMetaTag("og:title") && pageTitle && (
-    <meta property="og:title" content={pageTitle} />
-  )
-}
-{
-  !hasMetaTag("og:description") && pageDescription && (
+  !hasOgDescription && pageDescription && (
     <meta property="og:description" content={pageDescription} />
   )
 }
 {
-  !hasMetaTag("og:type") && (
+  !hasOgType && (
     <meta property="og:type" content={isArticle ? "article" : "website"} />
   )
 }
 {
-  isArticle && !hasMetaTag("og:article:author") && authors[0]?.name && (
+  isArticle && !hasOgArticleAuthor && authors[0]?.name && (
     <meta property="og:article:author" content={authors[0].name} />
   )
 }
 
-<!-- Add critical OG tags if missing -->
-{!hasMetaTag("og:locale") && <meta property="og:locale" content={locale} />}
+{!hasOgLocale && <meta property="og:locale" content={locale} />}
 {!hasOgImage && <meta property="og:image" content={logoUrl} />}
+{!hasOgLogo && <meta property="og:logo" content={logoUrl} />}
 {
-  !hasMetaTag("og:image:secure_url") && (
+  !hasImageSecureUrl && (
     <meta property="og:image:secure_url" content={logoUrl} />
   )
 }
+{!hasOgImageWidth && <meta property="og:image:width" content="1200" />}
+{!hasOgImageHeight && <meta property="og:image:height" content="630" />}
+{!hasOgImageType && <meta property="og:image:type" content="image/png" />}
 {
-  !hasMetaTag("og:image:width") && (
-    <meta property="og:image:width" content="1200" />
+  !hasOgImageAlt && (
+    <meta property="og:image:alt" content="Sign Tech Interview Logo" />
   )
 }
-{
-  !hasMetaTag("og:image:height") && (
-    <meta property="og:image:height" content="630" />
-  )
-}
-{!hasOgLogo && <meta property="og:logo" content={logoUrl} />}
 
-<!-- Add Optional OG tags if missing -->
 {
   entryData?.lastUpdated &&
     entryData.lastUpdated instanceof Date &&
-    !hasMetaTag("og:updated_time") && (
+    !hasOgUpdatedTime && (
       <meta
         property="og:updated_time"
         content={entryData.lastUpdated.toISOString()}
@@ -161,7 +164,7 @@ const mergedHead = [...baseHead, ...customHead];
 
 <!-- Add Twitter Card tags if missing -->
 {!hasTwitterCard && <meta name="twitter:card" content="summary_large_image" />}
-{!hasTwitterSite && <meta name="twitter:site" content="@SignLanguageTech" />}
+{!hasTwitterSite && <meta name="twitter:site" content="@SignLanguageTech" />} <!-- TODO: "@SignLanguageTech", should change dynamic data -->
 {!hasTwitterTitle && <meta name="twitter:title" content={pageTitle} />}
 {
   !hasTwitterDescription && (
@@ -169,15 +172,3 @@ const mergedHead = [...baseHead, ...customHead];
   )
 }
 {!hasTwitterImage && <meta name="twitter:image" content={logoUrl} />}
-
-<!-- Add additional OG image metadata -->
-{
-  !hasMetaTag("og:image:type") && (
-    <meta property="og:image:type" content="image/png" />
-  )
-}
-{
-  !hasMetaTag("og:image:alt") && (
-    <meta property="og:image:alt" content="Sign Tech Interview Logo" />
-  )
-}
