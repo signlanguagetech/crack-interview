@@ -1,10 +1,6 @@
 ---
 import HeadBase from "@astrojs/starlight/components/Head.astro";
-import { detectEnvironment } from "../../../config/environment.ts";
-
-// ---------------------------------------------------
-// Interfaces
-// ---------------------------------------------------
+import { detectEnvironment } from "../../../config/environment.prod.ts";
 interface MetaTag {
   tag: string;
   attrs: {
@@ -16,37 +12,24 @@ interface MetaTag {
   content?: string;
 }
 
-// ---------------------------------------------------
-// Data Collection
-// ---------------------------------------------------
-// Get data from various sources
 const { head: propsHead = [] } = Astro.props;
 const starlightRoute = Astro.locals.starlightRoute || {};
-const entryData = starlightRoute?.entry?.data || {};
+const entryData = starlightRoute.entry.data;
 const locale = starlightRoute?.locale || "en";
 
-// Environment information
 const env = detectEnvironment();
 const { siteUrl = "" } = env;
 const baseUrl = siteUrl || "https://interview.signlanguagetech.com";
 
-// ---------------------------------------------------
-// Metadata Configuration
-// ---------------------------------------------------
-// Define defaults and build core metadata
 const defaultTitle = "Sign Tech Interview";
 const defaultDescription =
   "Comprehensive guide for technical interviews covering various programming languages and software development concepts.";
 const pageTitle = entryData?.title || defaultTitle;
 const pageDescription = entryData?.description || defaultDescription;
-const authors = entryData?.authors || [];
-const isArticle = Array.isArray(authors) && authors.length > 0;
+const authors = entryData.authors;
+const isArticle = baseUrl
 const logoUrl = new URL("/logo.png", baseUrl).toString();
 
-// ---------------------------------------------------
-// Meta Tag Handling
-// ---------------------------------------------------
-// Filter out specific tags we want to manage ourselves
 const baseHead = [...propsHead, ...(entryData?.head || [])].filter(
   (tag) =>
     tag.attrs?.name !== "description" &&
@@ -54,7 +37,6 @@ const baseHead = [...propsHead, ...(entryData?.head || [])].filter(
     tag.attrs?.property !== "og:description",
 );
 
-// Track existing properties/names from the original head
 const existingProperties = new Set<string>();
 const existingNames = new Set<string>();
 
@@ -63,112 +45,100 @@ baseHead.forEach((tag: MetaTag) => {
   if (tag.attrs?.name) existingNames.add(tag.attrs.name);
 });
 
-// Helper function to check for existing meta tags
-const hasMetaTag = (propOrName: string, isProperty = true) =>
-  baseHead.some((tag: MetaTag) =>
-    isProperty
-      ? tag.attrs?.property === propOrName
-      : tag.attrs?.name === propOrName,
-  );
-
-// Check for specific tags
-const hasDescription = hasMetaTag("description", false);
-const hasOgType = hasMetaTag("og:type");
-const hasOgTitle = hasMetaTag("og:title");
-const hasOgDescription = hasMetaTag("og:description");
-const hasOgArticleAuthor = hasMetaTag("og:article:author");
-const hasOgUpdatedTime = hasMetaTag("og:updated_time");
-const hasOgLogo = hasMetaTag("og:logo");
-const hasOgLocale = hasMetaTag("og:locale");
-const hasOgImage = hasMetaTag("og:image");
-const hasOgImageAlt = hasMetaTag("og:image:alt");
-const hasOgImageType = hasMetaTag("og:image:type");
-const hasImageSecureUrl = hasMetaTag("og:image:secure_url");
-const hasOgImageHeight = hasMetaTag("og:image:height");
-const hasOgImageWidth = hasMetaTag("og:image:width");
-const hasTwitterCard = hasMetaTag("twitter:card", false);
-const hasTwitterSite = hasMetaTag("twitter:site", false);
-const hasTwitterTitle = hasMetaTag("twitter:title", false);
-const hasTwitterDescription = hasMetaTag("twitter:description", false);
-const hasTwitterImage = hasMetaTag("twitter:image", false);
-
-// ---------------------------------------------------
-// Generate Core Meta Tags
-// ---------------------------------------------------
-// Create custom meta tags with the most important ones
-const customHead = [
-  // Core meta tags (always include these)
+const customHead: MetaTag[] = [
   { tag: "meta", attrs: { name: "description", content: pageDescription } },
   { tag: "meta", attrs: { property: "og:title", content: pageTitle } },
   {
     tag: "meta",
     attrs: { property: "og:description", content: pageDescription },
   },
+  {
+    tag: "meta",
+    attrs: { property: "og:type", content: isArticle ? "article" : "website" },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "og:locale", content: locale },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "twitter:image", content: logoUrl },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "og:image", content: logoUrl },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "twitter:url", content: Astro.url.toString() },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "og:title", content: pageTitle },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "og:article:author", content: author.name && author.name },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "og:logo", content: logoUrl },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "og:image:secure_url", content: logoUrl },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "og:image:width", content:  "1200" },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "og:image:height", content: "630" },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "og:image:type", content: "image/png" },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "og:image:alt", content: "Sign Tech Interview Logo" },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "og:image:type", content: "image/png" },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "twitter:card", content: "summary_large_image" },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "twitter:title", content: pageTitle },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "twitter:site", content: "@signlanguagete1" },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "twitter:description", content: "@signlanguagete1" },
+  },
+  {
+    tag: "meta",
+    attrs: { property: "twitter:image", content: logoUrl },
+  }
+
 ];
 
-// Final merged head for the Starlight component
+if(entryData.lastUpdated instanceof Date) {
+  customHead.push({
+    tag: "meta",
+    attrs: { property: "og:updated_time", content: entryData.lastUpdated.toDateString() },
+  })
+}
+
 const mergedHead = [...baseHead, ...customHead];
 ---
 
 <HeadBase head={mergedHead} />
-
-{
-  !hasDescription && pageDescription && (
-    <meta name="description" content={pageDescription} />
-  )
-}
-{!hasOgTitle && pageTitle && <meta property="og:title" content={pageTitle} />}
-{
-  !hasOgDescription && pageDescription && (
-    <meta property="og:description" content={pageDescription} />
-  )
-}
-{
-  !hasOgType && (
-    <meta property="og:type" content={isArticle ? "article" : "website"} />
-  )
-}
-{
-  isArticle && !hasOgArticleAuthor && authors[0]?.name && (
-    <meta property="og:article:author" content={authors[0].name} />
-  )
-}
-
-{!hasOgLocale && <meta property="og:locale" content={locale} />}
-{!hasOgImage && <meta property="og:image" content={logoUrl} />}
-{!hasOgLogo && <meta property="og:logo" content={logoUrl} />}
-{
-  !hasImageSecureUrl && (
-    <meta property="og:image:secure_url" content={logoUrl} />
-  )
-}
-{!hasOgImageWidth && <meta property="og:image:width" content="1200" />}
-{!hasOgImageHeight && <meta property="og:image:height" content="630" />}
-{!hasOgImageType && <meta property="og:image:type" content="image/png" />}
-{
-  !hasOgImageAlt && (
-    <meta property="og:image:alt" content="Sign Tech Interview Logo" />
-  )
-}
-
-{
-  entryData?.lastUpdated &&
-    entryData.lastUpdated instanceof Date &&
-    !hasOgUpdatedTime && (
-      <meta
-        property="og:updated_time"
-        content={entryData.lastUpdated.toISOString()}
-      />
-    )
-}
-
-<!-- Add Twitter Card tags if missing -->
-{!hasTwitterCard && <meta name="twitter:card" content="summary_large_image" />}
-{!hasTwitterSite && <meta name="twitter:site" content="@SignLanguageTech" />} <!-- TODO: "@SignLanguageTech", should change dynamic data -->
-{!hasTwitterTitle && <meta name="twitter:title" content={pageTitle} />}
-{
-  !hasTwitterDescription && (
-    <meta name="twitter:description" content={pageDescription} />
-  )
-}
-{!hasTwitterImage && <meta name="twitter:image" content={logoUrl} />}
