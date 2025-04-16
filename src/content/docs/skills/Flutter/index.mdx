@@ -1553,7 +1553,7 @@ Example optimization:
 ```dart
 class OptimizedListView extends StatelessWidget {
   const OptimizedListView({Key? key, required this.items}) : super(key: key);
-
+  
   final List<Item> items;
 
   @override
@@ -1586,14 +1586,14 @@ Example implementation:
 class LocalizationService {
   static final LocalizationService _instance = LocalizationService._internal();
   factory LocalizationService() => _instance;
-
+  
   late final StreamController<Locale> _localeController;
-
+  
   Future<void> switchLocale(Locale locale) async {
     await loadTranslations(locale);
     _localeController.add(locale);
   }
-
+  
   String translate(String key, {Map<String, dynamic>? args}) {
     // Implementation
   }
