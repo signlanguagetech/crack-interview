@@ -1,14 +1,22 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import { isValidHttpsUrl } from "./src/helpers/utils.js";
 
-const port = 4300;
-const localHostUrl = `http://localhost:${port}`;
-const liveUrl = "https://interview.signlanguagetech.com";
+const port = process.env.port || 4300;
 const isProd = import.meta.env.PROD;
+
+if (isProd) {
+  if (!process.env.SITE_URL) {
+    throw new Error("SITE_URL is not defined in production environment.");
+  }
+  if (!isValidHttpsUrl(process.env.SITE_URL)) {
+    throw new Error("SITE_URL must be a valid HTTPS URL in production.");
+  }
+}
 
 export default defineConfig({
   server: { port },
-  site: isProd ? liveUrl : localHostUrl,
+  site: process.env.SITE_URL || `http://localhost:${port}`,
   integrations: [
     starlight({
       plugins: [],
@@ -61,6 +69,7 @@ export default defineConfig({
       components: {
         PageTitle: './src/components/PageTitle.astro',
         Footer: './src/components/overrides/Footer.astro',
+        Head: './src/components/overrides/Head.astro'
       },
       head: [
         {

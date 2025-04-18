@@ -67,6 +67,8 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build site
+        env:
+          SITE_URL: https://interview.signlanguagetech.com
         run: pnpm build
 
       - name: Setup Pages

@@ -1,0 +1,104 @@
+---
+import HeadBase from "@astrojs/starlight/components/Head.astro";
+
+interface AttrsMetaTag {
+  name?: string;
+  property?: string;
+  content?: string;
+}
+
+const { title, authors, lastUpdated } = Astro.locals.starlightRoute.entry.data;
+const logoUrl = new URL("/logo.png", Astro.url).toString();
+
+const customHead: AttrsMetaTag[] = [
+  {
+    name: "twitter:image",
+    content: logoUrl,
+  },
+  {
+    property: "og:image",
+    content: logoUrl,
+  },
+  {
+    name: "twitter:url",
+    content: Astro.url.toString(),
+  },
+  {
+    property: "og:title",
+    content: title,
+  },
+  {
+    property: "og:logo",
+    content: logoUrl,
+  },
+  {
+    name: "og:image:secure_url",
+    content: logoUrl,
+  },
+  {
+    name: "og:image:width",
+    content: "1200",
+  },
+  {
+    name: "og:image:height",
+    content: "630",
+  },
+  {
+    name: "og:image:type",
+    content: "image/png",
+  },
+  {
+    name: "og:image:alt",
+    content: "Sign Tech Interview Logo",
+  },
+  {
+    name: "og:image:type",
+    content: "image/png",
+  },
+  {
+    name: "twitter:card",
+    content: "summary_large_image",
+  },
+  {
+    name: "twitter:title",
+    content: title,
+  },
+  {
+    name: "twitter:site",
+    content: "@signlanguagete1",
+  },
+  {
+    name: "twitter:description",
+    content: "@signlanguagete1",
+  },
+  {
+    name: "twitter:image",
+    content: logoUrl,
+  },
+];
+
+if (authors instanceof Array) {
+  for (let i = 0; i < authors.length; i++) {
+    const author = authors[i];
+    customHead.push({
+      name: "og:article:author",
+      content: author.name && author.name,
+    });
+  }
+}
+
+if (lastUpdated instanceof Date) {
+  customHead.push({
+    name: "og:updated_time",
+    content: lastUpdated.toDateString(),
+  });
+}
+---
+
+<HeadBase />
+{
+  customHead.map((item) => {
+    const TagName = "meta";
+    return <TagName {...(item as any)} />;
+  })
+}
