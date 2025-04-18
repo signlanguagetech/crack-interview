@@ -1,144 +1,104 @@
 ---
 import HeadBase from "@astrojs/starlight/components/Head.astro";
-import { detectEnvironment } from "../../../config/environment.prod.ts";
-interface MetaTag {
-  tag: string;
-  attrs: {
-    property?: string;
-    name?: string;
-    content?: string;
-    [key: string]: string | undefined;
-  };
+
+interface AttrsMetaTag {
+  name?: string;
+  property?: string;
   content?: string;
 }
 
-const { head: propsHead = [] } = Astro.props;
-const starlightRoute = Astro.locals.starlightRoute || {};
-const entryData = starlightRoute.entry.data;
-const locale = starlightRoute?.locale || "en";
+const { title, authors, lastUpdated } = Astro.locals.starlightRoute.entry.data;
+const logoUrl = new URL("/logo.png", Astro.url).toString();
 
-const env = detectEnvironment();
-const { siteUrl = "" } = env;
-const baseUrl = siteUrl || "https://interview.signlanguagetech.com";
-
-const defaultTitle = "Sign Tech Interview";
-const defaultDescription =
-  "Comprehensive guide for technical interviews covering various programming languages and software development concepts.";
-const pageTitle = entryData?.title || defaultTitle;
-const pageDescription = entryData?.description || defaultDescription;
-const authors = entryData.authors;
-const isArticle = baseUrl
-const logoUrl = new URL("/logo.png", baseUrl).toString();
-
-const baseHead = [...propsHead, ...(entryData?.head || [])].filter(
-  (tag) =>
-    tag.attrs?.name !== "description" &&
-    tag.attrs?.property !== "og:title" &&
-    tag.attrs?.property !== "og:description",
-);
-
-const existingProperties = new Set<string>();
-const existingNames = new Set<string>();
-
-baseHead.forEach((tag: MetaTag) => {
-  if (tag.attrs?.property) existingProperties.add(tag.attrs.property);
-  if (tag.attrs?.name) existingNames.add(tag.attrs.name);
-});
-
-const customHead: MetaTag[] = [
-  { tag: "meta", attrs: { name: "description", content: pageDescription } },
-  { tag: "meta", attrs: { property: "og:title", content: pageTitle } },
+const customHead: AttrsMetaTag[] = [
   {
-    tag: "meta",
-    attrs: { property: "og:description", content: pageDescription },
+    name: "twitter:image",
+    content: logoUrl,
   },
   {
-    tag: "meta",
-    attrs: { property: "og:type", content: isArticle ? "article" : "website" },
+    property: "og:image",
+    content: logoUrl,
   },
   {
-    tag: "meta",
-    attrs: { property: "og:locale", content: locale },
+    name: "twitter:url",
+    content: Astro.url.toString(),
   },
   {
-    tag: "meta",
-    attrs: { property: "twitter:image", content: logoUrl },
+    property: "og:title",
+    content: title,
   },
   {
-    tag: "meta",
-    attrs: { property: "og:image", content: logoUrl },
+    property: "og:logo",
+    content: logoUrl,
   },
   {
-    tag: "meta",
-    attrs: { property: "twitter:url", content: Astro.url.toString() },
+    name: "og:image:secure_url",
+    content: logoUrl,
   },
   {
-    tag: "meta",
-    attrs: { property: "og:title", content: pageTitle },
+    name: "og:image:width",
+    content: "1200",
   },
   {
-    tag: "meta",
-    attrs: { property: "og:article:author", content: author.name && author.name },
+    name: "og:image:height",
+    content: "630",
   },
   {
-    tag: "meta",
-    attrs: { property: "og:logo", content: logoUrl },
+    name: "og:image:type",
+    content: "image/png",
   },
   {
-    tag: "meta",
-    attrs: { property: "og:image:secure_url", content: logoUrl },
+    name: "og:image:alt",
+    content: "Sign Tech Interview Logo",
   },
   {
-    tag: "meta",
-    attrs: { property: "og:image:width", content:  "1200" },
+    name: "og:image:type",
+    content: "image/png",
   },
   {
-    tag: "meta",
-    attrs: { property: "og:image:height", content: "630" },
+    name: "twitter:card",
+    content: "summary_large_image",
   },
   {
-    tag: "meta",
-    attrs: { property: "og:image:type", content: "image/png" },
+    name: "twitter:title",
+    content: title,
   },
   {
-    tag: "meta",
-    attrs: { property: "og:image:alt", content: "Sign Tech Interview Logo" },
+    name: "twitter:site",
+    content: "@signlanguagete1",
   },
   {
-    tag: "meta",
-    attrs: { property: "og:image:type", content: "image/png" },
+    name: "twitter:description",
+    content: "@signlanguagete1",
   },
   {
-    tag: "meta",
-    attrs: { property: "twitter:card", content: "summary_large_image" },
+    name: "twitter:image",
+    content: logoUrl,
   },
-  {
-    tag: "meta",
-    attrs: { property: "twitter:title", content: pageTitle },
-  },
-  {
-    tag: "meta",
-    attrs: { property: "twitter:site", content: "@signlanguagete1" },
-  },
-  {
-    tag: "meta",
-    attrs: { property: "twitter:description", content: "@signlanguagete1" },
-  },
-  {
-    tag: "meta",
-    attrs: { property: "twitter:image", content: logoUrl },
-  }
-
 ];
 
-if(entryData.lastUpdated instanceof Date) {
-  customHead.push({
-    tag: "meta",
-    attrs: { property: "og:updated_time", content: entryData.lastUpdated.toDateString() },
-  })
+if (authors instanceof Array) {
+  for (let i = 0; i < authors.length; i++) {
+    const author = authors[i];
+    customHead.push({
+      name: "og:article:author",
+      content: author.name && author.name,
+    });
+  }
 }
 
-const mergedHead = [...baseHead, ...customHead];
+if (lastUpdated instanceof Date) {
+  customHead.push({
+    name: "og:updated_time",
+    content: lastUpdated.toDateString(),
+  });
+}
 ---
 
-<HeadBase head={mergedHead} />
+<HeadBase />
+{
+  customHead.map((item) => {
+    const TagName = "meta";
+    return <TagName {...(item as any)} />;
+  })
+}

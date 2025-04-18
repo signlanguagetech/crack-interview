@@ -1,13 +1,24 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import { isValidHttpsUrl } from "./src/helpers/utils.js";
 
-import { detectEnvironment } from './config/environment.ts';
+const port = process.env.port || 4300;
+const isProd = import.meta.env.PROD;
 
-const env = detectEnvironment();
+if (isProd) {
+  if (!process.env.SITE_URL) {
+    throw new Error("SITE_URL is not defined in production environment.");
+  }
+  if (!isValidHttpsUrl(process.env.SITE_URL)) {
+    throw new Error("SITE_URL must be a valid HTTPS URL in production.");
+  }
+}
 
 export default defineConfig({
-  server: { port: env.port },
-  site: env.siteUrl,
+  server: {
+    port: port,
+  },
+  site:process.env.SITE_URL || `http://localhost:${port}`,
   integrations: [
     starlight({
       plugins: [],
