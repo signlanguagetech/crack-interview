@@ -15,10 +15,8 @@ if (isProd) {
 }
 
 export default defineConfig({
-  server: {
-    port: port,
-  },
-  site:process.env.SITE_URL || `http://localhost:${port}`,
+  server: { port },
+  site: process.env.SITE_URL || `http://localhost:${port}`,
   integrations: [
     starlight({
       plugins: [],

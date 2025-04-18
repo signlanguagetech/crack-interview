@@ -52,7 +52,7 @@ jobs:
 
       - name: Build site
         env:
-          SITE_URL: ${{ steps.preview-domain.outputs.domain }}
+          SITE_URL: "https://${{ steps.preview-domain.outputs.domain }}"
         run: pnpm build
 
       - name: Deploy to Surge for Preview
