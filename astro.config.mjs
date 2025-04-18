@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
-const port = 4300;
+const port = 4301;
 const localHostUrl = `http://localhost:${port}`;
 const liveUrl = "https://interview.signlanguagetech.com";
 const isProd = import.meta.env.PROD;
