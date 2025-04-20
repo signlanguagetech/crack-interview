@@ -1,16 +1,20 @@
 ---
 import HeadBase from "@astrojs/starlight/components/Head.astro";
 
-interface AttrsMetaTag {
-  name?: string;
-  property?: string;
-  content?: string;
-}
+type MetaTagName =
+  | "name"
+  | "property"
+  | "content"
+  | "charset"
+  | "http-equiv"
+  | "itemprop";
+
+type MetaTag = { [Key in MetaTagName]?: string };
 
 const { title, authors, lastUpdated } = Astro.locals.starlightRoute.entry.data;
 const logoUrl = new URL("/logo.png", Astro.url).toString();
 
-const customHead: AttrsMetaTag[] = [
+const metaTags: MetaTag[] = [
   {
     name: "twitter:image",
     content: logoUrl,
@@ -80,15 +84,15 @@ const customHead: AttrsMetaTag[] = [
 if (authors instanceof Array) {
   for (let i = 0; i < authors.length; i++) {
     const author = authors[i];
-    customHead.push({
+    metaTags.push({
       name: "og:article:author",
-      content: author.name && author.name,
+      content: author.name,
     });
   }
 }
 
 if (lastUpdated instanceof Date) {
-  customHead.push({
+  metaTags.push({
     name: "og:updated_time",
     content: lastUpdated.toDateString(),
   });
@@ -96,9 +100,4 @@ if (lastUpdated instanceof Date) {
 ---
 
 <HeadBase />
-{
-  customHead.map((item) => {
-    const TagName = "meta";
-    return <TagName {...(item as any)} />;
-  })
-}
+{metaTags.map((metaTag) => <meta {...metaTag} />)}
