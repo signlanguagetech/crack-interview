@@ -41,7 +41,18 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Generate preview domain
+        id: preview-domain
+        run: |
+          PR_NUMBER="${{ github.event.number }}"
+          REPO_NAME=$(echo "${{ github.repository }}" | sed 's/\//-/g')
+          PREVIEW_DOMAIN="${REPO_NAME}-preview-pr-${PR_NUMBER}.surge.sh"
+          echo "domain=${PREVIEW_DOMAIN}" >> $GITHUB_OUTPUT
+          echo "Preview domain: ${PREVIEW_DOMAIN}"
+
       - name: Build site
+        env:
+          SITE_URL: "https://${{ steps.preview-domain.outputs.domain }}"
         run: pnpm build
 
       - name: Deploy to Surge for Preview
@@ -65,7 +76,7 @@ jobs:
         id: preview-domain
         run: |
           PR_NUMBER="${{ github.event.number }}"
-          REPO_NAME=$(echo "${{ github.repository }}" | sed 's/\//-/g' | tr '[:upper:]' '[:lower:]')
+          REPO_NAME=$(echo "${{ github.repository }}" | sed 's/\//-/g')
           PREVIEW_DOMAIN="${REPO_NAME}-preview-pr-${PR_NUMBER}.surge.sh"
           echo "domain=${PREVIEW_DOMAIN}" >> $GITHUB_OUTPUT
           echo "Preview domain: ${PREVIEW_DOMAIN}"
