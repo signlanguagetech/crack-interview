@@ -147,25 +147,24 @@ if (tags instanceof Array) {
   });
 }
 
-if (authors instanceof Array) {
-  authors.forEach((author) => {
-    metaTags.push(
-      ...[
-      {
-        name:"author",
-        content: author.name,
-      },
-      {
-        property: "article:author",
-        content: author.name,
-      },
-      {
-        property: "og:article:author",
-        content: author.name,
-      },
-    ]);
-  });
-}
+authors.forEach((author) => {
+  metaTags.push(
+    ...[
+    {
+      name:"author",
+      content: author.name,
+    },
+    {
+      property: "article:author",
+      content: author.name,
+    },
+    {
+      property: "og:article:author",
+      content: author.name,
+    },
+  ]);
+});
+
 
 if (lastUpdated instanceof Date) {
   metaTags.push(
