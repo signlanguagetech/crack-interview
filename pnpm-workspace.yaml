@@ -1,0 +1,22 @@
+onlyBuiltDependencies:
+  # Core Astro dependencies
+  - '@astrojs/compiler'
+  - '@astrojs/mdx'
+  - '@astrojs/starlight'
+  - '@esbuild/darwin-arm64'
+  # MDX and Markdown processing
+  - '@mdx-js/mdx'
+  - 'markdown-table'
+  # Syntax highlighting
+  - '@shikijs/core'
+  - '@shikijs/engine-javascript'
+  - 'shiki'
+  - 'prismjs'
+  # Build tools
+  - 'esbuild'
+  - 'vite'
+  # Runtime helpers
+  - '@swc/helpers'
+  - '@babel/runtime'
+  # Types
+  - '@types/node'

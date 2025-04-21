@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/starlight": "^0.33.0",
     "astro": "^5.7.0",
+    "schema-dts": "^1.1.5",
     "sharp": "^0.34.1"
   }
 }
