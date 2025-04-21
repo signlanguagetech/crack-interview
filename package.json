@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.2",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "NODE_NO_WARNINGS=1 astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
