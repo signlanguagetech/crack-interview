@@ -13,8 +13,8 @@ type MetaTagName =
 type MetaTag = { [Key in MetaTagName]?: string };
 
 const starlightRoute =  Astro.locals.starlightRoute;
-const {lang: currentLocale, entry, head } = starlightRoute;
-const { title, description, authors, tags, lastUpdated, template } = entry.data;
+const {lang: currentLocale, entry, head, lastUpdated } = starlightRoute;
+const { title, description, authors, tags, template } = entry.data;
 
 const alternateLocales = head.filter(item =>
   item.tag === 'link' &&
@@ -47,6 +47,9 @@ const metaTags: MetaTag[] = [
   ...alternateLocales,
   {
     name: "image",
+    content: logoUrl,
+  },
+  {
     property: "og:image",
     content: logoUrl,
   },
@@ -104,6 +107,9 @@ const metaTags: MetaTag[] = [
   },
   {
     name: "section",
+    content: "Technology",
+  },
+  {
     property: "article:section",
     content: "Technology",
   },
