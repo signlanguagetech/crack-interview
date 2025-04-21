@@ -15,6 +15,7 @@ export const collections = {
     schema: docsSchema({
       extend: z.object({
         authors: z.array(authorSchema).nonempty(),
+        tags: z.array(z.string().min(1)).optional()
       }),
     }),
   }),

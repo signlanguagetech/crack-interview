@@ -1,4 +1,5 @@
 ---
+import type { TechArticle, WithContext } from "schema-dts";
 import HeadBase from "@astrojs/starlight/components/Head.astro";
 
 type MetaTagName =
@@ -11,93 +12,170 @@ type MetaTagName =
 
 type MetaTag = { [Key in MetaTagName]?: string };
 
-const { title, authors, lastUpdated } = Astro.locals.starlightRoute.entry.data;
-const logoUrl = new URL("/logo.png", Astro.url).toString();
+const starlightRoute =  Astro.locals.starlightRoute;
+const {lang: currentLocale, entry, head } = starlightRoute;
+const { title, description, authors, tags, lastUpdated, template } = entry.data;
+
+const alternateLocales = head.filter(item =>
+  item.tag === 'link' &&
+  item.attrs.rel === 'alternate' &&
+  item.attrs.hreflang !== currentLocale
+).map(link =>
+  typeof link.attrs.hreflang === "string" ?
+    ({
+      property: "og:locale:alternate",
+      content: `${link.attrs.hreflang}`,
+    })
+  : {}
+);
+
+const logoUrl = new URL("/open-graph.png", Astro.url).toString();
 
 const metaTags: MetaTag[] = [
   {
-    name: "twitter:image",
-    content: logoUrl,
+    name: "type",
+    content: template === "splash" ? "website" : "article",
   },
   {
+    name: "title",
+    content: title,
+  },
+  {
+    name: "url",
+    content: Astro.url.toString(),
+  },
+  ...alternateLocales,
+  {
+    name: "image",
     property: "og:image",
     content: logoUrl,
   },
   {
-    name: "twitter:url",
-    content: Astro.url.toString(),
-  },
-  {
-    property: "og:title",
-    content: title,
-  },
-  {
-    property: "og:logo",
+    property: "og:image:secure_url",
     content: logoUrl,
   },
   {
-    name: "og:image:secure_url",
-    content: logoUrl,
-  },
-  {
-    name: "og:image:width",
+    property: "og:image:width",
     content: "1200",
   },
   {
-    name: "og:image:height",
+    property: "og:image:height",
     content: "630",
   },
   {
-    name: "og:image:type",
+    property: "og:image:type",
     content: "image/png",
   },
   {
-    name: "og:image:alt",
+    property: "og:image:alt",
     content: "Sign Tech Interview Logo",
-  },
-  {
-    name: "og:image:type",
-    content: "image/png",
-  },
-  {
-    name: "twitter:card",
-    content: "summary_large_image",
   },
   {
     name: "twitter:title",
     content: title,
   },
   {
-    name: "twitter:site",
-    content: "@signlanguagete1",
+    name: "twitter:description",
+    content: description,
   },
   {
-    name: "twitter:description",
+    name: "twitter:url",
+    content: Astro.url.toString(),
+  },
+  {
+    name: "twitter:site",
     content: "@signlanguagete1",
   },
   {
     name: "twitter:image",
     content: logoUrl,
   },
+  {
+    name: "twitter:image:width",
+    content: "1200",
+  },
+  {
+    name: "twitter:image:height",
+    content: "630",
+  },
+  {
+    name: "twitter:image:alt",
+    content: "Sign Tech Interview Logo",
+  },
+  {
+    name: "section",
+    property: "article:section",
+    content: "Technology",
+  },
 ];
 
-if (authors instanceof Array) {
-  for (let i = 0; i < authors.length; i++) {
-    const author = authors[i];
+if (tags instanceof Array) {
+  tags.forEach((tag) => {
     metaTags.push({
-      name: "og:article:author",
+      property: "article:tag",
+      content: tag,
+    });
+  });
+}
+
+if (authors instanceof Array) {
+  authors.forEach((author) => {
+    metaTags.push({
+      name:"author",
+      property: "article:author",
       content: author.name,
     });
-  }
+  });
 }
 
 if (lastUpdated instanceof Date) {
-  metaTags.push({
-    name: "og:updated_time",
-    content: lastUpdated.toDateString(),
-  });
+  metaTags.push(
+    ...[
+      {
+        property: "og:updated_time",
+        content: lastUpdated.toISOString(),
+      },
+      {
+        name: "published_time",
+        property: "article:published_time",
+        content: lastUpdated.toISOString(),
+      },
+      {
+        name: "modified_time",
+        property: "article:modified_time",
+        content: lastUpdated.toISOString(),
+      },
+    ],
+  );
 }
+
+// Based of https://macarthur.me/posts/structured-data-with-starlight/
+const techArticleSchema: WithContext<TechArticle> = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: title,
+    description: description,
+    url: Astro.url.href,
+    author: {
+      "@type": "Organization",
+      name: "Sign Language Tech",
+      url: Astro.url.toString(),
+      logo: {
+        "@type": "ImageObject",
+        url: logoUrl
+      }
+  },
+  image: {
+    "@type": "ImageObject",
+    url: logoUrl
+  }
+};
+---
 ---
 
 <HeadBase />
 {metaTags.map((metaTag) => <meta {...metaTag} />)}
+<script
+    type="application/ld+json"
+    set:html={JSON.stringify(techArticleSchema)}>
+</script>
