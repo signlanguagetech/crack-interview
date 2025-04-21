@@ -90,6 +90,10 @@ const metaTags: MetaTag[] = [
     content: "@signlanguagete1",
   },
   {
+    name: "twitter:creator",
+    content: "@signlanguagete1",
+  },
+  {
     name: "twitter:image",
     content: logoUrl,
   },
@@ -118,7 +122,15 @@ const metaTags: MetaTag[] = [
 if (tags instanceof Array) {
   tags.forEach((tag) => {
     metaTags.push({
+      name: "tag",
+      content: tag,
+    });
+    metaTags.push({
       property: "article:tag",
+      content: tag,
+    });
+    metaTags.push({
+      property: "og:article:tag",
       content: tag,
     });
   });
@@ -128,7 +140,14 @@ if (authors instanceof Array) {
   authors.forEach((author) => {
     metaTags.push({
       name:"author",
+      content: author.name,
+    });
+    metaTags.push({
       property: "article:author",
+      content: author.name,
+    });
+    metaTags.push({
+      property: "og:article:author",
       content: author.name,
     });
   });
