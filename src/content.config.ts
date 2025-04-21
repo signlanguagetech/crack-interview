@@ -14,6 +14,7 @@ export const collections = {
     loader: docsLoader(),
     schema: docsSchema({
       extend: z.object({
+        sltContent: z.boolean().default(true),
         authors: z.array(authorSchema).nonempty(),
         tags: z.array(z.string().min(1)).optional()
       }),
