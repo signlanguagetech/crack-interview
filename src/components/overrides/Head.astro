@@ -121,35 +121,41 @@ const metaTags: MetaTag[] = [
 
 if (tags instanceof Array) {
   tags.forEach((tag) => {
-    metaTags.push({
-      name: "tag",
-      content: tag,
-    });
-    metaTags.push({
-      property: "article:tag",
-      content: tag,
-    });
-    metaTags.push({
-      property: "og:article:tag",
-      content: tag,
-    });
+    metaTags.push(
+    ...[
+      {
+        name: "tag",
+        content: tag,
+      },
+      {
+        property: "article:tag",
+        content: tag,
+      },
+      {
+        property: "og:article:tag",
+        content: tag,
+      }
+    ]);
   });
 }
 
 if (authors instanceof Array) {
   authors.forEach((author) => {
-    metaTags.push({
-      name:"author",
-      content: author.name,
-    });
-    metaTags.push({
-      property: "article:author",
-      content: author.name,
-    });
-    metaTags.push({
-      property: "og:article:author",
-      content: author.name,
-    });
+    metaTags.push(
+      ...[
+      {
+        name:"author",
+        content: author.name,
+      },
+      {
+        property: "article:author",
+        content: author.name,
+      },
+      {
+        property: "og:article:author",
+        content: author.name,
+      },
+    ]);
   });
 }
 
@@ -157,17 +163,35 @@ if (lastUpdated instanceof Date) {
   metaTags.push(
     ...[
       {
+        name: "updated_time",
+        content: lastUpdated.toISOString(),
+      },
+      {
         property: "og:updated_time",
         content: lastUpdated.toISOString(),
       },
       {
         name: "published_time",
+        content: lastUpdated.toISOString(),
+      },
+      {
         property: "article:published_time",
         content: lastUpdated.toISOString(),
       },
       {
+        property: "og:article:published_time",
+        content: lastUpdated.toISOString(),
+      },
+      {
         name: "modified_time",
+        content: lastUpdated.toISOString(),
+      },
+      {
         property: "article:modified_time",
+        content: lastUpdated.toISOString(),
+      },
+      {
+        property: "og:article:modified_time",
         content: lastUpdated.toISOString(),
       },
     ],
