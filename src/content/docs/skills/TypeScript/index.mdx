@@ -140,6 +140,22 @@ Indexed access types allow you to access the type of a property of an object typ
 ### Can Type aliases be recursive?
 Yes, type aliases can be recursive. You can define a type alias that references itself.
 
+### Type Aliases vs. Interfaces
+While interfaces are ideal for defining object shapes and class contracts, Type Aliases provide a broader range of capabilities, including the ability to define unions, primitives, and tuples. Understanding when to use each can significantly enhance your TypeScript code's readability and maintainability.
+
+**When to Use Interfaces:**
+- When you need to define a contract for an object or a class.
+- For object-oriented programming patterns, where you might extend or implement interfaces.
+
+**When to Use Type Aliases**:
+
+- When you need to define union or intersection types.
+- For simpler object shapes or when you require tuple types.
+
+Interfaces are extendable and can be merged, allowing for a more flexible and scalable way to organize type contracts, especially in large codebases.
+
+Type Aliases, while not extendable, offer composability through unions and intersections, providing a powerful tool for complex type definitions.
+
 ### What is Namespace and how to declare it?
 Namespaces are used to organize code into logical groups and prevent name collisions. They are declared using the `namespace` keyword.
 
