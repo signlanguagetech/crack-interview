@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import sitemap from '@astrojs/sitemap';
 import starlight from "@astrojs/starlight";
 import { isValidHttpsUrl } from "./src/helpers/utils.js";
 
@@ -91,5 +92,6 @@ export default defineConfig({
         }
       ],
     }),
+    sitemap(),
   ],
 });
