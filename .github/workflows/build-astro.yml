@@ -1,20 +1,16 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Trigger the workflow every time you push to the `main` branch
-  # Using a different branch name? Replace `main` with your branch's name
   push:
     branches: [main]
-  # Allows you to run this workflow manually from the Actions tab on GitHub.
+
   workflow_dispatch:
 
-# Allow this job to clone the repo and create a page deployment
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Avoid running redundant workflows
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -38,10 +34,6 @@ jobs:
           cache: 'pnpm'
           cache-dependency-path: '**/pnpm-lock.yaml'
 
-      # Mecanismos de caché específicos para Astro y Vite
-      # Ya no necesitamos la caché de node_modules aquí
-      # La elimino porque actions/setup-node con cache: 'pnpm' ya maneja esto
-
       - name: Cache .vite
         uses: actions/cache@v4
         with:
@@ -62,7 +54,6 @@ jobs:
             ${{ runner.os }}-astro-build-${{ hashFiles('pnpm-lock.yaml') }}-
             ${{ runner.os }}-astro-build-
 
-      # Pasos manuales reemplazando withastro/action
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
