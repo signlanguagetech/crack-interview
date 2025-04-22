@@ -11,7 +11,6 @@ permissions:
 jobs:
   preview:
     runs-on: ubuntu-latest
-    # Skip running on closed PR events
     if: github.event.action != 'closed'
     steps:
       - name: Checkout
@@ -69,7 +68,6 @@ jobs:
 
   teardown:
     runs-on: ubuntu-latest
-    # Only run on closed PR events
     if: github.event.action == 'closed'
     steps:
       - name: Generate preview domain
@@ -139,7 +137,6 @@ jobs:
 
   delete-branch:
     runs-on: ubuntu-latest
-    # Solo ejecutar cuando el PR se cierra después de fusionarse
     if: github.event.pull_request.merged == true
     steps:
       - name: Delete branch
