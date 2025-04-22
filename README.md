@@ -101,7 +101,6 @@ To enable automatic PR previews:
    - Go to repository Settings → Secrets and variables → Actions
    - Add the following secrets:
      - `SURGE_TOKEN`: Your Surge.sh authentication token
-     - `SURGE_DOMAIN`: Your Surge.sh domain (e.g., `your-project.surge.sh`)
 
 For detailed troubleshooting, see [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
 

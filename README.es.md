@@ -101,7 +101,6 @@ Para habilitar las vistas previas automáticas de PR:
    - Ve a Configuración del repositorio → Secretos y variables → Acciones
    - Agrega los siguientes secretos:
      - `SURGE_TOKEN`: Tu token de autenticación de Surge.sh
-     - `SURGE_DOMAIN`: Tu dominio de Surge.sh (ej: `tu-proyecto.surge.sh`)
 
 Para solución de problemas detallada, consulta [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
 
