@@ -51,6 +51,8 @@ Este repositorio proporciona recursos seleccionados y materiales de práctica pa
   - **Angular**: Arquitectura de componentes, RxJS, gestión de estado, optimización de rendimiento
   - **Flutter**: Ciclo de vida de widgets, gestión de estado, desarrollo multiplataforma, pruebas
   - **Node.js**: Bucle de eventos, programación asíncrona, APIs, integración de bases de datos, microservicios
+  - **TypeScript**: Sistema de tipos, interfaces, genéricos, tipos avanzados, herramientas
+  - **ReactJs**: Ciclo de vida de componentes, hooks, gestión de estado, DOM virtual, rendimiento
 
 ## 🚦 Comenzando
 

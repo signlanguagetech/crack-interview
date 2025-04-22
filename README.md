@@ -51,6 +51,8 @@ This repository provides curated resources and practice materials to help develo
   - **Angular**: Component architecture, RxJS, state management, performance optimization
   - **Flutter**: Widget lifecycle, state management, cross-platform development, testing
   - **Node.js**: Event loop, async programming, APIs, database integration, microservices
+  - **TypeScript**: Type system, interfaces, generics, advanced types, tooling
+  - **ReactJs**: Component lifecycle, hooks, state management, virtual DOM, performance
 
 ## 🚦 Getting Started
 
