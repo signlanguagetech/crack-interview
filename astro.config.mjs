@@ -21,6 +21,11 @@ export default defineConfig({
   integrations: [
     starlight({
       plugins: [],
+      logo: {
+        dark: './src/assets/slt-logo-dark.svg',
+        light: './src/assets/slt-logo-light.svg',
+        alt: 'Sign Language Tech Logo',
+      },
       title: {
         "en": "Sign Tech Interview",
         "es": "Sign Tech Interview en Español",
