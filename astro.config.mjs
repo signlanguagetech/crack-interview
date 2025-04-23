@@ -24,7 +24,10 @@ export default defineConfig({
       logo: {
         dark: './src/assets/slt-logo-dark.svg',
         light: './src/assets/slt-logo-light.svg',
-        alt: 'Sign Language Tech Logo',
+        alt: {
+          en: 'Sign Language Tech Logo',
+          es: 'Logo de Sign Language Tech'
+        },
       },
       title: {
         "en": "Sign Tech Interview",
