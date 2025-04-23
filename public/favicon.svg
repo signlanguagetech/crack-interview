@@ -1,1 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path fill-rule="evenodd" d="M81 36 64 0 47 36l-1 2-9-10a6 6 0 0 0-9 9l10 10h-2L0 64l36 17h2L28 91a6 6 0 1 0 9 9l9-10 1 2 17 36 17-36v-2l9 10a6 6 0 1 0 9-9l-9-9 2-1 36-17-36-17-2-1 9-9a6 6 0 1 0-9-9l-9 10v-2Zm-17 2-2 5c-4 8-11 15-19 19l-5 2 5 2c8 4 15 11 19 19l2 5 2-5c4-8 11-15 19-19l5-2-5-2c-8-4-15-11-19-19l-2-5Z" clip-rule="evenodd"/><path d="M118 19a6 6 0 0 0-9-9l-3 3a6 6 0 1 0 9 9l3-3Zm-96 4c-2 2-6 2-9 0l-3-3a6 6 0 1 1 9-9l3 3c3 2 3 6 0 9Zm0 82c-2-2-6-2-9 0l-3 3a6 6 0 1 0 9 9l3-3c3-2 3-6 0-9Zm96 4a6 6 0 0 1-9 9l-3-3a6 6 0 1 1 9-9l3 3Z"/><style>path{fill:#000}@media (prefers-color-scheme:dark){path{fill:#fff}}</style></svg>
+<svg
+  version="1.2"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 500 500"
+  width="64"
+  height="64"
+>
+  <style>
+    .s0 {
+      fill: #000000;
+    }
+    .s1 {
+      fill: #ffffff;
+      stroke: #000000;
+      paint-order: stroke fill markers;
+      stroke-linejoin: round;
+      stroke-width: 6;
+    }
+    @media (prefers-color-scheme: dark) {
+      path { fill: #FFF; }
+    }
+  </style>
+  <path
+    fill-rule="evenodd"
+    class="s0"
+    d="m204.3 61.5c-13.5-7.1-30.6-7.3-44.4-0.7-13.8 6.6-22.4 19-22.4 32.5v273.3c0 13.5 8.6 26 22.4 32.6 13.8 6.6 30.9 6.2 44.4-0.7l263.7-136.7c13.1-6.8 21.1-18.8 21.1-31.8 0-13.1-8-25-21.1-31.9z"
+  ></path>
+  <path
+    fill-rule="evenodd"
+    class="s1"
+    d="m62.1 131.6c-14.1-2.2-29.3 2.8-39.5 12.8-10.2 10-14.1 23.7-10 35.6l82.9 242c4.1 11.9 15.5 20.3 29.7 22 14.3 1.6 29.2-3.8 39.1-14.1l192-201c9.5-9.9 12.9-23 9-34.5-4-11.6-14.7-19.7-28.3-21.8z"
+  ></path>
+</svg>
