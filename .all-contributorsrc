@@ -1,0 +1,60 @@
+{
+  "projectName": "sign-tech-interview",
+  "projectOwner": "signlanguagetech",
+  "repoType": "github",
+  "repoHost": "https://github.com/signlanguagetech/sign-tech-interview/",
+  "files": [
+    "CONTRIBUTORS.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "tech-andgar",
+      "name": "Andrés García",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19521054?v=4",
+      "profile": "https://github.com/tech-andgar",
+      "contributions": [
+        "code",
+        "data",
+        "design",
+        "doc",
+        "example",
+        "infra",
+        "ideas",
+        "maintenance",
+        "question",
+        "review",
+        "test",
+        "tutorial",
+        "bug",
+        "content",
+        "projectManagement",
+        "translation"
+      ]
+    },
+    {
+      "login": "miladvafaeifard",
+      "name": "Milad Vafaeifard",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16865649?v=4",
+      "profile": "https://github.com/miladvafaeifard",
+      "contributions": [
+        "code",
+        "data",
+        "design",
+        "doc",
+        "example",
+        "infra",
+        "ideas",
+        "maintenance",
+        "question",
+        "review",
+        "test",
+        "tutorial"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "linkToUsage": true
+}
