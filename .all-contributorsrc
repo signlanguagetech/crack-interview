@@ -16,21 +16,16 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/19521054?v=4",
       "profile": "https://github.com/tech-andgar",
       "contributions": [
+        "bug",
         "code",
-        "data",
-        "design",
+        "content",
         "doc",
-        "example",
-        "infra",
         "ideas",
+        "infra",
         "maintenance",
+        "projectManagement",
         "question",
         "review",
-        "test",
-        "tutorial",
-        "bug",
-        "content",
-        "projectManagement",
         "translation"
       ]
     },
@@ -40,18 +35,16 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/16865649?v=4",
       "profile": "https://github.com/miladvafaeifard",
       "contributions": [
+        "bug",
         "code",
-        "data",
-        "design",
+        "content",
         "doc",
-        "example",
-        "infra",
         "ideas",
+        "infra",
         "maintenance",
+        "projectManagement",
         "question",
-        "review",
-        "test",
-        "tutorial"
+        "review"
       ]
     }
   ],
