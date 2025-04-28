@@ -16,7 +16,8 @@ export const collections = {
       extend: z.object({
         sltContent: z.boolean().default(true),
         authors: z.array(authorSchema).nonempty(),
-        tags: z.array(z.string().min(1)).optional()
+        tags: z.array(z.string().min(1)).optional(),
+        heroVideoUrl: z.string().regex(/^[A-Za-z0-9_-]{11}$/, "Must be a valid YouTube video ID").optional(),
       }),
     }),
   }),
