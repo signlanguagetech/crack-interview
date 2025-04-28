@@ -73,7 +73,7 @@ export default defineConfig({
         './src/styles/custom.css',
       ],
       components: {
-        PageTitle: './src/components/PageTitle.astro',
+        PageTitle: './src/components/overrides/PageTitle.astro',
         Footer: './src/components/overrides/Footer.astro',
         Head: './src/components/overrides/Head.astro'
       },
