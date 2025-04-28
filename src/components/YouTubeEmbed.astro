@@ -1,16 +1,6 @@
 ---
 /**
  * YouTubeEmbed component for embedding YouTube videos
- *
- * @param {string} videoId - The ID of the YouTube video
- * @param {string} [title="YouTube video player"] - The title of the video player
- * @param {number|string} [width=560] - The width of the video player
- * @param {number|string} [height=315] - The height of the video player
- * @param {boolean} [autoplay=false] - Whether to autoplay the video
- * @param {boolean} [controls=true] - Whether to show the video controls
- * @param {boolean} [showInfo=true] - Whether to show the video title and uploader
- * @param {boolean} [rel=false] - Whether to show related videos at the end of the video
- * @example
  * ```mdx
  * import YouTubeEmbed from '../../../../components/YouTubeEmbed.astro';
  *
@@ -20,8 +10,6 @@
 interface Props {
   videoId: string;
   title?: string;
-  width?: number | string;
-  height?: number | string;
   autoplay?: boolean;
   controls?: boolean;
   showInfo?: boolean;
@@ -33,8 +21,6 @@ interface Props {
 const {
   videoId,
   title = "YouTube video player",
-  width = 560,
-  height = 315,
   autoplay = false,
   controls = true,
   showInfo = true,
@@ -43,7 +29,6 @@ const {
   startAt = 0,
 } = Astro.props;
 
-// Build the YouTube URL with parameters
 let youtubeUrl = `https://www.youtube.com/embed/${videoId}?`;
 const params = new URLSearchParams({
   autoplay: autoplay ? "1" : "0",
