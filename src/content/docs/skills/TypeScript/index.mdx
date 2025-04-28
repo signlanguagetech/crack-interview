@@ -2,6 +2,9 @@
 title: TypeScript Tricky Questions and Answers
 description: A comprehensive guide to TypeScript, covering its features, differences from JavaScript, and advanced concepts.
 tags: ["TypeScript", "FrontEnd", "BackEnd", "JavaScript"]
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 2
 authors:
   - name: Milad Vafaeifard
     title: Lead Software Engineer
@@ -200,7 +203,7 @@ This technique is how `MyOmit` re-creates the behavior of the built-in `Omit` ty
 
 > The `as` in the mapped type is used to **rename or filter** keys conditionally during type transformation.
 
-## What is the purpose of the `as` keyword in mapped types? 
+### What is the purpose of the `as` keyword in mapped types? 
 
 The `as` keyword in mapped types is used to **rename or filter keys** during the transformation of a type. It allows you to create new types based on existing ones by applying conditions to the keys, enabling you to exclude or modify them as needed.
 This is particularly useful for creating utility types like `Omit`, `Pick`, and others, where you want to derive a new type from an existing one while applying specific transformations to its keys.
