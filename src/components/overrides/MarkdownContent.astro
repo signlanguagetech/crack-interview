@@ -6,7 +6,6 @@ import YouTubeEmbed from "../YouTubeEmbed.astro";
 ---
 {heroVideoUrl && <YouTubeEmbed videoId={heroVideoUrl} />}
 
-<pre>{JSON.stringify(Astro.locals.starlightRoute.entry.data, null, 2)}</pre>
 <MarkdownContentBase>
   <slot />
 </MarkdownContentBase>
