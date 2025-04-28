@@ -1,0 +1,79 @@
+---
+title: Template Literal Types
+description: Template Literal Types in TypeScript allow you to create new types by manipulating string literals. They provide powerful capabilities for defining types based on string patterns and expressions.
+tags: ["TypeScript", "FrontEnd", "BackEnd", "JavaScript"]
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 2
+authors:
+  - name: Milad Vafaeifard
+    title: Lead Software Engineer
+    picture: https://avatars.githubusercontent.com/u/16865649?v=4&s=200
+    url: https://signlanguagetech.com/
+---
+
+Template Literal Types are a feature in TypeScript that allow you to create types by interpolating string literals and expressions. They are denoted by backticks \` and can contain placeholders `${...}` for inserting values or expressions into the string.
+
+#### Example:
+
+```typescript
+type Color = 'red' | 'blue' | 'green';
+
+type BoxColor = `box-${Color}`;
+
+const box: BoxColor = 'box-red'; // Valid
+```
+
+In this example, `BoxColor` is a template literal type that combines the string `box-` with the values from the `Color` type, creating a union of possible box colors.
+
+#### Example:
+
+```typescript
+type BaseColor = 'Red' | 'Green' | 'Blue';
+
+type Shade<T extends BaseColor> = `${T} Light` | `${T} Dark`;
+
+type ColorShades = Shade<BaseColor>;
+
+const color: ColorShades = 'Red Light'; // Valid
+
+const invalidColor: ColorShades = 'Green Light'; // Invalid: Type '"Green Light"' is not assignable to type 'ColorShades'
+```
+
+In this example:
+
+- We define the base colors as string literals in the `BaseColor` type (`Red`, `Green`, `Blue`).
+- We use a template literal type `Shade<T>` to generate light and dark shades for each base color. For example, `Shade<'Red'>` results in the type `'Red Light' | 'Red Dark'`.
+- We create the `ColorShades` type as a union of all possible shades for the base colors.
+- Finally, we demonstrate the usage of `ColorShades` where color is assigned a valid shade (`Red Light`), and invalidColor attempts to assign an invalid shade (`Green Light`), resulting in a type error.
+
+## Advanced Usage
+
+Template Literal Types also allow for advanced string manipulation within types, enabling the creation of more sophisticated type constraints.
+
+### Example:
+
+```typescript
+type EventNames = 'click' | 'mouseover' | 'keydown';
+
+type EventListeners<T extends EventNames> = `${T}Listener`;
+
+const clickListener: EventListeners<'click'> = 'clickListener'; // Valid
+
+const mouseOverListener: EventListeners<'mouseover'> = 'mouseoverListener'; // Valid
+```
+
+In this example, `EventListeners` is a template literal type that creates listener types based on predefined event names, ensuring type safety in event handling scenarios.
+
+## Use Cases
+
+Template Literal Types are commonly used for:
+
+- Generating string-based enum-like types.
+- Creating complex type patterns based on string templates.
+- Building type-safe APIs that require specific string formats.
+
+## Materials
+
+- [Template Literal Types official documentation](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html/)
+- [JavaScript Template literals (Template strings)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals/)
