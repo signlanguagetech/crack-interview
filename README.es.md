@@ -4,7 +4,8 @@
 
 ## Agradeciendo a todos los Increíbles Contribuidores :heart:
 
-[![Contribuidores](https://contrib.rocks/image?repo=signlanguagetech/crack-interview)](https://github.com/signlanguagetech/crack-interview/graphs/contributors)
+
+---
 
 **Una plataforma integral para la preparación de entrevistas técnicas**
 

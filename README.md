@@ -2,10 +2,6 @@
 
 <div align="center">
 
-## Thanking all Awesome Contributors :heart:
-
-[![Contributors](https://contrib.rocks/image?repo=signlanguagetech/crack-interview)](https://github.com/signlanguagetech/crack-interview/graphs/contributors)
-
 **A comprehensive platform for technical interview preparation**
 
 [English (current) | [Español](README.es.md)]
@@ -131,6 +127,13 @@ Contributions are welcome! Whether it's:
 
 Please feel free to submit a Pull Request or open an Issue.
 
+
+## Thanking all Awesome Contributors ✨ :heart:
+
+Be sure to check out all of the [amazing people](CONTRIBUTORS.md) that have contributed to Sign Tech Interview over the years!
+
+We recognize all types of contributions. This project follows the all-contributors specification and the Emoji Key ✨ for contribution types. Instructions to add yourself or add contribution emojis to your name are here. You can also post an issue or comment on a pull request with the text: @all-contributors please add @YOUR-USERNAME for THINGS (where THINGS is a comma-separated list of entries from the list of possible contribution types) and our nice bot will add you.
+
 ## 🔧 Technical Details
 
 - **Framework**: Astro
@@ -150,6 +153,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - All our contributors and supporters
 - The Astro and Starlight teams for their amazing documentation framework
 - The open-source community for their invaluable resources
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=signlanguagetech/sign-tech-interview&type=Date)](https://www.star-history.com/#signlanguagetech/sign-tech-interview&Date)
 
 ---
 

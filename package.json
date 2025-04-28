@@ -1,5 +1,6 @@
 {
-  "name": "website",
+  "name": "sign-tech-interview",
+  "homepage": "https://interview.signlanguagetech.com/",
   "type": "module",
   "version": "0.0.2",
   "scripts": {
@@ -7,7 +8,9 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.3.0",
@@ -15,5 +18,8 @@
     "astro": "^5.7.0",
     "schema-dts": "^1.1.5",
     "sharp": "^0.34.1"
+  },
+  "devDependencies": {
+    "all-contributors-cli": "^6.26.1"
   }
 }
