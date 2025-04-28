@@ -1,0 +1,12 @@
+---
+import MarkdownContentBase from "@astrojs/starlight/components/MarkdownContent.astro";
+
+const { heroVideoUrl } = Astro.locals.starlightRoute.entry.data;
+import YouTubeEmbed from "../YouTubeEmbed.astro";
+---
+{heroVideoUrl && heroVideoUrl !== "" && <YouTubeEmbed videoId={heroVideoUrl} />}
+
+<MarkdownContentBase>
+  <slot />
+  <MarkdownContentBase />
+</MarkdownContentBase>
