@@ -18,5 +18,6 @@ onlyBuiltDependencies:
   # Runtime helpers
   - '@swc/helpers'
   - '@babel/runtime'
+  - 'sharp'
   # Types
   - '@types/node'
