@@ -77,7 +77,7 @@ export default defineConfig({
         Footer: './src/components/overrides/Footer.astro',
         Head: './src/components/overrides/Head.astro'
       },
-      head: [
+      head: isProd ? [
         {
           tag: 'script',
           attrs: {
@@ -95,7 +95,7 @@ export default defineConfig({
             gtag('config', 'G-EM5400YMC3');
           `
         }
-      ],
+      ] : [],
     }),
     sitemap({
       i18n: {
