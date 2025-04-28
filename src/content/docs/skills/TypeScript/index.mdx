@@ -168,3 +168,39 @@ The `declare` keyword is used to declare variables, functions, classes, and inte
 "as" is a type assertion that forces TypeScript to treat a value as a specific type, potentially bypassing type checking.
 
 Key difference: "satisfies" verifies compatibility while preserving the original inferred type's precision, whereas "as" overwrites the type inference and can lead to unsafe code if used incorrectly.
+
+## Others
+
+### Given a type `T`, how would you construct a new type that excludes certain properties, similar to the built-in `Omit`?
+
+In TypeScript, within a mapped type, the `as` keyword is used to **rename or filter keys** during the transformation. Specifically, it allows you to remap each key in the original type to a new key or to exclude certain keys based on a condition.
+
+In your example:
+
+```typescript
+type MyOmit<T, K extends keyof T> = {
+  [Key in keyof T as Key extends K ? never : Key]: T[Key]
+}
+```
+
+- `Key in keyof T`: iterates over all keys of `T`.
+- `as Key extends K ? never : Key`: **filters out** keys that extend (i.e., are assignable to) `K`.  
+  - If `Key` extends `K`, it maps to `never`, effectively **excluding** that key from the resulting object because keys mapped to `never` are omitted.
+  - Otherwise, it keeps the key as is.
+
+**In essence:**
+
+- The `as` allows conditional remapping of keys.
+- When the condition `Key extends K` is true, the key is mapped to `never`, removing it from the resulting type.
+- When false, the key remains unchanged.
+
+This technique is how `MyOmit` re-creates the behavior of the built-in `Omit` type—excluding specific keys from a type.
+
+**Summary:**
+
+> The `as` in the mapped type is used to **rename or filter** keys conditionally during type transformation.
+
+## What is the purpose of the `as` keyword in mapped types? 
+
+The `as` keyword in mapped types is used to **rename or filter keys** during the transformation of a type. It allows you to create new types based on existing ones by applying conditions to the keys, enabling you to exclude or modify them as needed.
+This is particularly useful for creating utility types like `Omit`, `Pick`, and others, where you want to derive a new type from an existing one while applying specific transformations to its keys.
