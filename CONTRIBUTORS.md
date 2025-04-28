@@ -1,4 +1,4 @@
-Thanks goes to all of these wonderful people (emoji key) who have helped Sign Tech Interview get this far:
+Thanks go to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)) who have helped Sign Tech Interview get this far:
 
 
 <!-- [![Contributors](https://contrib.rocks/image?repo=signlanguagetech/crack-interview)](https://github.com/signlanguagetech/crack-interview/graphs/contributors) -->
