@@ -67,6 +67,11 @@ export default defineConfig({
           label: "Skills",
           autogenerate: { directory: "skills/" },
           collapsed: false,
+        },
+        {
+          label: "Programming Paradigms",
+          autogenerate: { directory: "/programming-paradigms" },
+          collapsed: true,
         }
       ],
       customCss: [
