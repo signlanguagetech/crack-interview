@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 import sitemap from '@astrojs/sitemap';
 import starlight from "@astrojs/starlight";
 import { isValidHttpsUrl } from "./src/helpers/utils.js";
+import { sidebarConfig } from "./src/sidebar.config.js";
 
 const port = process.env.port || 4300;
 const isProd = import.meta.env.PROD;
@@ -62,18 +63,7 @@ export default defineConfig({
           locale: "es",
         }
       },
-      sidebar: [
-        {
-          label: "Skills",
-          autogenerate: { directory: "skills/" },
-          collapsed: false,
-        },
-        {
-          label: "Programming Paradigms",
-          autogenerate: { directory: "/programming-paradigms" },
-          collapsed: true,
-        }
-      ],
+      sidebar: sidebarConfig,
       customCss: [
         './src/styles/custom.css',
       ],
