@@ -12,7 +12,7 @@ authors:
     url: https://signlanguagetech.com/
 ---
 
-TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.
+TypeScript is a statically typed superset of JavaScript that compiles to plain JavaScript. It enhances code quality and maintainability with features like static typing, interfaces, and advanced tooling. TypeScript is widely adopted in large-scale applications for its ability to catch errors early and improve developer productivity.
 
 ## Crucial Topics
 
@@ -189,7 +189,7 @@ type MyOmit<T, K extends keyof T> = {
 ```
 
 - `Key in keyof T`: iterates over all keys of `T`.
-- `as Key extends K ? never : Key`: **filters out** keys that extend (i.e., are assignable to) `K`.  
+- `as Key extends K ? never : Key`: **filters out** keys that extend (i.e., are assignable to) `K`.
   - If `Key` extends `K`, it maps to `never`, effectively **excluding** that key from the resulting object because keys mapped to `never` are omitted.
   - Otherwise, it keeps the key as is.
 
@@ -205,7 +205,7 @@ This technique is how `MyOmit` re-creates the behavior of the built-in `Omit` ty
 
 > The `as` in the mapped type is used to **rename or filter** keys conditionally during type transformation.
 
-### What is the purpose of the `as` keyword in mapped types? 
+### What is the purpose of the `as` keyword in mapped types?
 
 The `as` keyword in mapped types is used to **rename or filter keys** during the transformation of a type. It allows you to create new types based on existing ones by applying conditions to the keys, enabling you to exclude or modify them as needed.
 This is particularly useful for creating utility types like `Omit`, `Pick`, and others, where you want to derive a new type from an existing one while applying specific transformations to its keys.
