@@ -9,94 +9,94 @@ authors:
     url: https://signlanguagetech.com/
 ---
 
-React is the library for web and native user interfaces. Build user interfaces out of individual pieces called components written in JavaScript.
+React is a declarative, component-based JavaScript library for building user interfaces, maintained by Facebook. Its virtual DOM, reusable components, and strong ecosystem make it a popular choice for both web and native app development. React’s flexibility and performance have made it the foundation for many modern web applications.
 
 ## Crucial Topics
 
 ### What is React?
 React is a declarative, efficient, and flexible JavaScript library for building user interfaces. It is maintained by Facebook and focuses on creating reusable UI components.
 
-### What are the major features of React?  
+### What are the major features of React?
 JSX (syntax extension), Components, Virtual DOM (performance optimization), Unidirectional Data Binding, State Management, and Hooks for state and lifecycle in functional components.
 
-### What is JSX?  
+### What is JSX?
 JSX (JavaScript XML) is a syntax extension of JavaScript that allows writing HTML elements inside JavaScript code.
 
-### Is it possible to use React without JSX?  
+### Is it possible to use React without JSX?
 Yes, React can be used without JSX by using `React.createElement()` to manually create components and elements.
 
-### What is the difference between Element and Component?  
+### What is the difference between Element and Component?
 Element is a plain object representing a DOM node or a component instance. Component is a function or a class that returns a React element.
 
-### How to create components in React?  
+### How to create components in React?
 Components can be created as:
    - **Functional Components**: ES6 function returning JSX.
    - **Class Components**: ES6 class extending `React.Component`.
 
-### How to bind methods or event handlers in JSX callbacks?  
+### How to bind methods or event handlers in JSX callbacks?
 Use arrow functions, bind methods in the constructor, or use class fields syntax. Example: `<button onClick={() => this.handleClick()}>Click</button>`.
 
-### How to pass a parameter to an event handler or callback?  
+### How to pass a parameter to an event handler or callback?
 Use arrow functions or the `bind` method like `<button onClick={() => this.handleClick(param)}>Click</button>`.
 
-### What are synthetic events in React?  
+### What are synthetic events in React?
 Synthetic events are React’s wrapper around browser native events ensuring cross-browser consistency.
 
-### What is state in React?  
+### What is state in React?
 State is a mutable object used to store data influencing component rendering and behavior.
 
-### What are props in React?  
+### What are props in React?
 Props (short for properties) are read-only inputs passed to components from their parent to customize their behavior.
 
-### What is the difference between state and props?  
+### What is the difference between state and props?
 State is mutable and managed within a component. Props are immutable and passed externally from parent components.
 
-### Why should we not update the state directly?  
+### Why should we not update the state directly?
 Direct modifications won’t trigger re-rendering, so React recommends using `setState` or `useState` for updates.
 
-### Is the state updated synchronously?  
+### Is the state updated synchronously?
 No, state updates in React are asynchronous for batching and performance optimization purposes.
 
-### What is the "key" prop and what is its benefit in arrays of elements?  
+### What is the "key" prop and what is its benefit in arrays of elements?
 The `key` prop uniquely identifies elements in a list and helps React optimize rendering by only re-rendering the modified elements.
 
-### What is the use of refs?  
+### What is the use of refs?
 Refs provide a way to directly access DOM elements or React component instances.
 
-### How to create refs?  
+### How to create refs?
 Refs are created using `React.createRef()` or the `useRef()` hook.
 
-### React.memo vs useMemo  
+### React.memo vs useMemo
 `React.memo` prevents unnecessary re-renders of components, while `useMemo` memoizes values within functional components to optimize computations.
 
-### How do you memoize a component?  
+### How do you memoize a component?
 Wrap the component with `React.memo`. Example: `export default React.memo(MyComponent);`.
 
-### What is Virtual DOM?  
+### What is Virtual DOM?
 Virtual DOM is a lightweight JavaScript representation of the real DOM that optimizes rendering by calculating differences and updating only the necessary parts.
 
-### How does Virtual DOM work?  
+### How does Virtual DOM work?
 React creates a virtual DOM tree. Changes are applied to the tree, and React calculates differences (diffing). It updates changed elements in the real DOM while minimizing reflow/repaint.
 
-### What is the difference between Shadow DOM and Virtual DOM?  
+### What is the difference between Shadow DOM and Virtual DOM?
 Shadow DOM isolates styles and HTML for individual components. Virtual DOM optimizes rendering for React apps by minimizing direct DOM manipulations.
 
-### What is React Fiber?  
+### What is React Fiber?
 React Fiber is the new reconciliation engine in React introduced in version 16 that improves scheduling and rendering performance.
 
-### What is the main goal of React Fiber?  
+### What is the main goal of React Fiber?
 Its main goal is to enable asynchronous rendering and improve responsiveness for large and complex applications.
 
-### What are the different phases of a component lifecycle?  
+### What are the different phases of a component lifecycle?
 Mounting, Updating, Unmounting, and Error Handling.
 
-### What are the lifecycle methods of React?  
+### What are the lifecycle methods of React?
 Lifecycle methods include `componentDidMount`, `shouldComponentUpdate`, `componentWillUnmount`. In functional components, use `useEffect` to mimic lifecycle behavior.
 
-### What are Higher-Order Components?  
+### What are Higher-Order Components?
 Higher-Order Components (HOCs) are functions that take a component as an input and return an enhanced component.
 
-### How to fetch data with React Hooks?  
+### How to fetch data with React Hooks?
 Use `useEffect` to fetch data with APIs like `fetch` or Axios. Example:
    ```jsx
    useEffect(() => {
@@ -108,35 +108,35 @@ Use `useEffect` to fetch data with APIs like `fetch` or Axios. Example:
    }, []);
    ```
 
-### What is context?  
+### What is context?
 Context in React provides a way to share data across components without using props for every level.
 
-### What is the children prop?  
+### What is the children prop?
 The `children` prop represents everything between a component’s opening and closing tags, allowing components to render child elements.
 
-### What is reconciliation?  
+### What is reconciliation?
 Reconciliation is React’s process of comparing the virtual DOM with the real DOM and updating only the necessary parts.
 
-### How do you conditionally render components?  
+### How do you conditionally render components?
 Use JavaScript conditional operators:
    ```jsx
    isLoggedIn ? <Dashboard /> : <Login />
    ```
 
-### What are error boundaries in React v16?  
+### What are error boundaries in React v16?
 Error boundaries are components that catch JavaScript errors in a component’s hierarchy and render fallback UIs or handle errors gracefully.
 
-### What are hooks?  
+### What are hooks?
 Hooks are React features like `useState` and `useEffect` that enable state and lifecycle management in functional components.
 
-### React Hooks Rules  
+### React Hooks Rules
 Always call hooks at the top level. Only use hooks inside React functional components or custom hooks.
 
-### What is Lifting State Up in React?  
+### What is Lifting State Up in React?
 Lifting state up involves moving shared state to a common parent component to avoid duplication and facilitate shared access.
 
-### What are fragments?  
-Fragments let you group multiple elements without adding extra DOM nodes. Example: 
+### What are fragments?
+Fragments let you group multiple elements without adding extra DOM nodes. Example:
    ```jsx
    <>
       <p>Child 1</p>
@@ -144,135 +144,135 @@ Fragments let you group multiple elements without adding extra DOM nodes. Exampl
    </>
    ```
 
-### Why are fragments better than container divs?  
+### Why are fragments better than container divs?
 Fragments reduce unnecessary DOM nodes, improving performance and avoiding issues with misplaced styling.
 
-### What is Flux?  
+### What is Flux?
 Flux is a pattern for unidirectional data flow that React used before Redux for managing application state.
 
-### What is Redux?  
+### What is Redux?
 Redux is a predictable state management library used in React apps for managing global state.
 
-### What hooks does Redux have?  
+### What hooks does Redux have?
 Hooks include `useSelector`, `useDispatch`, and `useStore`.
 
-### What are the core principles of Redux?  
+### What are the core principles of Redux?
 Single source of truth, state is read-only, changes are made via pure reducer functions.
 
-### What are the downsides of Redux compared to Flux?  
+### What are the downsides of Redux compared to Flux?
 Redux introduces boilerplate code and a steeper learning curve.
 
-### Can I dispatch an action in the reducer?  
+### Can I dispatch an action in the reducer?
 No, reducers should be pure functions without side effects like dispatching actions.
 
-### How to access Redux store outside a component?  
+### How to access Redux store outside a component?
 Directly import the created store instance and access its methods like `store.getState()` or `store.dispatch()`.
 
-### What is the difference between React context and React Redux?  
+### What is the difference between React context and React Redux?
 Context is suitable for small-scale apps or localized state, whereas Redux is ideal for complex and large-scale applications.
 
-### Should I keep all components' state in the Redux store?  
+### Should I keep all components' state in the Redux store?
 No, only global/shared state should be in the Redux store. Local state can remain in the component.
 
-### What is the proper way to access Redux store?  
+### What is the proper way to access Redux store?
 Use `useSelector` to retrieve state or `connect` HOC in class components.
 
-### What is an action in Redux?  
+### What is an action in Redux?
 An action is a plain JavaScript object that describes a type of state change.
 
-### What is the purpose of constants in Redux?  
+### What is the purpose of constants in Redux?
 Constants, like `LOGIN_SUCCESS`, make action types reusable and avoid typos in strings.
 
-### What is React Router?  
+### What is React Router?
 React Router is a library for managing routes and navigation in React applications.
 
-### What hooks does React Router have?  
+### What hooks does React Router have?
 React Router hooks include `useNavigate`, `useLocation`, `useParams`, and `useRoutes`.
 
-### How is React Router different from the history library?  
-React Router builds on the History library, offering declarative routing for React components with navigation features like hooks and `Route` components. 
+### How is React Router different from the history library?
+React Router builds on the History library, offering declarative routing for React components with navigation features like hooks and `Route` components.
 
 ## Frequently asked questions
 
-### What are Pure Components?  
+### What are Pure Components?
 Pure Components in React are components that do a shallow comparison of props and state in `shouldComponentUpdate()` to optimize re-renders. If there’s no difference between the current and next props/state, the component doesn’t re-render.
 
-### If Pure Component is better from the optimization point of view, why don't we use it by default?  
+### If Pure Component is better from the optimization point of view, why don't we use it by default?
 Pure Components perform shallow comparisons. If your component has non-primitive or deeply nested objects in props/state, shallow comparison may not correctly reflect changes, leading to bugs. In such cases, regular components offer better control over rendering.
 
-### What is the purpose of the callback function as an argument of `setState()`?  
-The callback function in `setState()` is executed after the state transition is complete and the component has re-rendered. It’s useful for performing operations that rely on the updated state:  
+### What is the purpose of the callback function as an argument of `setState()`?
+The callback function in `setState()` is executed after the state transition is complete and the component has re-rendered. It’s useful for performing operations that rely on the updated state:
 ```jsx
 this.setState({ count: this.state.count + 1 }, () => {
   console.log(this.state.count); // Logs the updated state
 });
 ```
 
-### What are inline conditional expressions?  
-Inline conditional expressions allow conditional rendering directly in JSX using operators like `&&`, `? :`, or functions. For example:  
+### What are inline conditional expressions?
+Inline conditional expressions allow conditional rendering directly in JSX using operators like `&&`, `? :`, or functions. For example:
 ```jsx
 {isLoggedIn && <Dashboard />}
 {isLoggedIn ? <Dashboard /> : <Login />}
 ```
 
-### Difference between `createRef` and `useRef`  
-- `createRef` is used in class components to create a new ref each time it is rendered.  
+### Difference between `createRef` and `useRef`
+- `createRef` is used in class components to create a new ref each time it is rendered.
 - `useRef` is a React Hook typically used in functional components, and it persists the ref across renders.
 
-### What are forward refs?  
-Forward refs allow a parent component to pass a `ref` to a child component, providing access to its DOM node or instance. Example:  
+### What are forward refs?
+Forward refs allow a parent component to pass a `ref` to a child component, providing access to its DOM node or instance. Example:
 ```jsx
 const Child = React.forwardRef((props, ref) => <input ref={ref} {...props} />);
 const parentRef = React.createRef();
 <Child ref={parentRef} />;
 ```
 
-### What are controlled components?  
-Controlled components are form elements whose value is controlled by React state instead of the DOM. Example:  
+### What are controlled components?
+Controlled components are form elements whose value is controlled by React state instead of the DOM. Example:
 ```jsx
 const [value, setValue] = useState('');
 <input value={value} onChange={(e) => setValue(e.target.value)} />;
 ```
 
-### What are uncontrolled components?  
-Uncontrolled components manage their state internally in the DOM, and you access the value using refs. Example:  
+### What are uncontrolled components?
+Uncontrolled components manage their state internally in the DOM, and you access the value using refs. Example:
 ```jsx
 const inputRef = useRef();
 <input ref={inputRef} />;
 ```
 
-### Controlled vs Uncontrolled inputs  
+### Controlled vs Uncontrolled inputs
 Controlled inputs use React state to manage their value, while uncontrolled inputs rely on refs and access the value directly from the DOM when needed. Controlled inputs are more predictable and testable, whereas uncontrolled inputs require less code for simple use cases.
 
-### What are portals in React?  
-Portals allow rendering child components into a different DOM node outside the parent component's hierarchy:  
+### What are portals in React?
+Portals allow rendering child components into a different DOM node outside the parent component's hierarchy:
 ```jsx
 ReactDOM.createPortal(<Child />, document.getElementById('portal-root'));
 ```
 
-### What are stateless components?  
+### What are stateless components?
 Stateless components are functional components that do not manage their own state. They rely solely on props for rendering.
 
-### What are stateful components?  
+### What are stateful components?
 Stateful components manage their internal state and re-render when the state changes.
 
-### What is prop drilling?  
+### What is prop drilling?
 Prop drilling refers to passing props down through multiple layers of components, even if only the deeply nested child needs the data.
 
-### What is the difference between component and container in React Redux?  
-- A component primarily deals with UI rendering and behavior.  
+### What is the difference between component and container in React Redux?
+- A component primarily deals with UI rendering and behavior.
 - A container connects to the Redux store to manage state and dispatch actions.
 
-### What is Redux Thunk?  
+### What is Redux Thunk?
 Redux Thunk is middleware that enables writing action creators that return a function instead of an action, allowing for asynchronous operations like API calls.
 
-### What are the drawbacks of MVW pattern?  
+### What are the drawbacks of MVW pattern?
 The Model-View-Whatever (MVW) pattern causes complexity as the application grows, with difficulty debugging and maintaining dynamic relationships between models and views.
 
-### Are there any similarities between Redux and RxJS?  
+### Are there any similarities between Redux and RxJS?
 Both Redux and RxJS handle asynchronous streams of actions/data over time. Redux operates around actions and reducers for state management, while RxJS focuses on managing event-driven streams.
 
-### How to dispatch an action on load?  
+### How to dispatch an action on load?
 Use `useEffect` in functional components or lifecycle methods like `componentDidMount` in class components to dispatch an action:
 ```jsx
 useEffect(() => {
@@ -280,15 +280,15 @@ useEffect(() => {
 }, []);
 ```
 
-### How to use `connect` from React Redux?  
-`connect` is an HOC that links React components to the Redux store.  
+### How to use `connect` from React Redux?
+`connect` is an HOC that links React components to the Redux store.
 ```jsx
 const mapStateToProps = (state) => ({ data: state.data });
 const mapDispatchToProps = { fetchData };
 export default connect(mapStateToProps, mapDispatchToProps)(MyComponent);
 ```
 
-### How to reset state in Redux?  
+### How to reset state in Redux?
 Create a root reducer that resets the state on a specific action, such as `RESET_STATE`. For example:
 ```javascript
 const rootReducer = (state, action) => {
@@ -297,10 +297,10 @@ const rootReducer = (state, action) => {
 };
 ```
 
-### Why are Redux state functions called reducers?  
+### Why are Redux state functions called reducers?
 A reducer is a pure function that uses the accumulator pattern to "reduce" the current state and action into a new state.
 
-### How to make an AJAX request in Redux?  
+### How to make an AJAX request in Redux?
 Use middleware like Redux Thunk or Redux Saga to make AJAX requests inside action creators. With Thunk:
 ```javascript
 export const fetchData = () => async (dispatch) => {
@@ -310,7 +310,7 @@ export const fetchData = () => async (dispatch) => {
 };
 ```
 
-### What are the different ways to write `mapDispatchToProps()`?  
+### What are the different ways to write `mapDispatchToProps()`?
 ### Object shorthand:
 ```javascript
 const mapDispatchToProps = { actionCreator1, actionCreator2 };
@@ -322,10 +322,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 ```
 
-### What is the use of the `ownProps` parameter in `mapStateToProps()` and `mapDispatchToProps()`?  
+### What is the use of the `ownProps` parameter in `mapStateToProps()` and `mapDispatchToProps()`?
 `ownProps` is the props passed to the connected component. It’s useful for customizing selectors or dispatchers based on the component's props.
 
-### How to structure Redux top-level directories?  
+### How to structure Redux top-level directories?
 A common structure:
 ```
 src/
@@ -336,43 +336,43 @@ src/
   store/
 ```
 
-### How to set the initial state in Redux?  
+### How to set the initial state in Redux?
 Set the default state in the reducer:
 ```javascript
 const initialState = { count: 0 };
 const counterReducer = (state = initialState, action) => { ... };
 ```
 
-### What are the components of React Router v4?  
-- `<BrowserRouter>` or `<HashRouter>`: Wraps the app and handles routing.  
-- `<Route>`: Defines a route and its associated component.  
-- `<Link>`: Used for navigation.  
+### What are the components of React Router v4?
+- `<BrowserRouter>` or `<HashRouter>`: Wraps the app and handles routing.
+- `<Route>`: Defines a route and its associated component.
+- `<Link>`: Used for navigation.
 - `<Switch>`: Renders the first matching route.
 
-### What is the purpose of push and replace methods of history?  
-- `push`: Navigates to a new route and keeps the previous one in history.  
+### What is the purpose of push and replace methods of history?
+- `push`: Navigates to a new route and keeps the previous one in history.
 - `replace`: Navigates to a new route but replaces the current entry in history.
 
-### How do you programmatically navigate using React Router v4?  
+### How do you programmatically navigate using React Router v4?
 Call `history.push('/path')` or `history.replace('/path')` inside your component.
 
-### How to get query parameters in React Router v4?  
+### How to get query parameters in React Router v4?
 Use the `useLocation` or `props.location` and parse the query string:
 ```javascript
 const query = new URLSearchParams(useLocation().search);
 console.log(query.get('id'));
 ```
 
-### Why do you get "Router may have only one child element" warning?  
+### Why do you get "Router may have only one child element" warning?
 The `<Router>` component expects a single child element. Wrap multiple routes in a `<Switch>` or a fragment.
 
-### How to pass params to `history.push` method in React Router v4?  
+### How to pass params to `history.push` method in React Router v4?
 You can pass a state object as the second argument:
 ```javascript
 history.push('/path', { id: 5 });
 ```
 
-### How to implement default or NotFound page?  
+### How to implement default or NotFound page?
 Add a `<Route>` without the `path` prop:
 ```jsx
 <Switch>
@@ -381,10 +381,10 @@ Add a `<Route>` without the `path` prop:
 </Switch>
 ```
 
-### How to get history on React Router v4?  
+### How to get history on React Router v4?
 Use the `useHistory` hook in functional components or access `props.history` in class components.
 
-### How to perform automatic redirect after login?  
+### How to perform automatic redirect after login?
 After a successful login, navigate using `history.push` or use a `<Redirect>` component:
 ```javascript
 useEffect(() => {
@@ -394,79 +394,79 @@ useEffect(() => {
 
 ## Good to know areas
 
-### What is the difference between createElement and cloneElement?  
-`React.createElement` is used to create a new React element from scratch, optionally defining props and children.  
+### What is the difference between createElement and cloneElement?
+`React.createElement` is used to create a new React element from scratch, optionally defining props and children.
 `React.cloneElement` is used to clone an existing React element and allows modification of its props and children.
 
-### What is the purpose of using super constructor with props argument?  
+### What is the purpose of using super constructor with props argument?
 In class components, you must call `super(props)` if the component’s constructor intends to use `this.props`. It initializes the parent class (`React.Component`) with the props passed to the component.
 
-### Why React uses className over class attribute?  
+### Why React uses className over class attribute?
 In JavaScript, `class` is a reserved keyword. React uses `className` instead of `class` to avoid naming conflicts and ensure compatibility with JavaScript code.
 
-### When to use a Class Component over a Function Component?  
+### When to use a Class Component over a Function Component?
 Prefer functional components with hooks unless you require features that only class components support (such as older lifecycle methods). Use class components in legacy codebases or when maintaining existing projects.
 
-### What is the difference between HTML and React event handling?  
-- React events are camelCased, e.g., `onClick`, whereas HTML attributes use lowercase, e.g., `onclick`.  
-- React uses synthetic events for cross-browser compatibility and to unify behaviors.  
+### What is the difference between HTML and React event handling?
+- React events are camelCased, e.g., `onClick`, whereas HTML attributes use lowercase, e.g., `onclick`.
+- React uses synthetic events for cross-browser compatibility and to unify behaviors.
 - In React, you pass a function reference instead of a string for event handlers.
 
-### What is the difference between mapStateToProps() and mapDispatchToProps()?  
-- `mapStateToProps` connects parts of the Redux state to the props of a component.  
+### What is the difference between mapStateToProps() and mapDispatchToProps()?
+- `mapStateToProps` connects parts of the Redux state to the props of a component.
 - `mapDispatchToProps` connects action creators (or dispatch functions) to the props of a component, allowing interaction with the Redux store.
 
-### What’s the purpose of the at symbol (`@`) in the Redux connect decorator?  
-The `@` syntax is a decorator syntax (ES6/ES7) that simplifies calling Higher-Order Components (HOCs) like `connect` from `react-redux`.  
-Example:  
+### What’s the purpose of the at symbol (`@`) in the Redux connect decorator?
+The `@` syntax is a decorator syntax (ES6/ES7) that simplifies calling Higher-Order Components (HOCs) like `connect` from `react-redux`.
+Example:
 ```javascript
 @connect(mapStateToProps, mapDispatchToProps)
 class MyComponent extends Component { ... }
 ```
 
-### What is redux-saga?  
+### What is redux-saga?
 Redux-Saga is a middleware library for managing side effects (such as asynchronous operations) in Redux. It uses generator functions (`function*`) to handle asynchronous flows more declaratively.
 
-### What is the mental model of redux-saga?  
+### What is the mental model of redux-saga?
 Think of redux-saga as a "long-running thread" in your application that sits in the background and listens for dispatched actions. It intercepts the actions, performs side effects (e.g., API calls), and communicates back to Redux by dispatching new actions.
 
-### What are the differences between call and put in redux-saga?  
-- **call**: Executes a function, typically for asynchronous handling (e.g., API calls).  
+### What are the differences between call and put in redux-saga?
+- **call**: Executes a function, typically for asynchronous handling (e.g., API calls).
 - **put**: Dispatches an action to the Redux store, similar to `dispatch` in Redux.
 
-### What are the differences between redux-saga and redux-thunk?  
-- **redux-thunk**: Middleware that allows dispatching functions instead of objects to handle side effects. Best for small or simple asynchronous flows.  
+### What are the differences between redux-saga and redux-thunk?
+- **redux-thunk**: Middleware that allows dispatching functions instead of objects to handle side effects. Best for small or simple asynchronous flows.
 - **redux-saga**: A more robust option for handling complex and structured side effects using generator functions.
 
-### What is Redux DevTools?  
+### What is Redux DevTools?
 Redux DevTools is a browser extension that provides debugging capabilities for Redux applications, allowing inspection of state, actions, and more.
 
-### What are the features of Redux DevTools?  
-- Time travel debugging to view state at any point in the action flow.  
-- Ability to inspect actions and payloads.  
-- Graphical representation of the state tree.  
-- Support for custom middleware inspection.  
+### What are the features of Redux DevTools?
+- Time travel debugging to view state at any point in the action flow.
+- Ability to inspect actions and payloads.
+- Graphical representation of the state tree.
+- Support for custom middleware inspection.
 - Export/import state for debugging across environments.
 
-### What are Redux selectors and why to use them?  
-Selectors are functions that extract specific pieces of state from the Redux store. They help:  
-- Encapsulate and reuse state selection logic.  
-- Improve code readability and modularity.  
-- Make components stateless and testable.  
+### What are Redux selectors and why to use them?
+Selectors are functions that extract specific pieces of state from the Redux store. They help:
+- Encapsulate and reuse state selection logic.
+- Improve code readability and modularity.
+- Make components stateless and testable.
 - Optimize performance by memoizing calculations using libraries like `reselect`.
 
-### What is Redux Form?  
+### What is Redux Form?
 Redux Form is an open-source library for managing form state in Redux. It connects form inputs to the Redux store, allowing centralized state management of forms.
 
-### What are the main features of Redux Form?  
-- Tracks form fields and their validation status.  
-- Handles field-level and form-level validation.  
-- Integration with Redux DevTools for debugging forms.  
-- Supports synchronous and asynchronous validation.  
+### What are the main features of Redux Form?
+- Tracks form fields and their validation status.
+- Handles field-level and form-level validation.
+- Integration with Redux DevTools for debugging forms.
+- Supports synchronous and asynchronous validation.
 - Makes fields reusable with minimal boilerplate.
 
-### How to add multiple middlewares to Redux?  
-Use the `applyMiddleware` function from Redux and pass multiple middleware as arguments:  
+### How to add multiple middlewares to Redux?
+Use the `applyMiddleware` function from Redux and pass multiple middleware as arguments:
 ```javascript
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
@@ -475,6 +475,6 @@ import logger from "redux-logger";
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 ```
 
-### How Relay is different from Redux?  
-- **Relay**: A state management library built specifically to work with GraphQL APIs. It focuses on data-fetching from GraphQL and caching client-side data.  
+### How Relay is different from Redux?
+- **Relay**: A state management library built specifically to work with GraphQL APIs. It focuses on data-fetching from GraphQL and caching client-side data.
 - **Redux**: A more generic state management library focused on global application state and state transitions via actions and reducers. It works with any API and isn’t tied to specific data structures.
