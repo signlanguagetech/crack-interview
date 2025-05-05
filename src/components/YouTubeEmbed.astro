@@ -44,7 +44,7 @@ if (startAt > 0) {
 
 youtubeUrl += params.toString();
 ---
-<div class="youtube-embed-container sticky">
+<div class="youtube-embed-container">
   <iframe
     src={youtubeUrl}
     title={title}
@@ -60,12 +60,6 @@ youtubeUrl += params.toString();
     border: 0;
     aspect-ratio: 16/9;
     width: 100%;
-  }
-
-  div.sticky {
-    position: sticky;
-    top: 64px;
-    z-index: 100;
   }
 
   @media (max-width: 768px) {
