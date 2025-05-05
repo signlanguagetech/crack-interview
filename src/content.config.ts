@@ -17,7 +17,7 @@ export const collections = {
         sltContent: z.boolean().default(true),
         authors: z.array(authorSchema).nonempty(),
         tags: z.array(z.string().min(1)).optional(),
-        heroYouTubeVideoId: z.string().regex(/^[A-Za-z0-9_-]{11}$/, "Must be a valid YouTube video ID").optional(),
+        YTVideoId: z.string().regex(/^[A-Za-z0-9_-]{11}$/, "Must be a valid YouTube video ID").optional(),
       }),
     }),
   }),
