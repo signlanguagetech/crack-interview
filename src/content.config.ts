@@ -18,6 +18,7 @@ export const collections = {
         authors: z.array(authorSchema).nonempty(),
         tags: z.array(z.string().min(1)).optional(),
         heroVideoUrl: z.string().regex(/^[A-Za-z0-9_-]{11}$/, "Must be a valid YouTube video ID").optional(),
+        TLDR: z.string().optional(),
       }),
     }),
   }),
