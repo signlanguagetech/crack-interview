@@ -1,0 +1,80 @@
+---
+title: Custom Error Classes
+description: Custom error classes in TypeScript enhance error handling by allowing developers to create specific error types tailored to their application's needs. This approach facilitates precise error handling and improves the debugging process.
+tags: ["TypeScript", "FrontEnd", "BackEnd", "JavaScript"]
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 2
+authors:
+  - name: Milad Vafaeifard
+    title: Lead Software Engineer
+    picture: https://avatars.githubusercontent.com/u/16865649?v=4&s=200
+    url: https://signlanguagetech.com/
+---
+
+Custom error classes in TypeScript enhance error handling by allowing developers to create specific error types tailored to their application's needs. This approach facilitates precise error handling and improves the debugging process.
+
+### Step 1: Define Custom Error Classes
+
+Extend the Native Error Class: Start by extending the native JavaScript Error class. This involves calling the `super()` constructor and setting the name property to the custom error class name.
+
+```typescript
+class ValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'ValidationError';
+    Object.setPrototypeOf(this, ValidationError.prototype);
+  }
+}
+```
+
+Add Custom Properties: You can add custom properties to your error class to provide additional information about the error.
+
+```typescript
+class DatabaseError extends Error {
+  constructor(message: string, public code: number) {
+    super(message);
+    this.name = 'DatabaseError';
+    Object.setPrototypeOf(this, DatabaseError.prototype);
+    this.code = code;
+  }
+}
+```
+
+### Step 2: Throw Custom Errors
+
+Use the `throw` keyword to raise a custom error when a specific condition is met in your code.
+
+```typescript
+function validateInput(input: string) {
+  if (!input || input.length === 0) {
+    throw new ValidationError('Input cannot be empty');
+  }
+}
+```
+
+### Step 3: Catch and Handle Custom Errors
+
+When using functions that may throw custom errors, use try-catch blocks to handle these errors gracefully.
+
+```typescript
+try {
+  validateInput(userInput);
+} catch (error) {
+  if (error instanceof ValidationError) {
+    console.error(error.message);
+    // Handle validation error specifically
+  } else {
+    // Handle other types of errors
+  }
+}
+```
+
+### Conclusion
+
+Custom error classes in TypeScript allow for sophisticated error handling strategies tailored to your application's requirements. By clearly distinguishing between different error types, developers can implement more nuanced and effective error handling logic, leading to more robust and reliable applications.
+
+### 📚 Materials:
+
+- [Custom JavaScript/Typescript Errors: Why and how to use them](https://adamcoster.com/blog/javascript-custom-errors)
+
