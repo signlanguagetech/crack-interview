@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import sitemap from '@astrojs/sitemap';
 import starlight from "@astrojs/starlight";
 import { isValidHttpsUrl } from "./src/helpers/utils.ts";
-import { sidebarConfig } from "./src/sidebar.config.ts";
+import { sidebarConfig, sidebarItems } from "./src/sidebar.config.ts";
 
 const port = process.env.port || 4300;
 const isProd = import.meta.env.PROD;
@@ -63,7 +63,7 @@ export default defineConfig({
           locale: "es",
         }
       },
-      sidebar: sidebarConfig,
+      sidebar: sidebarItems.parse(sidebarConfig),
       customCss: [
         './src/styles/custom.css',
       ],
