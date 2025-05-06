@@ -1,20 +1,9 @@
 @media (min-width: 1280px) {
-  .main-pane {
-    width: 130% !important;
-  }
-  .content-panel {
-    max-width: 72% !important;
-    margin-left: 10.75rem !important;
-  }
-  html body .starlight-container .main-pane,
-  html body .sl-container .main-pane,
-  .main-pane {
-    --sl-content-width: 75ch !important;
-    max-width: calc(100% - 200px) !important;
+  .hero img {
+    width: 450px;
   }
 }
 
-/* Styles for hero component for desktop fix bug with padding bottom */
 @media (min-width: 50rem) {
   div.hero {
     padding-block-start: 3rem;
