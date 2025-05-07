@@ -1,0 +1,63 @@
+---
+title: Commonly used Design Patterns
+description: Design patterns are proven solutions to common problems in software design. They provide templates and best practices that help developers create flexible, reusable, and maintainable code. In this overview, we will cover some of the most commonly used design patterns in TypeScript and JavaScript development, providing examples and explanations for each.
+tags: ["TypeScript", "FrontEnd", "BackEnd", "JavaScript"]
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 2
+authors:
+  - name: Milad Vafaeifard
+    title: Lead Software Engineer
+    picture: https://avatars.githubusercontent.com/u/16865649?v=4&s=200
+    url: https://signlanguagetech.com/
+---
+
+Design patterns are proven solutions to common problems in software design. They provide templates and best practices that help developers create flexible, reusable, and maintainable code. In this overview, we will cover some of the most commonly used design patterns in TypeScript and JavaScript development, providing examples and explanations for each.
+
+## Types of Design Patterns
+
+Design patterns are generally divided into three main categories: Creational, Structural, and Behavioral patterns.
+
+### Creational Design Patterns
+
+Creational patterns deal with object creation mechanisms, trying to create objects in a manner suitable to the situation. The basic form of object creation could result in design problems or added complexity to the design. Creational design patterns solve this problem by controlling the object creation process.
+
+- **Singleton Pattern:** Ensures a class has only one instance and provides a global point of access to it.
+- **Factory Pattern:** Defines an interface for creating an object but allows subclasses to alter the type of objects that will be created.
+- **Abstract Factory Pattern:** Provides an interface for creating families of related or dependent objects without specifying their concrete classes.
+- **Builder Pattern:** Allows for the step-by-step creation of complex objects using a construction process that can vary without changing the final object.
+- **Prototype Pattern:** Specifies the kinds of objects to create using a prototypical instance and creates new objects by copying this prototype.
+
+### Structural Design Patterns
+
+Structural patterns deal with object composition or the way to assemble objects and classes into larger structures while keeping these structures flexible and efficient.
+
+- **Adapter Pattern:** Allows incompatible interfaces to work together by acting as a bridge between them.
+- **Decorator Pattern:** Adds additional responsibilities to an object dynamically.
+- **Facade Pattern:** Provides a simplified interface to a complex subsystem.
+- **Proxy Pattern:** Provides a surrogate or placeholder for another object to control access to it.
+- **Composite Pattern:** Composes objects into tree structures to represent part-whole hierarchies.
+- **Flyweight Pattern:** Reduces the cost of creating and managing a large number of similar objects.
+
+### Behavioral Design Patterns
+
+Behavioral patterns are concerned with algorithms and the assignment of responsibilities between objects. They help in defining how objects interact and communicate with each other.
+
+- **Observer Pattern:** Defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
+- **Strategy Pattern:** Defines a family of algorithms, encapsulates each one, and makes them interchangeable.
+- **Command Pattern:** Encapsulates a request as an object, thereby allowing for parameterization of clients with different requests, queuing of requests, and logging of the requests.
+- **Chain of Responsibility Pattern:** Passes a request along a chain of handlers. Upon receiving a request, each handler decides either to process the request or to pass it to the next handler in the chain.
+- **Mediator Pattern:** Defines an object that encapsulates how a set of objects interact.
+- **Memento Pattern:** Provides the ability to restore an object to its previous state (undo via rollback).
+
+## Conclusion
+
+Design patterns provide a standard terminology and are specific to particular scenarios. By learning and applying these patterns, developers can create more robust, scalable, and maintainable software. Understanding the three main categories of design patterns—Creational, Structural, and Behavioral—equips developers with the tools to tackle a variety of design challenges effectively.
+
+## Materials
+
+- [**Design Patterns in TypeScript**](https://refactoring.guru/design-patterns/typescript)
+- [**TypeScript Design Patterns**](https://www.typescriptlang.org/docs/handbook/design-patterns.html)
+- [**Addy Osmani's Learning JavaScript Design Patterns**](https://www.patterns.dev/posts/classic-design-patterns/)
+- [**Gang of Four Design Patterns**](https://en.wikipedia.org/wiki/Design_Patterns)
+- [**Refactoring Guru**](https://refactoring.guru/design-patterns)
