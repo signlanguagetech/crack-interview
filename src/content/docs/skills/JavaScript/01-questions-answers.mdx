@@ -1,0 +1,1347 @@
+---
+title: Questions and Answers
+description: |
+  JavaScript Questions and Answers.
+  JavaScript is an interpreted, high-level programming language primarily used for web development.
+  Its execution engine depends on the platform: browsers use engines like V8 (Chrome), SpiderMonkey (Firefox), or JavaScriptCore (Safari), while Node.js uses the V8 engine for server-side JavaScript execution.
+tags: ["FrontEnd", "BackEnd", "JavaScript"]
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 2
+authors:
+  - name: Milad Vafaeifard
+    title: Lead Software Engineer
+    picture: https://avatars.githubusercontent.com/u/16865649?v=4&s=200
+    url: https://signlanguagetech.com/
+---
+
+## Crucial Topics
+
+### What are data types in JavaScript?
+JavaScript has the following data types:
+- **Primitive Types**: `string`, `number`, `bigint`, `boolean`, `undefined`, `symbol`, `null`
+- **Non-Primitive Types**: Objects (including arrays, functions, custom objects)
+  
+Examples:
+```javascript
+let str = "Hello";       // String
+let num = 42;            // Number
+let bool = true;         // Boolean
+let bigInt = 123n;       // BigInt
+let undef;               // Undefined
+let sym = Symbol("foo"); // Symbol
+let obj = { key: "value" }; // Object
+```
+
+---
+
+### What are primitive data types?
+Primitive data types represent immutable values and are directly accessed:
+- `string`
+- `number`
+- `bigint`
+- `boolean`
+- `null`
+- `undefined`
+- `symbol`
+
+---
+
+### Difference between primitives vs objects?
+| **Primitives**                     | **Objects**                                   |
+|-----------------------------------|-----------------------------------------------|
+| Immutable (cannot change value)   | Mutable (properties can be updated/changed)  |
+| Stored directly in memory         | Stored as references                         |
+| Accessed by value                 | Accessed by reference                        |
+
+Example:
+```javascript
+let x = 5; // Primitive
+let obj = { key: "value" }; // Object
+```
+
+---
+
+### What is coercion in JavaScript?
+Coercion refers to converting one data type into another:
+- **Implicit coercion**: JavaScript automatically converts types.
+- **Explicit coercion**: You manually convert data types.
+
+Example:
+```javascript
+console.log("5" + 2);       // Implicit -> "52"
+console.log(Number("5") + 2); // Explicit -> 7
+```
+
+---
+
+### Do you know what Autoboxing in JS is?
+Autoboxing is the automatic conversion of primitive types to their object equivalents so you can call methods on primitives like `string` or `number`.
+
+Example:
+```javascript
+let str = "Hello";
+str.toUpperCase(); // Implicitly converted to String object
+```
+
+---
+
+### What is the difference between `==` and `===` operators?
+| **`==`**                                | **`===`**                          |
+|---------------------------------------|------------------------------------|
+| Checks for equality after type coercion | Checks for equality without type coercion |
+| May cause unintended comparison results | Strict comparison (preferred)       |
+
+Example:
+```javascript
+console.log(5 == "5");  // true (type coercion)
+console.log(5 === "5"); // false (no coercion)
+```
+
+---
+
+### What is undefined data type?
+`undefined` is a primitive value assigned to variables when they are declared but not initialized.
+
+Example:
+```javascript
+let foo;
+console.log(foo); // undefined
+```
+
+---
+
+### What is null value?
+`null` is a special value representing "empty" or "nonexistent".
+
+Example:
+```javascript
+let foo = null;
+console.log(foo); // null
+```
+
+---
+
+### What does `isNaN` function do?
+Checks if a value is `NaN` (Not-a-Number). Returns `true` for values that can't be converted to a number.
+
+Example:
+```javascript
+console.log(isNaN("abc")); // true
+console.log(isNaN(123));   // false
+```
+
+---
+
+### What does NaN value mean?
+`NaN` stands for "Not-a-Number". It occurs when an operation results in a number that doesn't have a valid representation.
+
+Example:
+```javascript
+console.log(0 / 0); // NaN
+```
+
+---
+
+### What is the difference between `null` and `undefined`?
+| **`null`**                 | **`undefined`**                      |
+|---------------------------|--------------------------------------|
+| Represents intentional absence of value | Variable declared but not assigned |
+| Type: `object`            | Type: `undefined`                    |
+
+---
+
+### How do you copy properties from one object to other?
+Use `Object.assign()` or the spread operator:
+```javascript
+let obj1 = { a: 1 };
+let obj2 = { b: 2 };
+
+Object.assign(obj2, obj1);
+console.log(obj2); // { b: 2, a: 1 }
+
+// Using Spread
+let obj3 = { ...obj1, ...obj2 };
+console.log(obj3); // { a: 1, b: 2 }
+```
+
+---
+
+### What are classes in ES6?
+Classes are syntactic sugar for creating objects and working with prototypes.
+
+Example:
+```javascript
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+  greet() {
+    console.log(`Hello, ${this.name}`);
+  }
+}
+let person = new Person("John");
+person.greet(); // Hello, John
+```
+
+---
+
+### Explain how prototypal inheritance works?
+Objects can have a prototype which is another object. This prototype acts as a fallback for properties/methods.
+
+Example:
+```javascript
+let parent = { greet() { console.log("Hello"); } };
+let child = Object.create(parent);
+child.greet(); // Inherits from parent
+```
+
+---
+
+### How do you assign default values to variables?
+Using the `||` operator or default parameter syntax.
+```javascript
+function greet(name = "Guest") {
+  console.log(`Hello, ${name}`);
+}
+greet(); // Hello, Guest
+```
+
+---
+
+### What is the difference between `let`, `const` and `var`?
+
+| **`var`**                              | **`let`**                        | **`const`**                |
+|---------------------------------------|----------------------------------|----------------------------|
+| Function-scoped                      | Block-scoped                    | Block-scoped               |
+| Can be redeclared                    | Cannot be redeclared            | Cannot be reassigned       |
+| Hoisted                              | Hoisted                         | Hoisted, but no initialization |
+
+---
+
+### What are the differences between undeclared and undefined variables?
+| **Undeclared**         | **Undefined**                          |
+|-----------------------|----------------------------------------|
+| Not defined in code   | Defined, but no value assigned         |
+| Causes reference error | Does not cause an error               |
+
+---
+
+### What are global variables?
+Variables declared outside any function or block are accessible everywhere in your code.
+
+Example:
+```javascript
+let globalVar = "I am global";
+```
+
+---
+
+### What is Hoisting?
+Hoisting is JavaScript's behavior where functions and variable declarations are moved to the top of their scope.
+
+Example:
+```javascript
+console.log(x); // undefined
+var x = 5;
+```
+
+---
+
+### What is scope in JavaScript?
+Scope refers to the accessibility of variables/functions in different parts of the code. Types: `global` and `local`
+
+---
+
+### What is closure in JavaScript?
+Closure occurs when a function retains access to its enclosing scope, even after the outer function has returned.
+
+Example:
+```javascript
+function outer() {
+  let secret = "secret";
+  return function inner() {
+    console.log(secret);
+  };
+}
+const fn = outer();
+fn(); // secret
+```
+
+---
+
+### How does closure implemented in JavaScript?
+Closures are automatically created when a nested function retains access to variables from its parent scope.
+
+---
+
+### What is the difference between Call, Apply and Bind?
+- `call`: Calls a function, passing arguments one-by-one.
+- `apply`: Calls a function, passing arguments as an array.
+- `bind`: Creates a new function bound to a specific `this`.
+
+```javascript
+function greet(age) {
+  console.log(`${this.name} is ${age}`);
+}
+const obj = { name: "John" };
+greet.call(obj, 25); // John is 25
+greet.apply(obj, [25]); // John is 25
+const bound = greet.bind(obj);
+bound(25); // John is 25
+```
+
+---
+
+### What does 'this loses context' mean?
+When `this` behavior gets modified or lost due to improper invocation, it doesn't refer to the expected object.
+
+---
+
+### What is JSON and its common operations?
+- **JSON**: JavaScript Object Notation, a text format for data exchange.
+- **Operations**:
+  - `JSON.stringify()` → Convert object to JSON string
+  - `JSON.parse()` → Convert JSON string to an object
+
+Below are the answers to your questions written in Markdown format.
+
+---
+
+### How do you parse JSON string?
+You use `JSON.parse()` to convert a JSON string into a JavaScript object.
+
+Example:
+```javascript
+const jsonString = '{"name": "John", "age": 30}';
+const obj = JSON.parse(jsonString);
+console.log(obj.name); // John
+```
+
+---
+
+### What is the purpose of JSON stringify?
+`JSON.stringify()` is used to convert a JavaScript object into a JSON string.
+
+Example:
+```javascript
+const obj = { name: "John", age: 30 };
+const jsonString = JSON.stringify(obj);
+console.log(jsonString); // {"name":"John","age":30}
+```
+
+---
+
+### What array methods do you know?
+Common array methods:
+- `push()`
+- `pop()`
+- `shift()`
+- `unshift()`
+- `map()`
+- `filter()`
+- `reduce()`
+- `forEach()`
+- `find()`
+- `indexOf()`
+- `includes()`
+- `slice()`
+- `splice()`
+- `sort()`
+- `reverse()`
+
+---
+
+### What is the difference between Array.forEach() and Array.map()?
+| **forEach**                     | **map**                           |
+|--------------------------------|----------------------------------|
+| Iterates over elements         | Iterates and returns a new array |
+| Used for side effects           | Used for transformations         |
+| Doesn't return anything         | Returns a new array             |
+
+Example:
+```javascript
+const arr = [1, 2, 3];
+arr.forEach((num) => console.log(num * 2)); // Side effect
+const mappedArr = arr.map((num) => num * 2); // [2, 4, 6]
+```
+
+---
+
+### What are the lambda or arrow functions?
+Arrow functions are shorthand syntax for writing function expressions. They use `=>` and don't have their own `this`.
+
+Example:
+```javascript
+const add = (a, b) => a + b;
+console.log(add(2, 3)); // 5
+```
+
+---
+
+### What is a pure function?
+A pure function is:
+1. Deterministic: Same input always yields the same output.
+2. Side-effect-free: Does not change external states.
+
+Example:
+```javascript
+function add(a, b) {
+  return a + b;
+}
+```
+
+---
+
+### What is IIFE (Immediately Invoked Function Expression)?
+An IIFE is a function that executes immediately after it's declared.
+
+Example:
+```javascript
+(function () {
+  console.log("IIFE executed!");
+})();
+```
+
+---
+
+### What is a callback function?
+A callback is a function passed as an argument to another function and executed later.
+
+Example:
+```javascript
+function greet(name, callback) {
+  callback(name);
+}
+greet("John", (name) => console.log(`Hello, ${name}`)); // Hello, John
+```
+
+---
+
+### What is a promise?
+A promise represents an asynchronous operation and its eventual result. It has three states:
+- **Pending**
+- **Fulfilled**
+- **Rejected**
+
+Example:
+```javascript
+const promise = new Promise((resolve, reject) => {
+  resolve("Success");
+});
+```
+
+---
+
+### Why do we need a promise?
+Promises simplify handling asynchronous operations by avoiding callback hell and providing cleaner code.
+
+---
+
+### List all states of a promise?
+1. **Pending**: Initial state, neither fulfilled nor rejected.
+2. **Fulfilled**: Operation completed successfully.
+3. **Rejected**: Operation failed.
+
+---
+
+### Why do we need callbacks?
+Callbacks are required to handle asynchronous operations like reading files, making network requests, or reacting to user events.
+
+---
+
+### What is a callback hell?
+Callback hell occurs when multiple nested callbacks make code difficult to understand and maintain.
+
+Example:
+```javascript
+step1(() => {
+  step2(() => {
+    step3(() => {
+      // Hard to read and maintain
+    });
+  });
+});
+```
+
+---
+
+### What is promise chaining?
+Promise chaining involves chaining `.then()` blocks to handle multiple asynchronous operations sequentially.
+
+Example:
+```javascript
+fetchData()
+  .then((data) => processData(data))
+  .then((result) => displayResult(result))
+  .catch((error) => console.error(error));
+```
+
+---
+
+### What is the purpose of using setTimeout?
+`setTimeout` delays the execution of a function by a specified duration.
+
+Example:
+```javascript
+setTimeout(() => console.log("Hello after 1 second"), 1000);
+```
+
+---
+
+### What is the purpose of using setInterval?
+`setInterval` repeatedly calls a function at specified intervals until cleared.
+
+Example:
+```javascript
+setInterval(() => console.log("Repeating every second"), 1000);
+```
+
+---
+
+### What is an event loop?
+The event loop is a mechanism in JavaScript to handle asynchronous operations, ensuring non-blocking execution.
+
+---
+
+### What is a call stack?
+The call stack is a data structure used by JavaScript to track execution contexts.
+
+Example:
+```javascript
+function first() {
+  second();
+}
+function second() {
+  console.log("Second function");
+}
+first();
+// Execution order tracked in the call stack
+```
+
+---
+
+### How do you validate an email in JavaScript?
+Use a regular expression to validate an email format.
+
+Example:
+```javascript
+function validateEmail(email) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+}
+console.log(validateEmail("test@example.com")); // true
+```
+
+---
+
+### What are modules?
+Modules are reusable pieces of code that can be imported/exported between files.
+
+Example:
+```javascript
+// module.js
+export const greet = () => console.log("Hello");
+
+// main.js
+import { greet } from './module.js';
+greet(); // Hello
+```
+
+---
+
+### Why do you need modules?
+Modules improve code organization, reusability, and maintainability by breaking up large files into smaller components.
+
+---
+
+### What is a rest operator?
+The rest operator (`...`) collects multiple elements into an array.
+
+Example:
+```javascript
+function sum(...numbers) {
+  return numbers.reduce((a, b) => a + b);
+}
+console.log(sum(1, 2, 3, 4)); // 10
+```
+
+---
+
+### What is a spread operator?
+The spread operator (`...`) expands arrays/objects into individual elements.
+
+Example:
+```javascript
+const arr = [1, 2, 3];
+console.log([...arr, 4]); // [1, 2, 3, 4]
+```
+
+---
+
+### What is Node.js?
+**Node.js** is a runtime environment for executing JavaScript outside of the browser, often used for server-side development.
+
+---
+
+### What is the difference between `window` and `document`?
+| **`window`**                            | **`document`**                        |
+|----------------------------------------|--------------------------------------|
+| Represents the browser window          | Represents the HTML document          |
+| Global object with properties like `alert`, `location`, etc. | Access HTML elements via DOM           |
+
+Example:
+```javascript
+console.log(window.location); // URL info
+console.log(document.title);  // Title of the web page
+``` 
+
+## Frequently asked questions
+
+### Explain what a Symbol is in JavaScript?
+
+A **`Symbol`** is a unique and immutable primitive data type in JavaScript, introduced in ES6. It is typically used as a unique identifier for object properties.
+
+Features:
+- Each `Symbol` is unique, even if two symbols have the same description.
+- Symbols are not enumerable in `for...in` loops.
+
+Example:
+```javascript
+const sym1 = Symbol("id");
+const sym2 = Symbol("id");
+
+console.log(sym1 === sym2); // false
+
+const user = {
+  [sym1]: "12345",
+};
+console.log(user[sym1]); // 12345
+```
+
+---
+
+### How do you check whether a string contains a substring?
+
+Use the `String.prototype.includes()` method to check if a string contains a substring.
+
+Example:
+```javascript
+const str = "Hello, world!";
+console.log(str.includes("world")); // true
+console.log(str.includes("javascript")); // false
+```
+
+Other methods:
+- `String.prototype.indexOf()` (returns -1 if not found):
+```javascript
+console.log(str.indexOf("world") !== -1); // true
+```
+- RegExp with `.test()`:
+```javascript
+console.log(/world/.test(str)); // true
+```
+
+---
+
+### How do you check if a key exists in an object?
+
+You can check if a key exists in an object using:
+1. The `in` operator:
+```javascript
+const obj = { key: "value" };
+console.log("key" in obj); // true
+console.log("otherKey" in obj); // false
+```
+
+2. The `Object.prototype.hasOwnProperty()` method:
+```javascript
+console.log(obj.hasOwnProperty("key")); // true
+console.log(obj.hasOwnProperty("otherKey")); // false
+```
+
+---
+
+### What is the main difference between `Object.values` and `Object.entries` method?
+
+- **`Object.values()`**: Returns an array of the values of an object's properties.
+- **`Object.entries()`**: Returns an array of key-value pairs (2-item arrays) of an object's properties.
+
+Example:
+```javascript
+const obj = { a: 1, b: 2, c: 3 };
+
+console.log(Object.values(obj)); // [1, 2, 3]
+console.log(Object.entries(obj)); // [["a", 1], ["b", 2], ["c", 3]]
+```
+
+---
+
+### How can you get the list of keys of any object?
+
+Use `Object.keys()` to get an array of an object's keys.
+
+Example:
+```javascript
+const obj = { a: 1, b: 2, c: 3 };
+console.log(Object.keys(obj)); // ["a", "b", "c"]
+```
+
+---
+
+### What is a WeakSet?
+
+A **`WeakSet`** is a collection of objects where:
+1. Only objects can be added (primitive values are not allowed).
+2. Objects are held weakly, meaning they can be garbage-collected if there are no other references to them.
+3. It doesn't have methods to iterate over its elements (`forEach`, `size`, etc.).
+
+Example:
+```javascript
+let obj = { name: "John" };
+const weakset = new WeakSet();
+weakset.add(obj);
+console.log(weakset.has(obj)); // true
+
+obj = null; // The object is now eligible for garbage collection
+```
+
+---
+
+### What are the differences between WeakSet and Set?
+
+| **`Set`**                    | **`WeakSet`**                              |
+|-----------------------------|-------------------------------------------|
+| Stores any type of data (objects and primitives). | Only stores objects.                     |
+| Iterable with methods like `forEach()`, `size`. | Not iterable and does not have `.size`. |
+| Strongly holds references to items.            | Weakly holds references, eligible for garbage collection. |
+| Example: `new Set([1, 2, 3])`.                | Example: `new WeakSet()` (objects only). |
+
+---
+
+### What is a WeakMap?
+
+A **`WeakMap`** is a collection of key-value pairs where:
+1. Keys must be objects, not primitives.
+2. Keys are weakly held (can be garbage-collected when no longer referenced).
+
+Example:
+```javascript
+let obj = { name: "John" };
+const weakmap = new WeakMap();
+
+weakmap.set(obj, "Details");
+console.log(weakmap.get(obj)); // "Details"
+
+obj = null; // Key is garbage collected
+```
+
+---
+
+### What are the differences between WeakMap and Map?
+
+| **`Map`**                    | **`WeakMap`**                             |
+|-----------------------------|-------------------------------------------|
+| Keys can be any type (objects or primitives). | Keys must be objects.                  |
+| Iterable with `forEach()`, `size`.           | Not iterable and has no `.size`.       |
+| Strongly holds key-value pairs.             | Weakly holds keys, eligible for garbage collection. |
+| Example: `new Map([[1, "a"], [2, "b"]])`.   | Example: `new WeakMap()` (objects as keys). |
+
+---
+
+### What is the difference between `__proto__` and `prototype`?
+
+- **`__proto__`**: Refers to the prototype of a specific object.
+- **`prototype`**: Refers to the prototype property of a function, used for inheritance.
+
+Example:
+```javascript
+function Person(name) {
+  this.name = name;
+}
+const john = new Person("John");
+
+console.log(john.__proto__ === Person.prototype); // true
+console.log(typeof Person.prototype); // object
+```
+
+---
+
+### What are the problems with global variables?
+
+1. **Namespace pollution**: If multiple scripts use the same global variable name, they can overwrite each other.
+2. **Difficulty in debugging**: Changes to global variables are hard to track.
+3. **Increased coupling**: Code relying on globals is harder to reuse.
+4. **Memory leaks**: Global variables persist for the lifetime of the program.
+
+---
+
+### What is the Funarg problem?
+
+The **Funarg (Function Argument)** problem refers to the issues that arise when:
+- A function is passed as an argument to another function.
+- JavaScript has to decide which scope the function remembers when executed.
+
+This can happen in closures, causing confusion over which variables/functions are retained.
+
+---
+
+### How does `this` work in arrow functions?
+
+Arrow functions do **not** have their own `this`. Instead, they inherit `this` from their outer (lexical) scope.
+
+Example:
+```javascript
+function Person(name) {
+  this.name = name;
+  this.greet = () => console.log(`Hello, ${this.name}`);
+}
+const person = new Person("John");
+person.greet(); // Hello, John
+```
+
+In the example above, `this` refers to the `Person` object due to lexical scope.
+
+---
+
+### Why do we need JSON?
+
+**JSON (JavaScript Object Notation)** is a lightweight data-interchange format. It's needed because:
+1. It provides a standard way to exchange data between server and client.
+2. It is easy to parse and generate in almost all programming languages.
+3. It is lightweight and human-readable compared to XML or other formats.
+
+Example Usage:
+- Fetching data from an API and parsing it as an object with `JSON.parse()`.
+- Sending data to a server in string format using `JSON.stringify()`.
+
+---
+
+### **What is the purpose of the array `slice()` method?**
+
+The `slice()` method is used to extract a portion of an array into a new array, without modifying the original array. 
+
+**Syntax:**
+```javascript
+array.slice(startIndex, endIndex);
+```
+
+- **startIndex**: Starting index (inclusive).
+- **endIndex**: Ending index (exclusive).
+
+**Example:**
+```javascript
+const arr = [1, 2, 3, 4, 5];
+const sliceArr = arr.slice(1, 4); // [2, 3, 4]
+console.log(arr); // Original array remains unchanged: [1, 2, 3, 4, 5]
+```
+
+---
+
+### **What is the purpose of the array `splice()` method?**
+
+The `splice()` method is used to add, remove, or replace elements in an array. **It modifies the original array.**
+
+**Syntax:**
+```javascript
+array.splice(startIndex, deleteCount, item1, item2, ...);
+```
+
+- **startIndex**: Index to start changing the array.
+- **deleteCount**: Number of elements to remove.
+- **item1, item2, ...**: Elements to add.
+
+**Example:**
+```javascript
+const arr = [1, 2, 3, 4, 5];
+arr.splice(1, 2, "a", "b"); // [2, 3] removed, replaced with "a", "b"
+console.log(arr); // [1, "a", "b", 4, 5]
+```
+
+---
+
+### **List array methods that mutate the source array**
+
+These array methods **modify the original array**:
+1. `splice()`
+2. `push()`
+3. `pop()`
+4. `shift()`
+5. `unshift()`
+6. `reverse()`
+7. `sort()`
+8. `fill()`
+
+---
+
+### **List array methods that return a new array**
+
+These methods **do not modify the original array** and return a new array:
+1. `slice()`
+2. `map()`
+3. `filter()`
+4. `concat()`
+5. `reduce()` (indirectly, by returning any object/array)
+6. `flat()`
+7. `flatMap()`
+
+---
+
+### **What is a first-class function?**
+
+Functions in JavaScript are **first-class citizens**, meaning:
+- They can be assigned to variables, passed as arguments, and returned from other functions.
+
+Example:
+```javascript
+const greet = () => console.log("Hello");
+const execute = (fn) => fn();
+execute(greet); // Hello
+```
+
+---
+
+### **What is a first-order function?**
+
+A **first-order function** is a function that does not take other functions as arguments or returns functions.
+
+Example:
+```javascript
+function add(a, b) {
+  return a + b;
+}
+```
+
+---
+
+### **What is a higher-order function?**
+
+A **higher-order function** is a function that:
+1. Takes another function as an argument, or
+2. Returns another function.
+
+Example:
+```javascript
+function multiplier(factor) {
+  return (x) => x * factor;
+}
+
+const double = multiplier(2);
+console.log(double(5)); // 10
+```
+
+---
+
+### **What is a unary function?**
+
+A **unary function** is a function that takes exactly **one argument**.
+
+Example:
+```javascript
+const square = (x) => x ** 2;
+console.log(square(4)); // 16
+```
+
+---
+
+### **What is currying?**
+
+**Currying** is a technique where a function takes **one argument at a time** and returns another function expecting the next argument.
+
+Example:
+```javascript
+function add(a) {
+  return (b) => a + b;
+}
+console.log(add(2)(3)); // 5
+```
+
+---
+
+### **What is an anonymous function?**
+
+An **anonymous function** is a function without a name. It is often used in places where the name is not required, such as callbacks.
+
+Example:
+```javascript
+const arr = [1, 2, 3];
+arr.forEach(function (num) {
+  console.log(num);
+});
+```
+
+---
+
+### **What does `Promise.all()` do?**
+
+`Promise.all()` accepts an array of promises and returns a single promise that:
+1. Resolves: When all promises in the array are resolved.
+2. Rejects: If any promise in the array fails.
+
+**Example:**
+```javascript
+const promise1 = Promise.resolve("A");
+const promise2 = Promise.resolve("B");
+Promise.all([promise1, promise2]).then((results) => console.log(results)); // ["A", "B"]
+```
+
+---
+
+### **What is the difference between `Promise.all` and `Promise.allSettled`?**
+
+| **`Promise.all`**                      | **`Promise.allSettled`**                 |
+|---------------------------------------|-----------------------------------------|
+| Resolves once all promises are fulfilled. | Resolves after all promises are settled (fulfilled or rejected). |
+| Rejects if any promise fails.          | Does not reject, but returns the status of each promise. |
+| Example: Results only for successful promises. | Example: Includes status for successful and failed promises. |
+
+**Example:**
+```javascript
+Promise.allSettled([
+  Promise.resolve("A"),
+  Promise.reject("Error"),
+]).then((results) => console.log(results));
+```
+Output:
+```javascript
+[
+  { status: "fulfilled", value: "A" },
+  { status: "rejected", reason: "Error" }
+]
+```
+
+---
+
+### **What is the purpose of `Promise.race()`?**
+
+`Promise.race()` returns a promise which settles (fulfills or rejects) as soon as any promise in the array settles.
+
+**Example:**
+```javascript
+const promise1 = new Promise((resolve) => setTimeout(resolve, 100, "A"));
+const promise2 = new Promise((resolve) => setTimeout(resolve, 200, "B"));
+
+Promise.race([promise1, promise2]).then((result) => console.log(result)); // "A"
+```
+
+---
+
+### **What is strict mode in JavaScript?**
+
+`"use strict";` enforces stricter parsing and error handling in JavaScript:
+- Prevents accidental global variables.
+- Disallows duplicate parameter names.
+- Disables `this` referring to `window` in the global scope.
+
+Example:
+```javascript
+"use strict";
+x = 10; // ReferenceError: x is not defined
+```
+
+---
+
+### **What are PWAs?**
+
+**Progressive Web Apps (PWAs)** are web applications with modern capabilities that:
+1. Work offline using service workers.
+2. Are installable (appear like native apps).
+3. Provide app-like interactions with responsive design.
+
+---
+
+### **What is memoization?**
+
+Memoization is an optimization technique where results of expensive function calls are **cached** to avoid redundant computations.
+
+Example:
+```javascript
+function memoize(fn) {
+  const cache = {};
+  return (arg) => cache[arg] || (cache[arg] = fn(arg));
+}
+
+const factorial = memoize((n) => (n <= 1 ? 1 : n * factorial(n - 1)));
+console.log(factorial(5)); // Returns cached results
+```
+
+---
+
+### **How do you encode a URL?**
+
+Use `encodeURIComponent()` for encoding component-specific parts of a URL.
+
+Example:
+```javascript
+const url = "example.com?name=John Doe";
+console.log(encodeURIComponent(url)); // example.com%3Fname%3DJohn%20Doe
+```
+
+---
+
+### **How do you decode a URL?**
+
+Use `decodeURIComponent()` for decoding component-specific parts of a URL.
+
+Example:
+```javascript
+const encodedUrl = "example.com%3Fname%3DJohn%20Doe";
+console.log(decodeURIComponent(encodedUrl)); // example.com?name=John Doe
+```
+
+---
+
+### **How do you get the current URL with JavaScript?**
+
+Use `window.location.href`.
+
+Example:
+```javascript
+console.log(window.location.href); // Returns the full current URL
+```
+
+---
+
+### **What is a Fetch API?**
+
+**Fetch API** is a modern interface for making HTTP requests.
+- Returns a `Promise`.
+- Provides cleaner and consistent syntax compared to `XMLHttpRequest`.
+
+Example:
+```javascript
+fetch("https://api.example.com")
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+  .catch((error) => console.error("Error:", error));
+```
+
+---
+
+### **How to open a two-way interactive session between browser and server?**
+
+Use **WebSockets** to open a two-way communication channel between browser and server.
+
+Example:
+```javascript
+const socket = new WebSocket("ws://example.com/socket");
+socket.onopen = () => console.log("Connection opened");
+socket.onmessage = (event) => console.log("Message:", event.data);
+socket.send("Hello Server!");
+```
+
+---
+
+### **How to abort an async operation?**
+
+Use the **AbortController** to cancel `fetch()` or other async operations.
+
+Example:
+```javascript
+const controller = new AbortController();
+const signal = controller.signal;
+
+fetch("https://api.example.com", { signal })
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+  .catch((err) => console.log("Fetch aborted"));
+
+controller.abort(); // Cancels the fetch request
+```
+
+## Good to know areas
+
+### **How do you create an object with prototype?**
+
+You can create an object with a specific prototype using either:
+1. **`Object.create()`**
+2. **Prototype assignment in constructor functions or ES6 classes**
+
+**Using `Object.create()`:**
+```javascript
+const parentObj = {
+  greet() {
+    console.log("Hello from Parent!");
+  },
+};
+
+const childObj = Object.create(parentObj);
+childObj.greet(); // Hello from Parent!
+```
+
+**Using Constructor Functions:**
+```javascript
+function Parent() {
+  this.name = "Parent";
+}
+Parent.prototype.greet = function () {
+  console.log("Hello!");
+};
+
+const child = new Parent();
+child.greet(); // Hello!
+```
+
+---
+
+### **What is a proxy object?**
+
+A **proxy object** in JavaScript is created using the `Proxy` constructor, which allows you to redefine or intercept default operations (e.g., property access, assignment). 
+
+**Syntax:**
+```javascript
+const proxy = new Proxy(targetObject, handlerObject);
+```
+
+**Example:**
+```javascript
+const target = { name: "John" };
+const handler = {
+  get: (obj, prop) => {
+    return prop in obj ? obj[prop] : "Property not found";
+  },
+};
+
+const proxy = new Proxy(target, handler);
+console.log(proxy.name); // "John"
+console.log(proxy.age); // "Property not found"
+```
+
+---
+
+### **How do you define JSON arrays?**
+
+JSON arrays are similar to JavaScript arrays, except their values are structured as JSON objects.
+
+**Example:**
+```json
+[
+  { "id": 1, "name": "John" },
+  { "id": 2, "name": "Jane" },
+  { "id": 3, "name": "Doe" }
+]
+```
+
+You can access the elements programmatically:
+```javascript
+const jsonArray = [
+  { id: 1, name: "John" },
+  { id: 2, name: "Jane" },
+];
+console.log(jsonArray[1].name); // "Jane"
+```
+
+---
+
+### **What is Tree Shaking?**
+
+**Tree shaking** is a technique used by JavaScript bundlers like **Webpack** to optimize code by removing unused modules or exports.
+
+- It relies on **ES6 module syntax** (`import`/`export`).
+- Reduces the final bundle size.
+
+**Example:**
+```javascript
+// utils.js
+export const usedFunction = () => {};
+export const unusedFunction = () => {};
+```
+
+When `unusedFunction` isn't imported elsewhere in the code, tree shaking removes it from the final bundle.
+
+---
+
+### **How do you detect JavaScript disabled on a page?**
+
+You can detect JavaScript is disabled by including a `<noscript>` tag, which renders content if JavaScript is disabled.
+
+**Example:**
+```html
+<noscript>
+  <p>JavaScript is disabled. Please enable JavaScript for full functionality.</p>
+</noscript>
+```
+
+Alternatively, you can use server-side methods to display alternate content if JavaScript is disabled.
+
+---
+
+### **How do you detect a mobile browser?**
+
+You can detect a mobile browser by checking the **`navigator.userAgent`** string for mobile-specific identifiers.
+
+**Example:**
+```javascript
+function isMobileBrowser() {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  return /android|iphone|ipad|mobile/i.test(userAgent);
+}
+
+console.log(isMobileBrowser()); // true or false
+```
+
+---
+
+### **How can we draw something in the browser?**
+
+You can draw shapes, graphics, or text using the **`<canvas>`** element and its `2D context`.
+
+**Example: Drawing on Canvas:**
+```html
+<canvas id="myCanvas" width="200" height="100"></canvas>
+<script>
+  const canvas = document.getElementById("myCanvas");
+  const ctx = canvas.getContext("2d");
+
+  // Draw a rectangle
+  ctx.fillStyle = "blue";
+  ctx.fillRect(10, 10, 150, 50);
+
+  // Draw a circle
+  ctx.beginPath();
+  ctx.arc(75, 75, 50, 0, Math.PI * 2);
+  ctx.fillStyle = "red";
+  ctx.fill();
+</script>
+```
+
+---
+
+### **How to copy value to the clipboard?**
+
+You can use **`navigator.clipboard.writeText()`**, or older hacks that involve a hidden `<textarea>`.
+
+**Modern Approach (Clipboard API):**
+```javascript
+navigator.clipboard.writeText("Hello World").then(() => {
+  console.log("Copied to clipboard!");
+});
+```
+
+**Fallback (Textarea Method):**
+```javascript
+function copyToClipboard(text) {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textarea);
+}
+copyToClipboard("Hello World");
+```
+
+---
+
+### **How to read value from the clipboard?**
+
+You can use **`navigator.clipboard.readText()`**.
+
+**Example:**
+```javascript
+navigator.clipboard.readText().then((text) => {
+  console.log("Clipboard content:", text);
+});
+```
+
+Ensure you have proper permissions for clipboard access in the user's browser.
