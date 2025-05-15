@@ -58,7 +58,7 @@ Este repositorio proporciona recursos seleccionados y materiales de práctica pa
 ## 🚦 Comenzando
 
 ```bash
-git clone git@github.com:signlanguagetech/crack-interview.git
+git clone git@github.com/signlanguagetech/sign-tech-interview.git
 cd crack-interview
 pnpm install
 pnpm dev         # Inicia el servidor local en localhost:4300

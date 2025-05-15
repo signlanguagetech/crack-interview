@@ -7,7 +7,9 @@ import { sidebarConfig, sidebarItems } from "./src/sidebar.config.ts";
 const port = process.env.port || 4300;
 const isProd = import.meta.env.PROD;
 
-if (isProd) {
+const isBuilding = process.argv.some(arg => arg === 'build');
+
+if (isProd && isBuilding) {
   if (!process.env.SITE_URL) {
     throw new Error("SITE_URL is not defined in production environment.");
   }
@@ -33,13 +35,13 @@ export default defineConfig({
       },
       lastUpdated: true,
       editLink: {
-        baseUrl: 'https://github.com/signlanguagetech/crack-interview/edit/main/',
+        baseUrl: 'https://github.com/signlanguagetech/sign-tech-interview/edit/main/',
       },
       social: [
         {
           icon: 'github',
           label: 'GitHub',
-          href: 'https://github.com/signlanguagetech/crack-interview',
+          href: 'https://github.com/signlanguagetech/sign-tech-interview',
         },
         {
           icon: 'youtube',

@@ -6,6 +6,7 @@
 
 [English (current) | [Español](README.es.md)]
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/signlanguagetech/sign-tech-interview)
 </div>
 
 ## 🔍 Overview
@@ -53,8 +54,8 @@ This repository provides curated resources and practice materials to help develo
 ## 🚦 Getting Started
 
 ```bash
-git clone git@github.com:signlanguagetech/crack-interview.git
-cd crack-interview
+git clone git@github.com/signlanguagetech/sign-tech-interview.git
+cd sign-tech-interview
 pnpm install
 pnpm dev         # Starts local server at localhost:4300
 ```
