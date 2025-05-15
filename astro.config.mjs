@@ -33,13 +33,13 @@ export default defineConfig({
       },
       lastUpdated: true,
       editLink: {
-        baseUrl: 'https://github.com/signlanguagetech/crack-interview/edit/main/',
+        baseUrl: 'https://github.com/signlanguagetech/sign-tech-interview/edit/main/',
       },
       social: [
         {
           icon: 'github',
           label: 'GitHub',
-          href: 'https://github.com/signlanguagetech/crack-interview',
+          href: 'https://github.com/signlanguagetech/sign-tech-interview',
         },
         {
           icon: 'youtube',
