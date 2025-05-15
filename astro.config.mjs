@@ -7,7 +7,9 @@ import { sidebarConfig, sidebarItems } from "./src/sidebar.config.ts";
 const port = process.env.port || 4300;
 const isProd = import.meta.env.PROD;
 
-if (isProd) {
+const isBuilding = process.argv.some(arg => arg === 'build');
+
+if (isProd && isBuilding) {
   if (!process.env.SITE_URL) {
     throw new Error("SITE_URL is not defined in production environment.");
   }
