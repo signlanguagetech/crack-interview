@@ -56,15 +56,21 @@ jobs:
 
       - name: Deploy to Surge for Preview
         id: deploy-surge
-        uses: afc163/surge-preview@v1
-        with:
-          surge_token: ${{ secrets.SURGE_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          dist: dist
-          build: echo "Skip build"  # Build already done in previous step
+        run: |
+          export DEPLOY_DOMAIN=${{ steps.preview-domain.outputs.domain }}"
+          pnpm exec surge --project ./dist --domain $DEPLOY_DOMAIN --token ${{ secrets.SURGE_TOKEN }}
 
-      - name: Get Preview URL
-        run: echo "Preview URL is ${{ steps.deploy-surge.outputs.preview_url }}"
+      # - name: Deploy to Surge for Preview
+        # id: deploy-surge
+        # uses: afc163/surge-preview@v1
+        # with:
+        #   surge_token: ${{ secrets.SURGE_TOKEN }}
+        #   github_token: ${{ secrets.GITHUB_TOKEN }}
+        #   dist: dist
+        #   build: echo "Skip build"  # Build already done in previous step
+
+      # - name: Get Preview URL
+      #   run: echo "Preview URL is ${{ steps.deploy-surge.outputs.preview_url }}"
 
   teardown:
     runs-on: ubuntu-latest
