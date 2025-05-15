@@ -57,7 +57,7 @@ jobs:
       - name: Deploy to Surge for Preview
         id: deploy-surge
         run: |
-          export DEPLOY_DOMAIN=${{ steps.preview-domain.outputs.domain }}"
+          export DEPLOY_DOMAIN=${{ steps.preview-domain.outputs.domain }}
           pnpm exec surge --project ./dist --domain $DEPLOY_DOMAIN --token ${{ secrets.SURGE_TOKEN }}
 
       # - name: Deploy to Surge for Preview
@@ -69,8 +69,8 @@ jobs:
         #   dist: dist
         #   build: echo "Skip build"  # Build already done in previous step
 
-      # - name: Get Preview URL
-      #   run: echo "Preview URL is ${{ steps.deploy-surge.outputs.preview_url }}"
+      - name: Get Preview URL
+        run: echo "Preview URL is ${{ steps.preview-domain.outputs.domain }}"
 
   teardown:
     runs-on: ubuntu-latest
