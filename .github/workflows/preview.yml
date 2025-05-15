@@ -75,13 +75,15 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;         
             const urlPreview = ${{ steps.preview-domain.outputs.domain }};
 
             await github.rest.issues.createComment({
               owner,
               repo,
               issue_number,
-              body: `Preview URL is \`${urlPreview}\` has been successfully uploaded.`
+              body: `✅ Preview deployment URL is \`${urlPreview}\` has been successfully uploaded.`
             });
 
   teardown:
