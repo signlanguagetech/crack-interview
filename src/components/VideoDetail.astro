@@ -1,0 +1,42 @@
+---
+import { Icon } from "@astrojs/starlight/components";
+import YouTubeEmbed from "./YouTubeEmbed.astro";
+
+const { videoId } = Astro.props;
+---
+
+<div class="video-detail">
+  {videoId ? (
+    <details>
+      <summary><span class="video-title">video <Icon class="youtube-icon" name="youtube" size="0.9rem"/></span></summary>
+      <YouTubeEmbed videoId={videoId} />
+    </details>
+  ) : (
+    <p>No video selected.</p>
+  )}
+</div>
+
+<style>
+  .video-detail {
+    margin: 1rem 0;
+  }
+
+  .video-detail summary {
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .video-detail details[open] summary {
+    color: var(--sl-color-accent);
+  }
+
+  .video-title {
+    margin-top: 8px;
+    position: absolute;
+    font-size: 18px;
+  }
+
+  .youtube-icon {
+    display: inline-block !important;
+  }
+</style>
