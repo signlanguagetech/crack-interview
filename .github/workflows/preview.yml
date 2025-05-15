@@ -58,6 +58,7 @@ jobs:
         id: deploy-surge
         run: |
           export DEPLOY_DOMAIN=${{ steps.preview-domain.outputs.domain }}
+          pnpm i surge
           pnpm exec surge --project ./dist --domain $DEPLOY_DOMAIN --token ${{ secrets.SURGE_TOKEN }}
 
       # - name: Deploy to Surge for Preview
