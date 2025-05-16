@@ -22,10 +22,10 @@ if (!sltContent) {
 
 const alternateLocales = head.filter(item =>
   item.tag === 'link' &&
-  item.attrs.rel === 'alternate' &&
+  item.attrs?.rel === 'alternate' &&
   item.attrs.hreflang !== currentLocale
 ).map(link =>
-  typeof link.attrs.hreflang === "string" ?
+  typeof link.attrs?.hreflang === "string" ?
     ({
       property: "og:locale:alternate",
       content: `${link.attrs.hreflang}`,
