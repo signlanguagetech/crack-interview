@@ -8,7 +8,12 @@ const { videoId } = Astro.props;
 <div class="video-detail">
   {videoId ? (
     <details>
-      <summary><span class="video-title">video <Icon class="youtube-icon" name="youtube" size="0.9rem"/></span></summary>
+      <summary role="button" aria-expanded="false">
+        <span class="video-title">
+          Watch on YouTube
+          <Icon class="youtube-icon" name="youtube" size="0.9rem"/>
+        </span>
+      </summary>
       <YouTubeEmbed videoId={videoId} />
     </details>
   ) : (
