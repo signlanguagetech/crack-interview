@@ -1,10 +1,11 @@
 name: PR Preview
 
 on:
-  [pull_request_target, pull_request]:
+  pull_request_target:
     types: [opened, synchronize, reopened, closed]
-    # With pull_request_target, this checks out the PR's code.
-    # Ensure you trust the code or understand the security implications.
+    # With pull_request_target, this runs in the context of the BASE repo
+    # and has access to secrets even for fork PRs.
+    # SECURITY: Be extremely careful with this trigger type!
   pull_request:
     types: [opened, synchronize, reopened, closed]
 
