@@ -3,8 +3,9 @@ name: PR Preview
 on:
   pull_request_target:
     types: [opened, synchronize, reopened, closed]
-    # With pull_request_target, this checks out the PR's code.
-    # Ensure you trust the code or understand the security implications.
+    # With pull_request_target, this runs in the context of the BASE repo
+    # and has access to secrets even for fork PRs.
+    # SECURITY: Be extremely careful with this trigger type!
 
 permissions:
   contents: write
@@ -18,6 +19,9 @@ jobs:
       - name: Checkout PR head
         uses: actions/checkout@v4
         with:
+          # IMPORTANT: For security with pull_request_target, you should:
+          # 1. Explicitly checkout the PR code
+          # 2. Perform security validation before using any code from the PR
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.sha }}
 
