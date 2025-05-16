@@ -1,8 +1,10 @@
 name: PR Preview
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize, reopened, closed]
+    # With pull_request_target, this checks out the PR's code.
+    # Ensure you trust the code or understand the security implications.
 
 permissions:
   contents: write
@@ -11,7 +13,7 @@ permissions:
 jobs:
   preview:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.action != 'closed'
+    if: github.event.action != 'closed'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -80,7 +82,7 @@ jobs:
               });
   teardown:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    if: github.event.action == 'closed'
     steps:
       - name: Generate preview domain
         id: preview-domain
@@ -149,7 +151,7 @@ jobs:
 
   delete-branch:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+    if: github.event.action == 'closed' && github.event.pull_request.merged == true
     steps:
       - name: Delete branch
         id: delete-branch
