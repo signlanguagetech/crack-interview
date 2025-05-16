@@ -23,7 +23,7 @@ if (!sltContent) {
 const alternateLocales = head.filter(item =>
   item.tag === 'link' &&
   item.attrs?.rel === 'alternate' &&
-  item.attrs.hreflang !== currentLocale
+  item.attrs?.hreflang !== currentLocale
 ).map(link =>
   typeof link.attrs?.hreflang === "string" ?
     ({
