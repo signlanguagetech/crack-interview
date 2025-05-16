@@ -56,16 +56,28 @@ jobs:
 
       - name: Deploy to Surge for Preview
         id: deploy-surge
-        uses: afc163/surge-preview@v1
+        run: |
+          export DEPLOY_DOMAIN=${{ steps.preview-domain.outputs.domain }}
+          pnpm dlx surge --project ./dist --domain $DEPLOY_DOMAIN --token ${{ secrets.SURGE_TOKEN }}
+
+      - name: Comment on PR success
+        if: steps.deploy-surge.outcome == 'success'
+        uses: actions/github-script@v7
         with:
-          surge_token: ${{ secrets.SURGE_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          dist: dist
-          build: echo "Skip build"  # Build already done in previous step
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const domain = "${{ steps.preview-domain.outputs.domain }}";
 
-      - name: Get Preview URL
-        run: echo "Preview URL is ${{ steps.deploy-surge.outputs.preview_url }}"
-
+            await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body: `## ✅ Preview deployment
+            [https://${domain}](https://${domain})
+            has been successfully uploaded.`,
+              });
   teardown:
     runs-on: ubuntu-latest
     if: github.event.action == 'closed'
