@@ -71,14 +71,13 @@ jobs:
             const domain = "${{ steps.preview-domain.outputs.domain }}";
 
             await github.rest.issues.createComment({
-              owner,
-              repo,
-              issue_number,
-              body: `# ✅ Preview deployment URL 
-[https://${domain}](https://${domain})
-has been successfully uploaded.`,
-            });
-
+                owner,
+                repo,
+                issue_number,
+                body: `# ✅ Preview deployment URL
+            [https://${domain}](https://${domain})
+            has been successfully uploaded.`,
+              });
   teardown:
     runs-on: ubuntu-latest
     if: github.event.action == 'closed'
