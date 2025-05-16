@@ -85,7 +85,7 @@ jobs:
               });
   teardown:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    if: (github.event_name == 'pull_request' || github.event_name == 'pull_request_target') && github.event.action == 'closed'
     steps:
       - name: Generate preview domain
         id: preview-domain
@@ -154,7 +154,7 @@ jobs:
 
   delete-branch:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+    if: (github.event_name == 'pull_request' || github.event_name == 'pull_request_target') && github.event.pull_request.merged == true
     steps:
       - name: Delete branch
         id: delete-branch
