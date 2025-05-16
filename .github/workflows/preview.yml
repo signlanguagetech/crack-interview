@@ -13,7 +13,7 @@ permissions:
 jobs:
   preview:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.action != 'closed'
+    if: (github.event_name == 'pull_request' || github.event_name == 'pull_request_target') && github.event.action != 'closed'
     steps:
       - name: Checkout PR head
         uses: actions/checkout@v4
