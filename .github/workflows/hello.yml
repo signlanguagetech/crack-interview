@@ -1,0 +1,16 @@
+name: Welcome New Contributor
+
+on:
+  pull_request_target:
+    types: opened
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        pr-message: |
+          Congrats on making your first pull request and thanks for taking the time to improve Sign Tech Interview! 💙 🎉🍕
+          Say hello by joining the conversation on our [Github Discussions](https://github.com/signlanguagetech/sign-tech-interview/discussions).
