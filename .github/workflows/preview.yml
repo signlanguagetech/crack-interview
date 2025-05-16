@@ -6,8 +6,6 @@ on:
     # With pull_request_target, this runs in the context of the BASE repo
     # and has access to secrets even for fork PRs.
     # SECURITY: Be extremely careful with this trigger type!
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
 
 permissions:
   contents: write
