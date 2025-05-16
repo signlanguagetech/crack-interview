@@ -75,8 +75,8 @@ jobs:
               repo,
               issue_number,
               body: `# ✅ Preview deployment URL 
-[\`https://${domain}\`](\`https://${domain}\`)
-has been successfully uploaded.`
+[https://${domain}](https://${domain})
+has been successfully uploaded.`,
             });
 
   teardown:
