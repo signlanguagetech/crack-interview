@@ -19,6 +19,9 @@ jobs:
       - name: Checkout PR head
         uses: actions/checkout@v4
         with:
+          # IMPORTANT: For security with pull_request_target, you should:
+          # 1. Explicitly checkout the PR code
+          # 2. Perform security validation before using any code from the PR
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.sha }}
 
