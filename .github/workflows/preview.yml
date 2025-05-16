@@ -1,7 +1,7 @@
 name: PR Preview
 
 on:
-  pull_request_target:
+  [pull_request_target, pull_request]:
     types: [opened, synchronize, reopened, closed]
     # With pull_request_target, this checks out the PR's code.
     # Ensure you trust the code or understand the security implications.
