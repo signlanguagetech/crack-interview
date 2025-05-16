@@ -1,6 +1,9 @@
 ---
 import { Icon } from "@astrojs/starlight/components";
 import YouTubeEmbed from "./YouTubeEmbed.astro";
+interface Props {
+  videoId: string;
+}
 
 const { videoId } = Astro.props;
 ---
@@ -41,7 +44,8 @@ const { videoId } = Astro.props;
     font-size: 18px;
   }
 
-  .youtube-icon {
-    display: inline-block !important;
+  .video-title .youtube-icon {
+    display: inline-block;
+    vertical-align: middle;
   }
 </style>
