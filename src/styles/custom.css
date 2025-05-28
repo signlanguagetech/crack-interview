@@ -13,11 +13,11 @@
 
 /* main container */
 .right-sidebar:where(.astro-rcbltxq3) {
-  left: 78vw;
+  left: 80vw;
 }
 
 .sl-container:where(.astro-5husdd27) {
-  max-width: 68rem;
+  max-width: 60vw;
 }
 
 [data-has-sidebar][data-has-toc] .main-pane:where(.astro-rcbltxq3) {
