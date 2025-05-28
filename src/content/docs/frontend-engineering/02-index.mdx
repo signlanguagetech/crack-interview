@@ -1,0 +1,1962 @@
+---
+title: Practical Component Lifecycle Examples - React, Angular, Vue, Flutter & More
+description: Practical Component Lifecycle Examples - React, Angular, Vue, Flutter & More
+tags: ["Flutter", "Dart", "Mobile"]
+authors:
+  - name: Andrés García
+    title: Flutter Developer
+    picture: https://avatars.githubusercontent.com/u/19521054?v=4&s=200
+    url: https://tech-andgar.me
+---
+It highlights how different frameworks handle component state and lifecycle. It's important to note that "hooks" are a specific pattern popularized by React, and while other frameworks have adopted similar concepts, their traditional lifecycle methods are also crucial.
+Here's a comparative table. I'll try to map common lifecycle purposes across these technologies.
+
+**Key (repeated for clarity):**
+
+- **N/A:** Not directly applicable or handled differently.
+- **Via X:** Achieved through a specific mechanism or a more general hook.
+- This table focuses on **component/widget/view** lifecycle, not the overall application lifecycle.
+
+---
+
+## Expanded Comparative Table: Component Lifecycle & Hooks
+
+| Lifecycle Phase / Purpose                                                              | React (Hooks)                                                                       | Angular (Component)                                   | Vue.js (Options/Composition API)                                                                  | Flutter (StatefulWidget)                                                  | Flutter Hooks (`flutter_hooks`)                                         | Swift (UIKit `UIViewController`)                               | Swift (SwiftUI `View`)                                        | Kotlin (Android `Activity`/`Fragment`/Compose)                                                                        | HTMX                                                     | Astro (`.astro` component / Islands)                                                  | Svelte (`.svelte` component)                                                   |
+| :------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------- | :---------------------------------------------------- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------ | :---------------------------------------------------------------------- | :------------------------------------------------------------- | :------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------- | :------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------- |
+| **1. Initialization (Code runs once when component logic is set up)**                  | `useState` initial value, `useRef` initial value, `useEffect` with `[]` (for setup) | `constructor()`                                       | `beforeCreate()` (Options), `setup()` (Composition)                                               | `StatefulWidget` constructor, `createState()`, `State` constructor        | `useState` initial value, `useRef` initial value, `useEffect` with `[]` | `init(coder:)` / `init(nibName:bundle:)`                       | `init()` (for struct), `@State` initial value                 | `onCreate()` (Activity/Fragment), Composable function call                                                            | Element exists in HTML, HTMX attributes parsed           | `.astro` file processed at build/SSR; Island: Framework-specific init                 | Component script runs, props initialized                                       |
+| **2. After Properties/Inputs Received (before first render/mount)**                    | Via `useEffect` dependencies                                                        | `ngOnChanges()` (if inputs change)                    | `props` available in `created`/`setup`                                                            | `widget` property available in `initState`                                | Via `useEffect` dependencies                                            | Properties set before `viewDidLoad`                            | Properties passed to `init()`                                 | `getIntent().extras` (Activity), `getArguments()` (Fragment); Composable params                                       | N/A (Attributes are the inputs)                          | Props available in `.astro` frontmatter; Island: Framework-specific                   | `export let prop` values set                                                   |
+| **3. After Component is Added to DOM/Tree (Mounted)**                                  | `useEffect` with `[]` (mount), `useLayoutEffect` with `[]`                          | `ngOnInit()`, `ngAfterViewInit()` (for view children) | `created()` (Options), `onMounted()` (Composition)                                                | `initState()`                                                             | `useEffect` with `[]` (mount)                                           | `viewDidLoad()`, `viewDidAppear()`                             | `.onAppear()` modifier                                        | `onStart()`, `onResume()` (Activity/Fragment), `onViewCreated()` (Fragment); `SideEffect`, `LaunchedEffect` (Compose) | Element is in DOM from initial page load or swap         | N/A for `.astro` on client; Island: `client:directive` + Framework-specific `onMount` | `onMount()`                                                                    |
+| **4. Dependency Change (e.g., Context, InheritedWidget)**                              | `useContext` + `useEffect` with context in deps                                     | N/A (DI handles it)                                   | `inject` + `watch`/`computed` (Composition)                                                       | `didChangeDependencies()`                                                 | `useContext` + `useEffect` with context in deps                         | N/A (Notifications, KVO, Delegates)                            | `@EnvironmentObject`, `@ObservedObject`                       | Observe `LiveData`/`StateFlow`; Recomposition if @Composable params change                                            | N/A (Server-driven)                                      | N/A for `.astro`; Island: Framework-specific                                          | Svelte store subscriptions (`$store`)                                          |
+| **5. Before Update/Re-render**                                                         | `useEffect` cleanup, `useLayoutEffect` cleanup                                      | `ngDoCheck()` (custom change detection)               | `beforeUpdate()` (Options), `onBeforeUpdate()` (Composition)                                      | N/A (Framework handles it)                                                | `useEffect` cleanup                                                     | `viewWillLayoutSubviews()`                                     | N/A (Body is re-evaluated)                                    | N/A (Framework handles it); Composable re-evaluates                                                                   | N/A (DOM swap incoming)                                  | N/A for `.astro`; Island: Framework-specific                                          | `beforeUpdate()`                                                               |
+| **6. After Update/Re-render**                                                          | `useEffect` (if deps changed), `useLayoutEffect` (if deps changed)                  | `ngAfterContentChecked()`, `ngAfterViewChecked()`     | `updated()` (Options), `onUpdated()` (Composition)                                                | `build()` (is the render), `didUpdateWidget()` (if widget config changes) | `useEffect` (if deps changed), `build()` (is the render)                | `viewDidLayoutSubviews()`, `viewDidAppear()` (if re-appearing) | `body` re-evaluated                                           | `onResume()` (if re-appearing); Recomposition finishes                                                                | New HTML swapped into DOM                                | N/A for `.astro`; Island: Framework-specific                                          | `afterUpdate()`                                                                |
+| **7. Before Component is Removed (Unmount/Destroy)**                                   | `useEffect` return function (cleanup)                                               | `ngOnDestroy()`                                       | `beforeUnmount()` (Options), `onBeforeUnmount()` (Composition)                                    | `deactivate()`, `dispose()`                                               | `useEffect` return function (cleanup)                                   | `viewWillDisappear()`                                          | `.onDisappear()` modifier                                     | `onPause()`, `onStop()`, `onDestroyView()` (Fragment); `DisposableEffect` (Compose)                                   | Element about to be removed by swap/OOB                  | N/A for `.astro`; Island: Framework-specific `onDestroy`                              | `onDestroy()` (or `onMount` return)                                            |
+| **8. After Component is Removed (Unmounted/Destroyed)**                                | `useEffect` return function runs                                                    | `ngOnDestroy()` (end of it)                           | `unmounted()` (Options), `onUnmounted()` (Composition)                                            | `dispose()` (end of it)                                                   | `useEffect` return function runs                                        | `viewDidDisappear()`                                           | `.onDisappear()` handler completes                            | `onDestroy()` (Activity/Fragment)                                                                                     | Element removed from DOM                                 | N/A for `.astro`; Island: Framework-specific                                          | `onDestroy` handler completes                                                  |
+| **Managing State**                                                                     | `useState`, `useReducer`                                                            | Component properties, Services                        | `data` (Options), `ref`, `reactive` (Composition)                                                 | `setState()`, properties on `State` object                                | `useState`, `useReducer`                                                | Properties on `UIViewController` class                         | `@State`, `@StateObject`, `@ObservedObject`                   | ViewModel with `LiveData`/`StateFlow`; `remember { mutableStateOf() }` (Compose)                                      | Server manages state; Client (limited via events/params) | N/A for `.astro` (props only); Island: Framework-specific                             | `let var` (reactive), stores                                                   |
+| **Side Effects (data fetching, subscriptions, etc.)**                                  | `useEffect`                                                                         | `ngOnInit()`, Services                                | `created()`, `mounted()`, `watch` (Options); `onMounted`, `watch`, `watchEffect` (Composition)    | `initState()`, `didChangeDependencies()`                                  | `useEffect`, `useStream`, `useFuture`                                   | `viewDidLoad()`, `viewWillAppear()`                            | `.task()` modifier, `onAppear`                                | `onCreate()`, `onResume()`, ViewModel coroutines; `LaunchedEffect` (Compose)                                          | `hx-trigger`, `hx-get/post` (server fetches)             | Fetch in `.astro` frontmatter (SSR/SSG); Island: Framework-specific                   | `onMount()`, reactive statements (`$:`)                                        |
+| **Accessing DOM/Native Elements**                                                      | `useRef`                                                                            | `@ViewChild`, `@ContentChild`, `ElementRef`           | `ref` attribute, `$refs` (Options); `ref()` (Composition)                                         | `GlobalKey` (less direct for DOM-like access)                             | `useRef` (for focus nodes, controllers etc.)                            | `IBOutlet`, view properties                                    | N/A (Declarative, less direct access)                         | `findViewById` (classic), View Binding; `Modifier.onGloballyPositioned` (Compose)                                     | Implicit (HTMX operates on DOM elements)                 | `<script>` tags for `.astro`; Island: Framework-specific                              | `bind:this`                                                                    |
+| **Memoization/Performance Opt.**                                                       | `useMemo`, `useCallback`, `React.memo`                                              | `ChangeDetectionStrategy.OnPush`                      | `computed` (Options/Composition), `v-once`                                                        | `const` widgets, `AnimatedBuilder`, `ValueListenableBuilder`              | `useMemoized`, `useCallback`                                            | Manual checks, property observers (`didSet`)                   | Avoid unnecessary re-renders by struct design, `.equatable()` | `DiffUtil` (RecyclerView), `distinctUntilChanged()` (LiveData/Flow); `remember`, `derivedStateOf` (Compose)           | Server caching; `hx-sync`                                | Partial hydration (Islands); `Astro.slots.render()` with `is:raw`                     | Compiler optimizes; `{#key}` block                                             |
+| **Hot Reload Behavior Hook**                                                           | Handled by build tool                                                               | Handled by build tool                                 | Handled by build tool                                                                             | `reassemble()`                                                            | `reassemble()` (via `HookWidget`)                                       | N/A (SwiftUI previews update)                                  | SwiftUI Previews re-render                                    | Android Studio (Apply Changes/Hot Swap/Live Edit for Compose)                                                         | N/A (Page reload)                                        | Dev server reloads page / HMR for islands                                             | Svelte HMR                                                                     |
+| **Display-Only / Presentational Component Behavior (e.g., Flutter `StatelessWidget`)** | Functional component with props only (no state/effects hooks)                       | Component with `@Input()` only, `OnPush` detection    | SFC/Options API with `props` only, no `data`/methods; Composition API function returning template | `StatelessWidget` (`constructor`, `build()`)                              | `HookWidget` with no stateful hooks, props only                         | `UIView` configured externally                                 | `View` struct taking properties, pure `body`                  | `@Composable` function with params only, no `remember { mutableStateOf() }`                                           | Static HTML elements styled by CSS                       | `.astro` component (renders to HTML string, no client JS by default)                  | `.svelte` component with `export let` props only, no script logic beyond props |
+
+---
+
+**Important Considerations & Nuances:**
+
+- **Declarative vs. Imperative:** React, Vue, Flutter, and SwiftUI are primarily declarative. You describe the UI state, and the framework updates the actual view. Angular, UIKit, and traditional Android views have more imperative aspects.
+- **"Hooks" as a Concept:**
+  - **React/Flutter Hooks:** Reusable stateful logic functions. `useEffect` is a powerful hook that covers many lifecycle scenarios based on its dependency array.
+  - **Vue Composition API:** Functions like `onMounted`, `watch` serve similar purposes to hooks. `setup()` is the entry point.
+- **Flutter:**
+  - `StatefulWidget`: The classic way, with distinct lifecycle methods on the `State` object.
+  - `flutter_hooks`: Brings a React Hooks-like pattern to Flutter, often simplifying state management and side effects within the `build` method of a `HookWidget`.
+- **Swift:**
+  - **UIKit:** `UIViewController` has a well-defined, more traditional lifecycle.
+  - **SwiftUI:** Is highly declarative. Lifecycle is more about data flow and view modifiers (`.onAppear`, `.onDisappear`, `.task`). State management is key (`@State`, `@ObservedObject`, `@EnvironmentObject`, `@StateObject`).
+- **Kotlin (Android):**
+  - **Traditional Views:** `Activity` and `Fragment` have well-defined lifecycles crucial for resource management.
+  - **Jetpack Compose:** (Not detailed in the table for brevity but important to mention) It has its own composable lifecycle with concepts like `LaunchedEffect` (for side-effects tied to composable's lifecycle), `DisposableEffect` (for cleanup), `remember` (for state).
+- **Angular:** Relies heavily on decorators and a class-based component structure with specific lifecycle hook methods. Dependency Injection is central.
+- **Vue.js:** Offers both the Options API (more traditional object-based definition) and the Composition API (hooks-like functions within a `setup` method).
+- **HTMX:**
+  - Its "lifecycle" is tied to HTTP requests and DOM manipulation based on server responses. It's not a client-side component model in the same vein as JS frameworks.
+  - "State" primarily lives on the server.
+- **Astro:**
+  - `.astro` components are primarily server-rendered (or pre-rendered at build time) to HTML. They don't have a client-side lifecycle unless you embed "islands" of interactivity using other frameworks (React, Svelte, Vue, etc.) or plain JS via `<script>` tags. The lifecycle within an island is then dictated by the framework used for that island.
+  - Data fetching for `.astro` components typically happens in the frontmatter script (server-side).
+- **Svelte:**
+  - Svelte is a compiler. It shifts work to build time. Its runtime is minimal.
+  - Lifecycle functions (`onMount`, `onDestroy`, `beforeUpdate`, `afterUpdate`) are imported from `'svelte'`.
+  - Reactivity is built-in for top-level `let` declarations and `$: ` reactive statements.
+- **Display-Only / Presentational Component Row:**
+  - For Flutter, `StatelessWidget` is the prime example. Its "lifecycle" is its constructor and its `build()` method, which is called when its parent decides it needs to re-render (passing potentially new properties).
+  - For other frameworks, this row describes how to achieve a component that primarily just renders based on its input properties without managing its own internal state or complex lifecycle events.
+
+This table provides a high-level overview. The exact "best" way to perform a task in each framework can vary, and often there are multiple approaches. Understanding the core lifecycle events helps in managing state, performing side effects, and cleaning up resources effectively in each ecosystem.
+
+---
+
+## 1. React (with Hooks)
+
+### Stateful/Lifecycle-Aware Component (`MyReactComponent.jsx`)
+
+```jsx
+import React, { useState, useEffect } from 'react';
+
+function MyReactComponent({ initialCount }) {
+  const [count, setCount] = useState(initialCount || 0);
+  const [data, setData] = useState(null);
+
+  // 1. Runs ONCE after initial render (like componentDidMount)
+  useEffect(() => {
+    console.log('React: Component Mounted');
+    // Simulate data fetching
+    setTimeout(() => {
+      setData(`Fetched data for count: ${count}`);
+      console.log('React: Data fetched');
+    }, 1000);
+
+    // 7. Cleanup function (like componentWillUnmount)
+    return () => {
+      console.log('React: Component Will Unmount');
+      // Cleanup (e.g., clear timers, subscriptions)
+    };
+  }, []); // Empty dependency array means run once on mount and cleanup on unmount
+
+  // 5. Runs after EVERY render IF 'count' changes (like componentDidUpdate)
+  useEffect(() => {
+    if (data) { // Avoid running on initial mount before data is set
+        console.log(`React: Count changed to ${count}. Current data: ${data}`);
+        document.title = `Count is ${count}`;
+    }
+  }, [count, data]); // Dependency array: re-run if 'count' or 'data' changes
+
+  const increment = () => setCount(prevCount => prevCount + 1);
+
+  console.log('React: Rendering MyReactComponent');
+  return (
+    <div>
+      <h3>React Stateful Component</h3>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+      {data ? <p>Data: {data}</p> : <p>Loading data...</p>}
+    </div>
+  );
+}
+
+export default MyReactComponent;
+```
+
+### Display-Only Component (`DisplayMessage.jsx`)
+
+```jsx
+import React from 'react';
+
+function DisplayMessage({ message, type = 'info' }) {
+  console.log('React: Rendering DisplayMessage');
+  const style = {
+    padding: '10px',
+    border: '1px solid',
+    borderColor: type === 'error' ? 'red' : 'blue',
+    color: type === 'error' ? 'red' : 'black',
+  };
+
+  return (
+    <div style={style}>
+      <p>{message}</p>
+    </div>
+  );
+}
+
+export default DisplayMessage;
+
+// Usage:
+// import DisplayMessage from './DisplayMessage';
+// <DisplayMessage message="Hello from React!" />
+// <DisplayMessage message="An error occurred!" type="error" />
+```
+
+---
+
+## 2. Angular
+
+### Stateful/Lifecycle-Aware Component (`my-angular.component.ts` & `.html`)
+
+**`my-angular.component.ts`**
+```typescript
+import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges } from '@angular/core';
+
+@Component({
+  selector: 'app-my-angular',
+  templateUrl: './my-angular.component.html',
+})
+export class MyAngularComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() initialCount: number = 0;
+  count: number = 0;
+  data: string | null = null;
+  private timerId: any;
+
+  constructor() {
+    console.log('Angular: Constructor - initialCount (may be undefined if not set yet):', this.initialCount);
+  }
+
+  // 2. Called when @Input properties change
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('Angular: ngOnChanges - Input changed:', changes);
+    if (changes['initialCount'] && !changes['initialCount'].firstChange) {
+      this.count = this.initialCount; // React to input change
+    }
+  }
+
+  // 3. Called once after the first ngOnChanges()
+  ngOnInit(): void {
+    this.count = this.initialCount;
+    console.log('Angular: ngOnInit - Component Initialized');
+    // Simulate data fetching
+    this.timerId = setTimeout(() => {
+      this.data = `Fetched data for count: ${this.count}`;
+      console.log('Angular: Data fetched');
+    }, 1000);
+  }
+
+  increment(): void {
+    this.count++;
+    console.log(`Angular: Count changed to ${this.count}`);
+    // Angular's change detection will update the view
+  }
+
+  // 7. Called just before Angular destroys the component
+  ngOnDestroy(): void {
+    console.log('Angular: ngOnDestroy - Component Will Be Destroyed');
+    if (this.timerId) {
+      clearTimeout(this.timerId);
+    }
+  }
+}
+```
+
+**`my-angular.component.html`**
+```html
+<div>
+  <h3>Angular Stateful Component</h3>
+  <p>Count: {{ count }}</p>
+  <button (click)="increment()">Increment</button>
+  <p *ngIf="data; else loading">Data: {{ data }}</p>
+  <ng-template #loading><p>Loading data...</p></ng-template>
+</div>
+```
+
+### Display-Only Component (`display-message.component.ts` & `.html`)
+
+**`display-message.component.ts`**
+```typescript
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-display-message',
+  templateUrl: './display-message.component.html',
+  styleUrls: ['./display-message.component.css'] // For styles
+})
+export class DisplayMessageComponent {
+  @Input() message: string = "Default message";
+  @Input() type: 'info' | 'error' = 'info';
+
+  constructor() {
+    console.log('Angular: DisplayMessageComponent Constructor');
+  }
+
+  isError(): boolean {
+    return this.type === 'error';
+  }
+}
+```
+**`display-message.component.html`**
+```html
+<div class="message-box" [class.error-type]="isError()" [class.info-type]="!isError()">
+  <p>{{ message }}</p>
+</div>
+```
+**`display-message.component.css` (Example)**
+```css
+.message-box {
+  padding: 10px;
+  border: 1px solid;
+}
+.info-type {
+  border-color: blue;
+  color: black;
+}
+.error-type {
+  border-color: red;
+  color: red;
+}
+```
+---
+
+## 3. Vue.js (Composition API)
+
+### Stateful/Lifecycle-Aware Component (`MyVueComponent.vue`)
+
+```vue
+<template>
+  <div>
+    <h3>Vue Stateful Component (Composition API)</h3>
+    <p>Count: {{ count }}</p>
+    <button @click="increment">Increment</button>
+    <p v-if="data">{{ data }}</p>
+    <p v-else>Loading data...</p>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, onUnmounted, watch, toRefs } from 'vue';
+
+const props = defineProps({
+  initialCount: {
+    type: Number,
+    default: 0
+  }
+});
+
+// Use toRefs to make props reactive for watch
+const { initialCount } = toRefs(props);
+
+const count = ref(initialCount.value);
+const data = ref(null);
+let timerId = null;
+
+// 1 & 3. Equivalent to mounted + setup for initialization logic
+onMounted(() => {
+  console.log('Vue: Component Mounted');
+  // Simulate data fetching
+  timerId = setTimeout(() => {
+    data.value = `Fetched data for count: ${count.value}`;
+    console.log('Vue: Data fetched');
+  }, 1000);
+});
+
+// 7. Equivalent to beforeUnmount/unmounted
+onUnmounted(() => {
+  console.log('Vue: Component Will Unmount');
+  if (timerId) {
+    clearTimeout(timerId);
+  }
+});
+
+// 2 & 5. Watch for changes in props or reactive state
+watch(initialCount, (newVal) => {
+  console.log('Vue: initialCount prop changed:', newVal);
+  count.value = newVal;
+});
+
+watch(count, (newVal, oldVal) => {
+  if (oldVal !== undefined) { // Avoid running on initial setup
+    console.log(`Vue: Count changed from ${oldVal} to ${newVal}`);
+    document.title = `Count is ${newVal}`;
+  }
+});
+
+
+const increment = () => {
+  count.value++;
+};
+
+console.log('Vue: MyVueComponent setup executed');
+</script>
+```
+
+### Display-Only Component (`DisplayMessage.vue`)
+
+```vue
+<template>
+  <div :class="['message-box', type === 'error' ? 'error-type' : 'info-type']">
+    <p>{{ message }}</p>
+  </div>
+</template>
+
+<script setup>
+import { defineProps } from 'vue';
+
+defineProps({
+  message: {
+    type: String,
+    required: true
+  },
+  type: {
+    type: String,
+    default: 'info', // 'info' or 'error'
+    validator: (value) => ['info', 'error'].includes(value)
+  }
+});
+console.log('Vue: DisplayMessage setup executed');
+</script>
+
+<style scoped>
+.message-box {
+  padding: 10px;
+  border: 1px solid;
+}
+.info-type {
+  border-color: blue;
+  color: black;
+}
+.error-type {
+  border-color: red;
+  color: red;
+}
+</style>
+```
+---
+
+## 4. HTMX
+
+HTMX is server-driven. The "lifecycle" is about the browser making requests and HTMX swapping content.
+
+**`index.html` (Client-side with HTMX)**
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTMX Counter</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; margin-top: 50px; }
+        #counter-display, #data-display { margin: 10px; padding: 10px; border: 1px solid #ccc; min-width: 200px; text-align: center; }
+        button { padding: 10px 15px; margin-top: 10px; }
+        .loading { opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <h1>HTMX Stateful Counter Example</h1>
+
+    <!-- Initial state rendered by server or static HTML -->
+    <div id="counter-component">
+        <!-- This content will be replaced by HTMX requests -->
+        <div id="counter-display" hx-get="/counter-value" hx-trigger="load, countUpdated from:body" hx-swap="innerHTML" hx-indicator="#loading-indicator">
+            Count: 0
+        </div>
+        <div id="data-display" hx-get="/data-for-count" hx-trigger="load, countUpdated from:body" hx-swap="innerHTML" hx-indicator="#loading-indicator-data">
+            Loading data...
+        </div>
+        <button hx-post="/increment" hx-target="#counter-component" hx-swap="outerHTML">
+            Increment
+        </button>
+        <span id="loading-indicator" class="htmx-indicator">Loading count...</span>
+        <span id="loading-indicator-data" class="htmx-indicator">Loading data...</span>
+    </div>
+
+    <hr style="margin: 30px 0; width: 50%;">
+
+    <h2>HTMX Display-Only Component</h2>
+    <!-- This is a static part of the page, could also be loaded via HTMX -->
+    <div style="padding: 10px; border: 1px solid blue; color: black;">
+        <p>This is a static message from HTMX example page.</p>
+    </div>
+     <div style="padding: 10px; border: 1px solid red; color: red; margin-top: 10px;">
+        <p>This is another static error message.</p>
+    </div>
+
+
+    <script>
+        // HTMX events can be used for more complex client-side interactions if needed
+        document.body.addEventListener('htmx:afterSwap', function(event) {
+            console.log("HTMX: Content swapped for target:", event.detail.target.id);
+            if (event.detail.xhr.getResponseHeader('X-Count-Updated')) {
+                console.log("HTMX: Dispatching countUpdated event");
+                htmx.trigger(document.body, 'countUpdated', { detail: { path: event.detail.pathInfo.path }});
+            }
+        });
+         document.body.addEventListener('htmx:beforeRequest', function(evt) {
+            console.log("HTMX: Before request to", evt.detail.pathInfo.path);
+            // evt.detail.elt is the element that triggered the request
+            // evt.detail.target is the element that will be swapped
+        });
+    </script>
+</body>
+</html>
+```
+
+**`server.py` (Example Python Flask server)**
+```python
+from flask import Flask, request, Response
+import time
+
+app = Flask(__name__)
+count = 0 # Server-side state
+
+@app.route('/')
+def index():
+    # Serve the index.html file (usually you'd use render_template)
+    with open('index.html', 'r') as f:
+        return f.read()
+
+@app.route('/counter-value', methods=['GET'])
+def get_counter_value():
+    global count
+    print(f"HTMX Server: GET /counter-value. Current count: {count}")
+    time.sleep(0.3) # Simulate delay
+    return f"Count: {count}"
+
+@app.route('/data-for-count', methods=['GET'])
+def get_data_for_count():
+    global count
+    print(f"HTMX Server: GET /data-for-count. Current count: {count}")
+    time.sleep(0.7) # Simulate delay for data
+    return f"Server Data for Count: {count}"
+
+@app.route('/increment', methods=['POST'])
+def increment_counter():
+    global count
+    count += 1
+    print(f"HTMX Server: POST /increment. New count: {count}")
+    # Return the whole component to swap (or just parts if using OOB swaps)
+    # This response will trigger the 'countUpdated' event due to X-Count-Updated header
+    response_html = f"""
+    <div id="counter-component">
+        <div id="counter-display" hx-get="/counter-value" hx-trigger="load, countUpdated from:body" hx-swap="innerHTML" hx-indicator="#loading-indicator">
+            Count: {count}
+        </div>
+        <div id="data-display" hx-get="/data-for-count" hx-trigger="load, countUpdated from:body" hx-swap="innerHTML" hx-indicator="#loading-indicator-data">
+            Loading data for new count...
+        </div>
+        <button hx-post="/increment" hx-target="#counter-component" hx-swap="outerHTML">
+            Increment
+        </button>
+        <span id="loading-indicator" class="htmx-indicator">Loading count...</span>
+        <span id="loading-indicator-data" class="htmx-indicator">Loading data...</span>
+    </div>
+    """
+    resp = Response(response_html)
+    resp.headers['X-Count-Updated'] = 'true' # Custom header to signal update
+    return resp
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5001)
+```
+*(To run: `pip install Flask`, then `python server.py`, then open `http://127.0.0.1:5001/` in browser)*
+
+Okay, here are the examples for Astro and Svelte.
+
+---
+
+## 5. Astro
+
+Astro components (`.astro` files) are primarily server-rendered. Client-side interactivity comes from "islands" (components written in UI frameworks like React, Vue, Svelte, or plain JS `<script>` tags).
+
+**Project Setup (for Astro):**
+```bash
+# Create a new Astro project
+npm create astro@latest my-astro-project -- --template minimal
+cd my-astro-project
+# Add Svelte for island example (optional, could use React, Vue, etc.)
+npx astro add svelte
+npm install
+npm run dev
+```
+
+### Astro Stateful/Lifecycle-Aware Component (using a Svelte Island)
+
+**`src/components/AstroCounter.astro` (Server-Side Astro Component)**
+```astro
+---
+// This is the .astro component, primarily for server-rendering layout.
+// It will use a Svelte component as an island for client-side interactivity.
+import SvelteCounterIsland from './SvelteCounterIsland.svelte';
+
+// Props can be passed to Astro components
+export interface Props {
+    initialCount?: number;
+    title?: string;
+}
+const { initialCount = 0, title = "Astro Counter with Svelte Island" } = Astro.props;
+
+console.log("Astro: Rendering AstroCounter.astro on the server/build time. Initial count:", initialCount);
+
+// Simulate some server-side data fetching for the Astro component itself
+let serverMessage = "Loading server message...";
+await new Promise(resolve => setTimeout(() => {
+    serverMessage = `Server message generated at ${new Date().toLocaleTimeString()} for count ${initialCount}`;
+    resolve(null);
+}, 500)); // 0.5 sec delay
+console.log("Astro: Server message fetched:", serverMessage);
+---
+<div class="astro-component-wrapper">
+    <h2>{title}</h2>
+    <p><em>(This part is rendered by Astro on the server)</em></p>
+    <p>{serverMessage}</p>
+
+    <p style="margin-top: 20px;"><em>Client-side Svelte Island below:</em></p>
+    <!--
+        client:load - Loads and hydrates the component JavaScript immediately.
+        client:idle - Loads and hydrates the component JavaScript once the main thread is free.
+        client:visible - Loads and hydrates the component JavaScript once the component has entered the viewport.
+    -->
+    <SvelteCounterIsland client:load initialCount={initialCount} />
+
+    <style>
+        .astro-component-wrapper {
+            border: 2px solid orange;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fff3e0;
+        }
+        h2 { color: #e65100; }
+    </style>
+</div>
+```
+
+**`src/components/SvelteCounterIsland.svelte` (Client-Side Island)**
+```svelte
+<script>
+    import { onMount, onDestroy } from 'svelte';
+
+    export let initialCount = 0; // Prop from Astro
+
+    let count = initialCount;
+    let data = null;
+    let timerId = null;
+
+    // 1. Script runs (initialization)
+    console.log("Svelte Island: Script initialized. Initial count prop:", initialCount);
+
+    // 3. onMount: Runs after the component is first rendered to the DOM.
+    onMount(() => {
+        console.log("Svelte Island: Component Mounted. Current count:", count);
+        // Simulate data fetching
+        timerId = setTimeout(() => {
+            data = `Fetched data for Svelte count: ${count}`;
+            console.log("Svelte Island: Data fetched");
+        }, 1000);
+
+        // 7. onDestroy (or return function from onMount): Runs when component is destroyed.
+        return () => {
+            console.log("Svelte Island: Component Will Unmount/Destroy");
+            if (timerId) clearTimeout(timerId);
+        };
+    });
+
+    // 2 & 6. $: reactive statements for props or state changes
+    // This block re-runs whenever `initialCount` (prop) changes
+    $: {
+        if (initialCount !== undefined && count !== initialCount) {
+            console.log(`Svelte Island: initialCount prop changed from Astro. Old count: ${count}, New prop: ${initialCount}`);
+            count = initialCount; // Update internal state based on prop
+            // Optionally re-fetch data
+            data = `Loading data for new initial count ${count}...`;
+             setTimeout(() => { // Simulate re-fetch
+                data = `Fetched data for Svelte (updated prop) count: ${count}`;
+            }, 500);
+        }
+    }
+
+    // This block re-runs whenever `count` (internal state) changes
+    $: {
+        if (count !== initialCount) { // Avoid logging on initial setup if count matches initialCount
+             console.log(`Svelte Island: Internal count changed to ${count}. Current data: ${data}`);
+             if (typeof document !== 'undefined') { // Check for browser environment
+                 document.title = `Svelte Count: ${count}`;
+             }
+        }
+    }
+
+
+    function increment() {
+        count += 1;
+    }
+    console.log("Svelte Island: Rendering/Updating. Count:", count);
+</script>
+
+<div class="svelte-island">
+    <h4>Svelte Island Component</h4>
+    <p>Count: {count}</p>
+    <button on:click={increment}>Increment Svelte Count</button>
+    {#if data}
+        <p>Data: {data}</p>
+    {:else}
+        <p>Loading Svelte data...</p>
+    {/if}
+</div>
+
+<style>
+    .svelte-island {
+        border: 1px dashed #4CAF50;
+        padding: 15px;
+        margin-top: 10px;
+        background-color: #e8f5e9;
+    }
+    h4 { color: #2e7d32; }
+</style>
+```
+
+**Usage in an Astro page (`src/pages/index.astro`):**
+```astro
+---
+import AstroCounter from '../components/AstroCounter.astro';
+import DisplayMessageAstro from '../components/DisplayMessageAstro.astro';
+---
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro Demo</title>
+</head>
+<body>
+    <h1>Astro Lifecycle Demo</h1>
+
+    <AstroCounter initialCount={5} title="My Astro Counter Instance 1" />
+    <AstroCounter initialCount={10} title="My Astro Counter Instance 2" />
+
+    <DisplayMessageAstro message="This is a display-only message from Astro." />
+    <DisplayMessageAstro message="This is an error message from Astro." type="error" />
+</body>
+</html>
+<style is:global> body { font-family: system-ui; padding: 20px; } </style>
+```
+
+### Astro Display-Only Component (`src/components/DisplayMessageAstro.astro`)
+
+This component is purely server-rendered to HTML and CSS. No client-side JavaScript by default.
+```astro
+---
+export interface Props {
+    message: string;
+    type?: 'info' | 'error';
+}
+
+const { message, type = 'info' } = Astro.props;
+console.log("Astro: Rendering DisplayMessageAstro on server. Message:", message);
+---
+<div class:list={["message-box", type]}>
+    <p>{message}</p>
+</div>
+
+<style define:vars={{
+    infoBorder: 'blue',
+    infoColor: 'black',
+    infoBackground: 'rgba(0,0,255,0.1)',
+    errorBorder: 'red',
+    errorColor: 'red',
+    errorBackground: 'rgba(255,0,0,0.1)'
+}}>
+.message-box {
+    padding: 10px;
+    border: 1px solid;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+.info {
+    border-color: var(--infoBorder);
+    color: var(--infoColor);
+    background-color: var(--infoBackground);
+}
+.error {
+    border-color: var(--errorBorder);
+    color: var(--errorColor);
+    background-color: var(--errorBackground);
+}
+</style>
+```
+
+---
+
+## 6. Svelte
+
+Svelte is a compiler. Its lifecycle functions are imported.
+
+**Project Setup (for Svelte):**
+```bash
+# Create a new Svelte project (using SvelteKit template)
+npm create svelte@latest my-svelte-app
+cd my-svelte-app
+npm install
+npm run dev
+```
+
+### Svelte Stateful/Lifecycle-Aware Component (`src/lib/MySvelteComponent.svelte`)
+
+```svelte
+<script>
+    import { onMount, onDestroy, beforeUpdate, afterUpdate } from 'svelte';
+
+    export let initialCount = 0; // Prop
+
+    let count = initialCount;
+    let data = null;
+    let timerId = null;
+
+    // 1. Script runs top to bottom (initialization)
+    console.log("Svelte: Script initialized. Initial count prop:", initialCount);
+
+    // 3. onMount: Runs after the component is first rendered to the DOM.
+    onMount(() => {
+        console.log("Svelte: Component Mounted (onMount). Current count:", count);
+        // Simulate data fetching
+        timerId = setTimeout(() => {
+            data = `Fetched data for count: ${count}`;
+            console.log("Svelte: Data fetched");
+        }, 1000);
+
+        // 7. onDestroy (or return function from onMount): Runs when component is destroyed.
+        return () => {
+            console.log("Svelte: Component Will Unmount/Destroy (from onMount return)");
+            if (timerId) clearTimeout(timerId);
+        };
+    });
+
+    // 7. onDestroy (alternative/additional):
+    onDestroy(() => {
+        console.log("Svelte: onDestroy lifecycle hook called.");
+        // Can also do cleanup here if not done in onMount's return
+    });
+
+    // 5. beforeUpdate: Runs before the DOM is updated after a data change.
+    beforeUpdate(() => {
+        console.log("Svelte: beforeUpdate hook. Count is currently:", count, "Data:", data);
+    });
+
+    // 6. afterUpdate: Runs after the DOM is updated.
+    afterUpdate(() => {
+        console.log("Svelte: afterUpdate hook. DOM updated. Count is now:", count, "Data:", data);
+    });
+
+    // 2. $: reactive statements for props or state changes
+    // This block re-runs whenever `initialCount` (prop) changes
+    $: if (initialCount !== undefined && count !== initialCount) {
+        console.log(`Svelte: initialCount prop changed. Old internal count: ${count}, New prop: ${initialCount}`);
+        count = initialCount; // Update internal state based on prop
+        data = `Loading data for new initial count ${count}...`;
+            setTimeout(() => { // Simulate re-fetch
+            data = `Fetched data for (updated prop) count: ${count}`;
+        }, 500);
+    }
+
+    // This block re-runs whenever `count` (internal state) changes
+    $: if (count !== initialCount) { // Avoid logging on initial setup if count matches initialCount
+        console.log(`Svelte: Internal count changed to ${count}. Current data: ${data}`);
+        if (typeof document !== 'undefined') {
+            document.title = `Svelte Count: ${count}`;
+        }
+    }
+
+    function increment() {
+        count += 1;
+    }
+    console.log("Svelte: Rendering/Updating component. Count:", count);
+</script>
+
+<div class="svelte-component">
+    <h3>Svelte Stateful Component</h3>
+    <p>Count: {count}</p>
+    <button on:click={increment}>Increment</button>
+    {#if data}
+        <p>Data: {data}</p>
+    {:else}
+        <p>Loading data...</p>
+    {/if}
+</div>
+
+<style>
+    .svelte-component {
+        border: 1px solid purple;
+        padding: 15px;
+        margin: 10px;
+        background-color: #f3e5f5;
+    }
+    h3 { color: #6a1b9a; }
+</style>
+```
+
+### Svelte Display-Only Component (`src/lib/DisplayMessageSvelte.svelte`)
+
+```svelte
+<script>
+    export let message;
+    export let type = 'info'; // 'info' or 'error'
+    console.log("Svelte Display: Rendering/Updating DisplayMessageSvelte. Message:", message);
+</script>
+
+<div class="message-box {type === 'error' ? 'error-type' : 'info-type'}">
+    <p>{message}</p>
+</div>
+
+<style>
+    .message-box {
+        padding: 10px;
+        border: 1px solid;
+        margin-top: 10px;
+        border-radius: 4px;
+    }
+    .info-type {
+        border-color: blue;
+        color: black;
+        background-color: rgba(0,0,255,0.1);
+    }
+    .error-type {
+        border-color: red;
+        color: red;
+        background-color: rgba(255,0,0,0.1);
+    }
+</style>
+```
+
+**Usage in a Svelte page/component (e.g., `src/routes/+page.svelte` for SvelteKit):**
+```svelte
+<script>
+    import MySvelteComponent from '$lib/MySvelteComponent.svelte';
+    import DisplayMessageSvelte from '$lib/DisplayMessageSvelte.svelte';
+
+    let parentInitialCount = 0;
+</script>
+
+<h1>Svelte Lifecycle Demo Page</h1>
+
+<button on:click={() => parentInitialCount += 5}>Update Initial Count for Svelte Component</button>
+<p>Parent's initialCount to pass: {parentInitialCount}</p>
+
+<MySvelteComponent initialCount={parentInitialCount} />
+<MySvelteComponent initialCount={100} /> {/* Another instance */}
+
+
+<DisplayMessageSvelte message="Hello from Svelte display component!" />
+<DisplayMessageSvelte message="This is a Svelte error message." type="error" />
+
+<style>
+    h1 {
+        color: #333;
+    }
+</style>
+```
+
+
+---
+
+## 7. Flutter (StatefulWidget)
+
+### Stateful/Lifecycle-Aware Widget (`my_flutter_widget.dart`)
+
+```dart
+import 'package:flutter/material.dart';
+import 'dart:async';
+
+class MyFlutterWidget extends StatefulWidget {
+  final int initialCount;
+
+  const MyFlutterWidget({super.key, this.initialCount = 0});
+
+  @override
+  State<MyFlutterWidget> createState() {
+    print('Flutter: createState() called');
+    return _MyFlutterWidgetState();
+  }
+}
+
+class _MyFlutterWidgetState extends State<MyFlutterWidget> {
+  late int _count;
+  String? _data;
+  Timer? _timer;
+
+  // 1. State Constructor (implicitly called by createState)
+  _MyFlutterWidgetState() {
+    print('Flutter: State Constructor called');
+  }
+
+  // 3. initState: Called once when the state object is inserted into the tree.
+  @override
+  void initState() {
+    super.initState();
+    _count = widget.initialCount;
+    print('Flutter: initState() called. Initial count: $_count');
+    // Simulate data fetching
+    _timer = Timer(const Duration(seconds: 1), () {
+      if (mounted) { // Check if widget is still in the tree
+        setState(() {
+          _data = 'Fetched data for count: $_count';
+          print('Flutter: Data fetched');
+        });
+      }
+    });
+  }
+
+  // 2. didChangeDependencies: Called when dependencies change (e.g. InheritedWidget).
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print('Flutter: didChangeDependencies() called');
+  }
+
+  // 6. didUpdateWidget: Called if the parent widget rebuilds and provides a new instance
+  // of this widget (with same runtimeType) but potentially different configuration.
+  @override
+  void didUpdateWidget(MyFlutterWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print('Flutter: didUpdateWidget() called. Old initialCount: ${oldWidget.initialCount}, New: ${widget.initialCount}');
+    if (widget.initialCount != oldWidget.initialCount) {
+      setState(() {
+        _count = widget.initialCount;
+        // Optionally re-fetch data or reset state based on new props
+      });
+    }
+  }
+
+  void _incrementCounter() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below.
+      _count++;
+      print('Flutter: Count incremented to $_count');
+    });
+  }
+
+  // 7. dispose: Called when the state object is removed from the tree permanently.
+  @override
+  void dispose() {
+    print('Flutter: dispose() called');
+    _timer?.cancel(); // Cancel any active timers
+    super.dispose();
+  }
+
+  // build: Describes the part of the user interface represented by this widget.
+  @override
+  Widget build(BuildContext context) {
+    print('Flutter: build() called');
+    return Card(
+      margin: const EdgeInsets.all(8.0),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const Text(
+              'Flutter Stateful Widget:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'Count: $_count',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 8),
+            _data == null
+                ? const Text('Loading data...')
+                : Text('Data: $_data'),
+            const SizedBox(height: 8),
+            ElevatedButton(
+              onPressed: _incrementCounter,
+              child: const Text('Increment'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+### Display-Only Widget (`display_message_widget.dart`)
+
+```dart
+import 'package:flutter/material.dart';
+
+class DisplayMessageWidget extends StatelessWidget {
+  final String message;
+  final bool isError;
+
+  const DisplayMessageWidget({
+    super.key,
+    required this.message,
+    this.isError = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    print('Flutter: Building DisplayMessageWidget');
+    return Container(
+      padding: const EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: isError ? Colors.red : Colors.blue),
+        color: isError ? Colors.red.withOpacity(0.1) : Colors.blue.withOpacity(0.1),
+      ),
+      child: Text(
+        message,
+        style: TextStyle(color: isError ? Colors.red : Colors.black),
+      ),
+    );
+  }
+}
+
+// Usage:
+// DisplayMessageWidget(message: "Hello from Flutter!")
+// DisplayMessageWidget(message: "An error occurred!", isError: true)
+```
+
+---
+
+## 8. Flutter Hooks (`flutter_hooks`)
+
+*(Requires `flutter_hooks` package in `pubspec.yaml`)*
+
+### Stateful/Lifecycle-Aware Widget (`my_hook_widget.dart`)
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'dart:async';
+
+class MyHookWidget extends HookWidget {
+  final int initialCount;
+
+  const MyHookWidget({super.key, this.initialCount = 0});
+
+  @override
+  Widget build(BuildContext context) {
+    print('Flutter Hooks: build() called');
+
+    // useState for managing state
+    final count = useState<int>(initialCount);
+    final data = useState<String?>(null);
+
+    // useEffect for side effects (mount, unmount, updates)
+    // 1 & 3. Runs ONCE after initial render (like initState + didChangeDependencies for initial setup)
+    useEffect(() {
+      print('Flutter Hooks: useEffect - Component Mounted/Initial Setup. Initial count: ${count.value}');
+      // Simulate data fetching
+      final timer = Timer(const Duration(seconds: 1), () {
+        data.value = 'Fetched data for count: ${count.value}';
+        print('Flutter Hooks: Data fetched');
+      });
+
+      // 7. Cleanup function (like dispose)
+      return () {
+        print('Flutter Hooks: useEffect - Component Will Unmount/Cleanup');
+        timer.cancel();
+      };
+    }, const []); // Empty dependency array: run once on mount, cleanup on unmount
+
+    // 5. Runs when 'count.value' changes
+    useEffect(() {
+      if (data.value != null) { // Avoid running on initial mount before data is set
+          print('Flutter Hooks: useEffect - Count changed to ${count.value}. Current data: ${data.value}');
+          // You could update document.title here if it were a web app
+      }
+      return null; // No cleanup needed for this specific effect
+    }, [count.value, data.value]); // Dependency array: re-run if count.value or data.value changes
+
+    // 2 & 6. If props change, the widget rebuilds.
+    // `initialCount` is a prop. If it changes from parent, `count.value` would
+    // ideally be updated. This can be done via another `useEffect` watching `initialCount`
+    // or by using `useMemoized` if the initial value logic is complex.
+    // For simple cases, if the parent changes key, the whole widget re-initializes.
+    // Or, more explicitly:
+    useEffect(() {
+        print('Flutter Hooks: useEffect - initialCount prop changed to $initialCount');
+        count.value = initialCount; // React to prop change
+        return null;
+    }, [initialCount]);
+
+
+    void incrementCounter() {
+      count.value++;
+      print('Flutter Hooks: Count incremented to ${count.value}');
+    }
+
+    return Card(
+      margin: const EdgeInsets.all(8.0),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const Text(
+              'Flutter Hooks Widget:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'Count: ${count.value}',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 8),
+            data.value == null
+                ? const Text('Loading data...')
+                : Text('Data: ${data.value}'),
+            const SizedBox(height: 8),
+            ElevatedButton(
+              onPressed: incrementCounter,
+              child: const Text('Increment'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+### Display-Only Widget (`display_message_hook_widget.dart`)
+
+(Same as Flutter's `StatelessWidget`, or can be a `HookWidget` that doesn't use stateful hooks)
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart'; // Can use HookWidget for consistency
+
+class DisplayMessageHookWidget extends HookWidget { // Or StatelessWidget
+  final String message;
+  final bool isError;
+
+  const DisplayMessageHookWidget({
+    super.key,
+    required this.message,
+    this.isError = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    print('Flutter Hooks: Building DisplayMessageHookWidget');
+    return Container(
+      padding: const EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: isError ? Colors.red : Colors.blue),
+        color: isError ? Colors.red.withOpacity(0.1) : Colors.blue.withOpacity(0.1),
+      ),
+      child: Text(
+        message,
+        style: TextStyle(color: isError ? Colors.red : Colors.black),
+      ),
+    );
+  }
+}
+```
+
+---
+
+## 9. Swift (UIKit `UIViewController`)
+
+### Stateful/Lifecycle-Aware `UIViewController` (`MyViewController.swift`)
+
+```swift
+import UIKit
+
+class MyViewController: UIViewController {
+
+    var initialCount: Int = 0
+    private var count: Int = 0
+    private var dataString: String?
+
+    // UI Elements (typically connected via IBOutlets or created programmatically)
+    let countLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 24)
+        return label
+    }()
+    let dataLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
+    let incrementButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Increment", for: .normal)
+        return button
+    }()
+
+    // 1. init (called when instance is created)
+    init(initialCount: Int = 0) {
+        self.initialCount = initialCount
+        self.count = initialCount
+        super.init(nibName: nil, bundle: nil) // Important for programmatic UI
+        print("Swift UIKit: init() called. Initial count: \(self.initialCount)")
+    }
+
+    required init?(coder: NSCoder) {
+        // For storyboard/XIB initialization
+        super.init(coder: coder)
+        print("Swift UIKit: init(coder:) called")
+        self.count = self.initialCount // Ensure count is set if initialCount is an IBOutlet
+    }
+
+    // 3. viewDidLoad: Called once after the view hierarchy has been loaded into memory.
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("Swift UIKit: viewDidLoad() called")
+        view.backgroundColor = .white
+        setupUI() // Helper to add subviews and constraints
+
+        countLabel.text = "Count: \(count)"
+        dataLabel.text = "Loading data..."
+
+        // Simulate data fetching
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            guard let self = self else { return }
+            self.dataString = "Fetched data for count: \(self.count)"
+            self.dataLabel.text = "Data: \(self.dataString ?? "N/A")"
+            print("Swift UIKit: Data fetched")
+        }
+
+        incrementButton.addTarget(self, action: #selector(incrementTapped), for: .touchUpInside)
+    }
+
+    // Called just before the view is added to the view hierarchy.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("Swift UIKit: viewWillAppear() called")
+    }
+
+    // Called just after the view is added to the view hierarchy.
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("Swift UIKit: viewDidAppear() called")
+    }
+
+    // 7. Called just before the view is removed from the view hierarchy.
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("Swift UIKit: viewWillDisappear() called")
+        // Perform cleanup, e.g., invalidate timers, remove observers
+    }
+
+    // Called just after the view is removed from the view hierarchy.
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("Swift UIKit: viewDidDisappear() called")
+    }
+
+    @objc func incrementTapped() {
+        count += 1
+        countLabel.text = "Count: \(count)"
+        print("Swift UIKit: Count incremented to \(count)")
+        // Update data if needed, or re-fetch based on new count
+    }
+
+    // Helper for UI Setup (programmatic)
+    private func setupUI() {
+        let stackView = UIStackView(arrangedSubviews: [countLabel, dataLabel, incrementButton])
+        stackView.axis = .vertical
+        stackView.spacing = 20
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stackView)
+
+        NSLayoutConstraint.activate([
+            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            stackView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -20)
+        ])
+    }
+
+    deinit {
+        print("Swift UIKit: deinit called for MyViewController")
+    }
+}
+```
+
+### Display-Only `UIView` (often configured by a `UIViewController`) or simple `UIViewController`
+
+**`DisplayMessageView.swift` (as a UIView subclass)**
+```swift
+import UIKit
+
+class DisplayMessageView: UIView {
+    enum MessageType {
+        case info, error
+    }
+
+    private let messageLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
+
+    var message: String? {
+        didSet {
+            messageLabel.text = message
+            print("Swift UIKit Display: Message set to \(message ?? "nil")")
+        }
+    }
+
+    var type: MessageType = .info {
+        didSet {
+            updateAppearance()
+            print("Swift UIKit Display: Type set to \(type)")
+        }
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+        updateAppearance()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupView()
+        updateAppearance()
+    }
+
+    private func setupView() {
+        addSubview(messageLabel)
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            messageLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            messageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
+        ])
+        layer.borderWidth = 1.0
+        layer.cornerRadius = 5.0
+    }
+
+    private func updateAppearance() {
+        switch type {
+        case .info:
+            layer.borderColor = UIColor.blue.cgColor
+            messageLabel.textColor = UIColor.black
+            backgroundColor = UIColor.blue.withAlphaComponent(0.1)
+        case .error:
+            layer.borderColor = UIColor.red.cgColor
+            messageLabel.textColor = UIColor.red
+            backgroundColor = UIColor.red.withAlphaComponent(0.1)
+        }
+    }
+}
+
+// Usage within a UIViewController:
+// let displayView = DisplayMessageView()
+// displayView.message = "Hello from UIKit!"
+// displayView.type = .info
+// view.addSubview(displayView)
+// // ... add constraints
+```
+
+---
+
+## 10. Swift (SwiftUI `View`)
+
+### Stateful/Lifecycle-Aware `View` (`MySwiftUIView.swift`)
+
+```swift
+import SwiftUI
+
+struct MySwiftUIView: View {
+    // Passed in property
+    var externalInitialCount: Int = 0
+
+    // @State for internal mutable state specific to this View's instance
+    @State private var count: Int
+    @State private var dataString: String? = nil
+    @State private var isLoading: Bool = false
+
+    // 1. init: Called when the struct is initialized.
+    // @State properties are initialized before body is called.
+    init(initialCount: Int = 0) {
+        self.externalInitialCount = initialCount
+        // Initialize @State properties directly. This is one way.
+        // Or, use _count = State(initialValue: initialCount)
+        _count = State(initialValue: initialCount)
+        print("SwiftUI: MySwiftUIView init() called. Initial count from prop: \(initialCount)")
+    }
+
+    var body: some View {
+        // build: body is called whenever state changes or parent re-renders this view.
+        // `body` itself is the render method.
+        VStack(spacing: 20) {
+            Text("SwiftUI Stateful View")
+                .font(.headline)
+
+            Text("Count: \(count)")
+                .font(.title)
+
+            if isLoading {
+                ProgressView()
+                Text("Loading data...")
+            } else if let data = dataString {
+                Text("Data: \(data)")
+            }
+
+            Button("Increment") {
+                count += 1
+                print("SwiftUI: Count incremented to \(count)")
+                // Potentially trigger data re-fetch or update here
+            }
+        }
+        .padding()
+        // 3. onAppear: Called when the view appears on screen.
+        .onAppear {
+            print("SwiftUI: onAppear() called. Current count: \(count)")
+            // If count wasn't set from externalInitialCount in init, can do it here:
+            // if count == 0 && externalInitialCount != 0 { // Example condition
+            //    count = externalInitialCount
+            // }
+
+            // Simulate data fetching
+            isLoading = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                dataString = "Fetched data for count: \(count)"
+                isLoading = false
+                print("SwiftUI: Data fetched")
+            }
+        }
+        // 7. onDisappear: Called when the view disappears from screen.
+        .onDisappear {
+            print("SwiftUI: onDisappear() called")
+            // Perform cleanup
+        }
+        // 2 & 6. onChange: React to specific state or prop changes
+        // (iOS 14+ for general values, older versions for specific @StateObject etc.)
+        .onChange(of: externalInitialCount) { newInitialCount in
+            print("SwiftUI: externalInitialCount prop changed to \(newInitialCount)")
+            // Potentially reset internal state based on new prop
+            count = newInitialCount
+            // Re-fetch data if needed
+            isLoading = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // Shorter delay for update
+                 dataString = "Updated data for new initial count: \(count)"
+                 isLoading = false
+                 print("SwiftUI: Data updated due to prop change")
+            }
+        }
+        .onChange(of: count) { newCount in
+             print("SwiftUI: Internal count state changed to \(newCount)")
+             // Can perform actions here if not done directly in button action
+        }
+        // .task modifier (iOS 15+) is good for async operations tied to view lifecycle
+        // .task {
+        //     await fetchData()
+        // }
+    }
+
+    // Example async function for .task
+    // func fetchData() async {
+    //     isLoading = true
+    //     try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
+    //     if !Task.isCancelled {
+    //         dataString = "Fetched data for count: \(count) (via .task)"
+    //         isLoading = false
+    //         print("SwiftUI: Data fetched via .task")
+    //     }
+    // }
+}
+```
+
+### Display-Only `View` (`DisplayMessageView.swift`)
+
+```swift
+import SwiftUI
+
+struct DisplayMessageSwiftUIView: View {
+    let message: String
+    var isError: Bool = false
+
+    var body: some View {
+        // This body is re-evaluated if `message` or `isError` changes from parent.
+        // No internal state.
+        Text(message)
+            .padding()
+            .foregroundColor(isError ? .red : .primary)
+            .background(isError ? Color.red.opacity(0.1) : Color.blue.opacity(0.1))
+            .cornerRadius(5)
+            .overlay(
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(isError ? Color.red : Color.blue, lineWidth: 1)
+            )
+            .onAppear{
+                 print("SwiftUI Display: DisplayMessageSwiftUIView appeared with message: \(message)")
+            }
+    }
+}
+
+// Usage:
+// DisplayMessageSwiftUIView(message: "Hello from SwiftUI!")
+// DisplayMessageSwiftUIView(message: "An error occurred!", isError: true)
+```
+
+
+Okay, let's continue with the remaining examples!
+
+---
+
+## 11. Kotlin (Android `Activity`/`Fragment` with XML & ViewModels, or Jetpack Compose)
+
+I'll provide two versions for Android:
+    a. Traditional: `Fragment` with XML and `ViewModel`.
+    b. Modern: Jetpack Compose.
+
+### 11a. Kotlin - Traditional (Fragment + ViewModel + XML)
+
+**`my_android_fragment.xml` (Layout)**
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    tools:context=".MyAndroidFragment">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Android Fragment (XML + ViewModel)"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/countTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        tools:text="Count: 0" />
+
+    <TextView
+        android:id="@+id/dataTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:text="Loading data..." />
+
+    <Button
+        android:id="@+id/incrementButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Increment" />
+
+</LinearLayout>
+```
+
+**`MyAndroidViewModel.kt`**
+```kotlin
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+class MyAndroidViewModel : ViewModel() {
+
+    private val _count = MutableLiveData<Int>()
+    val count: LiveData<Int> get() = _count
+
+    private val _data = MutableLiveData<String?>()
+    val data: LiveData<String?> get() = _data
+
+    init {
+        println("Android ViewModel: init called")
+        _count.value = 0 // Default initial count
+    }
+
+    fun setInitialCount(initial: Int) {
+        if (_count.value != initial) { // Only set if different or first time
+            _count.value = initial
+            println("Android ViewModel: Initial count set to $initial")
+            fetchData() // Fetch data when count is initialized or changes
+        }
+    }
+
+    fun incrementCount() {
+        _count.value = (_count.value ?: 0) + 1
+        println("Android ViewModel: Count incremented to ${_count.value}")
+        // Optionally, fetch data again on count change, or just update UI
+    }
+
+    fun fetchData() {
+        _data.value = "Loading data..." // Show loading state
+        viewModelScope.launch {
+            delay(1000) // Simulate network delay
+            _data.value = "Fetched data for count: ${_count.value}"
+            println("Android ViewModel: Data fetched for count ${_count.value}")
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        println("Android ViewModel: onCleared called (Fragment destroyed)")
+        // Cancel coroutines if they are long-running and not scoped to viewModelScope
+    }
+}
+```
+
+**`MyAndroidFragment.kt`**
+```kotlin
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+
+// Assuming R is generated correctly, replace 'your.package.name'
+// import your.package.name.R
+
+class MyAndroidFragment : Fragment() {
+
+    private lateinit var viewModel: MyAndroidViewModel
+    private lateinit var countTextView: TextView
+    private lateinit var dataTextView: TextView
+    private lateinit var incrementButton: Button
+
+    companion object {
+        private const val ARG_INITIAL_COUNT = "initial_count"
+        fun newInstance(initialCount: Int = 0): MyAndroidFragment {
+            val fragment = MyAndroidFragment()
+            val args = Bundle()
+            args.putInt(ARG_INITIAL_COUNT, initialCount)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    // 1. onAttach -> onCreate (Fragment) -> onCreateView
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("MyAndroidFragment", "onCreate called")
+        viewModel = ViewModelProvider(this).get(MyAndroidViewModel::class.java)
+
+        val initialCountFromArgs = arguments?.getInt(ARG_INITIAL_COUNT) ?: 0
+        if (savedInstanceState == null) { // Only set initial count if not restoring
+            viewModel.setInitialCount(initialCountFromArgs)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        Log.d("MyAndroidFragment", "onCreateView called")
+        // Inflate the layout for this fragment
+        // Replace R.layout.my_android_fragment with your actual layout resource ID
+        val view = inflater.inflate(R.layout.my_android_fragment, container, false)
+
+        countTextView = view.findViewById(R.id.countTextView)
+        dataTextView = view.findViewById(R.id.dataTextView)
+        incrementButton = view.findViewById(R.id.incrementButton)
+
+        return view
+    }
+
+    // 3. onViewCreated: View hierarchy created. Safe to interact with views.
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.d("MyAndroidFragment", "onViewCreated called")
+
+        viewModel.count.observe(viewLifecycleOwner) { currentCount ->
+            countTextView.text = "Count: $currentCount"
+            Log.d("MyAndroidFragment", "Count LiveData observed: $currentCount")
+        }
+
+        viewModel.data.observe(viewLifecycleOwner) { currentData ->
+            dataTextView.text = currentData ?: "Loading data..."
+            Log.d("MyAndroidFragment", "Data LiveData observed: $currentData")
+        }
+
+        incrementButton.setOnClickListener {
+            viewModel.incrementCount()
+        }
+
+        // If data needs to be fetched on initial view creation and not just count change
+        if (savedInstanceState == null && viewModel.data.value == null) {
+             // This check is slightly redundant if setInitialCount also calls fetchData
+             // viewModel.fetchData()
+        }
+    }
+
+    // onStart -> onResume
+    override fun onStart() {
+        super.onStart()
+        Log.d("MyAndroidFragment", "onStart called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("MyAndroidFragment", "onResume called")
+    }
+
+    // 7. onPause -> onStop -> onDestroyView
+    override fun onPause() {
+        super.onPause()
+        Log.d("MyAndroidFragment", "onPause called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("MyAndroidFragment", "onStop called")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d("MyAndroidFragment", "onDestroyView called (View hierarchy destroyed)")
+        // Release references to views here if not using ViewBinding (which handles it)
+    }
+
+    // 8. onDestroy -> onDetach (Fragment is destroyed)
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("MyAndroidFragment", "onDestroy called")
+        // ViewModel's onCleared will be called automatically if tied to this Fragment's lifecycle
+    }
+}
+```
+
+**Display-Only XML Component (typically part of a larger layout)**
+This is just a snippet of XML you'd include. Configuration happens from the Fragment/Activity.
+```xml
+<!-- display_message_layout.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/messageContainer"
+    android:padding="10dp"
+    android:background="@android:color/holo_blue_light"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/messageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Default Message"
+        android:textColor="@android:color/black"/>
+</LinearLayout>
+
+<!-- In your Fragment/Activity code: -->
+<!--
+val messageContainer = view.findViewById<LinearLayout>(R.id.messageContainer)
+val messageTextView = view.findViewById<TextView>(R.id.messageTextView)
+messageTextView.text = "Hello from Android XML!"
+// Change background based on type
+// messageContainer.setBackgroundColor(if (isError) Color.RED else Color.BLUE)
+-->
+```
+
+---
+
+### 11b. Kotlin - Jetpack Compose
+
+**`MyComposeScreen.kt` (Stateful Composable)**
+```kotlin
+import android.util.Log
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+// ViewModel remains largely the same as the traditional example, or state can be hoisted
+// For simplicity, let's manage some state directly in Composable with `remember` and `LaunchedEffect`
+
+@Composable
+fun MyComposeScreen(initialCountProp: Int = 0) {
+    // 1. State initialization using remember. Runs when Composable enters composition.
+    var count by remember { mutableStateOf(initialCountProp) }
+    var data by remember { mutableStateOf<String?>(null) }
+    var isLoading by remember { mutableStateOf(false) }
+
+    val coroutineScope = rememberCoroutineScope() // For launching coroutines tied to Composable lifecycle
+
+    Log.d("MyComposeScreen", "Composable recomposing. Count: $count, Data: $data")
+
+    // 2 & 6. LaunchedEffect for reacting to prop changes (initialCountProp)
+    // This will re-run if initialCountProp changes its value from the caller.
+    LaunchedEffect(key1 = initialCountProp) {
+        Log.d("MyComposeScreen", "LaunchedEffect (initialCountProp): Prop changed to $initialCountProp")
+        count = initialCountProp // Update internal state based on prop
+        // Optionally re-fetch data when prop changes
+        isLoading = true
+        data = "Loading for new initial count..."
+        delay(500) // Simulate fetch
+        data = "Fetched data for new initial count: $count"
+        isLoading = false
+    }
+
+
+    // 3 & 5. LaunchedEffect for side effects (e.g., data fetching on mount or when count changes)
+    // key1 = count: This effect will re-launch if 'count' changes.
+    // key1 = Unit (or true): This effect runs once when Composable enters composition
+    // and re-runs if Unit/true changes (which it doesn't), effectively onMount.
+    LaunchedEffect(key1 = Unit) { // Runs once on initial composition
+        Log.d("MyComposeScreen", "LaunchedEffect (Unit): Initial data fetch. Current count: $count")
+        isLoading = true
+        coroutineScope.launch { // Use coroutineScope for cancellable operations
+            delay(1000) // Simulate network delay
+            data = "Fetched data for count: $count"
+            isLoading = false
+            Log.d("MyComposeScreen", "Data fetched via LaunchedEffect(Unit)")
+        }
+    }
+
+    // 7. DisposableEffect for cleanup (like onStop/onDestroyView/onDisappear)
+    DisposableEffect(key1 = Unit) {
+        Log.d("MyComposeScreen", "DisposableEffect: Composable entered composition")
+        onDispose {
+            Log.d("MyComposeScreen", "DisposableEffect: Composable left composition (cleanup)")
+            // Cancel timers, subscriptions, etc.
+        }
+    }
+
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text("Jetpack Compose Stateful Screen", fontSize = 18.sp, style = MaterialTheme.typography.titleMedium)
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text("Count: $count", fontSize = 24.sp)
+        Spacer(modifier = Modifier.height(8.dp))
+
+        if (isLoading) {
+            CircularProgressIndicator()
+            Text("Loading data...")
+        } else {
+            Text(data ?: "No data yet.")
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(onClick = {
+            count++
+            Log.d("MyComposeScreen", "Button Click: Count incremented to $count")
+            // If data fetch should happen on every increment:
+            // isLoading = true
+            // coroutineScope.launch {
+            //     delay(500)
+            //     data = "Updated data for count: $count"
+            //     isLoading = false
+            // }
+        }) {
+            Text("Increment")
+        }
+    }
+}
+```
+
+**Display-Only Composable (`DisplayMessageComposable.kt`)**
+```kotlin
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import android.util.Log
+
+@Composable
+fun DisplayMessageComposable(message: String, isError: Boolean = false) {
+    Log.d("DisplayMessage", "Recomposing with message: $message")
+    Text(
+        text = message,
+        modifier = Modifier
+            .padding(8.dp)
+            .border(
+                1.dp,
+                color = if (isError) Color.Red else MaterialTheme.colorScheme.primary
+            )
+            .padding(16.dp), // Inner padding
+        color = if (isError) Color.Red else MaterialTheme.colorScheme.onSurface
+    )
+}
+
+// Usage in another Composable:
+// DisplayMessageComposable(message = "Hello from Compose!")
+// DisplayMessageComposable(message = "An error occurred!", isError = true)
+```
+
+---
