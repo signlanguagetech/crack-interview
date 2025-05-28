@@ -21,8 +21,29 @@
 }
 
 [data-has-sidebar][data-has-toc] .main-pane:where(.astro-rcbltxq3) {
-  width: 90vw;
+  width: 100%;
+  max-width: 90vw;
+  margin: 0 auto;
 }
+
+@media (min-width: 768px) {
+  [data-has-sidebar][data-has-toc] .main-pane:where(.astro-rcbltxq3) {
+    max-width: 80vw;
+  }
+}
+
+@media (min-width: 1024px) {
+  [data-has-sidebar][data-has-toc] .main-pane:where(.astro-rcbltxq3) {
+    max-width: 55vw;
+  }
+}
+
+@media (min-width: 1400px) {
+  [data-has-sidebar][data-has-toc] .main-pane:where(.astro-rcbltxq3) {
+    max-width: 60vw;
+  }
+}
+
 
 /* Improvement for table comparative */
 .sl-markdown-content table {
@@ -39,7 +60,7 @@
   padding: 0.5rem 0.75rem;
   border: 1px solid var(--sl-color-gray-4);
   vertical-align: top;
-  word-wrap: break-word;
+  text-wrap: balance;
   hyphens: auto;
 }
 
@@ -104,8 +125,4 @@
 
 }
 
-@media (max-width: 933px) {
-  [data-has-sidebar][data-has-toc] .main-pane:where(.astro-rcbltxq3) {
-    width: 100vw;
-  }
-}
+
