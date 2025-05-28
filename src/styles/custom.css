@@ -11,66 +11,18 @@
   }
 }
 
-/* main container */
-.right-sidebar:where(.astro-rcbltxq3) {
-  left: 80vw;
-}
-
-.sl-container:where(.astro-5husdd27) {
-  max-width: 60vw;
-}
-
-[data-has-sidebar][data-has-toc] .main-pane:where(.astro-rcbltxq3) {
-  width: 100%;
-  max-width: 90vw;
-  margin: 0 auto;
-}
-
-@media (min-width: 768px) {
-  [data-has-sidebar][data-has-toc] .main-pane:where(.astro-rcbltxq3) {
-    max-width: 80vw;
-  }
-}
-
-@media (min-width: 1024px) {
-  [data-has-sidebar][data-has-toc] .main-pane:where(.astro-rcbltxq3) {
-    max-width: 55.5vw;
-  }
-}
-
-@media (min-width: 1400px) {
-  [data-has-sidebar][data-has-toc] .main-pane:where(.astro-rcbltxq3) {
-    max-width: 60vw;
-  }
-}
-
-@media (min-width: 1600px) {
-  [data-has-sidebar][data-has-toc] .main-pane:where(.astro-rcbltxq3) {
-    max-width: 68vw;
-  }
-}
-
-.content-panel:where(.astro-5husdd27) {
-  padding-top: 1.5rem;
-  padding-right: 0.5rem;
-  padding-bottom: 1.5rem;
-  padding-left: 1.5rem;
-}
 
 /* Improvement for table comparative */
 .sl-markdown-content table {
-  width: 98%;
-  max-width: 98%;
-  table-layout: auto;
-  border-collapse: collapse;
   font-size: 0.875rem;
   line-height: 1.4;
+  height: 400px;
+  border-collapse: collapse;
 }
 
 .sl-markdown-content table th,
 .sl-markdown-content table td {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid var(--sl-color-gray-4);
+  border: 0.75px solid var(--sl-color-gray-5);
   vertical-align: top;
   text-wrap: balance;
   hyphens: auto;
@@ -78,38 +30,34 @@
 
 .sl-markdown-content table th {
   background-color: var(--sl-color-gray-6);
-  font-weight: 600;
-  font-size: 0.8rem;
-}
-
-/* Make the table responsive with horizontal scroll */
-.sl-markdown-content .table-wrapper {
-  overflow-x: auto;
-  margin: 1rem 0;
-  border: 1px solid var(--sl-color-gray-4);
-  border-radius: 0.5rem;
 }
 
 /* Specific styles for large tables */
 .sl-markdown-content table thead .sl-markdown-content table tr:first-child,
 .sl-markdown-content table th:first-child,
 .sl-markdown-content table td:first-child {
-  min-width: 200px;
   position: sticky;
   left: 0;
   background-color: var(--sl-color-bg);
-  z-index: 1;
+  z-index: 3;
 }
 
+.sl-markdown-content table thead tr>th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+/* Style for the first column and row */
 .sl-markdown-content table th:first-child {
   background-color: var(--sl-color-gray-6);
+  z-index: 4;
 }
 
 /* Reduce the width of framework columns */
 .sl-markdown-content table th:not(:first-child),
 .sl-markdown-content table td:not(:first-child) {
   min-width: 150px;
-  max-width: 200px;
 }
 
 /* Improve readability on mobile devices */
@@ -122,19 +70,4 @@
   .sl-markdown-content table td {
     padding: 0.375rem 0.5rem;
   }
-
-  .sl-markdown-content table th:first-child,
-  .sl-markdown-content table td:first-child {
-    min-width: 150px;
-  }
-
-  .sl-markdown-content table th:not(:first-child),
-  .sl-markdown-content table td:not(:first-child) {
-    min-width: 120px;
-    max-width: 150px;
-  }
-
-
 }
-
-
