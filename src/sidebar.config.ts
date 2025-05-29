@@ -6,7 +6,7 @@ const sidebarItem = z.object({
   autogenerate: z.object({
     directory: z.string()
     }).optional(),
-  collapsed: z.boolean().default(true), 
+  collapsed: z.boolean().default(true),
 })
 
 export const sidebarItems = z.array(sidebarItem).default([])
@@ -21,5 +21,9 @@ export const sidebarConfig: readonly SidebarItem[] = [
   {
     label: "Programming Paradigms",
     autogenerate: { directory: "programming-paradigms/" }
+  },
+  {
+    label: "Frontend Engineering",
+    autogenerate: { directory: "frontend-engineering/" }
   }
 ]

@@ -10,3 +10,63 @@
     padding-block-end: 0;
   }
 }
+
+
+/* Improvement for table comparative */
+.sl-markdown-content table {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  max-height: 600px;
+  border-collapse: collapse;
+}
+
+.sl-markdown-content table th,
+.sl-markdown-content table td {
+  border: 0.75px solid var(--sl-color-gray-5);
+  vertical-align: top;
+  text-wrap: balance;
+  hyphens: auto;
+}
+
+.sl-markdown-content table th {
+  background-color: var(--sl-color-gray-6);
+}
+
+/* Specific styles for large tables */
+.sl-markdown-content table th:first-child,
+.sl-markdown-content table td:first-child {
+  position: sticky;
+  left: 0;
+  background-color: var(--sl-color-bg);
+  z-index: 3;
+}
+
+.sl-markdown-content table thead tr>th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+/* Style for the first column and row */
+.sl-markdown-content table th:first-child {
+  background-color: var(--sl-color-gray-6);
+  z-index: 4;
+}
+
+/* Column widths */
+.sl-markdown-content table th:not(:first-child),
+.sl-markdown-content table td:not(:first-child) {
+  min-width: 200px;
+}
+
+/* Improve readability on mobile devices */
+@media (max-width: 768px) {
+  .sl-markdown-content table {
+    font-size: 0.75rem;
+  }
+
+  .sl-markdown-content table th,
+  .sl-markdown-content table td {
+    padding: 0.375rem 0.5rem;
+  }
+}
