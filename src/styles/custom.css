@@ -16,7 +16,7 @@
 .sl-markdown-content table {
   font-size: 0.875rem;
   line-height: 1.4;
-  height: 400px;
+  max-height: 600px;
   border-collapse: collapse;
 }
 
@@ -33,7 +33,6 @@
 }
 
 /* Specific styles for large tables */
-.sl-markdown-content table thead .sl-markdown-content table tr:first-child,
 .sl-markdown-content table th:first-child,
 .sl-markdown-content table td:first-child {
   position: sticky;
@@ -54,10 +53,10 @@
   z-index: 4;
 }
 
-/* Reduce the width of framework columns */
+/* Column widths */
 .sl-markdown-content table th:not(:first-child),
 .sl-markdown-content table td:not(:first-child) {
-  min-width: 150px;
+  min-width: 200px;
 }
 
 /* Improve readability on mobile devices */
