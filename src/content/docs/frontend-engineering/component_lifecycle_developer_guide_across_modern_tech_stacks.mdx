@@ -42,10 +42,25 @@ While the names and exact mechanics vary, most frameworks address these common l
 
 Let's see how our selected technologies approach these phases:
 
-*   **React (with Hooks):**
-    *   **Paradigm:** Functional components with Hooks.
-    *   **Key Hooks:** `useState` (state), `useEffect` (side effects, covers mounting, updating, and unmounting via its dependency array and cleanup function), `useLayoutEffect` (similar to `useEffect` but fires synchronously after all DOM mutations).
-    *   **Stateless:** A functional component that only takes props and renders UI, without `useState` or `useEffect`.
+*   **React (Class Components & Hooks):**
+    *   **Historical Context:** React initially used class-based components with specific lifecycle methods. While Hooks are now the recommended way for new development, understanding class lifecycles is vital for existing codebases and for a complete picture of React's evolution.
+    *   **Class Component Paradigm:** Components extend `React.Component` and use methods like `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount`. State is managed with `this.state` and `this.setState()`.
+        *   **Key Class Lifecycle Methods:**
+            *   `constructor(props)`: For initializing state and binding methods.
+            *   `static getDerivedStateFromProps(props, state)`: For updating state in response to prop changes before rendering.
+            *   `render()`: The only required method; returns the UI.
+            *   `componentDidMount()`: Called after the component is mounted to the DOM. Ideal for network requests, subscriptions.
+            *   `shouldComponentUpdate(nextProps, nextState)`: For performance optimization; determines if a re-render is necessary.
+            *   `getSnapshotBeforeUpdate(prevProps, prevState)`: Called right before changes from the virtual DOM are to be reflected in the DOM.
+            *   `componentDidUpdate(prevProps, prevState, snapshot)`: Called after updating occurs. Not called for the initial render.
+            *   `componentWillUnmount()`: Called immediately before a component is unmounted and destroyed. Ideal for cleanup.
+            *   `static getDerivedStateFromError(error)` & `componentDidCatch(error, info)`: For error boundaries.
+    *   **Hooks Paradigm (Modern):** Functional components with Hooks.
+        *   **Key Hooks:** `useState` (state), `useEffect` (side effects, covers mounting, updating, and unmounting via its dependency array and cleanup function), `useLayoutEffect`.
+    *   **Stateless:**
+        *   **Class:** A class component that only uses `props` and a `render()` method, with no internal `state` or lifecycle methods for side effects.
+        *   **Functional:** A functional component that only takes props and renders UI, without `useState` or `useEffect`.
+    *   *Dive into React lifecycle code examples (both Class and Hooks) [here](/frontend-engineering/practical_component_lifecycle_examples_react_angular_vue_htmx_astro_svelte_flutter_swift_kotlin/#1-react-lifecycle-examples).*
 
 *   **Angular:**
     *   **Paradigm:** Class-based components with decorators and specific lifecycle hook methods.
@@ -119,6 +134,3 @@ Navigating the component lifecycle across different frameworks can seem daunting
 This journey through component lifecycles isn't just about learning APIs; it's about understanding the fundamental rhythm of UI development.
 
 **What are your favorite lifecycle patterns or a-ha moments when switching between frameworks? Share your thoughts in the comments below!**
-
-
-

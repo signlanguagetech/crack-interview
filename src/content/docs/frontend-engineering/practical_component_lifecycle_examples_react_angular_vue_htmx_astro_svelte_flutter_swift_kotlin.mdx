@@ -9,6 +9,7 @@ authors:
     picture: https://avatars.githubusercontent.com/u/19521054?v=4&s=200
     url: https://tech-andgar.me
 ---
+
 It highlights how different frameworks handle component state and lifecycle. It's important to note that "hooks" are a specific pattern popularized by React, and while other frameworks have adopted similar concepts, their traditional lifecycle methods are also crucial.
 Here's a comparative table. I'll try to map common lifecycle purposes across these technologies.
 
@@ -22,22 +23,22 @@ Here's a comparative table. I'll try to map common lifecycle purposes across the
 
 ## Expanded Comparative Table: Component Lifecycle & Hooks
 
-| Lifecycle Phase / Purpose                                                              | React (Hooks)                                                                       | Angular (Component)                                   | Vue.js (Options/Composition API)                                                                  | HTMX                                                     | Astro (`.astro` component / Islands)                                                  | Svelte (`.svelte` component)                                                   | Flutter (StatefulWidget)                                                  | Flutter Hooks (`flutter_hooks`)                                         | Swift (UIKit `UIViewController`)                               | Swift (SwiftUI `View`)                                        | Kotlin (Android `Activity`/`Fragment`/Compose)                                                                        |
-| :------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------- | :---------------------------------------------------- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------- | :------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------- | :------------------------------------------------------------------------ | :---------------------------------------------------------------------- | :------------------------------------------------------------- | :------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------- |
-| **1. Initialization (Code runs once when component logic is set up)**                  | `useState` initial value, `useRef` initial value, `useEffect` with `[]` (for setup) | `constructor()`                                       | `beforeCreate()` (Options), `setup()` (Composition)                                               | Element exists in HTML, HTMX attributes parsed           | `.astro` file processed at build/SSR; Island: Framework-specific init                 | Component script runs, props initialized                                       | `StatefulWidget` constructor, `createState()`, `State` constructor        | `useState` initial value, `useRef` initial value, `useEffect` with `[]` | `init(coder:)` / `init(nibName:bundle:)`                       | `init()` (for struct), `@State` initial value                 | `onCreate()` (Activity/Fragment), Composable function call                                                            |
-| **2. After Properties/Inputs Received (before first render/mount)**                    | Via `useEffect` dependencies                                                        | `ngOnChanges()` (if inputs change)                    | `props` available in `created`/`setup`                                                            | N/A (Attributes are the inputs)                          | Props available in `.astro` frontmatter; Island: Framework-specific                   | `export let prop` values set                                                   | `widget` property available in `initState`                                | Via `useEffect` dependencies                                            | Properties set before `viewDidLoad`                            | Properties passed to `init()`                                 | `getIntent().extras` (Activity), `getArguments()` (Fragment); Composable params                                       |
-| **3. After Component is Added to DOM/Tree (Mounted)**                                  | `useEffect` with `[]` (mount), `useLayoutEffect` with `[]`                          | `ngOnInit()`, `ngAfterViewInit()` (for view children) | `created()` (Options), `onMounted()` (Composition)                                                | Element is in DOM from initial page load or swap         | N/A for `.astro` on client; Island: `client:directive` + Framework-specific `onMount` | `onMount()`                                                                    | `initState()`                                                             | `useEffect` with `[]` (mount)                                           | `viewDidLoad()`, `viewDidAppear()`                             | `.onAppear()` modifier                                        | `onStart()`, `onResume()` (Activity/Fragment), `onViewCreated()` (Fragment); `SideEffect`, `LaunchedEffect` (Compose) |
-| **4. Dependency Change (e.g., Context, InheritedWidget)**                              | `useContext` + `useEffect` with context in deps                                     | N/A (DI handles it)                                   | `inject` + `watch`/`computed` (Composition)                                                       | N/A (Server-driven)                                      | N/A for `.astro`; Island: Framework-specific                                          | Svelte store subscriptions (`$store`)                                          | `didChangeDependencies()`                                                 | `useContext` + `useEffect` with context in deps                         | N/A (Notifications, KVO, Delegates)                            | `@EnvironmentObject`, `@ObservedObject`                       | Observe `LiveData`/`StateFlow`; Recomposition if @Composable params change                                            |
-| **5. Before Update/Re-render**                                                         | `useEffect` cleanup, `useLayoutEffect` cleanup                                      | `ngDoCheck()` (custom change detection)               | `beforeUpdate()` (Options), `onBeforeUpdate()` (Composition)                                      | N/A (DOM swap incoming)                                  | N/A for `.astro`; Island: Framework-specific                                          | `beforeUpdate()`                                                               | N/A (Framework handles it)                                                | `useEffect` cleanup                                                     | `viewWillLayoutSubviews()`                                     | N/A (Body is re-evaluated)                                    | N/A (Framework handles it); Composable re-evaluates                                                                   |
-| **6. After Update/Re-render**                                                          | `useEffect` (if deps changed), `useLayoutEffect` (if deps changed)                  | `ngAfterContentChecked()`, `ngAfterViewChecked()`     | `updated()` (Options), `onUpdated()` (Composition)                                                | New HTML swapped into DOM                                | N/A for `.astro`; Island: Framework-specific                                          | `afterUpdate()`                                                                | `build()` (is the render), `didUpdateWidget()` (if widget config changes) | `useEffect` (if deps changed), `build()` (is the render)                | `viewDidLayoutSubviews()`, `viewDidAppear()` (if re-appearing) | `body` re-evaluated                                           | `onResume()` (if re-appearing); Recomposition finishes                                                                |
-| **7. Before Component is Removed (Unmount/Destroy)**                                   | `useEffect` return function (cleanup)                                               | `ngOnDestroy()`                                       | `beforeUnmount()` (Options), `onBeforeUnmount()` (Composition)                                    | Element about to be removed by swap/OOB                  | N/A for `.astro`; Island: Framework-specific `onDestroy`                              | `onDestroy()` (or `onMount` return)                                            | `deactivate()`, `dispose()`                                               | `useEffect` return function (cleanup)                                   | `viewWillDisappear()`                                          | `.onDisappear()` modifier                                     | `onPause()`, `onStop()`, `onDestroyView()` (Fragment); `DisposableEffect` (Compose)                                   |
-| **8. After Component is Removed (Unmounted/Destroyed)**                                | `useEffect` return function runs                                                    | `ngOnDestroy()` (end of it)                           | `unmounted()` (Options), `onUnmounted()` (Composition)                                            | Element removed from DOM                                 | N/A for `.astro`; Island: Framework-specific                                          | `onDestroy` handler completes                                                  | `dispose()` (end of it)                                                   | `useEffect` return function runs                                        | `viewDidDisappear()`                                           | `.onDisappear()` handler completes                            | `onDestroy()` (Activity/Fragment)                                                                                     |
-| **Managing State**                                                                     | `useState`, `useReducer`                                                            | Component properties, Services                        | `data` (Options), `ref`, `reactive` (Composition)                                                 | Server manages state; Client (limited via events/params) | N/A for `.astro` (props only); Island: Framework-specific                             | `let var` (reactive), stores                                                   | `setState()`, properties on `State` object                                | `useState`, `useReducer`                                                | Properties on `UIViewController` class                         | `@State`, `@StateObject`, `@ObservedObject`                   | ViewModel with `LiveData`/`StateFlow`; `remember { mutableStateOf() }` (Compose)                                      |
-| **Side Effects (data fetching, subscriptions, etc.)**                                  | `useEffect`                                                                         | `ngOnInit()`, Services                                | `created()`, `mounted()`, `watch` (Options); `onMounted`, `watch`, `watchEffect` (Composition)    | `hx-trigger`, `hx-get/post` (server fetches)             | Fetch in `.astro` frontmatter (SSR/SSG); Island: Framework-specific                   | `onMount()`, reactive statements (`$:`)                                        | `initState()`, `didChangeDependencies()`                                  | `useEffect`, `useStream`, `useFuture`                                   | `viewDidLoad()`, `viewWillAppear()`                            | `.task()` modifier, `onAppear`                                | `onCreate()`, `onResume()`, ViewModel coroutines; `LaunchedEffect` (Compose)                                          |
-| **Accessing DOM/Native Elements**                                                      | `useRef`                                                                            | `@ViewChild`, `@ContentChild`, `ElementRef`           | `ref` attribute, `$refs` (Options); `ref()` (Composition)                                         | Implicit (HTMX operates on DOM elements)                 | `<script>` tags for `.astro`; Island: Framework-specific                              | `bind:this`                                                                    | `GlobalKey` (less direct for DOM-like access)                             | `useRef` (for focus nodes, controllers etc.)                            | `IBOutlet`, view properties                                    | N/A (Declarative, less direct access)                         | `findViewById` (classic), View Binding; `Modifier.onGloballyPositioned` (Compose)                                     |
-| **Memoization/Performance Opt.**                                                       | `useMemo`, `useCallback`, `React.memo`                                              | `ChangeDetectionStrategy.OnPush`                      | `computed` (Options/Composition), `v-once`                                                        | Server caching; `hx-sync`                                | Partial hydration (Islands); `Astro.slots.render()` with `is:raw`                     | Compiler optimizes; `{#key}` block                                             | `const` widgets, `AnimatedBuilder`, `ValueListenableBuilder`              | `useMemoized`, `useCallback`                                            | Manual checks, property observers (`didSet`)                   | Avoid unnecessary re-renders by struct design, `.equatable()` | `DiffUtil` (RecyclerView), `distinctUntilChanged()` (LiveData/Flow); `remember`, `derivedStateOf` (Compose)           |
-| **Hot Reload Behavior Hook**                                                           | Handled by build tool                                                               | Handled by build tool                                 | Handled by build tool                                                                             | N/A (Page reload)                                        | Dev server reloads page / HMR for islands                                             | Svelte HMR                                                                     | `reassemble()`                                                            | `reassemble()` (via `HookWidget`)                                       | N/A (SwiftUI previews update)                                  | SwiftUI Previews re-render                                    | Android Studio (Apply Changes/Hot Swap/Live Edit for Compose)                                                         |
-| **Display-Only / Presentational Component Behavior (e.g., Flutter `StatelessWidget`)** | Functional component with props only (no state/effects hooks)                       | Component with `@Input()` only, `OnPush` detection    | SFC/Options API with `props` only, no `data`/methods; Composition API function returning template | Static HTML elements styled by CSS                       | `.astro` component (renders to HTML string, no client JS by default)                  | `.svelte` component with `export let` props only, no script logic beyond props | `StatelessWidget` (`constructor`, `build()`)                              | `HookWidget` with no stateful hooks, props only                         | `UIView` configured externally                                 | `View` struct taking properties, pure `body`                  | `@Composable` function with params only, no `remember { mutableStateOf() }`                                           |
+| Lifecycle Phase / Purpose                                                              | React (Class Components)                                                    | React (Hooks)                                                                       | Angular (Component)                                   | Vue.js (Options/Composition API)                                                                  | HTMX                                                     | Astro (`.astro` component / Islands)                                                  | Svelte (`.svelte` component)                                                   | Flutter (StatefulWidget)                                                  | Flutter Hooks (`flutter_hooks`)                                         | Swift (UIKit `UIViewController`)                               | Swift (SwiftUI `View`)                                        | Kotlin (Android `Activity`/`Fragment`/Compose)                                                                        |
+| :------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------- | :---------------------------------------------------------------------------------- | :---------------------------------------------------- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------- | :------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------- | :------------------------------------------------------------------------ | :---------------------------------------------------------------------- | :------------------------------------------------------------- | :------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------- |
+| **1. Initialization (Code runs once when component logic is set up)**                  | `constructor(props)`                                                        | `useState` initial value, `useRef` initial value, `useEffect` with `[]` (for setup) | `constructor()`                                       | `beforeCreate()` (Options), `setup()` (Composition)                                               | Element exists in HTML, HTMX attributes parsed           | `.astro` file processed at build/SSR; Island: Framework-specific init                 | Component script runs, props initialized                                       | `StatefulWidget` constructor, `createState()`, `State` constructor        | `useState` initial value, `useRef` initial value, `useEffect` with `[]` | `init(coder:)` / `init(nibName:bundle:)`                       | `init()` (for struct), `@State` initial value                 | `onCreate()` (Activity/Fragment), Composable function call                                                            |
+| **2. After Properties/Inputs Received (before first render/mount)**                    | `static getDerivedStateFromProps(props, state)` (if state depends on props) | Via `useEffect` dependencies                                                        | `ngOnChanges()` (if inputs change)                    | `props` available in `created`/`setup`                                                            | N/A (Attributes are the inputs)                          | Props available in `.astro` frontmatter; Island: Framework-specific                   | `export let prop` values set                                                   | `widget` property available in `initState`                                | Via `useEffect` dependencies                                            | Properties set before `viewDidLoad`                            | Properties passed to `init()`                                 | `getIntent().extras` (Activity), `getArguments()` (Fragment); Composable params                                       |
+| **3. After Component is Added to DOM/Tree (Mounted)**                                  | `componentDidMount()`                                                       | `useEffect` with `[]` (mount), `useLayoutEffect` with `[]`                          | `ngOnInit()`, `ngAfterViewInit()` (for view children) | `created()` (Options), `onMounted()` (Composition)                                                | Element is in DOM from initial page load or swap         | N/A for `.astro` on client; Island: `client:directive` + Framework-specific `onMount` | `onMount()`                                                                    | `initState()`                                                             | `useEffect` with `[]` (mount)                                           | `viewDidLoad()`, `viewDidAppear()`                             | `.onAppear()` modifier                                        | `onStart()`, `onResume()` (Activity/Fragment), `onViewCreated()` (Fragment); `SideEffect`, `LaunchedEffect` (Compose) |
+| **4. Dependency Change (e.g., Context, InheritedWidget)**                              | `Context.Consumer` / `static contextType` + `componentDidUpdate`            | `useContext` + `useEffect` with context in deps                                     | N/A (DI handles it)                                   | `inject` + `watch`/`computed` (Composition)                                                       | N/A (Server-driven)                                      | N/A for `.astro`; Island: Framework-specific                                          | Svelte store subscriptions (`$store`)                                          | `didChangeDependencies()`                                                 | `useContext` + `useEffect` with context in deps                         | N/A (Notifications, KVO, Delegates)                            | `@EnvironmentObject`, `@ObservedObject`                       | Observe `LiveData`/`StateFlow`; Recomposition if @Composable params change                                            |
+| **5. Before Update/Re-render**                                                         | `shouldComponentUpdate()`, `getSnapshotBeforeUpdate()`                      | `useEffect` cleanup, `useLayoutEffect` cleanup                                      | `ngDoCheck()` (custom change detection)               | `beforeUpdate()` (Options), `onBeforeUpdate()` (Composition)                                      | N/A (DOM swap incoming)                                  | N/A for `.astro`; Island: Framework-specific                                          | `beforeUpdate()`                                                               | N/A (Framework handles it)                                                | `useEffect` cleanup                                                     | `viewWillLayoutSubviews()`                                     | N/A (Body is re-evaluated)                                    | N/A (Framework handles it); Composable re-evaluates                                                                   |
+| **6. After Update/Re-render**                                                          | `componentDidUpdate(prevProps, prevState, snapshot)`                        | `useEffect` (if deps changed), `useLayoutEffect` (if deps changed)                  | `ngAfterContentChecked()`, `ngAfterViewChecked()`     | `updated()` (Options), `onUpdated()` (Composition)                                                | New HTML swapped into DOM                                | N/A for `.astro`; Island: Framework-specific                                          | `afterUpdate()`                                                                | `build()` (is the render), `didUpdateWidget()` (if widget config changes) | `useEffect` (if deps changed), `build()` (is the render)                | `viewDidLayoutSubviews()`, `viewDidAppear()` (if re-appearing) | `body` re-evaluated                                           | `onResume()` (if re-appearing); Recomposition finishes                                                                |
+| **7. Before Component is Removed (Unmount/Destroy)**                                   | `componentWillUnmount()`                                                    | `useEffect` return function (cleanup)                                               | `ngOnDestroy()`                                       | `beforeUnmount()` (Options), `onBeforeUnmount()` (Composition)                                    | Element about to be removed by swap/OOB                  | N/A for `.astro`; Island: Framework-specific `onDestroy`                              | `onDestroy()` (or `onMount` return)                                            | `deactivate()`, `dispose()`                                               | `useEffect` return function (cleanup)                                   | `viewWillDisappear()`                                          | `.onDisappear()` modifier                                     | `onPause()`, `onStop()`, `onDestroyView()` (Fragment); `DisposableEffect` (Compose)                                   |
+| **8. After Component is Removed (Unmounted/Destroyed)**                                | `componentWillUnmount()` (end of it)                                        | `useEffect` return function runs                                                    | `ngOnDestroy()` (end of it)                           | `unmounted()` (Options), `onUnmounted()` (Composition)                                            | Element removed from DOM                                 | N/A for `.astro`; Island: Framework-specific                                          | `onDestroy` handler completes                                                  | `dispose()` (end of it)                                                   | `useEffect` return function runs                                        | `viewDidDisappear()`                                           | `.onDisappear()` handler completes                            | `onDestroy()` (Activity/Fragment)                                                                                     |
+| **Managing State**                                                                     | `this.state`, `this.setState()`                                             | `useState`, `useReducer`                                                            | Component properties, Services                        | `data` (Options), `ref`, `reactive` (Composition)                                                 | Server manages state; Client (limited via events/params) | N/A for `.astro` (props only); Island: Framework-specific                             | `let var` (reactive), stores                                                   | `setState()`, properties on `State` object                                | `useState`, `useReducer`                                                | Properties on `UIViewController` class                         | `@State`, `@StateObject`, `@ObservedObject`                   | ViewModel with `LiveData`/`StateFlow`; `remember { mutableStateOf() }` (Compose)                                      |
+| **Side Effects (data fetching, subscriptions, etc.)**                                  | `componentDidMount()`, `componentDidUpdate()`                               | `useEffect`                                                                         | `ngOnInit()`, Services                                | `created()`, `mounted()`, `watch` (Options); `onMounted`, `watch`, `watchEffect` (Composition)    | `hx-trigger`, `hx-get/post` (server fetches)             | Fetch in `.astro` frontmatter (SSR/SSG); Island: Framework-specific                   | `onMount()`, reactive statements (`$:`)                                        | `initState()`, `didChangeDependencies()`                                  | `useEffect`, `useStream`, `useFuture`                                   | `viewDidLoad()`, `viewWillAppear()`                            | `.task()` modifier, `onAppear`                                | `onCreate()`, `onResume()`, ViewModel coroutines; `LaunchedEffect` (Compose)                                          |
+| **Accessing DOM/Native Elements**                                                      | `React.createRef()`, `this.refName` (legacy string refs)                    | `useRef`                                                                            | `@ViewChild`, `@ContentChild`, `ElementRef`           | `ref` attribute, `$refs` (Options); `ref()` (Composition)                                         | Implicit (HTMX operates on DOM elements)                 | `<script>` tags for `.astro`; Island: Framework-specific                              | `bind:this`                                                                    | `GlobalKey` (less direct for DOM-like access)                             | `useRef` (for focus nodes, controllers etc.)                            | `IBOutlet`, view properties                                    | N/A (Declarative, less direct access)                         | `findViewById` (classic), View Binding; `Modifier.onGloballyPositioned` (Compose)                                     |
+| **Memoization/Performance Opt.**                                                       | `shouldComponentUpdate()`, `React.PureComponent`                            | `useMemo`, `useCallback`, `React.memo`                                              | `ChangeDetectionStrategy.OnPush`                      | `computed` (Options/Composition), `v-once`                                                        | Server caching; `hx-sync`                                | Partial hydration (Islands); `Astro.slots.render()` with `is:raw`                     | Compiler optimizes; `{#key}` block                                             | `const` widgets, `AnimatedBuilder`, `ValueListenableBuilder`              | `useMemoized`, `useCallback`                                            | Manual checks, property observers (`didSet`)                   | Avoid unnecessary re-renders by struct design, `.equatable()` | `DiffUtil` (RecyclerView), `distinctUntilChanged()` (LiveData/Flow); `remember`, `derivedStateOf` (Compose)           |
+| **Hot Reload Behavior Hook**                                                           | Handled by build tool                                                       | Handled by build tool                                                               | Handled by build tool                                 | Handled by build tool                                                                             | N/A (Page reload)                                        | Dev server reloads page / HMR for islands                                             | Svelte HMR                                                                     | `reassemble()`                                                            | `reassemble()` (via `HookWidget`)                                       | N/A (SwiftUI previews update)                                  | SwiftUI Previews re-render                                    | Android Studio (Apply Changes/Hot Swap/Live Edit for Compose)                                                         |
+| **Display-Only / Presentational Component Behavior (e.g., Flutter `StatelessWidget`)** | Class component with `props` only, `render()` method, no `state`            | Functional component with props only (no state/effects hooks)                       | Component with `@Input()` only, `OnPush` detection    | SFC/Options API with `props` only, no `data`/methods; Composition API function returning template | Static HTML elements styled by CSS                       | `.astro` component (renders to HTML string, no client JS by default)                  | `.svelte` component with `export let` props only, no script logic beyond props | `StatelessWidget` (`constructor`, `build()`)                              | `HookWidget` with no stateful hooks, props only                         | `UIView` configured externally                                 | `View` struct taking properties, pure `body`                  | `@Composable` function with params only, no `remember { mutableStateOf() }`                                           |
 
 ---
 
@@ -76,12 +77,204 @@ This table provides a high-level overview. The exact "best" way to perform a tas
 
 ---
 
-## 1. React (with Hooks)
+## Lifecycle Examples
 
-### Stateful/Lifecycle-Aware Component (`MyReactComponent.jsx`)
+### 1. React (Class Components & Hooks)
+
+React offers two main ways to create components and manage their lifecycle: traditional Class Components and modern Functional Components with Hooks.
+
+#### 1.1. React Class Components
+
+Before Hooks, React components were primarily class-based, extending `React.Component`.
+
+##### Stateful/Lifecycle-Aware Class Component (`MyReactClassComponent.jsx`)
 
 ```jsx
-import React, { useState, useEffect } from 'react';
+import React from "react";
+
+class MyReactClassComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: props.initialCount || 0,
+      data: null,
+      isLoading: false,
+    };
+    console.log("React Class: constructor()");
+    // this.increment = this.increment.bind(this); // Or use arrow functions
+  }
+
+  // 2. (Rarely needed) For updating state based on prop changes before render
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log("React Class: static getDerivedStateFromProps()");
+    if (
+      nextProps.initialCount !== undefined &&
+      nextProps.initialCount !== prevState.initialCountProvided
+    ) {
+      // Note: This will update state on *every* prop change if not careful.
+      // Better to handle prop updates in componentDidUpdate for side effects.
+      // This example updates count if initialCount prop changes and is different from a tracked version.
+      return {
+        count: nextProps.initialCount,
+        initialCountProvided: nextProps.initialCount, // Track the prop to avoid loop if count itself is modified
+      };
+    }
+    return null; // No state update
+  }
+
+  // 3. Called after the component is mounted to the DOM
+  componentDidMount() {
+    console.log("React Class: componentDidMount()");
+    this.setState({ isLoading: true });
+    // Simulate data fetching
+    this.timerID = setTimeout(() => {
+      this.setState({
+        data: `Fetched data for count: ${this.state.count}`,
+        isLoading: false,
+      });
+      console.log("React Class: Data fetched");
+    }, 1000);
+    document.title = `Count is ${this.state.count}`;
+  }
+
+  // 5. Called after updating occurs (not for initial render)
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log("React Class: componentDidUpdate()");
+    if (prevState.count !== this.state.count) {
+      console.log(`React Class: Count changed to ${this.state.count}`);
+      document.title = `Count is ${this.state.count}`;
+      // Example: If data depends on count and needs re-fetching
+      // if (this.state.data && !this.state.isLoading) {
+      //   this.setState({ isLoading: true });
+      //   this.timerID = setTimeout(() => { /* re-fetch data */ }, 500);
+      // }
+    }
+    if (prevProps.initialCount !== this.props.initialCount) {
+      console.log(
+        "React Class: initialCount prop changed in componentDidUpdate."
+      );
+      // If getDerivedStateFromProps wasn't used, you could handle prop-to-state sync here.
+      // this.setState({ count: this.props.initialCount });
+    }
+
+    if (snapshot) {
+      console.log(
+        "React Class: Snapshot from getSnapshotBeforeUpdate:",
+        snapshot
+      );
+    }
+  }
+
+  // (Optional) For performance optimization
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("React Class: shouldComponentUpdate()");
+    // Example: Only update if count or data changes
+    // return nextState.count !== this.state.count || nextState.data !== this.state.data;
+    return true; // Default behavior
+  }
+
+  // (Rarely needed) Called right before changes are committed to the DOM
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    console.log("React Class: getSnapshotBeforeUpdate()");
+    // Example: Capture scroll position or other DOM info
+    // if (prevState.list.length < this.state.list.length) {
+    //   const list = this.listRef.current;
+    //   return list.scrollHeight - list.scrollTop;
+    // }
+    return null;
+  }
+
+  // 7. Called immediately before a component is unmounted
+  componentWillUnmount() {
+    console.log("React Class: componentWillUnmount()");
+    clearTimeout(this.timerID);
+    // Clean up subscriptions, etc.
+  }
+
+  // (For Error Boundaries)
+  // static getDerivedStateFromError(error) {
+  //   console.error('React Class: static getDerivedStateFromError()', error);
+  //   return { hasError: true };
+  // }
+  // componentDidCatch(error, info) {
+  //   console.error('React Class: componentDidCatch()', error, info);
+  // }
+
+  increment = () => {
+    // Arrow function for auto-binding 'this'
+    this.setState((prevState) => ({
+      count: prevState.count + 1,
+    }));
+  };
+
+  // `render()` is the only required method
+  render() {
+    console.log("React Class: render()");
+    // if (this.state.hasError) { return <h1>Something went wrong.</h1>; }
+    return (
+      <div>
+        <h3>React Class Component</h3>
+        <p>Count: {this.state.count}</p>
+        <button onClick={this.increment}>Increment</button>
+        {this.state.isLoading ? (
+          <p>Loading data...</p>
+        ) : this.state.data ? (
+          <p>Data: {this.state.data}</p>
+        ) : (
+          <p>No data yet.</p>
+        )}
+      </div>
+    );
+  }
+}
+
+export default MyReactClassComponent;
+```
+
+---
+
+##### Display-Only Class Component (`DisplayMessageClass.jsx`)
+
+```jsx
+import React from "react";
+
+class DisplayMessageClass extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log("React Class Display: constructor()");
+  }
+
+  render() {
+    console.log("React Class Display: render()");
+    const { message, type = "info" } = this.props;
+    const style = {
+      padding: "10px",
+      border: "1px solid",
+      borderColor: type === "error" ? "red" : "blue",
+      color: type === "error" ? "red" : "black",
+    };
+
+    return (
+      <div style={style}>
+        <p>{message}</p>
+      </div>
+    );
+  }
+}
+
+export default DisplayMessageClass;
+```
+
+---
+
+#### 1.2. React Functional Components with Hooks
+
+Hooks were introduced in React 16.8 as a way to use state and other React features without writing a class.
+
+##### Stateful/Lifecycle-Aware Component (`MyReactComponent.jsx`)
+
+```jsx
+import React, { useState, useEffect } from "react";
 
 function MyReactComponent({ initialCount }) {
   const [count, setCount] = useState(initialCount || 0);
@@ -89,31 +282,32 @@ function MyReactComponent({ initialCount }) {
 
   // 1. Runs ONCE after initial render (like componentDidMount)
   useEffect(() => {
-    console.log('React: Component Mounted');
+    console.log("React: Component Mounted");
     // Simulate data fetching
     setTimeout(() => {
       setData(`Fetched data for count: ${count}`);
-      console.log('React: Data fetched');
+      console.log("React: Data fetched");
     }, 1000);
 
     // 7. Cleanup function (like componentWillUnmount)
     return () => {
-      console.log('React: Component Will Unmount');
+      console.log("React: Component Will Unmount");
       // Cleanup (e.g., clear timers, subscriptions)
     };
   }, []); // Empty dependency array means run once on mount and cleanup on unmount
 
   // 5. Runs after EVERY render IF 'count' changes (like componentDidUpdate)
   useEffect(() => {
-    if (data) { // Avoid running on initial mount before data is set
-        console.log(`React: Count changed to ${count}. Current data: ${data}`);
-        document.title = `Count is ${count}`;
+    if (data) {
+      // Avoid running on initial mount before data is set
+      console.log(`React: Count changed to ${count}. Current data: ${data}`);
+      document.title = `Count is ${count}`;
     }
   }, [count, data]); // Dependency array: re-run if 'count' or 'data' changes
 
-  const increment = () => setCount(prevCount => prevCount + 1);
+  const increment = () => setCount((prevCount) => prevCount + 1);
 
-  console.log('React: Rendering MyReactComponent');
+  console.log("React: Rendering MyReactComponent");
   return (
     <div>
       <h3>React Stateful Component</h3>
@@ -127,18 +321,18 @@ function MyReactComponent({ initialCount }) {
 export default MyReactComponent;
 ```
 
-### Display-Only Component (`DisplayMessage.jsx`)
+##### Display-Only Component (`DisplayMessage.jsx`)
 
 ```jsx
-import React from 'react';
+import React from "react";
 
-function DisplayMessage({ message, type = 'info' }) {
-  console.log('React: Rendering DisplayMessage');
+function DisplayMessage({ message, type = "info" }) {
+  console.log("React: Rendering DisplayMessage");
   const style = {
-    padding: '10px',
-    border: '1px solid',
-    borderColor: type === 'error' ? 'red' : 'blue',
-    color: type === 'error' ? 'red' : 'black',
+    padding: "10px",
+    border: "1px solid",
+    borderColor: type === "error" ? "red" : "blue",
+    color: type === "error" ? "red" : "black",
   };
 
   return (
@@ -158,17 +352,25 @@ export default DisplayMessage;
 
 ---
 
-## 2. Angular
+### 2. Angular
 
-### Stateful/Lifecycle-Aware Component (`my-angular.component.ts` & `.html`)
+#### Stateful/Lifecycle-Aware Component (`my-angular.component.ts` & `.html`)
 
 **`my-angular.component.ts`**
+
 ```typescript
-import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from "@angular/core";
 
 @Component({
-  selector: 'app-my-angular',
-  templateUrl: './my-angular.component.html',
+  selector: "app-my-angular",
+  templateUrl: "./my-angular.component.html",
 })
 export class MyAngularComponent implements OnInit, OnDestroy, OnChanges {
   @Input() initialCount: number = 0;
@@ -177,13 +379,16 @@ export class MyAngularComponent implements OnInit, OnDestroy, OnChanges {
   private timerId: any;
 
   constructor() {
-    console.log('Angular: Constructor - initialCount (may be undefined if not set yet):', this.initialCount);
+    console.log(
+      "Angular: Constructor - initialCount (may be undefined if not set yet):",
+      this.initialCount
+    );
   }
 
   // 2. Called when @Input properties change
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('Angular: ngOnChanges - Input changed:', changes);
-    if (changes['initialCount'] && !changes['initialCount'].firstChange) {
+    console.log("Angular: ngOnChanges - Input changed:", changes);
+    if (changes["initialCount"] && !changes["initialCount"].firstChange) {
       this.count = this.initialCount; // React to input change
     }
   }
@@ -191,11 +396,11 @@ export class MyAngularComponent implements OnInit, OnDestroy, OnChanges {
   // 3. Called once after the first ngOnChanges()
   ngOnInit(): void {
     this.count = this.initialCount;
-    console.log('Angular: ngOnInit - Component Initialized');
+    console.log("Angular: ngOnInit - Component Initialized");
     // Simulate data fetching
     this.timerId = setTimeout(() => {
       this.data = `Fetched data for count: ${this.count}`;
-      console.log('Angular: Data fetched');
+      console.log("Angular: Data fetched");
     }, 1000);
   }
 
@@ -207,7 +412,7 @@ export class MyAngularComponent implements OnInit, OnDestroy, OnChanges {
 
   // 7. Called just before Angular destroys the component
   ngOnDestroy(): void {
-    console.log('Angular: ngOnDestroy - Component Will Be Destroyed');
+    console.log("Angular: ngOnDestroy - Component Will Be Destroyed");
     if (this.timerId) {
       clearTimeout(this.timerId);
     }
@@ -216,6 +421,7 @@ export class MyAngularComponent implements OnInit, OnDestroy, OnChanges {
 ```
 
 **`my-angular.component.html`**
+
 ```html
 <div>
   <h3>Angular Stateful Component</h3>
@@ -226,37 +432,46 @@ export class MyAngularComponent implements OnInit, OnDestroy, OnChanges {
 </div>
 ```
 
-### Display-Only Component (`display-message.component.ts` & `.html`)
+#### Display-Only Component (`display-message.component.ts` & `.html`)
 
 **`display-message.component.ts`**
+
 ```typescript
-import { Component, Input } from '@angular/core';
+import { Component, Input } from "@angular/core";
 
 @Component({
-  selector: 'app-display-message',
-  templateUrl: './display-message.component.html',
-  styleUrls: ['./display-message.component.css'] // For styles
+  selector: "app-display-message",
+  templateUrl: "./display-message.component.html",
+  styleUrls: ["./display-message.component.css"], // For styles
 })
 export class DisplayMessageComponent {
   @Input() message: string = "Default message";
-  @Input() type: 'info' | 'error' = 'info';
+  @Input() type: "info" | "error" = "info";
 
   constructor() {
-    console.log('Angular: DisplayMessageComponent Constructor');
+    console.log("Angular: DisplayMessageComponent Constructor");
   }
 
   isError(): boolean {
-    return this.type === 'error';
+    return this.type === "error";
   }
 }
 ```
+
 **`display-message.component.html`**
+
 ```html
-<div class="message-box" [class.error-type]="isError()" [class.info-type]="!isError()">
+<div
+  class="message-box"
+  [class.error-type]="isError()"
+  [class.info-type]="!isError()"
+>
   <p>{{ message }}</p>
 </div>
 ```
+
 **`display-message.component.css` (Example)**
+
 ```css
 .message-box {
   padding: 10px;
@@ -271,11 +486,12 @@ export class DisplayMessageComponent {
   color: red;
 }
 ```
+
 ---
 
-## 3. Vue.js (Composition API)
+### 3. Vue.js (Composition API)
 
-### Stateful/Lifecycle-Aware Component (`MyVueComponent.vue`)
+#### Stateful/Lifecycle-Aware Component (`MyVueComponent.vue`)
 
 ```vue
 <template>
@@ -289,13 +505,13 @@ export class DisplayMessageComponent {
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, watch, toRefs } from 'vue';
+import { ref, onMounted, onUnmounted, watch, toRefs } from "vue";
 
 const props = defineProps({
   initialCount: {
     type: Number,
-    default: 0
-  }
+    default: 0,
+  },
 });
 
 // Use toRefs to make props reactive for watch
@@ -307,17 +523,17 @@ let timerId = null;
 
 // 1 & 3. Equivalent to mounted + setup for initialization logic
 onMounted(() => {
-  console.log('Vue: Component Mounted');
+  console.log("Vue: Component Mounted");
   // Simulate data fetching
   timerId = setTimeout(() => {
     data.value = `Fetched data for count: ${count.value}`;
-    console.log('Vue: Data fetched');
+    console.log("Vue: Data fetched");
   }, 1000);
 });
 
 // 7. Equivalent to beforeUnmount/unmounted
 onUnmounted(() => {
-  console.log('Vue: Component Will Unmount');
+  console.log("Vue: Component Will Unmount");
   if (timerId) {
     clearTimeout(timerId);
   }
@@ -325,27 +541,27 @@ onUnmounted(() => {
 
 // 2 & 5. Watch for changes in props or reactive state
 watch(initialCount, (newVal) => {
-  console.log('Vue: initialCount prop changed:', newVal);
+  console.log("Vue: initialCount prop changed:", newVal);
   count.value = newVal;
 });
 
 watch(count, (newVal, oldVal) => {
-  if (oldVal !== undefined) { // Avoid running on initial setup
+  if (oldVal !== undefined) {
+    // Avoid running on initial setup
     console.log(`Vue: Count changed from ${oldVal} to ${newVal}`);
     document.title = `Count is ${newVal}`;
   }
 });
 
-
 const increment = () => {
   count.value++;
 };
 
-console.log('Vue: MyVueComponent setup executed');
+console.log("Vue: MyVueComponent setup executed");
 </script>
 ```
 
-### Display-Only Component (`DisplayMessage.vue`)
+#### Display-Only Component (`DisplayMessage.vue`)
 
 ```vue
 <template>
@@ -355,20 +571,20 @@ console.log('Vue: MyVueComponent setup executed');
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps } from "vue";
 
 defineProps({
   message: {
     type: String,
-    required: true
+    required: true,
   },
   type: {
     type: String,
-    default: 'info', // 'info' or 'error'
-    validator: (value) => ['info', 'error'].includes(value)
-  }
+    default: "info", // 'info' or 'error'
+    validator: (value) => ["info", "error"].includes(value),
+  },
 });
-console.log('Vue: DisplayMessage setup executed');
+console.log("Vue: DisplayMessage setup executed");
 </script>
 
 <style scoped>
@@ -386,78 +602,125 @@ console.log('Vue: DisplayMessage setup executed');
 }
 </style>
 ```
+
 ---
 
-## 4. HTMX
+### 4. HTMX
 
 HTMX is server-driven. The "lifecycle" is about the browser making requests and HTMX swapping content.
 
 **`index.html` (Client-side with HTMX)**
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>HTMX Counter</title>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <style>
-        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; margin-top: 50px; }
-        #counter-display, #data-display { margin: 10px; padding: 10px; border: 1px solid #ccc; min-width: 200px; text-align: center; }
-        button { padding: 10px 15px; margin-top: 10px; }
-        .loading { opacity: 0.5; }
+      body {
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+      }
+      #counter-display,
+      #data-display {
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        min-width: 200px;
+        text-align: center;
+      }
+      button {
+        padding: 10px 15px;
+        margin-top: 10px;
+      }
+      .loading {
+        opacity: 0.5;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1>HTMX Stateful Counter Example</h1>
 
     <!-- Initial state rendered by server or static HTML -->
     <div id="counter-component">
-        <!-- This content will be replaced by HTMX requests -->
-        <div id="counter-display" hx-get="/counter-value" hx-trigger="load, countUpdated from:body" hx-swap="innerHTML" hx-indicator="#loading-indicator">
-            Count: 0
-        </div>
-        <div id="data-display" hx-get="/data-for-count" hx-trigger="load, countUpdated from:body" hx-swap="innerHTML" hx-indicator="#loading-indicator-data">
-            Loading data...
-        </div>
-        <button hx-post="/increment" hx-target="#counter-component" hx-swap="outerHTML">
-            Increment
-        </button>
-        <span id="loading-indicator" class="htmx-indicator">Loading count...</span>
-        <span id="loading-indicator-data" class="htmx-indicator">Loading data...</span>
+      <!-- This content will be replaced by HTMX requests -->
+      <div
+        id="counter-display"
+        hx-get="/counter-value"
+        hx-trigger="load, countUpdated from:body"
+        hx-swap="innerHTML"
+        hx-indicator="#loading-indicator"
+      >
+        Count: 0
+      </div>
+      <div
+        id="data-display"
+        hx-get="/data-for-count"
+        hx-trigger="load, countUpdated from:body"
+        hx-swap="innerHTML"
+        hx-indicator="#loading-indicator-data"
+      >
+        Loading data...
+      </div>
+      <button
+        hx-post="/increment"
+        hx-target="#counter-component"
+        hx-swap="outerHTML"
+      >
+        Increment
+      </button>
+      <span id="loading-indicator" class="htmx-indicator"
+        >Loading count...</span
+      >
+      <span id="loading-indicator-data" class="htmx-indicator"
+        >Loading data...</span
+      >
     </div>
 
-    <hr style="margin: 30px 0; width: 50%;">
+    <hr style="margin: 30px 0; width: 50%;" />
 
     <h2>HTMX Display-Only Component</h2>
     <!-- This is a static part of the page, could also be loaded via HTMX -->
     <div style="padding: 10px; border: 1px solid blue; color: black;">
-        <p>This is a static message from HTMX example page.</p>
+      <p>This is a static message from HTMX example page.</p>
     </div>
-     <div style="padding: 10px; border: 1px solid red; color: red; margin-top: 10px;">
-        <p>This is another static error message.</p>
+    <div
+      style="padding: 10px; border: 1px solid red; color: red; margin-top: 10px;"
+    >
+      <p>This is another static error message.</p>
     </div>
-
 
     <script>
-        // HTMX events can be used for more complex client-side interactions if needed
-        document.body.addEventListener('htmx:afterSwap', function(event) {
-            console.log("HTMX: Content swapped for target:", event.detail.target.id);
-            if (event.detail.xhr.getResponseHeader('X-Count-Updated')) {
-                console.log("HTMX: Dispatching countUpdated event");
-                htmx.trigger(document.body, 'countUpdated', { detail: { path: event.detail.pathInfo.path }});
-            }
-        });
-         document.body.addEventListener('htmx:beforeRequest', function(evt) {
-            console.log("HTMX: Before request to", evt.detail.pathInfo.path);
-            // evt.detail.elt is the element that triggered the request
-            // evt.detail.target is the element that will be swapped
-        });
+      // HTMX events can be used for more complex client-side interactions if needed
+      document.body.addEventListener("htmx:afterSwap", function (event) {
+        console.log(
+          "HTMX: Content swapped for target:",
+          event.detail.target.id
+        );
+        if (event.detail.xhr.getResponseHeader("X-Count-Updated")) {
+          console.log("HTMX: Dispatching countUpdated event");
+          htmx.trigger(document.body, "countUpdated", {
+            detail: { path: event.detail.pathInfo.path },
+          });
+        }
+      });
+      document.body.addEventListener("htmx:beforeRequest", function (evt) {
+        console.log("HTMX: Before request to", evt.detail.pathInfo.path);
+        // evt.detail.elt is the element that triggered the request
+        // evt.detail.target is the element that will be swapped
+      });
     </script>
-</body>
+  </body>
 </html>
 ```
 
 **`server.py` (Example Python Flask server)**
+
 ```python
 from flask import Flask, request, Response
 import time
@@ -514,17 +777,19 @@ def increment_counter():
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
 ```
-*(To run: `pip install Flask`, then `python server.py`, then open `http://127.0.0.1:5001/` in browser)*
+
+_(To run: `pip install Flask`, then `python server.py`, then open `http://127.0.0.1:5001/` in browser)_
 
 Okay, here are the examples for Astro and Svelte.
 
 ---
 
-## 5. Astro
+### 5. Astro
 
 Astro components (`.astro` files) are primarily server-rendered. Client-side interactivity comes from "islands" (components written in UI frameworks like React, Vue, Svelte, or plain JS `<script>` tags).
 
 **Project Setup (for Astro):**
+
 ```bash
 # Create a new Astro project
 npm create astro@latest my-astro-project -- --template minimal
@@ -535,9 +800,10 @@ npm install
 npm run dev
 ```
 
-### Astro Stateful/Lifecycle-Aware Component (using a Svelte Island)
+#### Astro Stateful/Lifecycle-Aware Component (using a Svelte Island)
 
 **`src/components/AstroCounter.astro` (Server-Side Astro Component)**
+
 ```astro
 ---
 // This is the .astro component, primarily for server-rendering layout.
@@ -587,6 +853,7 @@ console.log("Astro: Server message fetched:", serverMessage);
 ```
 
 **`src/components/SvelteCounterIsland.svelte` (Client-Side Island)**
+
 ```svelte
 <script>
     import { onMount, onDestroy } from 'svelte';
@@ -670,6 +937,7 @@ console.log("Astro: Server message fetched:", serverMessage);
 ```
 
 **Usage in an Astro page (`src/pages/index.astro`):**
+
 ```astro
 ---
 import AstroCounter from '../components/AstroCounter.astro';
@@ -696,9 +964,10 @@ import DisplayMessageAstro from '../components/DisplayMessageAstro.astro';
 <style is:global> body { font-family: system-ui; padding: 20px; } </style>
 ```
 
-### Astro Display-Only Component (`src/components/DisplayMessageAstro.astro`)
+#### Astro Display-Only Component (`src/components/DisplayMessageAstro.astro`)
 
 This component is purely server-rendered to HTML and CSS. No client-side JavaScript by default.
+
 ```astro
 ---
 export interface Props {
@@ -742,11 +1011,12 @@ console.log("Astro: Rendering DisplayMessageAstro on server. Message:", message)
 
 ---
 
-## 6. Svelte
+### 6. Svelte
 
 Svelte is a compiler. Its lifecycle functions are imported.
 
 **Project Setup (for Svelte):**
+
 ```bash
 # Create a new Svelte project (using SvelteKit template)
 npm create svelte@latest my-svelte-app
@@ -755,7 +1025,7 @@ npm install
 npm run dev
 ```
 
-### Svelte Stateful/Lifecycle-Aware Component (`src/lib/MySvelteComponent.svelte`)
+#### Svelte Stateful/Lifecycle-Aware Component (`src/lib/MySvelteComponent.svelte`)
 
 ```svelte
 <script>
@@ -849,7 +1119,7 @@ npm run dev
 </style>
 ```
 
-### Svelte Display-Only Component (`src/lib/DisplayMessageSvelte.svelte`)
+#### Svelte Display-Only Component (`src/lib/DisplayMessageSvelte.svelte`)
 
 ```svelte
 <script>
@@ -883,6 +1153,7 @@ npm run dev
 ```
 
 **Usage in a Svelte page/component (e.g., `src/routes/+page.svelte` for SvelteKit):**
+
 ```svelte
 <script>
     import MySvelteComponent from '$lib/MySvelteComponent.svelte';
@@ -910,12 +1181,11 @@ npm run dev
 </style>
 ```
 
-
 ---
 
-## 7. Flutter (StatefulWidget)
+### 7. Flutter (StatefulWidget)
 
-### Stateful/Lifecycle-Aware Widget (`my_flutter_widget.dart`)
+#### Stateful/Lifecycle-Aware Widget (`my_flutter_widget.dart`)
 
 ```dart
 import 'package:flutter/material.dart';
@@ -1034,7 +1304,7 @@ class _MyFlutterWidgetState extends State<MyFlutterWidget> {
 }
 ```
 
-### Display-Only Widget (`display_message_widget.dart`)
+#### Display-Only Widget (`display_message_widget.dart`)
 
 ```dart
 import 'package:flutter/material.dart';
@@ -1073,11 +1343,11 @@ class DisplayMessageWidget extends StatelessWidget {
 
 ---
 
-## 8. Flutter Hooks (`flutter_hooks`)
+### 8. Flutter Hooks (`flutter_hooks`)
 
-*(Requires `flutter_hooks` package in `pubspec.yaml`)*
+_(Requires `flutter_hooks` package in `pubspec.yaml`)_
 
-### Stateful/Lifecycle-Aware Widget (`my_hook_widget.dart`)
+#### Stateful/Lifecycle-Aware Widget (`my_hook_widget.dart`)
 
 ```dart
 import 'package:flutter/material.dart';
@@ -1173,9 +1443,10 @@ class MyHookWidget extends HookWidget {
 }
 ```
 
-### Display-Only Widget (`display_message_hook_widget.dart`)
+#### Display-Only Widget (`display_message_hook_widget.dart`)
 
 (Same as Flutter's `StatelessWidget`, or can be a `HookWidget` that doesn't use stateful hooks)
+
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart'; // Can use HookWidget for consistency
@@ -1210,9 +1481,9 @@ class DisplayMessageHookWidget extends HookWidget { // Or StatelessWidget
 
 ---
 
-## 9. Swift (UIKit `UIViewController`)
+### 9. Swift (UIKit `UIViewController`)
 
-### Stateful/Lifecycle-Aware `UIViewController` (`MyViewController.swift`)
+#### Stateful/Lifecycle-Aware `UIViewController` (`MyViewController.swift`)
 
 ```swift
 import UIKit
@@ -1332,9 +1603,10 @@ class MyViewController: UIViewController {
 }
 ```
 
-### Display-Only `UIView` (often configured by a `UIViewController`) or simple `UIViewController`
+#### Display-Only `UIView` (often configured by a `UIViewController`) or simple `UIViewController`
 
 **`DisplayMessageView.swift` (as a UIView subclass)**
+
 ```swift
 import UIKit
 
@@ -1413,9 +1685,9 @@ class DisplayMessageView: UIView {
 
 ---
 
-## 10. Swift (SwiftUI `View`)
+### 10. Swift (SwiftUI `View`)
 
-### Stateful/Lifecycle-Aware `View` (`MySwiftUIView.swift`)
+#### Stateful/Lifecycle-Aware `View` (`MySwiftUIView.swift`)
 
 ```swift
 import SwiftUI
@@ -1521,7 +1793,7 @@ struct MySwiftUIView: View {
 }
 ```
 
-### Display-Only `View` (`DisplayMessageView.swift`)
+#### Display-Only `View` (`DisplayMessageView.swift`)
 
 ```swift
 import SwiftUI
@@ -1553,20 +1825,20 @@ struct DisplayMessageSwiftUIView: View {
 // DisplayMessageSwiftUIView(message: "An error occurred!", isError: true)
 ```
 
-
 Okay, let's continue with the remaining examples!
 
 ---
 
-## 11. Kotlin (Android `Activity`/`Fragment` with XML & ViewModels, or Jetpack Compose)
+### 11. Kotlin (Android `Activity`/`Fragment` with XML & ViewModels, or Jetpack Compose)
 
 I'll provide two versions for Android:
-    a. Traditional: `Fragment` with XML and `ViewModel`.
-    b. Modern: Jetpack Compose.
+a. Traditional: `Fragment` with XML and `ViewModel`.
+b. Modern: Jetpack Compose.
 
-### 11a. Kotlin - Traditional (Fragment + ViewModel + XML)
+#### 11a. Kotlin - Traditional (Fragment + ViewModel + XML)
 
 **`my_android_fragment.xml` (Layout)**
+
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -1612,6 +1884,7 @@ I'll provide two versions for Android:
 ```
 
 **`MyAndroidViewModel.kt`**
+
 ```kotlin
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -1665,6 +1938,7 @@ class MyAndroidViewModel : ViewModel() {
 ```
 
 **`MyAndroidFragment.kt`**
+
 ```kotlin
 import android.os.Bundle
 import android.util.Log
@@ -1790,6 +2064,7 @@ class MyAndroidFragment : Fragment() {
 
 **Display-Only XML Component (typically part of a larger layout)**
 This is just a snippet of XML you'd include. Configuration happens from the Fragment/Activity.
+
 ```xml
 <!-- display_message_layout.xml -->
 <LinearLayout
@@ -1821,9 +2096,10 @@ messageTextView.text = "Hello from Android XML!"
 
 ---
 
-### 11b. Kotlin - Jetpack Compose
+#### 11b. Kotlin - Jetpack Compose
 
 **`MyComposeScreen.kt` (Stateful Composable)**
+
 ```kotlin
 import android.util.Log
 import androidx.compose.foundation.layout.*
@@ -1928,6 +2204,7 @@ fun MyComposeScreen(initialCountProp: Int = 0) {
 ```
 
 **Display-Only Composable (`DisplayMessageComposable.kt`)**
+
 ```kotlin
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.padding
@@ -1961,5 +2238,3 @@ fun DisplayMessageComposable(message: String, isError: Boolean = false) {
 ```
 
 ---
-
-
