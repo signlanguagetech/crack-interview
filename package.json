@@ -6,18 +6,20 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.4.0",
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/sitemap": "^3.4.1",
     "@astrojs/starlight": "^0.34.3",
-    "astro": "^5.7.13",
+    "astro": "^5.9.0",
     "schema-dts": "^1.1.5",
-    "sharp": "^0.34.1"
+    "sharp": "^0.34.2",
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
     "all-contributors-cli": "^6.26.1"
