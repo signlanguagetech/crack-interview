@@ -1,22 +1,78 @@
 ---
-import FooterBase from '@astrojs/starlight/components/Footer.astro'
+import FooterBase from '@astrojs/starlight/components/Footer.astro';
+import SocialLinks from '../SocialLinks.astro';
+const today = new Date();
 ---
 
 <FooterBase />
-<div class="footer">
-  <a href="https://signlanguagetech.com/privacy-policy/" target="_blank">Privacy Policy</a>
-</div>
+
+<footer class="custom-footer">
+  <div class="footer-container">
+    <div>
+      <p>© {today.getFullYear()} Sign Language Tech. Interview All rights reserved.</p>
+      <div class="social-icons">
+        <SocialLinks />
+      </div>
+    </div>
+    <ul>
+      <li><a href="https://signlanguagetech.com/privacy-policy/" target="_blank" rel="noopener moreferrer">Privacy Policy</a></li>
+      <li><a href="mailto:signlanguagetech@gmail.com">Contact Us</a></li>
+    </ul>
+  </div>
+</footer>
 
 <style>
-  footer {
-    display: flex;
-    justify-content: space-between;
+.custom-footer {
+  background: linear-gradient(var(--gray-gradient)) no-repeat;
+  color: rgb(var(--gray));
+  width: 100%;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+a {
+  color: var(--starlight-color-text);
+  text-decoration: underline;
+}
+
+a:hover {
+  color: var(--starlight-color-primary);
+}
+
+@media (max-width: 720px) {
+  .footer-container {
+    flex-direction: column;
     align-items: center;
+    text-align: center;
   }
-  footer a {
-    color: var(--starlight-color-text);
+}
+
+@media (prefers-color-scheme: dark) {
+  .custom-footer {
+    background: rgb(var(--white), 0.03);
+    color: rgb(var(--white), 0.5);
   }
-  footer a:hover {
-    color: var(--starlight-color-primary);
-  }
-  </style>
+}
+</style>
